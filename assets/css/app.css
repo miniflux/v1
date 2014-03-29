@@ -505,6 +505,14 @@ nav .active a {
     max-width: 100%;
 }
 
+#item-content h1 img,
+#item-content h2 img,
+#item-content h3 img,
+#item-content br + img {
+    display: inline;
+    margin: 0;
+}
+
 .item h1 a {
     font-size: 2.1em;
     text-decoration: none;
