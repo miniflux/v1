@@ -14,9 +14,11 @@ Router\post_action('bookmark', function() {
     $id = Request\param('id');
     $value = Request\int_param('value');
 
-    Model\Item\set_bookmark_value($id, $value);
-
-    Response\json(array('id' => $id, 'value' => $value));
+    Response\json(array(
+        'id' => $id,
+        'value' => $value,
+        'result' => Model\Item\set_bookmark_value($id, $value),
+    ));
 });
 
 // Add new bookmark

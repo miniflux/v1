@@ -182,14 +182,23 @@ Miniflux.Item = (function() {
 
         request.onload = function() {
 
-            item.setAttribute("data-item-bookmark", value);
+            try {
 
-            if (value) {
-                showItemBookmarked(item_id, item);
+                var response = JSON.parse(this.responseText);
+
+                if (response.result) {
+
+                    item.setAttribute("data-item-bookmark", value);
+
+                    if (value) {
+                        showItemBookmarked(item_id, item);
+                    }
+                    else {
+                        hideItemBookmarked(item_id, item);
+                    }
+                }
             }
-            else {
-                hideItemBookmarked(item_id, item);
-            }
+            catch (e) {}
         };
 
         request.open("POST", "?action=bookmark&id=" + item_id + "&value=" + value, true);

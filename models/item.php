@@ -298,6 +298,7 @@ function set_bookmark_value($id, $value)
     return Database::get('db')
         ->table('items')
         ->eq('id', $id)
+        ->in('status', array('read', 'unread'))
         ->save(array('bookmark' => $value));
 }
 
