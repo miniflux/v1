@@ -16,9 +16,17 @@ use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 use PicoDb\Database;
 
-const DB_VERSION          = 23;
+const DB_VERSION          = 24;
 const HTTP_USERAGENT      = 'Miniflux - http://miniflux.net';
 const HTTP_FAKE_USERAGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.62 Safari/537.36';
+
+
+// Send a debug message to the console
+function debug($line)
+{
+    \PicoFeed\Logging::log($line);
+    write_debug();
+}
 
 // Write PicoFeed debug output to a file
 function write_debug()
@@ -211,7 +219,8 @@ function get_all()
             'auth_google_token',
             'auth_mozilla_token',
             'items_sorting_direction',
-            'redirect_nothing_to_read'
+            'redirect_nothing_to_read',
+            'auto_update_url'
         )
         ->findOne();
 }
@@ -219,32 +228,27 @@ function get_all()
 // Validation for edit action
 function validate_modification(array $values)
 {
+    $rules = array(
+        new Validators\Required('username', t('The user name is required')),
+        new Validators\MaxLength('username', t('The maximum length is 50 characters'), 50),
+        new Validators\Required('autoflush', t('Value required')),
+        new Validators\Required('items_per_page', t('Value required')),
+        new Validators\Integer('items_per_page', t('Must be an integer')),
+        new Validators\Required('theme', t('Value required')),
+    );
+
+    if (ENABLE_AUTO_UPDATE) {
+        $rules[] = new Validators\Required('auto_update_url', t('Value required'));
+    }
+
     if (! empty($values['password'])) {
-
-        $v = new Validator($values, array(
-            new Validators\Required('username', t('The user name is required')),
-            new Validators\MaxLength('username', t('The maximum length is 50 characters'), 50),
-            new Validators\Required('password', t('The password is required')),
-            new Validators\MinLength('password', t('The minimum length is 6 characters'), 6),
-            new Validators\Required('confirmation', t('The confirmation is required')),
-            new Validators\Equals('password', 'confirmation', t('Passwords doesn\'t match')),
-            new Validators\Required('autoflush', t('Value required')),
-            new Validators\Required('items_per_page', t('Value required')),
-            new Validators\Integer('items_per_page', t('Must be an integer')),
-            new Validators\Required('theme', t('Value required')),
-        ));
+        $rules[] = new Validators\Required('password', t('The password is required'));
+        $rules[] = new Validators\MinLength('password', t('The minimum length is 6 characters'), 6);
+        $rules[] = new Validators\Required('confirmation', t('The confirmation is required'));
+        $rules[] = new Validators\Equals('password', 'confirmation', t('Passwords doesn\'t match'));
     }
-    else {
 
-        $v = new Validator($values, array(
-            new Validators\Required('username', t('The user name is required')),
-            new Validators\MaxLength('username', t('The maximum length is 50 characters'), 50),
-            new Validators\Required('autoflush', t('Value required')),
-            new Validators\Required('items_per_page', t('Value required')),
-            new Validators\Integer('items_per_page', t('Must be an integer')),
-            new Validators\Required('theme', t('Value required')),
-        ));
-    }
+    $v = new Validator($values, $rules);
 
     return array(
         $v->execute(),

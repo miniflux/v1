@@ -208,4 +208,9 @@ return array(
     '%d months ago' => 'Il y a %d mois',
     'Timezone' => 'Fuseau horaire',
     'Update all subscriptions' => 'Mettre à jour tous les abonnements',
+    'Auto-Update URL' => 'URL de mise à jour automatique',
+    'Update Miniflux' => 'Mettre à jour Miniflux',
+    'Miniflux is updated!' => 'Miniflux a été mis à jour avec succès !',
+    'Unable to update Miniflux, check the console for errors.' => 'Impossible de mettre à jour Miniflux, allez-voir les erreurs dans la console.',
+    'Don\'t forget to backup your database' => 'N\'oubliez pas de sauvegarder votre base de données',
 );

@@ -10,6 +10,7 @@ require __DIR__.'/models/user.php';
 require __DIR__.'/models/feed.php';
 require __DIR__.'/models/item.php';
 require __DIR__.'/models/schema.php';
+require __DIR__.'/models/auto_update.php';
 
 if (file_exists('config.php')) require 'config.php';
 
@@ -24,6 +25,11 @@ defined('PROXY_HOSTNAME') or define('PROXY_HOSTNAME', '');
 defined('PROXY_PORT') or define('PROXY_PORT', 3128);
 defined('PROXY_USERNAME') or define('PROXY_USERNAME', '');
 defined('PROXY_PASSWORD') or define('PROXY_PASSWORD', '');
+defined('ROOT_DIRECTORY') or define('ROOT_DIRECTORY', __DIR__);
+defined('ENABLE_AUTO_UPDATE') or define('ENABLE_AUTO_UPDATE', true);
+defined('AUTO_UPDATE_DOWNLOAD_DIRECTORY') or define('AUTO_UPDATE_DOWNLOAD_DIRECTORY', 'data/download');
+defined('AUTO_UPDATE_ARCHIVE_DIRECTORY') or define('AUTO_UPDATE_ARCHIVE_DIRECTORY', 'data/archive');
+defined('AUTO_UPDATE_BACKUP_DIRECTORY') or define('AUTO_UPDATE_BACKUP_DIRECTORY', 'data/backup');
 
 PicoFeed\Client::proxy(PROXY_HOSTNAME, PROXY_PORT, PROXY_USERNAME, PROXY_PASSWORD);
 

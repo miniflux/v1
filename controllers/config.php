@@ -7,6 +7,22 @@ use PicoFarad\Session;
 use PicoFarad\Template;
 use PicoDb\Database;
 
+// Auto-update
+Router\get_action('auto-update', function() {
+
+    if (ENABLE_AUTO_UPDATE) {
+
+        if (Model\AutoUpdate\execute(Model\Config\get('auto_update_url'))) {
+            Session\flash(t('Miniflux is updated!'));
+        }
+        else {
+            Session\flash_error(t('Unable to update Miniflux, check the console for errors.'));
+        }
+    }
+
+    Response\redirect('?action=config');
+});
+
 // Re-generate tokens
 Router\get_action('generate-tokens', function() {
 

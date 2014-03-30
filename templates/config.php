@@ -36,6 +36,11 @@
 
     <?= Helper\form_checkbox('nocontent', t('Do not fetch the content of articles'), 1, isset($values['nocontent']) ? $values['nocontent'] : false) ?><br />
 
+    <?php if (ENABLE_AUTO_UPDATE): ?>
+        <?= Helper\form_label(t('Auto-Update URL'), 'auto_update_url') ?>
+        <?= Helper\form_text('auto_update_url', $values, $errors, array('required')) ?><br/>
+    <?php endif ?>
+
     <ul>
         <li>
             <?php if ($values['auth_google_token']): ?>
@@ -93,6 +98,9 @@
         <ul>
             <li><?= t('Miniflux version:') ?> <strong><?= APP_VERSION ?></strong></li>
             <li><?= t('Official website:') ?> <a href="http://miniflux.net" rel="noreferer" target="_blank">http://miniflux.net</a></li>
+            <?php if (ENABLE_AUTO_UPDATE): ?>
+                <li><a href="?action=auto-update"><?= t('Update Miniflux') ?></a> (<?= t('Don\'t forget to backup your database') ?>)</li>
+            <?php endif ?>
             <li><a href="?action=console"><?= t('Console') ?></a></li>
         </ul>
     </div>
