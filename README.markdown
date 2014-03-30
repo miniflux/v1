@@ -24,6 +24,7 @@ Features
 - Themes support
 - Alternative login with a Google Account or Mozilla Persona
 - **Full article download for feeds that display only a summary** (website scraper based on Xpath rules)
+- Auto-update from the user interface
 
 Todo and known bugs
 -------------------
@@ -107,7 +108,7 @@ Libraries used
 Installation
 ------------
 
-From the archive:
+### From the archive:
 
 1. You must have a web server with PHP installed (version 5.3.7 minimum) with the Sqlite and XML extensions
 2. Download the source code and copy the directory `miniflux` where you want
@@ -117,7 +118,7 @@ From the archive:
 6. Start to use the software
 7. Don't forget to change your password!
 
-From the repository:
+### From the repository:
 
 1. `git clone https://github.com/fguillot/miniflux.git`
 2. Go to the third step just above
@@ -125,7 +126,7 @@ From the repository:
 Update
 ------
 
-From the archive:
+### From the archive:
 
 1. Close your session (logout)
 2. Rename your actual miniflux directory (to keep a backup)
@@ -134,7 +135,7 @@ From the archive:
 5. Login and check if everything is ok
 6. Remove the old miniflux directory
 
-From the repository:
+### From the repository:
 
 1. Close your session (logout)
 2. `git pull`
