@@ -33,7 +33,7 @@
             <span title="<?= dt('%e %B %Y %k:%M', $item['updated']) ?>"><?= Helper\relative_time($item['updated']) ?></span>
         </li>
         <li class="hide-mobile">
-            <a href="<?= $item['url'] ?>" id="original-<?= $item['id'] ?>" rel="noreferrer" target="_blank" data-item-id="<?= $item['id'] ?>"><?= t('original link') ?></a>
+            <a href="<?= $item['url'] ?>" id="original-<?= $item['id'] ?>" rel="noreferrer" target="_blank" data-item-id="<?= $item['id'] ?>" data-action="original-link"><?= t('original link') ?></a>
         </li>
         <?php if ($item['enclosure']): ?>
             <li>

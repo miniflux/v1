@@ -40,6 +40,7 @@ Miniflux.Event = (function() {
                             Miniflux.Item.DownloadContent();
                             break;
                         case 'original-link':
+                            e.preventDefault();
                             Miniflux.Item.OpenOriginal(e.target.getAttribute("data-item-id"));
                             break;
                         case 'mark-all-read':
