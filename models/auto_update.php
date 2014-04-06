@@ -59,11 +59,14 @@ function synchronize($source_directory, $destination_directory)
 
     foreach ($remove_files as $file) {
 
-        $destination_file = $destination_directory.DIRECTORY_SEPARATOR.$file;
-        \Model\Config\debug('[REMOVE] '.$destination_file);
+        if ($file !== '.htaccess') {
 
-        if (! @unlink($destination_file)) {
-            return false;
+            $destination_file = $destination_directory.DIRECTORY_SEPARATOR.$file;
+            \Model\Config\debug('[REMOVE] '.$destination_file);
+
+            if (! @unlink($destination_file)) {
+                return false;
+            }
         }
     }
 
