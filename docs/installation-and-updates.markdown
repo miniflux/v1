@@ -6,7 +6,7 @@ Installation
 
 ### From the archive:
 
-1. You must have a web server with PHP installed (version 5.3.7 minimum) with the Sqlite and XML extensions
+1. You must have a web server with PHP installed (version 5.3.3 minimum) with the Sqlite and XML extensions
 2. Download the source code and copy the directory `miniflux` where you want
 3. Check if the directory `data` is writeable (Miniflux stores everything inside a Sqlite database)
 4. With your browser go to <http://yourpersonalserver/miniflux>
