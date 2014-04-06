@@ -28,7 +28,7 @@
                 <p class="alert alert-error"><?= Helper\escape($errors['login']) ?></p>
             <?php endif ?>
 
-            <form method="post" action="?action=login">
+            <form method="post" action="?action=login" class="login-form">
 
                 <?= Helper\form_label(t('Username'), 'username') ?>
                 <?= Helper\form_text('username', $values, $errors, array('autofocus', 'required')) ?><br/>
@@ -48,6 +48,24 @@
                     <input type="submit" value="<?= t('Sign in') ?>" class="btn btn-blue"/>
                 </div>
             </form>
+
+            <?php if (ENABLE_MULTIPLE_DB && count($databases) > 1): ?>
+            <div class="alert alert-normal">
+                <h3><?= t('Select another database') ?></h3>
+                <ul>
+                    <?php foreach ($databases as $filename => $dbname): ?>
+                        <li>
+                            <?php if ($current_database === $filename): ?>
+                                <strong><?= Helper\escape($dbname) ?></strong>
+                            <?php else: ?>
+                                <a href="?action=select-db&amp;database=<?= Helper\escape($filename) ?>"><?= Helper\escape($dbname) ?></a>
+                            <?php endif ?>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
+            <?php endif ?>
+
             </section>
         </section>
     </body>

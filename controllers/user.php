@@ -24,7 +24,9 @@ Router\get_action('login', function() {
         'google_auth_enable' => Model\Config\get('auth_google_token') !== '',
         'mozilla_auth_enable' => Model\Config\get('auth_mozilla_token') !== '',
         'errors' => array(),
-        'values' => array()
+        'values' => array(),
+        'databases' => Model\Database\get_list(),
+        'current_database' => Model\Database\select()
     )));
 });
 
@@ -40,7 +42,9 @@ Router\post_action('login', function() {
         'google_auth_enable' => Model\Config\get('auth_google_token') !== '',
         'mozilla_auth_enable' => Model\Config\get('auth_mozilla_token') !== '',
         'errors' => $errors,
-        'values' => $values
+        'values' => $values,
+        'databases' => Model\Database\get_list(),
+        'current_database' => Model\Database\select()
     )));
 });
 

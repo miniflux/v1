@@ -25,6 +25,7 @@ Features
 - Alternative login with a Google Account or Mozilla Persona
 - **Full article download for feeds that display only a summary** (website scraper based on Xpath rules)
 - Auto-update from the user interface
+- Multiple databases (each user has his own database)
 
 Todo and known bugs
 -------------------
@@ -156,6 +157,7 @@ You just need to be inside the directory `miniflux` and run the script `cronjob.
 
 Parameters          | Type         		             | Value
 --------------------|--------------------------------|-----------------------------
+--database          | optional                       | Database filename, default is db.sqlite (ex: db2.sqlite)
 --limit             | optional                       | number of feeds
 --call-interval     | optional, excluded by --limit, require --update-interval | time in minutes < update interval time
 --update-interval   | optional, excluded by --limit, require --call-interval   | time in minutes >= call interval time

@@ -90,6 +90,11 @@
             <li><?= t('Database size:') ?> <strong><?= Helper\format_bytes($db_size) ?></strong></li>
             <li><a href="?action=optimize-db"><?= t('Optimize the database') ?></a> <?= t('(VACUUM command)') ?></li>
             <li><a href="?action=download-db"><?= t('Download the entire database') ?></a> <?= t('(Gzip compressed Sqlite file)') ?></li>
+            <?php if (ENABLE_MULTIPLE_DB): ?>
+            <li>
+                <a href="?action=new-db"><?= t('Add a new database (new user)') ?></a></li>
+            </li>
+            <?php endif ?>
         </ul>
     </div>
     <?= \PicoFarad\Template\load('keyboard_shortcuts') ?>

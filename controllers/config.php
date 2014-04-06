@@ -7,6 +7,47 @@ use PicoFarad\Session;
 use PicoFarad\Template;
 use PicoDb\Database;
 
+// Display a form to add a new database
+Router\get_action('new-db', function() {
+
+    if (ENABLE_MULTIPLE_DB) {
+        Response\html(Template\layout('new_db', array(
+            'errors' => array(),
+            'values' => array(),
+            'menu' => 'config',
+            'title' => t('New database')
+        )));
+    }
+
+    Response\redirect('?action=config');
+});
+
+// Create a new database
+Router\post_action('new-db', function() {
+
+    $values = Request\values();
+    list($valid, $errors) = Model\Database\validate($values);
+
+    if ($valid) {
+
+        if (Model\Database\create(strtolower($values['name']).'.sqlite', $values['username'], $values['password'])) {
+            Session\flash(t('Database created successfully.'));
+        }
+        else {
+            Session\flash_error(t('Unable to create the new database.'));
+        }
+
+        Response\redirect('?action=config');
+    }
+
+    Response\html(Template\layout('new_db', array(
+        'errors' => $errors,
+        'values' => $values,
+        'menu' => 'config',
+        'title' => t('New database')
+    )));
+});
+
 // Auto-update
 Router\get_action('auto-update', function() {
 
@@ -41,7 +82,7 @@ Router\get_action('optimize-db', function() {
 Router\get_action('download-db', function() {
 
     Response\force_download('db.sqlite.gz');
-    Response\binary(gzencode(file_get_contents(DB_FILENAME)));
+    Response\binary(gzencode(file_get_contents(\Model\Database\get_path())));
 });
 
 // Display preferences page
@@ -50,7 +91,7 @@ Router\get_action('config', function() {
     Response\html(Template\layout('config', array(
         'errors' => array(),
         'values' => Model\Config\get_all(),
-        'db_size' => filesize(DB_FILENAME),
+        'db_size' => filesize(\Model\Database\get_path()),
         'languages' => Model\Config\get_languages(),
         'timezones' => Model\Config\get_timezones(),
         'autoflush_options' => Model\Config\get_autoflush_options(),
@@ -84,7 +125,7 @@ Router\post_action('config', function() {
     Response\html(Template\layout('config', array(
         'errors' => $errors,
         'values' => Model\Config\get_all(),
-        'db_size' => filesize(DB_FILENAME),
+        'db_size' => filesize(\Model\Database\get_path()),
         'languages' => Model\Config\get_languages(),
         'timezones' => Model\Config\get_timezones(),
         'autoflush_options' => Model\Config\get_autoflush_options(),

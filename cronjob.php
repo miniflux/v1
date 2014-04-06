@@ -7,12 +7,17 @@ if (php_sapi_name() === 'cli') {
     $options = getopt('', array(
         'limit::',
         'call-interval::',
-        'update-interval::'
+        'update-interval::',
+        'database::',
     ));
 }
 else {
 
     $options = $_GET;
+}
+
+if (! empty($options['database'])) {
+    \Model\Database\select($options['database']);
 }
 
 $limit = ! empty($options['limit']) && ctype_digit($options['limit']) ? (int) $options['limit'] : Model\Feed\LIMIT_ALL;

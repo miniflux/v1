@@ -11,7 +11,13 @@ Router\before(function($action) {
 
     Session\open(dirname($_SERVER['PHP_SELF']), SESSION_SAVE_PATH);
 
-    $ignore_actions = array('login', 'google-auth', 'google-redirect-auth', 'mozilla-auth', 'bookmark-feed');
+    // Select another database
+    if (! empty($_SESSION['database'])) {
+        Model\Database\select($_SESSION['database']);
+    }
+
+    // Redirect to the login form if the user is not authenticated
+    $ignore_actions = array('login', 'google-auth', 'google-redirect-auth', 'mozilla-auth', 'bookmark-feed', 'select-db');
 
     if (! isset($_SESSION['user']) && ! in_array($action, $ignore_actions)) {
         Response\redirect('?action=login');
@@ -49,4 +55,14 @@ Router\get_action('show-help', function() {
 Router\get_action('more', function() {
 
     Response\html(Template\layout('show_more', array('menu' => 'more')));
+});
+
+// Select another database
+Router\get_action('select-db', function() {
+
+    if (ENABLE_MULTIPLE_DB) {
+        $_SESSION['database'] = \Model\Database\select(Request\param('database'));
+    }
+
+    Response\redirect('?action=login');
 });
