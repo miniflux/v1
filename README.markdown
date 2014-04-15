@@ -38,7 +38,8 @@ Features
 ### Awesome features
 
 - Keyboard shortcuts
-- Full article download for feeds that display only a summary (website scraper based on Xpath rules)
+- Full article download for feeds that display only a summary
+- Enclosure support (videos and podcasts)
 - Feed updates via a cronjob or with the user interface with one click
 
 ### More
