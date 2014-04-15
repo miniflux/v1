@@ -18,7 +18,7 @@ function create($filename, $username, $password)
 {
     $filename = DATA_DIRECTORY.DIRECTORY_SEPARATOR.$filename;
 
-    if (! file_exists($filename)) {
+    if (ENABLE_MULTIPLE_DB && ! file_exists($filename)) {
 
         $db = new \PicoDb\Database(array(
             'driver' => 'sqlite',
@@ -44,7 +44,7 @@ function select($filename = '')
 {
     static $current_filename = DB_FILENAME;
 
-    if ($filename !== '' && in_array($filename, get_all())) {
+    if (ENABLE_MULTIPLE_DB && $filename !== '' && in_array($filename, get_all())) {
         $current_filename = $filename;
         $_SESSION['config'] = \Model\Config\get_all();
     }

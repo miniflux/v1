@@ -11,6 +11,7 @@ use PicoDb\Database;
 Router\get_action('new-db', function() {
 
     if (ENABLE_MULTIPLE_DB) {
+
         Response\html(Template\layout('new_db', array(
             'errors' => array(),
             'values' => array(),
@@ -25,27 +26,32 @@ Router\get_action('new-db', function() {
 // Create a new database
 Router\post_action('new-db', function() {
 
-    $values = Request\values();
-    list($valid, $errors) = Model\Database\validate($values);
+    if (ENABLE_MULTIPLE_DB) {
 
-    if ($valid) {
+        $values = Request\values();
+        list($valid, $errors) = Model\Database\validate($values);
 
-        if (Model\Database\create(strtolower($values['name']).'.sqlite', $values['username'], $values['password'])) {
-            Session\flash(t('Database created successfully.'));
+        if ($valid) {
+
+            if (Model\Database\create(strtolower($values['name']).'.sqlite', $values['username'], $values['password'])) {
+                Session\flash(t('Database created successfully.'));
+            }
+            else {
+                Session\flash_error(t('Unable to create the new database.'));
+            }
+
+            Response\redirect('?action=config');
         }
-        else {
-            Session\flash_error(t('Unable to create the new database.'));
-        }
 
-        Response\redirect('?action=config');
+        Response\html(Template\layout('new_db', array(
+            'errors' => $errors,
+            'values' => $values,
+            'menu' => 'config',
+            'title' => t('New database')
+        )));
     }
 
-    Response\html(Template\layout('new_db', array(
-        'errors' => $errors,
-        'values' => $values,
-        'menu' => 'config',
-        'title' => t('New database')
-    )));
+    Response\redirect('?action=config');
 });
 
 // Auto-update
