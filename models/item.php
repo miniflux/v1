@@ -419,8 +419,14 @@ function update_all($feed_id, array $items, $grabber = false)
 
             \PicoFeed\Logging::log('Item parsed correctly');
 
-            // Insert only new item
-            if ($db->table('items')->eq('id', $item->id)->count() !== 1) {
+            // Get item record in database, if any
+            $itemrec = $db
+                ->table('items')
+                ->columns('enclosure')
+                ->eq('id', $item->id)->findOne();
+
+            // Insert a new item
+            if ($itemrec === null) {
 
                 \PicoFeed\Logging::log('Item added to the database');
 
@@ -440,6 +446,16 @@ function update_all($feed_id, array $items, $grabber = false)
                     'enclosure' => isset($item->enclosure) ? $item->enclosure : null,
                     'enclosure_type' => isset($item->enclosure_type) ? $item->enclosure_type : null,
                     'language' => $item->language,
+                ));
+            }
+            else if (isset($item->enclosure) && $item->enclosure && !$itemrec['enclosure']) {
+
+                \PicoFeed\Logging::log('Update item enclosure');
+
+                $db->table('items')->eq('id', $item->id)->save(array(
+                    'status' => 'unread',
+                    'enclosure' => $item->enclosure,
+                    'enclosure_type' => isset($item->enclosure_type) ? $item->enclosure_type : null,
                 ));
             }
             else {
