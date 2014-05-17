@@ -69,6 +69,13 @@
                 <a href="<?= $item['enclosure'] ?>" rel="noreferrer" target="_blank"><?= t('attachment') ?></a>
             </li>
             <?php endif ?>
+            <li>
+                <a
+                    href="?action=mark-item-unread&amp;id=<?= $item['id'] ?>&amp;redirect=unread"
+                >
+                    <?= t('mark as unread') ?>
+                </a>
+            </li>
             <li class="hide-mobile">
                 <span id="download-item"
                       data-item-id="<?= $item['id'] ?>"

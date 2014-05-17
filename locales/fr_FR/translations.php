@@ -144,7 +144,7 @@ return array(
     'original link' => 'lien original',
     'mark as read' => 'marquer comme lu',
     'No history' => 'Aucun historique',
-    'mark as unread' => 'non lu',
+    'mark as unread' => 'marquer comme non lu',
     'History' => 'Historique',
     'flush all items' => 'supprimer tous les éléments',
     'Item not found' => 'Élément introuvable',
