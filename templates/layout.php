@@ -6,7 +6,6 @@
 
         <meta name="viewport" content="width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-capable" content="yes">
 
         <link rel="icon" type="image/png" href="assets/img/favicon.png">
         <link rel="shortcut icon" href="favicon.ico">
