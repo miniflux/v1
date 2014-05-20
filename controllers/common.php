@@ -31,7 +31,7 @@ Router\before(function($action) {
     date_default_timezone_set(Model\Config\get('timezone') ?: 'UTC');
 
     // HTTP secure headers
-    $frame_src = \PicoFeed\Filter::$iframe_whitelist;
+    $frame_src = Model\Config\get_iframe_whitelist();;
     $frame_src[] = 'https://login.persona.org';
 
     Response\csp(array(

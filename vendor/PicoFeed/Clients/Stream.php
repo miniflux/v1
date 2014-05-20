@@ -3,6 +3,7 @@
 namespace PicoFeed\Clients;
 
 use \PicoFeed\Logging;
+use \PicoFeed\Client;
 
 /**
  * Stream context HTTP client
@@ -10,7 +11,7 @@ use \PicoFeed\Logging;
  * @author  Frederic Guillot
  * @package client
  */
-class Stream extends \PicoFeed\Client
+class Stream extends Client
 {
     /**
      * Do the HTTP request
@@ -24,11 +25,19 @@ class Stream extends \PicoFeed\Client
         $headers = array(
             'Connection: close',
             'User-Agent: '.$this->user_agent,
-            'Accept-Encoding: gzip',
         );
 
-        if ($this->etag) $headers[] = 'If-None-Match: '.$this->etag;
-        if ($this->last_modified) $headers[] = 'If-Modified-Since: '.$this->last_modified;
+        if (function_exists('gzdecode')) {
+            $headers[] = 'Accept-Encoding: gzip';
+        }
+
+        if ($this->etag) {
+            $headers[] = 'If-None-Match: '.$this->etag;
+        }
+
+        if ($this->last_modified) {
+            $headers[] = 'If-Modified-Since: '.$this->last_modified;
+        }
 
         // Create context
         $context_options = array(
@@ -41,13 +50,21 @@ class Stream extends \PicoFeed\Client
             )
         );
 
-        if (parent::$proxy_hostname) {
-            $context_options['http']['proxy'] = 'tcp://'.parent::$proxy_hostname.':'.parent::$proxy_port;
+        if ($this->proxy_hostname) {
+
+            Logging::setMessage(get_called_class().' Proxy: '.$this->proxy_hostname.':'.$this->proxy_port);
+
+            $context_options['http']['proxy'] = 'tcp://'.$this->proxy_hostname.':'.$this->proxy_port;
             $context_options['http']['request_fulluri'] = true;
 
-            if (parent::$proxy_username) {
-                $headers[] = 'Proxy-Authorization: Basic '.base64_encode(parent::$proxy_username.':'.parent::$proxy_password);
+            if ($this->proxy_username) {
+                Logging::setMessage(get_called_class().' Proxy credentials: Yes');
+
+                $headers[] = 'Proxy-Authorization: Basic '.base64_encode($this->proxy_username.':'.$this->proxy_password);
                 $context_options['http']['header'] = implode("\r\n", $headers);
+            }
+            else {
+                Logging::setMessage(get_called_class().' Proxy credentials: No');
             }
         }
 

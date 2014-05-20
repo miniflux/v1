@@ -2,17 +2,15 @@
 
 namespace Model\Feed;
 
-require_once __DIR__.'/../vendor/PicoFeed/Filter.php';
-require_once __DIR__.'/../vendor/PicoFeed/Export.php';
-require_once __DIR__.'/../vendor/PicoFeed/Import.php';
-require_once __DIR__.'/../vendor/PicoFeed/Reader.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Validator.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Base.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Validators/Required.php';
-
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 use PicoDb\Database;
+use PicoFeed\Export;
+use PicoFeed\Import;
+use PicoFeed\Reader;
+use PicoFeed\Logging;
+use Model\Config;
+use Model\Item;
 
 const LIMIT_ALL = -1;
 
@@ -32,14 +30,15 @@ function update(array $values)
 // Export all feeds
 function export_opml()
 {
-    $opml = new \PicoFeed\Export(get_all());
+    $opml = new Export(get_all());
     return $opml->execute();
 }
 
 // Import OPML file
 function import_opml($content)
 {
-    $import = new \PicoFeed\Import($content);
+    Logging::setTimezone(Config\get('timezone'));
+    $import = new Import($content);
     $feeds = $import->execute();
 
     if ($feeds) {
@@ -61,65 +60,71 @@ function import_opml($content)
 
         $db->closeTransaction();
 
-        \Model\Config\write_debug();
+        Config\write_debug();
 
         return true;
     }
 
-    \Model\Config\write_debug();
+    Config\write_debug();
 
     return false;
 }
 
 // Add a new feed from an URL
-function create($url, $grabber = false)
+function create($url, $enable_grabber = false)
 {
-    $reader = new \PicoFeed\Reader;
-    $resource = $reader->download($url, '', '', HTTP_TIMEOUT, \Model\Config\HTTP_USERAGENT);
+    $reader = new Reader(Config\get_reader_config());
+    $resource = $reader->download($url);
 
     $parser = $reader->getParser();
 
     if ($parser !== false) {
 
-        $parser->grabber = $grabber;
+        if ($enable_grabber) {
+            $parser->enableContentGrabber();
+        }
+
         $feed = $parser->execute();
 
         if ($feed === false) {
-            \Model\Config\write_debug();
+            Config\write_debug();
             return false;
         }
 
-        if (! $feed->url) $feed->url = $reader->getUrl();
+        if (! $feed->getUrl()) {
+            $feed->url = $reader->getUrl();
+        }
 
-        if (! $feed->title) {
-            \Model\Config\write_debug();
+        if (! $feed->getTitle()) {
+            Config\write_debug();
             return false;
         }
 
         $db = Database::get('db');
 
+        // Check if the feed is already there
         if (! $db->table('feeds')->eq('feed_url', $reader->getUrl())->count()) {
 
             // Etag and LastModified are added the next update
             $rs = $db->table('feeds')->save(array(
-                'title' => $feed->title,
-                'site_url' => $feed->url,
+                'title' => $feed->getTitle(),
+                'site_url' => $feed->getUrl(),
                 'feed_url' => $reader->getUrl(),
-                'download_content' => $grabber ? 1 : 0
+                'download_content' => $enable_grabber ? 1 : 0
             ));
 
             if ($rs) {
 
                 $feed_id = $db->getConnection()->getLastId();
-                \Model\Item\update_all($feed_id, $feed->items, $grabber);
-                \Model\Config\write_debug();
+                Item\update_all($feed_id, $feed->getItems(), $enable_grabber);
+                Config\write_debug();
 
                 return (int) $feed_id;
             }
         }
     }
 
-    \Model\Config\write_debug();
+    Config\write_debug();
 
     return false;
 }
@@ -143,16 +148,17 @@ function refresh_all($limit = LIMIT_ALL)
 function refresh($feed_id)
 {
     $feed = get($feed_id);
-    if (empty($feed)) return false;
 
-    $reader = new \PicoFeed\Reader;
+    if (empty($feed)) {
+        return false;
+    }
+
+    $reader = new Reader(Config\get_reader_config());
 
     $resource = $reader->download(
         $feed['feed_url'],
         $feed['last_modified'],
-        $feed['etag'],
-        HTTP_TIMEOUT,
-        \Model\Config\HTTP_USERAGENT
+        $feed['etag']
     );
 
     // Update the `last_checked` column each time, HTTP cache or not
@@ -160,7 +166,7 @@ function refresh($feed_id)
 
     if (! $resource->isModified()) {
         update_parsing_error($feed_id, 0);
-        \Model\Config\write_debug();
+        Config\write_debug();
         return true;
     }
 
@@ -171,14 +177,8 @@ function refresh($feed_id)
         if ($feed['download_content']) {
 
             // Don't fetch previous items, only new one
-            $parser->grabber_ignore_urls = Database::get('db')
-                                                ->table('items')
-                                                ->eq('feed_id', $feed_id)
-                                                ->findAllByColumn('url');
-
-            $parser->grabber = true;
-            $parser->grabber_timeout = HTTP_TIMEOUT;
-            $parser->grabber_user_agent = \Model\Config\HTTP_FAKE_USERAGENT;
+            $parser->enableContentGrabber();
+            $parser->setGrabberIgnoreUrls(Database::get('db')->table('items')->eq('feed_id', $feed_id)->findAllByColumn('url'));
         }
 
         $result = $parser->execute();
@@ -187,15 +187,16 @@ function refresh($feed_id)
 
             update_parsing_error($feed_id, 0);
             update_cache($feed_id, $resource->getLastModified(), $resource->getEtag());
-            \Model\Item\update_all($feed_id, $result->items, $parser->grabber);
-            \Model\Config\write_debug();
+
+            Item\update_all($feed_id, $result->getItems(), $feed['download_content']);
+            Config\write_debug();
 
             return true;
         }
     }
 
     update_parsing_error($feed_id, 1);
-    \Model\Config\write_debug();
+    Config\write_debug();
 
     return false;
 }

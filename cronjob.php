@@ -17,7 +17,7 @@ else {
 }
 
 if (! empty($options['database'])) {
-    \Model\Database\select($options['database']);
+    Model\Database\select($options['database']);
 }
 
 $limit = ! empty($options['limit']) && ctype_digit($options['limit']) ? (int) $options['limit'] : Model\Feed\LIMIT_ALL;

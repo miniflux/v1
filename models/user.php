@@ -2,11 +2,6 @@
 
 namespace Model\User;
 
-require_once __DIR__.'/../vendor/SimpleValidator/Validator.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Base.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Validators/Required.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Validators/MaxLength.php';
-
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 use PicoDb\Database;

@@ -2,14 +2,6 @@
 
 namespace Model\Database;
 
-require_once __DIR__.'/../vendor/SimpleValidator/Validator.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Base.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Validators/Required.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Validators/MaxLength.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Validators/MinLength.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Validators/Equals.php';
-require_once __DIR__.'/../vendor/SimpleValidator/Validators/AlphaNumeric.php';
-
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 

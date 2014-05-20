@@ -2,10 +2,16 @@
 
 namespace PicoFeed;
 
-require_once __DIR__.'/Logging.php';
-require_once __DIR__.'/Filter.php';
-require_once __DIR__.'/Encoding.php';
-require_once __DIR__.'/Grabber.php';
+use DateTime;
+use DateTimeZone;
+use DOMXPath;
+use SimpleXMLElement;
+use PicoFeed\Config;
+use PicoFeed\Encoding;
+use PicoFeed\Filter;
+use PicoFeed\Grabber;
+use PicoFeed\Logging;
+use PicoFeed\XmlParser;
 
 /**
  * Base parser class
@@ -16,13 +22,28 @@ require_once __DIR__.'/Grabber.php';
 abstract class Parser
 {
     /**
+     * Config object
+     *
+     * @access private
+     * @var \PicoFeed\Config
+     */
+    private $config = null;
+
+    /**
      * Hash algorithm used to generate item id, any value supported by PHP, see hash_algos()
      *
-     * @access public
-     * @static
+     * @access private
      * @var string
      */
-    public static $hashAlgo = 'crc32b'; // crc32b seems to be faster and shorter than other hash algorithms
+    private $hash_algo = 'crc32b'; // crc32b seems to be faster and shorter than other hash algorithms
+
+    /**
+     * Timezone used to parse feed dates
+     *
+     * @access private
+     * @var string
+     */
+    private $timezone = 'UTC';
 
     /**
      * Feed content (XML data)
@@ -33,35 +54,28 @@ abstract class Parser
     protected $content = '';
 
     /**
-     * Feed properties (values parsed)
+     * XML namespaces
      *
-     * @access public
+     * @access protected
+     * @var array
      */
-    public $id = '';
-    public $url = '';
-    public $title = '';
-    public $updated = '';
-    public $language = '';
-    public $items = array();
+    protected $namespaces = array();
 
     /**
-     * Content grabber parameters
+     * Enable the content grabber
      *
-     * @access public
+     * @access private
+     * @var bool
      */
-    public $grabber = false;
-    public $grabber_ignore_urls = array();
-    public $grabber_timeout = null;
-    public $grabber_user_agent = null;
+    public $enable_grabber = false;
 
     /**
-     * Parse feed content
+     * Ignore those urls for the content scraper
      *
-     * @abstract
-     * @access public
-     * @return mixed
+     * @access private
+     * @var array
      */
-    abstract public function execute();
+    private $grabber_ignore_urls = array();
 
     /**
      * Constructor
@@ -73,7 +87,7 @@ abstract class Parser
     public function __construct($content, $http_encoding = '')
     {
         $xml_encoding = Filter::getEncodingFromXmlTag($content);
-        Logging::log(\get_called_class().': HTTP Encoding "'.$http_encoding.'" ; XML Encoding "'.$xml_encoding.'"');
+        Logging::setMessage(get_called_class().': HTTP Encoding "'.$http_encoding.'" ; XML Encoding "'.$xml_encoding.'"');
 
         // Strip XML tag to avoid multiple encoding/decoding in the next XML processing
         $this->content = Filter::stripXmlTag($content);
@@ -91,6 +105,52 @@ abstract class Parser
     }
 
     /**
+     * Parse the document
+     *
+     * @access public
+     * @return mixed   \PicoFeed\Feed instance or false
+     */
+    public function execute()
+    {
+        Logging::setMessage(get_called_class().': begin parsing');
+
+        $xml = XmlParser::getSimpleXml($this->content);
+
+        if ($xml === false) {
+            Logging::setMessage(get_called_class().': XML parsing error');
+            Logging::setMessage(XmlParser::getErrors());
+            return false;
+        }
+
+        $this->namespaces = $xml->getNamespaces(true);
+
+        $feed = new Feed;
+        $this->findFeedUrl($xml, $feed);
+        $this->findFeedTitle($xml, $feed);
+        $this->findFeedLanguage($xml, $feed);
+        $this->findFeedId($xml, $feed);
+        $this->findFeedDate($xml, $feed);
+
+        foreach ($this->getItemsTree($xml) as $entry) {
+
+            $item = new Item;
+            $this->findItemAuthor($xml, $entry, $item);
+            $this->findItemUrl($entry, $item);
+            $this->findItemTitle($entry, $item);
+            $this->findItemId($entry, $item, $feed);
+            $this->findItemDate($entry, $item);
+            $this->findItemContent($entry, $item);
+            $this->findItemEnclosure($entry, $item, $feed);
+            $this->findItemLanguage($entry, $item, $feed);
+            $feed->items[] = $item;
+        }
+
+        Logging::setMessage(get_called_class().PHP_EOL.$feed);
+
+        return $feed;
+    }
+
+    /**
      * Filter HTML for entry content
      *
      * @access public
@@ -102,41 +162,38 @@ abstract class Parser
     {
         $content = '';
 
-        if ($this->grabber && ! in_array($item_url, $this->grabber_ignore_urls)) {
+        // Setup the content scraper
+        if ($this->enable_grabber && ! in_array($item_url, $this->grabber_ignore_urls)) {
+
             $grabber = new Grabber($item_url);
-            $grabber->download($this->grabber_timeout, $this->grabber_user_agent);
-            if ($grabber->parse()) $item_content = $grabber->content;
+            $grabber->setConfig($this->config);
+            $grabber->download();
+
+            if ($grabber->parse()) {
+                $item_content = $grabber->getContent();
+            }
         }
 
+        // Content filtering
         if ($item_content) {
-            $filter = new Filter($item_content, $item_url);
-            $content = $filter->execute();
+
+            if ($this->config !== null) {
+
+                $callback = $this->config->getContentFilteringCallback();
+
+                if (is_callable($callback)) {
+                    $content = $callback($item_content, $item_url);
+                }
+            }
+
+            if (! $content) {
+                $filter = new Filter($item_content, $item_url);
+                $filter->setConfig($this->config);
+                $content = $filter->execute();
+            }
         }
 
         return $content;
-    }
-
-    /**
-     * Get XML parser errors
-     *
-     * @access public
-     * @return string
-     */
-    public function getXmlErrors()
-    {
-        $errors = array();
-
-        foreach(\libxml_get_errors() as $error) {
-
-            $errors[] = sprintf('XML error: %s (Line: %d - Column: %d - Code: %d)',
-                $error->message,
-                $error->line,
-                $error->column,
-                $error->code
-            );
-        }
-
-        return implode(', ', $errors);
     }
 
     /**
@@ -148,6 +205,7 @@ abstract class Parser
      */
     public function normalizeData($data)
     {
+        $data = str_replace("\x10", '', $data);
         $data = str_replace("\xc3\x20", '', $data);
         $data = str_replace("&#x1F;", '', $data);
         $data = $this->replaceEntityAttribute($data);
@@ -194,7 +252,7 @@ abstract class Parser
      */
     public function generateId()
     {
-        return hash(self::$hashAlgo, implode(func_get_args()));
+        return hash($this->hash_algo, implode(func_get_args()));
     }
 
     /**
@@ -249,7 +307,8 @@ abstract class Parser
             }
         }
 
-        return time();
+        $date = new DateTime('now', new DateTimeZone($this->timezone));
+        return $date->getTimestamp();
     }
 
     /**
@@ -262,11 +321,15 @@ abstract class Parser
      */
     public function getValidDate($format, $value)
     {
-        $date = \DateTime::createFromFormat($format, $value);
+        $date = DateTime::createFromFormat($format, $value, new DateTimeZone($this->timezone));
 
         if ($date !== false) {
-            $errors = \DateTime::getLastErrors();
-            if ($errors['error_count'] === 0 && $errors['warning_count'] === 0) return $date->getTimestamp();
+
+            $errors = DateTime::getLastErrors();
+
+            if ($errors['error_count'] === 0 && $errors['warning_count'] === 0) {
+                return $date->getTimestamp();
+            }
         }
 
         return 0;
@@ -299,10 +362,13 @@ abstract class Parser
      */
     public function getXmlLang($xml)
     {
-        $dom = new \DOMDocument;
-        $dom->loadXML($this->content);
+        $dom = XmlParser::getDomDocument($this->content);
 
-        $xpath = new \DOMXPath($dom);
+        if ($dom === false) {
+            return '';
+        }
+
+        $xpath = new DOMXPath($dom);
         return $xpath->evaluate('string(//@xml:lang[1])') ?: '';
     }
 
@@ -318,30 +384,108 @@ abstract class Parser
     {
         $language = strtolower($language);
 
-        // Arabic (ar-**)
-        if (strpos($language, 'ar') === 0) return true;
+        $rtl_languages = array(
+            'ar', // Arabic (ar-**)
+            'fa', // Farsi (fa-**)
+            'ur', // Urdu (ur-**)
+            'ps', // Pashtu (ps-**)
+            'syr', // Syriac (syr-**)
+            'dv', // Divehi (dv-**)
+            'he', // Hebrew (he-**)
+            'yi', // Yiddish (yi-**)
+        );
 
-        // Farsi (fa-**)
-        if (strpos($language, 'fa') === 0) return true;
-
-        // Urdu (ur-**)
-        if (strpos($language, 'ur') === 0) return true;
-
-        // Pashtu (ps-**)
-        if (strpos($language, 'ps') === 0) return true;
-
-        // Syriac (syr-**)
-        if (strpos($language, 'syr') === 0) return true;
-
-        // Divehi (dv-**)
-        if (strpos($language, 'dv') === 0) return true;
-
-        // Hebrew (he-**)
-        if (strpos($language, 'he') === 0) return true;
-
-        // Yiddish (yi-**)
-        if (strpos($language, 'yi') === 0) return true;
+        foreach ($rtl_languages as $prefix) {
+            if (strpos($language, $prefix) === 0) {
+                return true;
+            }
+        }
 
         return false;
+    }
+
+    /**
+     * Set Hash algorithm used for id generation
+     *
+     * @access public
+     * @param  string   $algo   Algorithm name
+     * @return \PicoFeed\Parser
+     */
+    public function setHashAlgo($algo)
+    {
+        $this->hash_algo = $algo ?: $this->hash_algo;
+        return $this;
+    }
+
+    /**
+     * Set a different timezone
+     *
+     * @see    http://php.net/manual/en/timezones.php
+     * @access public
+     * @param  string   $timezone   Timezone
+     * @return \PicoFeed\Parser
+     */
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone ?: $this->timezone;
+        return $this;
+    }
+
+    /**
+     * Set config object
+     *
+     * @access public
+     * @param  \PicoFeed\Config  $config   Config instance
+     * @return \PicoFeed\Parser
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+        return $this;
+    }
+
+    /**
+     * Enable the content grabber
+     *
+     * @access public
+     * @return \PicoFeed\Parser
+     */
+    public function enableContentGrabber()
+    {
+        $this->enable_grabber = true;
+    }
+
+    /**
+     * Set ignored URLs for the content grabber
+     *
+     * @access public
+     * @param  array   $urls   URLs
+     * @return \PicoFeed\Parser
+     */
+    public function setGrabberIgnoreUrls(array $urls)
+    {
+        $this->grabber_ignore_urls = $urls;
+    }
+
+    /**
+     * Get a value from a XML namespace
+     *
+     * @access public
+     * @param  SimpleXMLElement     $xml    XML element
+     * @param  array                $namespaces    XML namespaces
+     * @param  string               $property      XML tag name
+     * @return string
+     */
+    public function getNamespaceValue(SimpleXMLElement $xml, array $namespaces, $property)
+    {
+        foreach ($namespaces as $name => $url) {
+            $namespace = $xml->children($namespaces[$name]);
+
+            if ($namespace->$property->count() > 0) {
+                return (string) $namespace->$property;
+            }
+        }
+
+        return '';
     }
 }

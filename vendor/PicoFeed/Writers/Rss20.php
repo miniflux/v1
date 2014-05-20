@@ -2,34 +2,61 @@
 
 namespace PicoFeed\Writers;
 
-require_once __DIR__.'/../Writer.php';
+use DomDocument;
+use DomAttr;
+use DomElement;
+use PicoFeed\Writer;
 
-class Rss20 extends \PicoFeed\Writer
+/**
+ * Rss 2.0 writer class
+ *
+ * @author  Frederic Guillot
+ * @package picofeed
+ */
+class Rss20 extends Writer
 {
+    /**
+     * List of required properties for each feed
+     *
+     * @access private
+     * @var array
+     */
     private $required_feed_properties = array(
         'title',
         'site_url',
         'feed_url',
     );
 
+    /**
+     * List of required properties for each item
+     *
+     * @access private
+     * @var array
+     */
     private $required_item_properties = array(
         'title',
         'url',
     );
 
-
+    /**
+     * Get the Rss 2.0 document
+     *
+     * @access public
+     * @param  string   $filename   Optional filename
+     * @return string
+     */
     public function execute($filename = '')
     {
         $this->checkRequiredProperties($this->required_feed_properties, $this);
 
-        $this->dom = new \DomDocument('1.0', 'UTF-8');
+        $this->dom = new DomDocument('1.0', 'UTF-8');
         $this->dom->formatOutput = true;
 
         // <rss/>
         $rss = $this->dom->createElement('rss');
         $rss->setAttribute('version', '2.0');
-        $rss->setAttributeNodeNS(new \DomAttr('xmlns:content', 'http://purl.org/rss/1.0/modules/content/'));
-        $rss->setAttributeNodeNS(new \DomAttr('xmlns:atom', 'http://www.w3.org/2005/Atom'));
+        $rss->setAttributeNodeNS(new DomAttr('xmlns:content', 'http://purl.org/rss/1.0/modules/content/'));
+        $rss->setAttributeNodeNS(new DomAttr('xmlns:atom', 'http://www.w3.org/2005/Atom'));
 
         $channel = $this->dom->createElement('channel');
 
@@ -130,8 +157,14 @@ class Rss20 extends \PicoFeed\Writer
         }
     }
 
-
-    public function addPubDate($xml, $value = '')
+    /**
+     * Add publication date
+     *
+     * @access public
+     * @param  DomElement   $xml     XML node
+     * @param  string       $value   Timestamp
+     */
+    public function addPubDate(DomElement $xml, $value = '')
     {
         $xml->appendChild($this->dom->createElement(
             'pubDate',
@@ -139,8 +172,15 @@ class Rss20 extends \PicoFeed\Writer
         ));
     }
 
-
-    public function addAuthor($xml, $tag, array $values)
+    /**
+     * Add author
+     *
+     * @access public
+     * @param  DomElement   $xml     XML node
+     * @param  string       $tag     Tag name
+     * @param  array        $values  Author name and email
+     */
+    public function addAuthor(DomElement $xml, $tag, array $values)
     {
         $value = '';
 

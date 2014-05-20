@@ -3,8 +3,19 @@
 require __DIR__.'/check_setup.php';
 require __DIR__.'/lib/Translator.php';
 require __DIR__.'/vendor/PicoDb/Database.php';
-require __DIR__.'/vendor/PicoFeed/Client.php';
-require __DIR__.'/vendor/PicoFeed/Parser.php';
+require __DIR__.'/vendor/PicoFeed/PicoFeed.php';
+require __DIR__.'/vendor/Readability/Readability.php';
+
+require __DIR__.'/vendor/SimpleValidator/Validator.php';
+require __DIR__.'/vendor/SimpleValidator/Base.php';
+require __DIR__.'/vendor/SimpleValidator/Validators/Required.php';
+require __DIR__.'/vendor/SimpleValidator/Validators/Unique.php';
+require __DIR__.'/vendor/SimpleValidator/Validators/MaxLength.php';
+require __DIR__.'/vendor/SimpleValidator/Validators/MinLength.php';
+require __DIR__.'/vendor/SimpleValidator/Validators/Integer.php';
+require __DIR__.'/vendor/SimpleValidator/Validators/Equals.php';
+require __DIR__.'/vendor/SimpleValidator/Validators/AlphaNumeric.php';
+
 require __DIR__.'/models/config.php';
 require __DIR__.'/models/user.php';
 require __DIR__.'/models/feed.php';
@@ -39,8 +50,6 @@ defined('ENABLE_AUTO_UPDATE') or define('ENABLE_AUTO_UPDATE', true);
 defined('AUTO_UPDATE_DOWNLOAD_DIRECTORY') or define('AUTO_UPDATE_DOWNLOAD_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'download');
 defined('AUTO_UPDATE_ARCHIVE_DIRECTORY') or define('AUTO_UPDATE_ARCHIVE_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'archive');
 defined('AUTO_UPDATE_BACKUP_DIRECTORY') or define('AUTO_UPDATE_BACKUP_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'backup');
-
-PicoFeed\Client::proxy(PROXY_HOSTNAME, PROXY_PORT, PROXY_USERNAME, PROXY_PASSWORD);
 
 PicoDb\Database::bootstrap('db', function() {
 

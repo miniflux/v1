@@ -2,11 +2,13 @@
 
 namespace Model\Item;
 
-require_once __DIR__.'/../vendor/Readability/Readability.php';
-require_once __DIR__.'/../vendor/PicoFeed/Grabber.php';
-require_once __DIR__.'/../vendor/PicoFeed/Filter.php';
-
+use Model\Config;
 use PicoDb\Database;
+use PicoFeed\Logging;
+use PicoFeed\Grabber;
+use PicoFeed\Client;
+use PicoFeed\Filter;
+use Readability;
 
 // Get all items without filtering
 function get_everything()
@@ -141,7 +143,7 @@ function get_bookmarks($offset = null, $limit = null)
         ->join('feeds', 'id', 'feed_id')
         ->in('status', array('read', 'unread'))
         ->eq('bookmark', 1)
-        ->orderBy('updated', \Model\Config\get('items_sorting_direction'))
+        ->orderBy('updated', Config\get('items_sorting_direction'))
         ->offset($offset)
         ->limit($limit)
         ->findAll();
@@ -201,7 +203,7 @@ function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $fee
         ->table('items')
         ->columns('id', 'status', 'title', 'bookmark')
         ->neq('status', 'removed')
-        ->orderBy('updated', \Model\Config\get('items_sorting_direction'));
+        ->orderBy('updated', Config\get('items_sorting_direction'));
 
     if ($feed_id) $query->eq('feed_id', $feed_id);
 
@@ -377,7 +379,7 @@ function mark_feed_as_read($feed_id)
 // Mark all read items to removed after X days
 function autoflush()
 {
-    $autoflush = (int) \Model\Config\get('autoflush');
+    $autoflush = (int) Config\get('autoflush');
 
     if ($autoflush > 0) {
 
@@ -401,9 +403,9 @@ function autoflush()
 }
 
 // Update all items
-function update_all($feed_id, array $items, $grabber = false)
+function update_all($feed_id, array $items, $enable_grabber = false)
 {
-    $nocontent = (bool) \Model\Config\get('nocontent');
+    $nocontent = (bool) Config\get('nocontent');
 
     $items_in_feed = array();
 
@@ -412,54 +414,55 @@ function update_all($feed_id, array $items, $grabber = false)
 
     foreach ($items as $item) {
 
-        \PicoFeed\Logging::log('Item => '.$item->id.' '.$item->url);
+        Logging::setMessage('Item => '.$item->getId().' '.$item->getUrl());
 
         // Item parsed correctly?
-        if ($item->id && $item->url) {
+        if ($item->getId() && $item->getUrl()) {
 
-            \PicoFeed\Logging::log('Item parsed correctly');
+            Logging::setMessage('Item parsed correctly');
 
             // Get item record in database, if any
             $itemrec = $db
                 ->table('items')
                 ->columns('enclosure')
-                ->eq('id', $item->id)->findOne();
+                ->eq('id', $item->getId())
+                ->findOne();
 
             // Insert a new item
             if ($itemrec === null) {
 
-                \PicoFeed\Logging::log('Item added to the database');
+                Logging::setMessage('Item added to the database');
 
-                if (! $item->content && ! $nocontent && $grabber) {
-                    $item->content = download_content_url($item->url);
+                if ($enable_grabber && ! $nocontent && ! $item->getContent()) {
+                    $item->content = download_content_url($item->getUrl());
                 }
 
                 $db->table('items')->save(array(
-                    'id' => $item->id,
-                    'title' => $item->title,
-                    'url' => $item->url,
-                    'updated' => $item->updated,
-                    'author' => $item->author,
-                    'content' => $nocontent ? '' : $item->content,
+                    'id' => $item->getId(),
+                    'title' => $item->getTitle(),
+                    'url' => $item->getUrl(),
+                    'updated' => $item->getDate(),
+                    'author' => $item->getAuthor(),
+                    'content' => $nocontent ? '' : $item->getContent(),
                     'status' => 'unread',
                     'feed_id' => $feed_id,
-                    'enclosure' => isset($item->enclosure) ? $item->enclosure : null,
-                    'enclosure_type' => isset($item->enclosure_type) ? $item->enclosure_type : null,
-                    'language' => $item->language,
+                    'enclosure' => $item->getEnclosureUrl(),
+                    'enclosure_type' => $item->getEnclosureType(),
+                    'language' => $item->getLanguage(),
                 ));
             }
-            else if (isset($item->enclosure) && $item->enclosure && !$itemrec['enclosure']) {
+            else if (! $itemrec['enclosure'] && $item->getEnclosureUrl()) {
 
-                \PicoFeed\Logging::log('Update item enclosure');
+                Logging::setMessage('Update item enclosure');
 
-                $db->table('items')->eq('id', $item->id)->save(array(
+                $db->table('items')->eq('id', $item->getId())->save(array(
                     'status' => 'unread',
-                    'enclosure' => $item->enclosure,
-                    'enclosure_type' => isset($item->enclosure_type) ? $item->enclosure_type : null,
+                    'enclosure' => $item->getEnclosureUrl(),
+                    'enclosure_type' => $item->getEnclosureType(),
                 ));
             }
             else {
-                \PicoFeed\Logging::log('Item already in the database');
+                Logging::setMessage('Item already in the database');
             }
 
             // Items inside this feed
@@ -467,9 +470,19 @@ function update_all($feed_id, array $items, $grabber = false)
         }
     }
 
-    // Remove from the database items marked as "removed"
-    // and not present inside the feed
+    // Cleanup old items
+    cleanup($feed_id, $items_in_feed);
+
+    $db->closeTransaction();
+}
+
+// Remove from the database items marked as "removed"
+// and not present inside the feed
+function cleanup($feed_id, array $items_in_feed)
+{
     if (! empty($items_in_feed)) {
+
+        $db = Database::get('db');
 
         $removed_items = $db
             ->table('items')
@@ -489,7 +502,7 @@ function update_all($feed_id, array $items, $grabber = false)
             if (! empty($items_to_remove)) {
 
                 $nb_items = count($items_to_remove);
-                \PicoFeed\Logging::log('There is '.$nb_items.' items to remove');
+                Logging::setMessage('There is '.$nb_items.' items to remove');
 
                 // Handle the case when there is a huge number of items to remove
                 // Sqlite have a limit of 1000 sql variables by default
@@ -508,43 +521,31 @@ function update_all($feed_id, array $items, $grabber = false)
             }
         }
     }
-
-    \PicoFeed\Logging::log('Db transaction => '.($db->getConnection()->inTransaction() ? 'ok' : 'rollback'));
-
-    $db->closeTransaction();
 }
 
 // Download content from an URL
 function download_content_url($url)
 {
-    $client = \PicoFeed\Client::create();
-    $client->url = $url;
-    $client->timeout = HTTP_TIMEOUT;
-    $client->user_agent = \Model\Config\HTTP_FAKE_USERAGENT;
-    $client->execute();
+    $content = '';
 
-    $html = $client->getContent();
+    $grabber = new Grabber($url);
+    $grabber->setConfig(Config\get_reader_config());
+    $grabber->download();
 
-    if (! empty($html)) {
-
-        // Try first with PicoFeed grabber and with Readability after
-        $grabber = new \PicoFeed\Grabber($url, $html, $client->getEncoding());
-        $content = '';
-
-        if ($grabber->parse()) {
-            $content = $grabber->content;
-        }
-
-        if (empty($content)) {
-            $content = download_content_readability($grabber->html, $url);
-        }
-
-        // Filter content
-        $filter = new \PicoFeed\Filter($content, $url);
-        return $filter->execute();
+    if ($grabber->parse()) {
+        $content = $grabber->getcontent();
+    }
+    else {
+        $content = download_content_readability($grabber->getRawContent(), $url);
     }
 
-    return '';
+    if (! empty($content)) {
+        $filter = new Filter($content, $url);
+        $filter->setConfig(Config\get_reader_config());
+        $content = $filter->execute();
+    }
+
+    return $content;
 }
 
 // Download content from item ID
@@ -555,7 +556,7 @@ function download_content_id($item_id)
 
     if (! empty($content)) {
 
-        if (! \Model\Config\get('nocontent')) {
+        if (! Config\get('nocontent')) {
 
             // Save content
             Database::get('db')
@@ -564,7 +565,7 @@ function download_content_id($item_id)
                 ->save(array('content' => $content));
         }
 
-        \Model\Config\write_debug();
+        Config\write_debug();
 
         return array(
             'result' => true,
@@ -572,7 +573,7 @@ function download_content_id($item_id)
         );
     }
 
-    \Model\Config\write_debug();
+    Config\write_debug();
 
     return array(
         'result' => false,
@@ -585,7 +586,7 @@ function download_content_readability($content, $url)
 {
     if (! empty($content)) {
 
-        $readability = new \Readability($content, $url);
+        $readability = new Readability($content, $url);
 
         if ($readability->init()) {
             return $readability->getContent()->innerHTML;

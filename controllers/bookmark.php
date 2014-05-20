@@ -1,7 +1,5 @@
 <?php
 
-require __DIR__.'/../vendor/PicoFeed/Writers/Atom.php';
-
 use PicoFarad\Router;
 use PicoFarad\Response;
 use PicoFarad\Request;
