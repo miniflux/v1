@@ -102,6 +102,8 @@ function relative_time($timestamp, $fallback_date_format = '%e %B %Y %k:%M')
 {
     $diff = time() - $timestamp;
 
+    if ($diff < 0) return \dt($fallback_date_format, $timestamp);
+
     if ($diff < 60) return \t('%d second'.($diff > 1 ? 's' : '').' ago', $diff);
 
     $diff = floor($diff / 60);

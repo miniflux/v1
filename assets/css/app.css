@@ -609,6 +609,12 @@ a.bookmark-icon {
     text-decoration: none;
 }
 
+#item-content-enclosure {
+    border-bottom: 1px dashed #ccc;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
 /* other pages */
 section li {
     margin-left: 15px;
