@@ -23,12 +23,14 @@ require __DIR__.'/models/item.php';
 require __DIR__.'/models/schema.php';
 require __DIR__.'/models/auto_update.php';
 require __DIR__.'/models/database.php';
+require __DIR__.'/models/remember_me.php';
 
 if (file_exists('config.php')) require 'config.php';
 
 defined('APP_VERSION') or define('APP_VERSION', 'master');
 defined('HTTP_TIMEOUT') or define('HTTP_TIMEOUT', 20);
 
+defined('BASE_URL_DIRECTORY') or define('BASE_URL_DIRECTORY', dirname($_SERVER['PHP_SELF']));
 defined('ROOT_DIRECTORY') or define('ROOT_DIRECTORY', __DIR__);
 defined('DATA_DIRECTORY') or define('DATA_DIRECTORY', 'data');
 

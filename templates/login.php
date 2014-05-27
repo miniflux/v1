@@ -36,6 +36,8 @@
                 <?= Helper\form_label(t('Password'), 'password') ?>
                 <?= Helper\form_password('password', $values, $errors, array('required')) ?>
 
+                <?= Helper\form_checkbox('remember_me', t('Remember Me'), 1) ?><br/>
+
                 <?php if ($google_auth_enable): ?>
                     <p><br/><a href="?action=google-redirect-auth"><?= t('Login with my Google Account') ?></a></p>
                 <?php endif ?>

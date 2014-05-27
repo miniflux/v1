@@ -2,6 +2,24 @@
 
 namespace Schema;
 
+
+function version_25($pdo)
+{
+    $pdo->exec(
+        'CREATE TABLE remember_me (
+            id INTEGER PRIMARY KEY,
+            username TEXT,
+            ip TEXT,
+            user_agent TEXT,
+            token TEXT,
+            sequence TEXT,
+            expiration INTEGER,
+            date_creation INTEGER
+        )'
+    );
+}
+
+
 function version_24($pdo)
 {
     $pdo->exec("ALTER TABLE config ADD COLUMN auto_update_url TEXT DEFAULT 'https://github.com/fguillot/miniflux/archive/master.zip'");

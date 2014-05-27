@@ -223,4 +223,6 @@ return array(
     'Unable to create the new database.' => 'Impossible créer la nouvelle base de données.',
     'Add a new database (new user)' => 'Ajouter une nouvelle base de données (nouvel utilisateur)',
     'Create' => 'Créer',
+    'Unknown' => 'Inconnu',
+    'Remember Me' => 'Connexion automatique',
 );
