@@ -76,3 +76,9 @@ function file_move($field, $destination)
         move_uploaded_file($_FILES[$field]['tmp_name'], $destination);
     }
 }
+
+
+function is_post()
+{
+    return isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST';
+}

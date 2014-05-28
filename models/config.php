@@ -8,7 +8,7 @@ use PicoDb\Database;
 use PicoFeed\Config as ReaderConfig;
 use PicoFeed\Logging;
 
-const DB_VERSION = 25;
+const DB_VERSION = 26;
 const HTTP_USER_AGENT = 'Miniflux (http://miniflux.net)';
 
 // Get PicoFeed config
@@ -155,7 +155,7 @@ function get_nothing_to_read_redirections()
 function generate_token()
 {
     if (function_exists('openssl_random_pseudo_bytes')) {
-        return bin2hex(\openssl_random_pseudo_bytes(16));
+        return bin2hex(\openssl_random_pseudo_bytes(25));
     }
     else if (ini_get('open_basedir') === '' && strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
         return hash('sha256', file_get_contents('/dev/urandom', false, null, 0, 30));
@@ -170,6 +170,7 @@ function new_tokens()
     $values = array(
         'api_token' => generate_token(),
         'feed_token' => generate_token(),
+        'bookmarklet_token' => generate_token(),
     );
 
     return Database::get('db')->table('config')->update($values);
@@ -232,6 +233,7 @@ function get_all()
             'theme',
             'api_token',
             'feed_token',
+            'bookmarklet_token',
             'auth_google_token',
             'auth_mozilla_token',
             'items_sorting_direction',

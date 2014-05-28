@@ -218,13 +218,18 @@ Router\get_action('add', function() {
 // Add a feed with the form or directly from the url, it can be used by a bookmarklet by example
 Router\action('subscribe', function() {
 
-    if (Request\param('url')) {
-        $values = array();
-        $url = Request\param('url');
-    }
-    else {
+    if (Request\is_post()) {
         $values = Request\values();
         $url = isset($values['url']) ? $values['url'] : '';
+    }
+    else {
+        $values = array();
+        $url = Request\param('url');
+        $token = Request\param('token');
+
+        if ($token !== Model\Config\get('bookmarklet_token')) {
+            Response\text('Access Forbidden', 403);
+        }
     }
 
     $values += array('download_content' => 0);

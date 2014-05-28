@@ -73,7 +73,7 @@
         <ul>
             <li>
                 <?= t('Bookmarklet:') ?>
-                <a href="javascript:location.href='<?= Helper\get_current_base_url() ?>?action=subscribe&amp;url='+encodeURIComponent(location.href)"><?= t('Subscribe with Miniflux') ?></a> (<?= t('Drag and drop this link to your bookmarks') ?>)
+                <a href="javascript:location.href='<?= Helper\get_current_base_url() ?>?action=subscribe&amp;token=<?= urlencode($values['bookmarklet_token']) ?>&amp;url='+encodeURIComponent(location.href)"><?= t('Subscribe with Miniflux') ?></a> (<?= t('Drag and drop this link to your bookmarks') ?>)
             <li>
                 <?= t('Bookmarks RSS Feed:') ?>
                 <a href="<?= Helper\get_current_base_url().'?action=bookmark-feed&amp;token='.urlencode($values['feed_token']) ?>" target="_blank"><?= Helper\get_current_base_url().'?action=bookmark-feed&amp;token='.urlencode($values['feed_token']) ?></a>
