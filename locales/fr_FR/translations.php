@@ -187,7 +187,7 @@ return array(
     'The password is required' => 'Le mot de passe est obligatoire',
     'The minimum length is 6 characters' => 'La longueur minimale est de 6 caractères',
     'The confirmation is required' => 'La confirmation est obligatoire',
-    'Passwords doesn\'t match' => 'Les mots de passe ne sont pas identiques',
+    'Passwords don\'t match' => 'Les mots de passe ne sont pas identiques',
     'Do you really want to remove these items from your history?' => 'Voulez-vous vraiment supprimer les éléments de votre historique ?',
     'Do you really want to remove this subscription: "%s"?' => 'Voulez-vous vraiment supprimer cet abonnement : « %s » ?',
     'Nothing to read, do you want to <a href="?action=refresh-all" data-action="refresh-all">update your subscriptions?</a>' =>

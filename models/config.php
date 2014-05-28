@@ -261,7 +261,7 @@ function validate_modification(array $values)
         $rules[] = new Validators\Required('password', t('The password is required'));
         $rules[] = new Validators\MinLength('password', t('The minimum length is 6 characters'), 6);
         $rules[] = new Validators\Required('confirmation', t('The confirmation is required'));
-        $rules[] = new Validators\Equals('password', 'confirmation', t('Passwords doesn\'t match'));
+        $rules[] = new Validators\Equals('password', 'confirmation', t('Passwords don\'t match'));
     }
 
     $v = new Validator($values, $rules);

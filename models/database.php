@@ -97,7 +97,7 @@ function validate(array $values)
         new Validators\Required('password', t('The password is required')),
         new Validators\MinLength('password', t('The minimum length is 6 characters'), 6),
         new Validators\Required('confirmation', t('The confirmation is required')),
-        new Validators\Equals('password', 'confirmation', t('Passwords doesn\'t match')),
+        new Validators\Equals('password', 'confirmation', t('Passwords don\'t match')),
     ));
 
     return array(

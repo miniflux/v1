@@ -1,6 +1,5 @@
 <?php
 
-require __DIR__.'/check_setup.php';
 require __DIR__.'/lib/Translator.php';
 require __DIR__.'/vendor/PicoDb/Database.php';
 require __DIR__.'/vendor/PicoFeed/PicoFeed.php';
@@ -25,7 +24,9 @@ require __DIR__.'/models/auto_update.php';
 require __DIR__.'/models/database.php';
 require __DIR__.'/models/remember_me.php';
 
-if (file_exists('config.php')) require 'config.php';
+if (file_exists('config.php')) {
+    require 'config.php';
+}
 
 defined('APP_VERSION') or define('APP_VERSION', 'master');
 defined('HTTP_TIMEOUT') or define('HTTP_TIMEOUT', 20);
@@ -52,6 +53,8 @@ defined('ENABLE_AUTO_UPDATE') or define('ENABLE_AUTO_UPDATE', true);
 defined('AUTO_UPDATE_DOWNLOAD_DIRECTORY') or define('AUTO_UPDATE_DOWNLOAD_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'download');
 defined('AUTO_UPDATE_ARCHIVE_DIRECTORY') or define('AUTO_UPDATE_ARCHIVE_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'archive');
 defined('AUTO_UPDATE_BACKUP_DIRECTORY') or define('AUTO_UPDATE_BACKUP_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'backup');
+
+require __DIR__.'/check_setup.php';
 
 PicoDb\Database::bootstrap('db', function() {
 

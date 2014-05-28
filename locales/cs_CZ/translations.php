@@ -102,7 +102,7 @@ return array(
     'The password is required' => 'Heslo je vyžadováno',
     'The minimum length is 6 characters' => 'Minimální délka je 6 znaků',
     'The confirmation is required' => 'Potvrzení je vyžadováno',
-    'Passwords doesn\'t match' => 'Hesla se neshodují',
+    'Passwords don\'t match' => 'Hesla se neshodují',
     'Do you really want to remove these items from your history?' => 'Opravdu chcete odstranit tyto články z historie?',
     'Do you really want to remove this subscription: "%s"?' => 'Opravdu chcete odstranit tento odběr: "%s"?',
     'Nothing to read, do you want to <a href="?action=refresh-all" data-action="refresh-all">update your subscriptions?</a>' =>

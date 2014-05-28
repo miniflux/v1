@@ -98,7 +98,7 @@ return array(
     'The password is required'                  => '密码必填',
     'The minimum length is 6 characters'        => '最小长度是 6 个字符',
     'The confirmation is required'              => '确认密码必填',
-    'Passwords doesn\'t match'                  => '两次输入密码不一致',
+    'Passwords don\'t match'                  => '两次输入密码不一致',
     'Do you really want to remove these items from your history?'   => '你确认要移除这些历史记录吗？',
     'Do you really want to remove this subscription: "%s"?'         => '你确定要移除这个订阅源: "%s" ？',
     'Nothing to read, do you want to <a href="?action=refresh-all" data-action="refresh-all">update your subscriptions?</a>' =>

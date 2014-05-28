@@ -184,7 +184,7 @@ return array(
     'The password is required' => 'Se requiere contraseña',
     'The minimum length is 6 characters' => 'La longitud mínima es de 6 caracteres',
     'The confirmation is required' => 'Se requiere confirmación',
-    'Passwords doesn\'t match' => 'Las contraseñas no coinciden',
+    'Passwords don\'t match' => 'Las contraseñas no coinciden',
     'Do you really want to remove these items from your history?' => '¿De verdad quiere borrar estos ítems del historial?',
     'Do you really want to remove this subscription: "%s"?' => '¿De verdad quiere borrar esta suscripción: "%s"?',
     'Nothing to read, do you want to <a href="?action=refresh-all" data-action="refresh-all">update your subscriptions?</a>' =>
