@@ -54,7 +54,7 @@ if (! function_exists('curl_init') && ! ini_get('allow_url_fopen')) {
 
 // Check if /data is writeable
 if (! is_writable(DATA_DIRECTORY)) {
-    die('The directory "'.DATA_DIRECTORY.'" must be writeable by your web server user');
+    die('The data directory must be writeable by your web server user');
 }
 
 // Include password_compat for PHP < 5.5
