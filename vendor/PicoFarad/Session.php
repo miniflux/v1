@@ -2,7 +2,7 @@
 
 namespace PicoFarad\Session;
 
-const SESSION_LIFETIME = 2678400;
+const SESSION_LIFETIME = 0;
 
 
 function open($base_path = '/', $save_path = '')
