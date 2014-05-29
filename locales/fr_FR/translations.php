@@ -225,4 +225,7 @@ return array(
     'Create' => 'Créer',
     'Unknown' => 'Inconnu',
     'Remember Me' => 'Connexion automatique',
+    'Display items on lists' => 'Mode d\'affichage en listes',
+    'Summaries' => 'Résumés',
+    'Full contents' => 'Contenus complets'
 );

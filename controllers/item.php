@@ -26,6 +26,7 @@ Router\get_action('unread', function() {
     Response\html(Template\layout('unread_items', array(
         'order' => $order,
         'direction' => $direction,
+        'display_mode' => Model\Config\get('items_display_mode'),
         'items' => $items,
         'nb_items' => $nb_items,
         'nb_unread_items' => $nb_items,
@@ -86,6 +87,7 @@ Router\get_action('feed-items', function() {
     Response\html(Template\layout('feed_items', array(
         'order' => $order,
         'direction' => $direction,
+        'display_mode' => Model\Config\get('items_display_mode'),
         'feed' => $feed,
         'items' => $items,
         'nb_items' => $nb_items,

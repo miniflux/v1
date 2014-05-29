@@ -18,9 +18,15 @@
             <?= Helper\escape($item['title']) ?>
         </a>
     </h2>
-    <p class="preview" <?= Helper\isRTL($item['language']) ? 'dir="rtl"' : '' ?>>
-        <?= Helper\escape(Helper\summary(strip_tags($item['content']), 50, 300)) ?>
-    </p>
+    <?php if($display_mode === 'full'): ?>
+        <div class="preview" <?= Helper\isRTL($item['language']) ? 'dir="rtl"' : '' ?>>
+            <?= $item['content'] ?>
+        </div>
+    <?php else: ?>
+        <p class="preview" <?= Helper\isRTL($item['language']) ? 'dir="rtl"' : '' ?>>
+            <?= Helper\escape(Helper\summary(strip_tags($item['content']), 50, 300)) ?>
+        </p>
+    <?php endif ?>
     <ul class="item-menu">
         <li>
             <?php if (! isset($item['feed_title'])): ?>

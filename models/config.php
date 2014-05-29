@@ -8,7 +8,7 @@ use PicoDb\Database;
 use PicoFeed\Config as ReaderConfig;
 use PicoFeed\Logging;
 
-const DB_VERSION = 26;
+const DB_VERSION = 27;
 const HTTP_USER_AGENT = 'Miniflux (http://miniflux.net)';
 
 // Get PicoFeed config
@@ -114,6 +114,15 @@ function get_sorting_directions()
         'asc' => t('Older items first'),
         'desc' => t('Most recent first'),
     );
+}
+
+// Display summaries or full contents on lists
+function get_display_mode()
+{
+	return array(
+		'summaries' => t('Summaries'),
+		'full' => t('Full contents')
+	);
 }
 
 // Autoflush choices for items
@@ -237,6 +246,7 @@ function get_all()
             'auth_google_token',
             'auth_mozilla_token',
             'items_sorting_direction',
+            'items_display_mode',
             'redirect_nothing_to_read',
             'auto_update_url'
         )

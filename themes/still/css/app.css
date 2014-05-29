@@ -52,10 +52,6 @@ pre, code {
     font-weight : normal;
 }
 
-.items p {
-    color: #666;
-}
-
 .items article:hover .preview,
 .items #current-item .preview {
     color: #666;
@@ -66,13 +62,10 @@ pre, code {
     font-family: roboto;
 }
 
-.preview p {
-    color: #ff0000;
-}
-
 .items .preview {
     font-family: roboto;
     text-align: justify;
+    color: #aaa;
 }
 
 .items a:hover {

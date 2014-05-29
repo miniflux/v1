@@ -22,6 +22,7 @@ Router\get_action('history', function() {
         ),
         'order' => '',
         'direction' => '',
+        'display_mode' => Model\Config\get('items_display_mode'),
         'nb_items' => $nb_items,
         'offset' => $offset,
         'items_per_page' => Model\Config\get('items_per_page'),

@@ -430,7 +430,7 @@ nav .active a {
 }
 
 .item-menu,
-.items p {
+.items .preview {
     color: #aaa;
     font-size: 70%;
 }

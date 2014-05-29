@@ -46,6 +46,7 @@ Router\get_action('bookmarks', function() {
     Response\html(Template\layout('bookmarks', array(
         'order' => '',
         'direction' => '',
+        'display_mode' => Model\Config\get('items_display_mode'),
         'items' => Model\Item\get_bookmarks($offset, Model\Config\get('items_per_page')),
         'nb_items' => $nb_items,
         'offset' => $offset,

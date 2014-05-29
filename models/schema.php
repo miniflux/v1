@@ -2,6 +2,10 @@
 
 namespace Schema;
 
+function version_27($pdo)
+{
+    $pdo->exec('ALTER TABLE config ADD COLUMN items_display_mode TEXT DEFAULT "summaries"');
+}
 
 function version_26($pdo)
 {
