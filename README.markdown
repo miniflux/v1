@@ -108,6 +108,7 @@ People who sent a pull-request, report a bug, make a new theme or share a super 
 - Itoine: https://github.com/itoine
 - James Scott-Brown: https://github.com/jamesscottbrown
 - James Barwell: https://github.com/JamesBarwell
+- Julian Oster: https://github.com/jlnostr
 - Luca Marra: https://github.com/facciocose
 - Maxime: https://github.com/EpocDotFr
 - MonsieurPaulLeBoulanger: https://github.com/MonsieurPaulLeBoulanger
