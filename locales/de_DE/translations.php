@@ -151,7 +151,7 @@ return array(
     'Unread items' => 'Ungelesene Einträge',
     'Next' => 'Nächster',
     'Previous' => 'Vorheriger',
-    'Sign in' => 'Registrieren',
+    'Sign in' => 'Anmelden',
     'feeds' => 'abonnements',
     'add' => 'hinzufügen',
     'import' => 'importieren',
