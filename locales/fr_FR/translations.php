@@ -57,8 +57,7 @@ return array(
     'enable full content' => 'télécharger le contenu complet',
     'disable full content' => 'désactiver le téléchargement du contenu',
     'Download full content' => 'Télécharger le contenu complet',
-    'Downloading full content is slower because Miniflux grab the content from the original website. You should use that for subscriptions that display only a summary. This feature doesn\'t work with all websites.' =>
-    'Le téléchargement complet du contenu est plus lent car Miniflux va chercher le contenu sur le site original. Vous devriez utiliser cela uniquement pour les abonnements qui affichent seulement un résumé. Cette fonctionnalité ne marche pas avec tous les sites web.',
+    'Downloading full content is slower because Miniflux grab the content from the original website. You should use that for subscriptions that display only a summary. This feature doesn\'t work with all websites.' => 'Le téléchargement complet du contenu est plus lent car Miniflux va chercher le contenu sur le site original. Vous devriez utiliser cela uniquement pour les abonnements qui affichent seulement un résumé. Cette fonctionnalité ne marche pas avec tous les sites web.',
     'No message' => 'Aucun message',
     'flush messages' => 'supprimer les messages',
     'API endpoint:' => 'URL de l\'API : ',
@@ -87,8 +86,7 @@ return array(
     'Theme' => 'Thème',
     'No item' => 'Aucun élément',
     'items' => 'éléments',
-    'There is %d empty feeds, there is maybe an error: %s...' =>
-    'Il y a %d abonnements vides, il y a peut-être un problème : %s...',
+    'There is %d empty feeds, there is maybe an error: %s...' => 'Il y a %d abonnements vides, il y a peut-être un problème : %s...',
     'Items per page' => 'Nombre d\'éléments par page',
     'Previous page' => 'Page précédente',
     'Next page' => 'Page suivante',
@@ -169,8 +167,6 @@ return array(
     'Add' => 'Ajouter',
     'http://website/' => 'http://site-web/',
     'Yes' => 'Oui',
-    'cancel' => 'annuler',
-    'or' => 'ou',
     'Official website:' => 'Site officiel :',
     'Bad username or password' => 'Mauvais utilisateur ou mot de passe',
     'Unable to update your preferences.' => 'Impossible de mettre à jour vos préférences.',
@@ -190,8 +186,7 @@ return array(
     'Passwords don\'t match' => 'Les mots de passe ne sont pas identiques',
     'Do you really want to remove these items from your history?' => 'Voulez-vous vraiment supprimer les éléments de votre historique ?',
     'Do you really want to remove this subscription: "%s"?' => 'Voulez-vous vraiment supprimer cet abonnement : « %s » ?',
-    'Nothing to read, do you want to <a href="?action=refresh-all" data-action="refresh-all">update your subscriptions?</a>' =>
-    'Il n\'y a rien à lire, voulez-vous <a href="?action=refresh-all" data-action="refresh-all">mettre à jour vos abonnements ?</a>',
+    'Nothing to read, do you want to <a href="?action=refresh-all" data-action="refresh-all">update your subscriptions?</a>' => 'Il n\'y a rien à lire, voulez-vous <a href="?action=refresh-all" data-action="refresh-all">mettre à jour vos abonnements ?</a>',
     'Show help' => 'Afficher l\'aide',
     'Close help' => 'Fermer l\'aide',
     '%d second ago' => 'Il y a %d seconde',
@@ -227,5 +222,5 @@ return array(
     'Remember Me' => 'Connexion automatique',
     'Display items on lists' => 'Mode d\'affichage en listes',
     'Summaries' => 'Résumés',
-    'Full contents' => 'Contenus complets'
+    'Full contents' => 'Contenus complets',
 );
