@@ -68,7 +68,6 @@ Documentation
 - [Multiple users](docs/multiple-users.markdown)
 - [Translations](docs/translations.markdown)
 - [Themes](docs/themes.markdown)
-- [Session](docs/session.markdown)
 - [API documentation](http://miniflux.net/api.html)
 - [FAQ](docs/faq.markdown)
 
