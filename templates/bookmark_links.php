@@ -12,6 +12,7 @@
 <?php else: ?>
     <a
         id="bookmark-<?= $item['id'] ?>"
+        class="item-bookmark"
         href="?action=bookmark&amp;value=1&amp;id=<?= $item['id'] ?>&amp;menu=<?= $menu ?>&amp;offset=<?= $offset ?>&amp;source=<?= $source ?>"
         data-action="bookmark"
         data-item-id="<?= $item['id'] ?>"

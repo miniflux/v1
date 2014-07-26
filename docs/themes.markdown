@@ -35,6 +35,7 @@ Other themes included in the default installation:
 
 - Bootstrap 3 (Light) by Silvus
 - Bootswatch Cyborg by Silvus
+- Cards by Augustin Lacour
 - Copper by Nicolas Dewaele
 - Green by Maxime (aka EpocDotFr)
 - Midnight by Luca Marra

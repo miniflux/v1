@@ -91,6 +91,7 @@ Original author: [Frédéric Guillot](http://fredericguillot.com/)
 People who sent a pull-request, report a bug, make a new theme or share a super cool idea:
 
 - André Kelpe: https://github.com/fs111
+- Augustin Lacour: https://github.com/gugu4-9
 - Ayodio: https://github.com/ayodio
 - Bjauy: https://github.com/bjauy
 - Bohwaz: https://github.com/bohwaz

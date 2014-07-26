@@ -1,5 +1,6 @@
 <article
     id="item-<?= $item['id'] ?>"
+    class="feed-<?= $item['feed_id'] ?>"
     data-item-id="<?= $item['id'] ?>"
     data-item-status="<?= $item['status'] ?>"
     data-item-bookmark="<?= $item['bookmark'] ?>"

@@ -1,0 +1,28 @@
+/*
+Feuille de style contenant la couleur associée à chaque flux
+à remplir manuellement, pour l'instant ;)
+
+A color is associated too every feed,
+feel free to customise it, manualy, for the moment ;)
+
+actual colors from : https://github.com/mrmrs/colors
+*/
+
+
+.feed-1::before{background-color: #001F3F; }
+.feed-2::before{background-color: #7FDBFF; }
+.feed-3::before{background-color: #3D9970; }
+.feed-4::before{background-color: #0074D9; }
+.feed-5::before{background-color: #39CCCC; }
+.feed-6::before{background-color: #2ECC40; }
+.feed-7::before{background-color: #01FF70; }
+.feed-8::before{background-color: #aaa; }
+.feed-9::before{background-color: #111;}
+.feed-10::before{background-color: #FF851B; }
+.feed-11::before{background-color: #F012BE; }
+.feed-12::before{background-color: #fff; }
+.feed-13::before{background-color: #85144B; }
+.feed-14::before{background-color: #B10DC9; }
+.feed-15::before{background-color: #ddd; }
+.feed-16::before{background-color: #FF4136; }
+.feed-17::before{background-color: #FFDC00; }
