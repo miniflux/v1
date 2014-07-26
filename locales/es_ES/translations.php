@@ -138,7 +138,7 @@ return array(
     'About' => 'Acerca',
     'Miniflux version:' => 'Versión de Miniflux:',
     'Nothing to read' => 'No hay nada que leer',
-    '<span id="page-counter">%s</span>unread items' => '<span id="page-counter">%s</span>ítems no leídos',
+    'unread items' => 'ítems no leídos',
     'mark all as read' => 'marcar todo como leído',
     'original link' => 'enlace original',
     'mark as read' => 'marcar como leído',

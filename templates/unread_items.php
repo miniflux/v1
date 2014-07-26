@@ -3,7 +3,7 @@
 <?php else: ?>
 
     <div class="page-header">
-        <h2><?= tne('<span id="page-counter">%s</span>unread items', isset($nb_items) ? $nb_items.' ' : '') ?></h2>
+        <h2><span id="page-counter"><?= isset($nb_items) ? $nb_items : '' ?></span> <?= t('unread items') ?></h2>
         <ul>
             <li>
                 <a href="?action=unread&amp;order=updated&amp;direction=<?= $direction == 'asc' ? 'desc' : 'asc' ?>"><?= tne('sort by date<span class="hide-mobile"> (%s)</span>', $direction == 'desc' ? t('older first') : t('most recent first')) ?></a>

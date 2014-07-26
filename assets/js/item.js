@@ -138,19 +138,30 @@ Miniflux.Item = (function() {
         }
 
         item.parentNode.removeChild(item);
-        var container = document.getElementById("page-counter");
+        var pageCounter = document.getElementById("page-counter");
 
-        if (container) {
+        if (pageCounter) {
+            var page = item.getAttribute("data-item-page");
+            var counter = parseInt(pageCounter.textContent, 10) - 1;
 
-            counter = parseInt(container.textContent.trim(), 10) - 1;
-
-            if (counter == 0) {
-                window.location = "?action=unread";
+            if (counter === 0) {
+                switch (page) {
+                    case "unread":
+                        window.location = "?action=unread";
+                        break;
+                    case "history":
+                        window.location = "?action=history";
+                        break;
+                }
             }
-            else {
-                container.textContent = counter + " ";
-                document.title = "miniflux (" + counter + ")";
+
+            pageCounter.textContent = counter;
+
+            if (page === "unread") {
+                document.title = "Miniflux (" + counter + ")";
                 document.getElementById("nav-counter").textContent = "(" + counter + ")";
+            } else {
+                document.title = pageCounter.parentNode.innerText;
             }
         }
     }
@@ -172,6 +183,16 @@ Miniflux.Item = (function() {
             if (Miniflux.Nav.IsListing()) showItemAsUnread(item_id);
         };
         request.open("POST", "?action=mark-item-unread&id=" + item_id, true);
+        request.send();
+    }
+
+    function markAsRemoved(item_id)
+    {
+        var request = new XMLHttpRequest();
+        request.onload = function() {
+            if (Miniflux.Nav.IsListing()) hideItem(getItem(item_id));
+        };
+        request.open("POST", "?action=mark-item-removed&id=" + item_id, true);
         request.send();
     }
 
@@ -209,6 +230,7 @@ Miniflux.Item = (function() {
         Get: getItem,
         MarkAsRead: markAsRead,
         MarkAsUnread: markAsUnread,
+        MarkAsRemoved: markAsRemoved,
         SwitchBookmark: function(item) {
 
             var bookmarked = item.getAttribute("data-item-bookmark");

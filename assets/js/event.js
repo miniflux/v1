@@ -31,6 +31,10 @@ Miniflux.Event = (function() {
                             e.preventDefault();
                             Miniflux.Item.MarkAsUnread(e.target.getAttribute("data-item-id"));
                             break;
+                        case 'mark-removed':
+                            e.preventDefault();
+                            Miniflux.Item.MarkAsRemoved(e.target.getAttribute("data-item-id"));
+                            break;
                         case 'bookmark':
                             e.preventDefault();
                             Miniflux.Item.SwitchBookmark(Miniflux.Item.Get(e.target.getAttribute("data-item-id")));

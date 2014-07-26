@@ -1,5 +1,12 @@
 <li class="hide-mobile">
-    <a class="item-delete" href="?action=mark-item-removed&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;redirect=<?= $redirect ?>&amp;feed_id=<?= $item['feed_id'] ?>"><?= t('remove') ?></a>
+    <a
+        href="?action=mark-item-removed&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;redirect=<?= $redirect ?>&amp;feed_id=<?= $item['feed_id'] ?>"
+        data-action="mark-removed"
+        data-item-id="<?= $item['id'] ?>"
+        class="item-delete"
+    >
+        <?= t('remove') ?>
+    </a>
 </li>
 <li>
 <?php if ($item['status'] == 'unread'): ?>

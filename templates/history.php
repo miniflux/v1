@@ -3,7 +3,7 @@
 <?php else: ?>
 
     <div class="page-header">
-        <h2><?= t('History') ?> (<?= $nb_items ?>)</h2>
+        <h2><?= t('History') ?> (<span id="page-counter"><?= $nb_items ?></span>)</h2>
         <ul>
             <li><a href="?action=confirm-flush-history"><?= t('flush all items') ?></a></li>
         </ul>

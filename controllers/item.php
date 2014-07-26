@@ -122,6 +122,13 @@ Router\post_action('mark-item-read', function() {
     Response\json(array('Ok'));
 });
 
+// Ajax call to mark item as removed
+Router\post_action('mark-item-removed', function() {
+
+    Model\Item\set_removed(Request\param('id'));
+    Response\json(array('Ok'));
+});
+
 // Ajax call to mark item unread
 Router\post_action('mark-item-unread', function() {
 
