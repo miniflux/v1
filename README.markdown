@@ -110,6 +110,7 @@ People who sent a pull-request, report a bug, make a new theme or share a super 
 - James Barwell: https://github.com/JamesBarwell
 - Julian Oster: https://github.com/jlnostr
 - Luca Marra: https://github.com/facciocose
+- Mathias Kresin: https://github.com/mkresin
 - Maxime: https://github.com/EpocDotFr
 - MonsieurPaulLeBoulanger: https://github.com/MonsieurPaulLeBoulanger
 - Necku: https://github.com/Necku
