@@ -22,6 +22,7 @@
     <?= Helper\form_text('feed_url', $values, $errors, array('required', 'placeholder="http://..."')) ?>
 
     <div class="form-actions">
-        <button type="submit" class="btn btn-blue"><?= t('Edit') ?></button> <?= t('or') ?> <a href="?action=feeds"><?= t('cancel') ?></a>
+        <button type="submit" class="btn btn-blue"><?= t('Save') ?></button>
+        <?= t('or') ?> <a href="?action=feeds"><?= t('cancel') ?></a>
     </div>
 </form>

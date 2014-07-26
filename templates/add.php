@@ -14,5 +14,6 @@
     <p class="form-help"><?= t('Downloading full content is slower because Miniflux grab the content from the original website. You should use that for subscriptions that display only a summary. This feature doesn\'t work with all websites.') ?></p>
     <div class="form-actions">
         <button type="submit" class="btn btn-blue"><?= t('Add') ?></button>
+        <?= t('or') ?> <a href="?action=feeds"><?= t('cancel') ?></a>
     </div>
 </form>

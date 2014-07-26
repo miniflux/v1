@@ -12,5 +12,6 @@
     <input type="file" name="file" required/>
     <div class="form-actions">
         <button type="submit" class="btn btn-blue"><?= t('Import') ?></button>
+        <?= t('or') ?> <a href="?action=feeds"><?= t('cancel') ?></a>
     </div>
 </form>

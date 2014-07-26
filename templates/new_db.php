@@ -21,5 +21,6 @@
 
     <div class="form-actions">
         <button type="submit" class="btn btn-blue"><?= t('Create') ?></button>
+        <?= t('or') ?> <a href="?action=config"><?= t('cancel') ?></a>
     </div>
 </form>
