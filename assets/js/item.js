@@ -12,10 +12,8 @@ Miniflux.Item = (function() {
         return item;
     }
 
-    function changeBookmarkLabel(item_id)
+    function changeLabel(link)
     {
-        var link = document.getElementById("bookmark-" + item_id);
-
         if (link && link.getAttribute("data-reverse-label")) {
             var content = link.innerHTML;
             link.innerHTML = link.getAttribute("data-reverse-label");
@@ -23,7 +21,13 @@ Miniflux.Item = (function() {
         }
     }
 
-    function showItemBookmarked(item_id, item)
+    function changeBookmarkLabel(item_id)
+    {
+        var link = document.getElementById("bookmark-" + item_id);
+        changeLabel(link);
+    }
+
+    function showItemBookmarked(item_id)
     {
         if (! Miniflux.Nav.IsListing()) {
 
@@ -45,7 +49,7 @@ Miniflux.Item = (function() {
         }
     }
 
-    function hideItemBookmarked(item_id, item)
+    function showItemNotBookmarked(item_id)
     {
         if (! Miniflux.Nav.IsListing()) {
 
@@ -64,12 +68,7 @@ Miniflux.Item = (function() {
     function changeStatusLabel(item_id)
     {
         var link = document.getElementById("status-" + item_id);
-
-        if (link) {
-            var content = link.innerHTML;
-            link.innerHTML = link.getAttribute("data-reverse-label");
-            link.setAttribute("data-reverse-label", content);
-        }
+        changeLabel(link);
     }
 
     function showItemAsRead(item_id)
@@ -141,27 +140,26 @@ Miniflux.Item = (function() {
         var pageCounter = document.getElementById("page-counter");
 
         if (pageCounter) {
-            var page = item.getAttribute("data-item-page");
+            var source = item.getAttribute("data-item-page");
             var counter = parseInt(pageCounter.textContent, 10) - 1;
-
-            if (counter === 0) {
-                switch (page) {
-                    case "unread":
-                        window.location = "?action=unread";
-                        break;
-                    case "history":
-                        window.location = "?action=history";
-                        break;
-                }
+            var articles = document.getElementsByTagName("article");
+            
+            if (counter === 0 || articles.length === 0) {
+                window.location = location.href;
             }
 
             pageCounter.textContent = counter;
 
-            if (page === "unread") {
-                document.title = "Miniflux (" + counter + ")";
-                document.getElementById("nav-counter").textContent = "(" + counter + ")";
-            } else {
-                document.title = pageCounter.parentNode.innerText;
+            switch (source) {
+                case "unread":
+                    document.title = "Miniflux (" + counter + ")";
+                    document.getElementById("nav-counter").textContent = "(" + counter + ")";
+                    break;
+                case "feed-items":
+                    document.title = "(" + counter + ") " + pageCounter.parentNode.firstChild.nodeValue;
+                    break;
+                default:
+                    document.title = pageCounter.parentNode.textContent;
             }
         }
     }
@@ -212,10 +210,10 @@ Miniflux.Item = (function() {
                     item.setAttribute("data-item-bookmark", value);
 
                     if (value) {
-                        showItemBookmarked(item_id, item);
+                        showItemBookmarked(item_id);
                     }
                     else {
-                        hideItemBookmarked(item_id, item);
+                        showItemNotBookmarked(item_id);
                     }
                 }
             }
@@ -252,17 +250,6 @@ Miniflux.Item = (function() {
             }
             else if (status == "unread") {
                 markAsRead(item_id);
-            }
-        },
-        ChangeStatus: function(item_id, status) {
-
-            switch (status) {
-                case "read":
-                    markAsRead(item_id);
-                    break;
-                case "unread":
-                    markAsUnread(item_id);
-                    break;
             }
         },
         Show: function(item_id) {
