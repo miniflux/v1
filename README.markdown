@@ -112,6 +112,7 @@ People who sent a pull-request, report a bug, make a new theme or share a super 
 - Luca Marra: https://github.com/facciocose
 - Mathias Kresin: https://github.com/mkresin
 - Maxime: https://github.com/EpocDotFr
+- Meradoou: https://github.com/meradoou
 - MonsieurPaulLeBoulanger: https://github.com/MonsieurPaulLeBoulanger
 - Necku: https://github.com/Necku
 - Nicolas Dewaele: http://adminrezo.fr/

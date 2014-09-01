@@ -33,11 +33,14 @@ Original theme by Frederic Guillot
 
 Other themes included in the default installation:
 
-- Bootstrap 3 (Light) by Silvus
+- Bootstrap Light by Silvus
 - Bootswatch Cyborg by Silvus
 - Cards by Augustin Lacour
 - Copper by Nicolas Dewaele
 - Green by Maxime (aka EpocDotFr)
+- Hello by Mirado (https://github.com/meradoou)
 - Midnight by Luca Marra
 - NoStyle by Frederic Guillot
 - Still by Franklin
+
+**PS: Those themes are maintained and tested by their authors.**
