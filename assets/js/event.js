@@ -71,6 +71,8 @@ Miniflux.Event = (function() {
 
             document.onkeypress = function(e) {
 
+                if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) return;
+
                 Miniflux.Event.lastEventType = "keyboard";
 
                 queue.push(e.keyCode || e.which);
