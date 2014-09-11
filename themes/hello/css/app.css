@@ -97,7 +97,7 @@ header nav li > a:before, .page-header ul li a, .items .item-menu li a {
   font-weight: bold;
   font-style: normal; }
 
-/* 
+/*
 * Oxygen
 *
 */
@@ -416,7 +416,6 @@ section.page {
   position: relative; }
   #current-item > nav {
     position: absolute;
-    width: 180px;
     right: 0;
     top: 0;
     *zoom: 1; }
@@ -441,7 +440,7 @@ section.page {
         text-decoration: none;
         color: #009966; }
       #current-item > nav span.nav-left {
-        float: left; }
+        float: left; margin-right: 10px; }
       #current-item > nav span.nav-right {
         float: right; }
   #current-item > h1 {
