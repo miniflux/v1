@@ -103,15 +103,15 @@ header nav li > a:before, .page-header ul li a, .items .item-menu li a {
 */
 @font-face {
   font-family: 'Oxygen-Sans';
-  src: url("oxygen-sans-webfont.eot");
-  src: url("oxygen-sans-webfont.eot?#iefix") format("embedded-opentype"), url("oxygen-sans-webfont.woff") format("woff"), url("oxygen-sans-webfont.ttf") format("truetype"), url("oxygen-sans-webfont.svg#oxygen-sanssans-book") format("svg");
+  src: url("../fonts/oxygen-sans-webfont.eot");
+  src: url("../fonts/oxygen-sans-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/oxygen-sans-webfont.woff") format("woff"), url("../fonts/oxygen-sans-webfont.ttf") format("truetype"), url("../fonts/oxygen-sans-webfont.svg#oxygen-sanssans-book") format("svg");
   font-weight: normal;
   font-style: normal; }
 
 @font-face {
   font-family: 'Oxygen-Sans';
-  src: url("oxygen-sans-bold-webfont.eot");
-  src: url("oxygen-sans-bold-webfont.eot?#iefix") format("embedded-opentype"), url("oxygen-sans-bold-webfont.woff") format("woff"), url("oxygen-sans-bold-webfont.ttf") format("truetype"), url("oxygen-sans-bold-webfont.svg#oxygen-sanssans-bold") format("svg");
+  src: url("../fonts/oxygen-sans-bold-webfont.eot");
+  src: url("../fonts/oxygen-sans-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/oxygen-sans-bold-webfont.woff") format("woff"), url("../fonts/oxygen-sans-bold-webfont.ttf") format("truetype"), url("../fonts/oxygen-sans-bold-webfont.svg#oxygen-sanssans-bold") format("svg");
   font-weight: bold;
   font-style: normal; }
 
