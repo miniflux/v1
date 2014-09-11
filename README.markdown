@@ -109,6 +109,7 @@ People who sent a pull-request, report a bug, make a new theme or share a super 
 - James Scott-Brown: https://github.com/jamesscottbrown
 - James Barwell: https://github.com/JamesBarwell
 - Julian Oster: https://github.com/jlnostr
+- Jarek: https://github.com/jarek
 - Luca Marra: https://github.com/facciocose
 - Mathias Kresin: https://github.com/mkresin
 - Maxime: https://github.com/EpocDotFr
