@@ -19,7 +19,17 @@ class Database
 
             case 'sqlite':
                 require_once __DIR__.'/Drivers/Sqlite.php';
-                $this->pdo = new Sqlite($settings['filename']);
+                $this->pdo = new Sqlite($settings);
+                break;
+
+            case 'mysql':
+                require_once __DIR__.'/Drivers/Mysql.php';
+                $this->pdo = new Mysql($settings);
+                break;
+
+            case 'postgres':
+                require_once __DIR__.'/Drivers/Postgres.php';
+                $this->pdo = new Postgres($settings);
                 break;
 
             default:

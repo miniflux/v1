@@ -67,6 +67,22 @@ PicoDb\Database::bootstrap('db', function() {
         return $db;
     }
     else {
-        die('Unable to migrate database schema.');
+        $errors = $db->getLogMessages();
+
+        $pdo = new \PDO('sqlite::memory:');
+        $result = $pdo->query('select sqlite_version()', PDO::FETCH_COLUMN, 0);
+        $sqlite_version = $result ? $result->fetch() : '?';
+
+        $html = 'Unable to migrate the database schema, <strong>please copy and paste this message and create a bug report:</strong><hr/>';
+        $html .= '<pre><code>';
+        $html .= (isset($errors[0]) ? $errors[0] : 'Unknown SQL error').PHP_EOL.PHP_EOL;
+        $html .= '- PHP version: '.phpversion().PHP_EOL;
+        $html .= '- SAPI: '.php_sapi_name().PHP_EOL;
+        $html .= '- PDO Sqlite version: '.phpversion('pdo_sqlite').PHP_EOL;
+        $html .= '- Sqlite version: '.$sqlite_version.PHP_EOL;
+        $html .= '- OS: '.php_uname();
+        $html .= '</code></pre>';
+
+        die($html);
     }
 });
