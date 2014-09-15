@@ -1,0 +1,18 @@
+// Convert pixels to ems
+// eg. for a relational value of 12px write em(12) when the parent is 16px
+// if the parent is another value say 24px write em(12, 24)
+
+@function px2cent($pxval) {
+	$reference: 1366px;
+
+  	@return ($pxval * 100%) / $reference;
+}
+
+@mixin box-shadow-flat(){
+	@include box-shadow(0 3px 0 darken($theme-background-highlight, 10%));
+}
+@mixin flat-box($shadowColor, $buttonColor, $radius) {
+	@include border-radius($radius);
+	@include box-shadow(0 3px 0 darken($shadowColor, 10%));
+	background-color: $buttonColor;
+}

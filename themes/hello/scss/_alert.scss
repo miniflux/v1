@@ -1,0 +1,49 @@
+.alert {
+	padding: 5px 10px;
+	border: 1px solid $button-background-grey;
+	margin: 10px 0;
+
+	&.alert-error {
+		background-color: rgba(lighten($alert-warning, 30%), 0.7);
+		color: rgba(darken($alert-error, 40%), .8);
+		font-size: .8em;
+	}
+
+	&.alert-normal {
+		background-color: $theme-background-light;
+		border-width: 0px;
+		padding: {
+			top: 10px;
+			bottom: 10px;
+		}
+		h3 {
+			@extend %title;
+		}
+		ul {
+			list-style-type: square;
+			margin: 10px 40px;
+		}
+	}
+	&.alert-info {
+		background-color: rgba(lighten($alert-info, 30%), 0.7);
+		color: rgba(darken($alert-info, 40%), .8);		
+	}
+
+	&.alert-success {
+		background-color: rgba(lighten($alert-sucess, 30%), 0.7);
+		color: rgba(darken($alert-sucess, 40%), .8);	
+		border-color: darken($theme-background-highlight, 25%);
+	}
+	&#shortcuts {
+		li {
+			strong {
+				&:before {
+					content: " ' ";
+				}
+				&:after {
+					content: " ' ";
+				}
+			}
+		}
+	}
+}

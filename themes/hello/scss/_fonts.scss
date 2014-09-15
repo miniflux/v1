@@ -1,0 +1,16 @@
+// Mont Serrat : utilisé pour les titres
+@import url(http://fonts.googleapis.com/css?family=Montserrat:700,400);
+
+// A partir d'ici, personnaliser et/ou changer les polices ( sauf les icones) de chaque élément 
+%title {
+	font-family: $ui-font-highlight;
+	font-weight: 700;
+	font-size: $ui-font-title-size;	
+}
+
+%paragraph {
+	font: {
+		family: $ui-font-content;
+		size: $ui-font-content-size;
+	}
+}

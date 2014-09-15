@@ -1,0 +1,160 @@
+.items {
+	article {
+
+		@include box-shadow(0 3px 0 darken($theme-background-highlight, 10%));
+		background-color:  $theme-background-light;
+		margin-bottom: 15px;
+		padding: 10px 20px;
+
+		&[data-item-status="read"] {
+			&[data-item-page="feed-items"] {
+				background-color: rgba(lighten(black,60%), .7);
+			}
+		}
+
+		h2 {
+			display: block;
+			margin-bottom:  5px;
+			
+			a {
+				@extend %title;
+				color: #000;
+				text-decoration: none;
+			}
+
+			.feed-last-checked {
+				font-size:  .8em;
+			}
+		}
+		.preview {
+			@extend %paragraph;
+			display: block;
+			line-height: 25px;
+		}
+	}
+
+	.item-menu {
+		font-size:  $ui-font-text-small;
+		margin-top: 5px;
+
+		li {
+			@include inline-block;
+
+			&:before {
+				content: " / ";
+				padding-right: 5px;
+				padding-left: 5px;
+			}
+
+			&:first-child {
+				&:before {
+					display: none;
+				}
+			}
+			a {
+				color: darken($theme-background-highlight, 5%);
+				text-decoration: none;
+
+				&:before {
+					margin-right: 2px;
+					@extend %awesome;
+				}
+
+				&:first-child {
+					&:before {
+						content: "\f0b0";
+					}
+				}
+				&[id*="original-"] {
+					&:before {
+						content: "\f08e";
+					}
+				}
+				&[href*="action=confirm-remove-feed"] {
+					&:before {
+						content: "\f014";
+					}
+				}
+				&[href*="action=edit-feed"] {
+					&:before {
+						content: "\f044";
+					}
+				}
+				&[href*="action=refresh-feed"] {
+					&:before {
+						content: "\f021";
+					}
+				}
+
+				&[id*="bookmark-"] {
+					&:before {
+						content: "\f088";
+					}
+					&[data-reverse-label*="remove"] {
+						&:before {
+							content: "\f087";
+						}
+					}
+				}
+
+
+				&[href*="action=mark-item-removed"] {
+					&:before {
+						content: "\f014";
+						margin-right: 2px;
+					}	
+				}
+				
+				&[id*="status-"] {
+					&:before {
+						content: "\f058";
+					}	
+				}
+				&[href*="action=disable-grabber-feed"] {
+					&:before {
+						content: "\f057";
+					}	
+				}
+				&[href*="action=enable-grabber-feed"] {
+					&:before {
+						content: "\f058";
+					}	
+				}
+				&[href*="action=confirm-disable-feed"] {
+					&:before {
+						content: "\f05c";
+					}	
+				}
+				&[href*="action=enable-feed"] {
+					&:before {
+						content: "\f05d";
+					}	
+				}
+			}
+		}
+	}
+	#bottom-menu {
+		display: none;
+		visibility: hidden;
+	}
+}
+#items-paging {
+	display: block;
+	@include pie-clearfix;
+
+	a {
+		@include flat-box($theme-background-highlight, $button-background-grey, 5px);
+		padding: {
+			left: 10px;
+			right: 10px;
+		}
+		text-decoration: none;
+	}
+
+	#previous-page {
+		float: left;
+	}
+	#next-page {
+		float: right;
+	}
+}

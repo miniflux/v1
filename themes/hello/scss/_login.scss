@@ -1,0 +1,34 @@
+#login-page {
+	background-color:  $theme-background-main ;
+	
+	section {
+		width: auto;
+		position: relative;
+		overflow: visible;
+
+		&.page {
+			margin: 20px;
+			width: 480px;
+		}
+	}
+	.page-header {
+		visibility: hidden;
+	}
+	form {
+		@include border-radius(10px);
+		@include box-shadow(0 3px 0 $theme-background-highlight);
+		background-color: $theme-background-light;
+		margin-left: 20px;
+		padding: 10px;
+
+		> * {
+			margin: 10px;
+		}
+
+		[type="text"],
+		[type="password"] {
+			width: 380px;
+		}
+
+	}
+}

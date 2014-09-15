@@ -1,0 +1,48 @@
+form {
+	background-color: $theme-background-light;
+	padding: 10px;
+	
+	input,
+	button,
+	textarea,
+	select {
+		font-family: $ui-font-content;
+		font-size: 1em;
+		color: darken($button-background-grey, 60%);
+	}
+	input,
+	textarea,
+	select {
+		background-color: white;
+		border: 1px solid $button-background-grey;
+		@include border-radius(5px);
+		padding: 5px;
+
+		&:focus {
+
+		}
+	}
+	label,
+	input,
+	select {
+		@include inline-block(middle);
+	}
+	label[for*="form-"] {
+		width: px2cent(360px);
+	}	
+	input[type="submit"],
+	button[type="button"],
+	button[type="submit"] {
+		background-color: darken($theme-background-highlight, 1%);
+		color: $button-background-grey;
+		@include border-radius(5px);
+		cursor: pointer;
+		padding: 10px;
+		border: 1px solid $button-background-grey;
+	}
+
+	ul {
+		list-style-type: square;
+		margin: 10px 40px;
+	}
+}

@@ -1,0 +1,255 @@
+body {
+	background-color: $theme-background-main;
+	
+	font: {
+		family: $ui-font-content;
+		weight: normal;
+	}
+	line-height: 25px;
+
+	> header,
+	> section {
+		bottom: 0;		
+		top: 0;
+	}
+
+	> section {
+		overflow: auto;
+		position: absolute;
+	}
+}
+// Sidebar
+header {
+	background-color: $theme-background-highlight;
+	left: 0;
+	position: fixed;
+	overflow: hidden;
+	width: px2cent(200px);
+
+	nav {
+		margin: 20px auto;
+		position: relative;
+		width: 90%;
+
+		> ul {
+			margin-top: 30px;
+		}
+
+		li {
+			line-height: 30px;
+
+			&.active {
+				a {
+					color: $link-color-hover;
+				}
+			}
+			> a {
+				color: lighten($theme-background-highlight, 75%);
+				margin-left: 5px;
+				text-decoration: none;
+				font: {
+					family: $ui-font-highlight;
+					weight: bold;
+				}
+
+				&:hover {
+					color:  $link-color-hover;
+				}
+
+				&:before {
+					@extend %awesome;
+					@include inline-block(middle);
+					color: white;
+					margin-right: 10px;
+					text-align: center;
+					width: 24px;
+				}
+
+				&[href="?action=unread"] {
+					&:before {
+						content: "\f0e0" ;
+					}
+				}
+				&[href="?action=bookmarks"] {
+					&:before {
+						content: "\f02e" ;
+					}
+				}
+				&[href="?action=history"] {
+					&:before {
+						content: "\f1da" ;
+					}
+				}
+				&[href="?action=feeds"] {
+					&:before {
+						content: "\f143" ;
+					}
+				}
+				&[href="?action=config"] {
+					&:before {
+						content: "\f1de" ;
+					}
+				}
+				&[href="?action=logout"] {
+					&:before {
+						content: "\f08b" ;
+					}
+				}
+				&[href="?action=more"] {
+					&:before {
+						content: "\f009";
+					}
+				}
+			}
+		}
+	}
+
+	.logo {
+
+		color: white;
+		display: block;
+		font-size: 1.6em;
+		margin: 0 auto;
+		text-align: center;
+		text-decoration: none;
+		width: 70%;
+
+		span {
+			color: lighten($logo-basecolor, 40%);
+		}
+	}
+}
+// Main container
+section {
+	&.page {
+		right: 0;
+		width: px2cent( (1366px - 250px));
+		padding: 10px 20px;
+
+		.page-header{
+			position: relative;
+		}
+
+		a {
+			color: $theme-background-highlight;
+		}
+	}
+}
+// Toolbar
+.page-header {
+	margin: 0  0 15px;
+	@include pie-clearfix;
+
+	 h2 {
+		float: left;
+		line-height: 30px;
+		@extend %title;
+	}
+	 ul {
+		float: right;
+
+		 li {
+			@include inline-block;
+			text-align: center;
+			
+			a ,
+			a:after {
+				overflow: hidden;
+				display: block;
+				height: 25px;
+				text-decoration: none;
+				width: 25px;	
+			}
+			
+			a {
+				background-color: $button-background-grey;
+				color: darken($theme-background-highlight, 5%);
+				position: relative;
+				text-indent: -999px;
+				@include border-radius(5px);
+				@include box-shadow(0 3px 0 $theme-background-highlight);
+				@extend %awesome;
+
+				&:after {
+					position: absolute;
+					top: 0;
+					left: 0;
+					line-height: 25px;
+					z-index: 999;
+					text-indent: 0;
+				}
+				
+			}
+
+			
+			a{
+				&[href*="action=unread"],
+				&[href*="action=feed-items"] {
+					&[href*="direction=asc"] {
+						&:after {
+							content: "\f162";
+						}
+					}					
+				}
+			}
+			a {
+				&[href*="action=unread"],
+				&[href*="action=feed-items"] {
+					&[href*="direction=desc"] {
+						&:after {
+							content: "\f163";
+						}
+					}
+				}
+			}
+
+			a{
+				&[href*="mark-as-read"],
+				&[href*="mark-feed-as-read"] {
+					&:after {
+						content: "\f058";
+					}
+				}
+			}
+			a[href="?action=add"] {
+				&:after {
+					content: "\f067";
+				}
+			}
+			a[href="?action=import"] {
+				&:after {
+					content: "\f093";
+				}
+			}
+			a[href="?action=export"] {
+				&:after {
+					content: "\f019";
+				}
+			}
+			a[href="?action=refresh-all"] {
+				&:after {
+					content: "\f021";
+				}
+			}
+			a[href="?action=confirm-flush-history"] {
+				&:after {
+					content: "\f014";
+				}
+			}
+			a[href="?action=feeds"] {
+				&:after {
+					content: "\f143";
+				}
+			}
+		}
+	}
+}
+ .page-section {
+ 	h2 {
+ 		@extend %title;
+ 		margin: {
+ 			bottom: 15px;
+ 			top: 15px;
+ 		}
+ 	}
+ }
