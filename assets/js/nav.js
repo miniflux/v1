@@ -73,14 +73,6 @@ Miniflux.Nav = (function() {
     }
 
     return {
-        GetCurrentItem: function() {
-            return document.getElementById("current-item");
-        },
-        GetCurrentItemId: function() {
-            var item = Miniflux.Nav.GetCurrentItem();
-            if (item) return item.getAttribute("data-item-id");
-            return null;
-        },
         OpenNextPage: function() {
             var link = document.getElementById("next-page");
             if (link) link.click();

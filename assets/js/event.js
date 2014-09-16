@@ -14,6 +14,19 @@ Miniflux.Event = (function() {
 
                     Miniflux.Event.lastEventType = "mouse";
 
+                    var currentItem = function () {
+                        element = e.target;
+
+                        while (element && element.parentNode) {
+                            element = element.parentNode;
+                            if (element.tagName && element.tagName.toLowerCase() === 'article') {
+                                return element;
+                            }
+                        }
+
+                        return null;
+                    }();
+
                     switch (action) {
                         case 'refresh-all':
                             e.preventDefault();
@@ -25,27 +38,27 @@ Miniflux.Event = (function() {
                             break;
                         case 'mark-read':
                             e.preventDefault();
-                            Miniflux.Item.MarkAsRead(e.target.getAttribute("data-item-id"));
+                            Miniflux.Item.MarkAsRead(currentItem);
                             break;
                         case 'mark-unread':
                             e.preventDefault();
-                            Miniflux.Item.MarkAsUnread(e.target.getAttribute("data-item-id"));
+                            Miniflux.Item.MarkAsUnread(currentItem);
                             break;
                         case 'mark-removed':
                             e.preventDefault();
-                            Miniflux.Item.MarkAsRemoved(e.target.getAttribute("data-item-id"));
+                            Miniflux.Item.MarkAsRemoved(currentItem);
                             break;
                         case 'bookmark':
                             e.preventDefault();
-                            Miniflux.Item.SwitchBookmark(Miniflux.Item.Get(e.target.getAttribute("data-item-id")));
+                            Miniflux.Item.SwitchBookmark(currentItem);
                             break;
                         case 'download-item':
                             e.preventDefault();
-                            Miniflux.Item.DownloadContent();
+                            Miniflux.Item.DownloadContent(currentItem);
                             break;
                         case 'original-link':
                             e.preventDefault();
-                            Miniflux.Item.OpenOriginal(e.target.getAttribute("data-item-id"));
+                            Miniflux.Item.OpenOriginal(currentItem);
                             break;
                         case 'mark-all-read':
                             e.preventDefault();
@@ -77,7 +90,7 @@ Miniflux.Event = (function() {
 
                 queue.push(e.keyCode || e.which);
 
-                if (queue[0] == 103) { // g
+                if (queue[0] === 103) { // g
 
                     switch (queue[1]) {
                         case undefined:
@@ -111,9 +124,13 @@ Miniflux.Event = (function() {
 
                     queue = [];
 
+                    var currentItem = function () {
+                        return document.getElementById("current-item");
+                    }();
+
                     switch (e.keyCode || e.which) {
                         case 100: // d
-                            Miniflux.Item.DownloadContent(Miniflux.Nav.GetCurrentItemId());
+                            Miniflux.Item.DownloadContent(currentItem);
                             break;
                         case 112: // p
                         case 107: // k
@@ -124,16 +141,16 @@ Miniflux.Event = (function() {
                             Miniflux.Nav.SelectNextItem();
                             break;
                         case 118: // v
-                            Miniflux.Item.OpenOriginal(Miniflux.Nav.GetCurrentItemId());
+                            Miniflux.Item.OpenOriginal(currentItem);
                             break;
                         case 111: // o
-                            Miniflux.Item.Show(Miniflux.Nav.GetCurrentItemId());
+                            Miniflux.Item.Show(currentItem);
                             break;
                         case 109: // m
-                            Miniflux.Item.SwitchStatus(Miniflux.Nav.GetCurrentItem());
+                            Miniflux.Item.SwitchStatus(currentItem);
                             break;
                         case 102: // f
-                            Miniflux.Item.SwitchBookmark(Miniflux.Nav.GetCurrentItem());
+                            Miniflux.Item.SwitchBookmark(currentItem);
                             break;
                         case 104: // h
                             Miniflux.Nav.OpenPreviousPage();
@@ -142,8 +159,8 @@ Miniflux.Event = (function() {
                             Miniflux.Nav.OpenNextPage();
                             break;
                         case 114: // r
-                        	Miniflux.Feed.UpdateAll();
-                        	break;
+                            Miniflux.Feed.UpdateAll();
+                            break;
                         case 63: // ?
                             Miniflux.Nav.ShowHelp();
                             break;

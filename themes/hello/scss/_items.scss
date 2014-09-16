@@ -33,7 +33,7 @@ article {
 		&[data-item-bookmark="1"] {
 			.item-menu {
 				a {
-					&[id*="bookmark-"] {
+					&.bookmark {
 						&:before {
 							content: "\f088";
 						}
@@ -45,7 +45,7 @@ article {
 		&[data-item-bookmark="0"] {
 			.item-menu {
 				a {
-					&[id*="bookmark-"] {
+					&.bookmark {
 						&:before {
 							content: "\f087";
 						}
@@ -107,7 +107,7 @@ article {
 						content: "\f0b0";
 					}
 				}
-				&[id*="original-"] {
+				&.original {
 					&:before {
 						content: "\f08e";
 					}
@@ -135,7 +135,7 @@ article {
 					}	
 				}
 				
-				&[id*="status-"] {
+				&.mark {
 					&:before {
 						content: "\f058";
 					}	

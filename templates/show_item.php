@@ -31,28 +31,24 @@
         <?php endif ?>
 
         <h1 <?= Helper\isRTL($item + array('rtl' => $feed['rtl'])) ? 'dir="rtl"' : '' ?>>
-            <a href="<?= $item['url'] ?>" rel="noreferrer" target="_blank" id="original-<?= $item['id'] ?>"><?= Helper\escape($item['title']) ?></a>
+            <a href="<?= $item['url'] ?>" rel="noreferrer" target="_blank" class="original"><?= Helper\escape($item['title']) ?></a>
         </h1>
 
         <ul class="item-infos">
             <li>
             <?php if ($item['bookmark']): ?>
                 <a
-                    id="bookmark-<?=$item['id'] ?>"
+                    class="bookmark-icon"
                     href="?action=bookmark&amp;value=0&amp;id=<?= $item['id'] ?>&amp;source=show&amp;menu=<?= $menu ?>"
                     title="<?= t('remove bookmark') ?>"
-                    class="bookmark-icon"
                     data-action="bookmark"
-                    data-item-id="<?= $item['id'] ?>"
                 ></a>
             <?php else: ?>
                 <a
-                    id="bookmark-<?=$item['id'] ?>"
+                    class="bookmark-icon"
                     href="?action=bookmark&amp;value=1&amp;id=<?= $item['id'] ?>&amp;source=show&amp;menu=<?= $menu ?>"
                     title="<?= t('bookmark') ?>"
-                    class="bookmark-icon"
                     data-action="bookmark"
-                    data-item-id="<?= $item['id'] ?>"
                 ></a>
             <?php endif ?>
             </li>
@@ -74,7 +70,6 @@
             </li>
             <li class="hide-mobile">
                 <span id="download-item"
-                      data-item-id="<?= $item['id'] ?>"
                       data-failure-message="<?= t('unable to fetch content') ?>"
                       data-before-message="<?= t('in progress...') ?>"
                       data-after-message="<?= t('content downloaded') ?>">

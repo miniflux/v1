@@ -4532,9 +4532,6 @@ article.item > .panel-footer + .panel-collapse .panel-body,
 .hide {
   display: none !important;
 }
-.show {
-  display: block !important;
-}
 .invisible {
   visibility: hidden;
 }

@@ -313,9 +313,9 @@ article[data-item-bookmark="0"] .bookmark-icon:before {
     background-color: rgba(153, 153, 153, 0.7); }
   .items article[data-item-status="read"] .read-icon:before {
     content: "✔"; }
-  .items article[data-item-bookmark="1"] .item-menu a[id*="bookmark-"]:before {
+  .items article[data-item-bookmark="1"] .item-menu a.bookmark:before {
     content: "\f088"; }
-  .items article[data-item-bookmark="0"] .item-menu a[id*="bookmark-"]:before {
+  .items article[data-item-bookmark="0"] .item-menu a.bookmark:before {
     content: "\f087"; }
   .items article h2 {
     display: block;
@@ -350,7 +350,7 @@ article[data-item-bookmark="0"] .bookmark-icon:before {
         margin-right: 2px; }
       .items .item-menu li a:first-child:before {
         content: "\f0b0"; }
-      .items .item-menu li a[id*="original-"]:before {
+      .items .item-menu li a.original:before {
         content: "\f08e"; }
       .items .item-menu li a[href*="action=confirm-remove-feed"]:before {
         content: "\f014"; }
@@ -361,7 +361,7 @@ article[data-item-bookmark="0"] .bookmark-icon:before {
       .items .item-menu li a[href*="action=mark-item-removed"]:before {
         content: "\f014";
         margin-right: 2px; }
-      .items .item-menu li a[id*="status-"]:before {
+      .items .item-menu li a.mark:before {
         content: "\f058"; }
       .items .item-menu li a[href*="action=disable-grabber-feed"]:before {
         content: "\f057"; }
