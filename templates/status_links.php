@@ -4,9 +4,7 @@
         data-action="mark-removed"
         data-item-id="<?= $item['id'] ?>"
         class="item-delete"
-    >
-        <?= t('remove') ?>
-    </a>
+    ><?= t('remove') ?></a>
 </li>
 <li>
 <?php if ($item['status'] == 'unread'): ?>
@@ -17,9 +15,7 @@
         data-action="mark-read"
         data-item-id="<?= $item['id'] ?>"
         data-reverse-label="<?= t('mark as unread') ?>"
-    >
-        <?= t('mark as read') ?>
-    </a>
+    ><?= t('mark as read') ?></a>
 <?php else: ?>
     <a
         id="status-<?= $item['id'] ?>"
@@ -27,8 +23,6 @@
         data-action="mark-unread"
         data-item-id="<?= $item['id'] ?>"
         data-reverse-label="<?= t('mark as read') ?>"
-    >
-        <?= t('mark as unread') ?>
-    </a>
+    ><?= t('mark as unread') ?></a>
 <?php endif ?>
 </li>

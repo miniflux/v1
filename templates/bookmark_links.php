@@ -6,9 +6,7 @@
         data-action="bookmark"
         data-item-id="<?= $item['id'] ?>"
         data-reverse-label="<?= t('bookmark') ?>"
-    >
-        <?= t('remove bookmark') ?>
-    </a>
+    ><?= t('remove bookmark') ?></a>
 <?php else: ?>
     <a
         id="bookmark-<?= $item['id'] ?>"
@@ -17,8 +15,6 @@
         data-action="bookmark"
         data-item-id="<?= $item['id'] ?>"
         data-reverse-label="<?= t('remove bookmark') ?>"
-    >
-        <?= t('bookmark') ?>
-    </a>
+    ><?= t('bookmark') ?></a>
 <?php endif ?>
 </li>

@@ -28,7 +28,7 @@
                 <p class="alert alert-error"><?= Helper\escape($errors['login']) ?></p>
             <?php endif ?>
 
-            <form method="post" action="?action=login" class="login-form">
+            <form method="post" action="?action=login" id="login-form">
 
                 <?= Helper\form_label(t('Username'), 'username') ?>
                 <?= Helper\form_text('username', $values, $errors, array('autofocus', 'required')) ?><br/>

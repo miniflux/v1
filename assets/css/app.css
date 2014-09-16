@@ -653,7 +653,7 @@ iframe {
     opacity: 0;
 }
 
-.login-form {
+#login-form {
     margin-bottom: 20px;
 }
 

@@ -15,9 +15,7 @@
             data-item-id="<?= $item['id'] ?>"
             id="show-<?= $item['id'] ?>"
             <?= $item['status'] === 'read' ? 'class="read"' : '' ?>
-        >
-            <?= Helper\escape($item['title']) ?>
-        </a>
+        ><?= Helper\escape($item['title']) ?></a>
     </h2>
     <?php if($display_mode === 'full'): ?>
         <div class="preview" <?= Helper\isRTL($item) ? 'dir="rtl"' : '' ?>>

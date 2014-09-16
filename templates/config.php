@@ -107,7 +107,7 @@
             <li><a href="?action=download-db"><?= t('Download the entire database') ?></a> <?= t('(Gzip compressed Sqlite file)') ?></li>
             <?php if (ENABLE_MULTIPLE_DB): ?>
             <li>
-                <a href="?action=new-db"><?= t('Add a new database (new user)') ?></a></li>
+                <a href="?action=new-db"><?= t('Add a new database (new user)') ?></a>
             </li>
             <?php endif ?>
         </ul>
@@ -117,7 +117,7 @@
         <h3><?= t('About') ?></h3>
         <ul>
             <li><?= t('Miniflux version:') ?> <strong><?= APP_VERSION ?></strong></li>
-            <li><?= t('Official website:') ?> <a href="http://miniflux.net" rel="noreferer" target="_blank">http://miniflux.net</a></li>
+            <li><?= t('Official website:') ?> <a href="http://miniflux.net" rel="noreferrer" target="_blank">http://miniflux.net</a></li>
             <?php if (ENABLE_AUTO_UPDATE): ?>
                 <li><a href="?action=auto-update"><?= t('Update Miniflux') ?></a> (<?= t('Don\'t forget to backup your database') ?>)</li>
             <?php endif ?>
