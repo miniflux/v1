@@ -29,38 +29,14 @@ Miniflux.Item = (function() {
 
     function showItemBookmarked(item_id)
     {
-        if (! Miniflux.Nav.IsListing()) {
-
-            var link = document.getElementById("bookmark-" + item_id);
-            if (link) link.innerHTML = "★";
-        }
-        else {
-
-            var link = document.getElementById("show-" + item_id);
-
-            if (link) {
-                var icon = document.createElement("span");
-                icon.id = "bookmark-icon-" + item_id;
-                icon.appendChild(document.createTextNode("★ "));
-                link.parentNode.insertBefore(icon, link);
-            }
-
+        if (Miniflux.Nav.IsListing()) {
             changeBookmarkLabel(item_id);
         }
     }
 
     function showItemNotBookmarked(item_id)
     {
-        if (! Miniflux.Nav.IsListing()) {
-
-            var link = document.getElementById("bookmark-" + item_id);
-            if (link) link.innerHTML = "☆";
-        }
-        else {
-
-            var icon = document.getElementById("bookmark-icon-" + item_id);
-            if (icon) icon.parentNode.removeChild(icon);
-
+        if (Miniflux.Nav.IsListing()) {
             changeBookmarkLabel(item_id);
         }
     }
@@ -84,18 +60,6 @@ Miniflux.Item = (function() {
                 item.setAttribute("data-item-status", "read");
                 changeStatusLabel(item_id);
 
-                // Show icon
-                var link = document.getElementById("show-" + item_id);
-
-                if (link) {
-                    link.className = "read";
-
-                    var icon = document.createElement("span");
-                    icon.id = "read-icon-" + item_id;
-                    icon.appendChild(document.createTextNode("✔ "));
-                    link.parentNode.insertBefore(icon, link);
-                }
-
                 // Change action
                 link = document.getElementById("status-" + item_id);
                 if (link) link.setAttribute("data-action", "mark-unread");
@@ -115,13 +79,6 @@ Miniflux.Item = (function() {
 
                 item.setAttribute("data-item-status", "unread");
                 changeStatusLabel(item_id);
-
-                // Remove icon
-                var link = document.getElementById("show-" + item_id);
-                if (link) link.className = "";
-
-                var icon = document.getElementById("read-icon-" + item_id);
-                if (icon) icon.parentNode.removeChild(icon);
 
                 // Change action
                 link = document.getElementById("status-" + item_id);

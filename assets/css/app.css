@@ -317,6 +317,20 @@ a.btn-red:hover,
     background: #357ae8;
 }
 
+/* icons */
+article[data-item-status="read"] .read-icon:before {
+    content: "✔";
+}
+
+article[data-item-bookmark="1"] .bookmark-icon:before {
+    content: "★";
+}
+
+/* not bookmarked icon only in article view */
+article[data-item-bookmark="0"] .item-infos .bookmark-icon:before {
+    content: "☆";
+}
+
 /* counter brackets */
 span#nav-counter:not(:empty):before, span#page-counter:not(:empty):before {
     content: " (";
@@ -472,7 +486,7 @@ nav .active a {
     color: #555;
 }
 
-.items a.read {
+.items article[data-item-status="read"] h2 a {
     color: #666;
 }
 

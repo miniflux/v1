@@ -44,7 +44,7 @@
                     class="bookmark-icon"
                     data-action="bookmark"
                     data-item-id="<?= $item['id'] ?>"
-                >★</a>
+                ></a>
             <?php else: ?>
                 <a
                     id="bookmark-<?=$item['id'] ?>"
@@ -53,7 +53,7 @@
                     class="bookmark-icon"
                     data-action="bookmark"
                     data-item-id="<?= $item['id'] ?>"
-                >☆</a>
+                ></a>
             <?php endif ?>
             </li>
             <li>

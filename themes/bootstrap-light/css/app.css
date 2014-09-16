@@ -5283,6 +5283,15 @@ body > header > nav > ul li.hide-mobile {
 .item blockquote p {
   font-size: 15px;
 }
+article[data-item-status="read"] .read-icon:before {
+  content: "✔";
+}
+article[data-item-bookmark="1"] .bookmark-icon:before {
+  content: "★";
+}
+article[data-item-bookmark="0"] .item-infos .bookmark-icon:before {
+  content: "☆";
+}
 article img {
   max-width: 100%;
 }

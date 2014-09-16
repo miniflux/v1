@@ -8,13 +8,12 @@
     <?= $hide ? 'data-hide="true"' : '' ?>
     >
     <h2 <?= Helper\isRTL($item) ? 'dir="rtl"' : '' ?>>
-        <?= $item['bookmark'] ? '<span id="bookmark-icon-'.$item['id'].'">★ </span>' : '' ?>
-        <?= $item['status'] === 'read' ? '<span id="read-icon-'.$item['id'].'">✔ </span>' : '' ?>
+        <span class="bookmark-icon"></span>
+        <span class="read-icon"></span>
         <a
             href="?action=show&amp;menu=<?= $menu ?>&amp;id=<?= $item['id'] ?>"
             data-item-id="<?= $item['id'] ?>"
             id="show-<?= $item['id'] ?>"
-            <?= $item['status'] === 'read' ? 'class="read"' : '' ?>
         ><?= Helper\escape($item['title']) ?></a>
     </h2>
     <?php if($display_mode === 'full'): ?>

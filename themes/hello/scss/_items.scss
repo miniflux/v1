@@ -1,3 +1,17 @@
+article {
+	&[data-item-bookmark="1"] {
+		.bookmark-icon:before {
+			content: $icon-bookmarked;
+		}
+	}
+			
+	&[data-item-bookmark="0"] {
+		.bookmark-icon:before {
+			content: $icon-not-bookmarked;
+		}
+	}
+}
+
 .items {
 	article {
 
@@ -9,6 +23,10 @@
 		&[data-item-status="read"] {
 			&[data-item-page="feed-items"] {
 				background-color: rgba(lighten(black,60%), .7);
+			}
+
+			.read-icon:before {
+				content: $icon-read;
 			}
 		}
 
