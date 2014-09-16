@@ -153,13 +153,13 @@ Miniflux.Item = (function() {
             switch (source) {
                 case "unread":
                     document.title = "Miniflux (" + counter + ")";
-                    document.getElementById("nav-counter").textContent = "(" + counter + ")";
+                    document.getElementById("nav-counter").textContent = counter;
                     break;
                 case "feed-items":
                     document.title = "(" + counter + ") " + pageCounter.parentNode.firstChild.nodeValue;
                     break;
                 default:
-                    document.title = pageCounter.parentNode.textContent;
+                    document.title = pageCounter.parentNode.firstChild.nodeValue + " (" + counter + ")";
             }
         }
     }

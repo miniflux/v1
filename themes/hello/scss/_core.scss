@@ -119,6 +119,34 @@ header {
 		}
 	}
 }
+
+// Counter
+span {
+    &#nav-counter,
+    &#page-counter {
+        &:not(:empty) {
+            &:before {
+                content: " " + $icon-bracket-open;
+            }
+        
+            &:after {
+                content: $icon-bracket-close;
+            }
+        }
+    }
+    
+    &[id^="items-count-"] {
+        &:before {
+            content: $icon-bracket-open;
+        }
+        
+        &:after {
+            content: $icon-bracket-close;
+        }
+    }
+}
+
+
 // Main container
 section {
 	&.page {

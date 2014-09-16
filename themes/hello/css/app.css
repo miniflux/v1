@@ -212,6 +212,15 @@ header {
     header .logo span {
       color: #b3e6cc; }
 
+span#nav-counter:not(:empty):before, span#page-counter:not(:empty):before {
+  content: " ("; }
+span#nav-counter:not(:empty):after, span#page-counter:not(:empty):after {
+  content: ")"; }
+span[id^="items-count-"]:before {
+  content: "("; }
+span[id^="items-count-"]:after {
+  content: ")"; }
+
 section.page {
   right: 0;
   width: 81.69839%;

@@ -317,6 +317,19 @@ a.btn-red:hover,
     background: #357ae8;
 }
 
+/* counter brackets */
+span#nav-counter:not(:empty):before, span#page-counter:not(:empty):before {
+    content: " (";
+}
+
+span[id^="items-count-"]:before {
+    content: "(";
+}
+
+span#nav-counter:not(:empty):after, span#page-counter:not(:empty):after, span[id^="items-count-"]:after {
+    content: ")";
+}
+
 /* header */
 header {
     margin-bottom: 50px;

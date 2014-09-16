@@ -5,7 +5,7 @@
 <?php else: ?>
 
     <div class="page-header">
-        <h2><?= Helper\escape($feed['title']) ?> (<span id="page-counter"><?= $nb_items ?></span>)</h2>
+        <h2><?= Helper\escape($feed['title']) ?><span id="page-counter"><?= isset($nb_items) ? $nb_items : '' ?></span></h2>
         <ul>
             <li>
                 <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>&amp;order=updated&amp;direction=<?= $direction == 'asc' ? 'desc' : 'asc' ?>"><?= tne('sort by date<span class="hide-mobile"> (%s)</span>', $direction == 'desc' ? t('older first') : t('most recent first')) ?></a>

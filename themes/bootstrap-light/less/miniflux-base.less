@@ -41,6 +41,32 @@ header > nav > ul li:nth-child(4) a:before {content:"\e012";} // Subscriptions
 header > nav > ul li:nth-child(5) a:before {content:"\1f527";} // Préférences
 header > nav > ul li:nth-child(6) a:before {content:"\e017";} // Logout
 
+// Counter
+span {
+    &#nav-counter,
+    &#page-counter {
+        &:not(:empty) {
+            &:before {
+                content: " @{icon-bracket-open}";
+            }
+        
+            &:after {
+                content: "@{icon-bracket-close}";
+            }
+        }
+    }
+    
+    &[id^="items-count-"] {
+        &:before {
+            content: "@{icon-bracket-open}";
+        }
+        
+        &:after {
+            content: "@{icon-bracket-close}";
+        }
+    }
+}
+
 // Logo
 .logo {
 	min-width: 100px;

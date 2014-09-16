@@ -211,7 +211,7 @@ table {
   img {
     max-width: 100% !important;
   }
-  @page  {
+  @page {
     margin: 2cm .5cm;
   }
   p,
@@ -5077,6 +5077,20 @@ header > nav > ul li:nth-child(5) a:before {
 }
 header > nav > ul li:nth-child(6) a:before {
   content: "\e017";
+}
+span#nav-counter:not(:empty):before,
+span#page-counter:not(:empty):before {
+  content: " (";
+}
+span#nav-counter:not(:empty):after,
+span#page-counter:not(:empty):after {
+  content: ")";
+}
+span[id^="items-count-"]:before {
+  content: "(";
+}
+span[id^="items-count-"]:after {
+  content: ")";
 }
 .logo {
   min-width: 100px;
