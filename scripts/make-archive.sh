@@ -1,14 +1,31 @@
 #!/bin/sh
 
 VERSION=$1
+APP="miniflux"
 
 cd /tmp
-rm -rf /tmp/miniflux /tmp/miniflux-*.zip 2>/dev/null
-git clone git@github.com:fguillot/miniflux.git
-rm -rf miniflux/data/*.sqlite miniflux/.git miniflux/.gitignore miniflux/scripts miniflux/examples
-find miniflux -name *.less -delete
-sed -i.bak s/master/$VERSION/g miniflux/common.php && rm -f miniflux/*.bak
-zip -r miniflux-$VERSION.zip miniflux
-mv miniflux-*.zip ~/Devel/websites/miniflux
-rm -rf /tmp/miniflux 2>/dev/null
+rm -rf /tmp/$APP /tmp/$APP-*.zip 2>/dev/null
 
+git clone --depth 1 git@github.com:fguillot/$APP.git
+
+rm -rf $APP/data/*.sqlite \
+       $APP/.git \
+       $APP/.gitignore \
+       $APP/scripts \
+       $APP/docs \
+       $APP/README.*
+
+find $APP -name *.less -delete
+find $APP -name *.scss -delete
+find $APP -name *.rb -delete
+
+sed -i.bak s/master/$VERSION/g $APP/common.php && rm -f $APP/*.bak
+
+zip -r $APP-$VERSION.zip $APP
+mv $APP-*.zip ~/Devel/websites/$APP
+
+cd ~/Devel/websites/$APP/
+unlink $APP-latest.zip
+ln -s $APP-$VERSION.zip $APP-latest.zip
+
+rm -rf /tmp/$APP 2>/dev/null
