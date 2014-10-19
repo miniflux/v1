@@ -234,11 +234,11 @@ Router\action('subscribe', function() {
 
     $values += array('download_content' => 0);
     $url = trim($url);
-    $result = Model\Feed\create($url, $values['download_content']);
+    $feed_id = Model\Feed\create($url, $values['download_content']);
 
-    if ($result) {
+    if ($feed_id) {
         Session\flash(t('Subscription added successfully.'));
-        Response\redirect('?action=feeds');
+        Response\redirect('?action=feed-items&feed_id='.$feed_id);
     }
     else {
         Session\flash_error(t('Unable to find a subscription.'));
