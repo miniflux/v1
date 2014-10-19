@@ -8,8 +8,7 @@ How the content grabber works?
 
 1. Try with rules first (xpath patterns) for the domain name (see `PicoFeed\Rules\`)
 2. Try to find the text content by using common attributes for class and id
-3. Fallback to Readability if no content is found
-4. Finally, if nothing is found, the feed content is displayed
+3. Finally, if nothing is found, the feed content is displayed
 
 The content downloader use a fake user agent, actually Google Chrome under Mac Os X.
 

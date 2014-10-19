@@ -8,7 +8,6 @@ use PicoFeed\Logging;
 use PicoFeed\Grabber;
 use PicoFeed\Client;
 use PicoFeed\Filter;
-use Readability;
 
 // Get all items without filtering
 function get_everything()
@@ -535,12 +534,9 @@ function download_content_url($url)
     if ($grabber->parse()) {
         $content = $grabber->getcontent();
     }
-    else {
-        $content = download_content_readability($grabber->getRawContent(), $url);
-    }
 
     if (! empty($content)) {
-        $filter = new Filter($content, $url);
+        $filter = Filter::html($content, $url);
         $filter->setConfig(Config\get_reader_config());
         $content = $filter->execute();
     }
@@ -579,19 +575,4 @@ function download_content_id($item_id)
         'result' => false,
         'content' => ''
     );
-}
-
-// Download content with Readability PHP port
-function download_content_readability($content, $url)
-{
-    if (! empty($content)) {
-
-        $readability = new Readability($content, $url);
-
-        if ($readability->init()) {
-            return $readability->getContent()->innerHTML;
-        }
-    }
-
-    return '';
 }

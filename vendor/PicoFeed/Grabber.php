@@ -3,10 +3,6 @@
 namespace PicoFeed;
 
 use DOMXPath;
-use PicoFeed\Logging;
-use PicoFeed\Client;
-use PicoFeed\Encoding;
-use PicoFeed\Filter;
 
 /**
  * Grabber class
@@ -224,20 +220,9 @@ class Grabber
     public function download()
     {
         $client = Client::getInstance();
-
-        if ($this->config !== null) {
-
-            $client->setTimeout($this->config->getGrabberTimeout())
-                   ->setUserAgent($this->config->getGrabberUserAgent())
-                   ->setMaxRedirections($this->config->getMaxRedirections())
-                   ->setMaxBodySize($this->config->getMaxBodySize())
-                   ->setProxyHostname($this->config->getProxyHostname())
-                   ->setProxyPort($this->config->getProxyPort())
-                   ->setProxyUsername($this->config->getProxyUsername())
-                   ->setProxyPassword($this->config->getProxyPassword());
-        }
-
+        $client->setConfig($this->config);
         $client->execute($this->url);
+
         $this->html = $client->getContent();
         $this->encoding = $client->getEncoding();
 
@@ -253,6 +238,11 @@ class Grabber
     public function getRules()
     {
         $hostname = parse_url($this->url, PHP_URL_HOST);
+
+        if ($hostname === false) {
+            return false;
+        }
+
         $files = array($hostname);
 
         if (substr($hostname, 0, 4) == 'www.') {

@@ -3,6 +3,7 @@
 namespace PicoFeed;
 
 use DomDocument;
+use DOMXPath;
 use SimpleXmlElement;
 
 /**
@@ -111,6 +112,20 @@ class XmlParser
     }
 
     /**
+     * Convert a HTML document to XML
+     *
+     * @static
+     * @access public
+     * @param  string   $html   HTML document
+     * @return string
+     */
+    public static function HtmlToXml($html)
+    {
+        $dom = self::getHtmlDocument('<?xml version="1.0" encoding="UTF-8">'.$html);
+        return $dom->saveXML($dom->getElementsByTagName('body')->item(0));
+    }
+
+    /**
      * Get XML parser errors
      *
      * @static
@@ -159,5 +174,59 @@ class XmlParser
         }
 
         return $encoding;
+    }
+
+    /**
+     * Get xml:lang value
+     *
+     * @static
+     * @access public
+     * @param  string  $xml  XML string
+     * @return string        Language
+     */
+    public static function getXmlLang($xml)
+    {
+        $dom = self::getDomDocument($xml);
+
+        if ($dom === false) {
+            return '';
+        }
+
+        $xpath = new DOMXPath($dom);
+        return $xpath->evaluate('string(//@xml:lang[1])') ?: '';
+    }
+
+    /**
+     * Get a value from a XML namespace
+     *
+     * @static
+     * @access public
+     * @param  SimpleXMLElement     $xml           XML element
+     * @param  array                $namespaces    XML namespaces
+     * @param  string               $property      XML tag name
+     * @param  string               $attribute     XML attribute name
+     * @return string
+     */
+    public static function getNamespaceValue(SimpleXMLElement $xml, array $namespaces, $property, $attribute = '')
+    {
+        foreach ($namespaces as $name => $url) {
+            $namespace = $xml->children($namespaces[$name]);
+
+            if ($namespace->$property->count() > 0) {
+
+                if ($attribute) {
+
+                    foreach ($namespace->$property->attributes() as $xml_attribute => $xml_value) {
+                        if ($xml_attribute === $attribute && $xml_value) {
+                            return (string) $xml_value;
+                        }
+                    }
+                }
+
+                return (string) $namespace->$property;
+            }
+        }
+
+        return '';
     }
 }

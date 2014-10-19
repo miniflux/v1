@@ -3,7 +3,6 @@
 require __DIR__.'/lib/Translator.php';
 require __DIR__.'/vendor/PicoDb/Database.php';
 require __DIR__.'/vendor/PicoFeed/PicoFeed.php';
-require __DIR__.'/vendor/Readability/Readability.php';
 
 require __DIR__.'/vendor/SimpleValidator/Validator.php';
 require __DIR__.'/vendor/SimpleValidator/Base.php';

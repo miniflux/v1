@@ -75,7 +75,7 @@ class Rss20 extends Writer
         $channel->appendChild($description);
 
         // <pubDate/>
-        $this->addPubDate($channel, isset($this->updated) ? $this->updated : '');
+        $this->addPubDate($channel, $this->updated);
 
         // <atom:link/>
         $link = $this->dom->createElement('atom:link');
@@ -94,56 +94,8 @@ class Rss20 extends Writer
 
         // <item/>
         foreach ($this->items as $item) {
-
             $this->checkRequiredProperties($this->required_item_properties, $item);
-
-            $entry = $this->dom->createElement('item');
-
-            // <title/>
-            $title = $this->dom->createElement('title');
-            $title->appendChild($this->dom->createTextNode($item['title']));
-            $entry->appendChild($title);
-
-            // <link/>
-            $link = $this->dom->createElement('link');
-            $link->appendChild($this->dom->createTextNode($item['url']));
-            $entry->appendChild($link);
-
-            // <guid/>
-            if (isset($item['id'])) {
-                $guid = $this->dom->createElement('guid');
-                $guid->setAttribute('isPermaLink', 'false');
-                $guid->appendChild($this->dom->createTextNode($item['id']));
-                $entry->appendChild($guid);
-            }
-            else {
-                $guid = $this->dom->createElement('guid');
-                $guid->setAttribute('isPermaLink', 'true');
-                $guid->appendChild($this->dom->createTextNode($item['url']));
-                $entry->appendChild($guid);
-            }
-
-            // <pubDate/>
-            $this->addPubDate($entry, isset($item['updated']) ? $item['updated'] : '');
-
-            // <description/>
-            if (isset($item['summary'])) {
-                $description = $this->dom->createElement('description');
-                $description->appendChild($this->dom->createTextNode($item['summary']));
-                $entry->appendChild($description);
-            }
-
-            // <content/>
-            if (isset($item['content'])) {
-                $content = $this->dom->createElement('content:encoded');
-                $content->appendChild($this->dom->createCDATASection($item['content']));
-                $entry->appendChild($content);
-            }
-
-            // <author/>
-            if (isset($item['author'])) $this->addAuthor($entry, 'author', $item['author']);
-
-            $channel->appendChild($entry);
+            $channel->appendChild($this->createEntry($item));
         }
 
         $rss->appendChild($channel);
@@ -158,13 +110,73 @@ class Rss20 extends Writer
     }
 
     /**
+     * Create item entry
+     *
+     * @access public
+     * @param  arrray    $item    Item properties
+     * @return DomElement
+     */
+    public function createEntry(array $item)
+    {
+        $entry = $this->dom->createElement('item');
+
+        // <title/>
+        $title = $this->dom->createElement('title');
+        $title->appendChild($this->dom->createTextNode($item['title']));
+        $entry->appendChild($title);
+
+        // <link/>
+        $link = $this->dom->createElement('link');
+        $link->appendChild($this->dom->createTextNode($item['url']));
+        $entry->appendChild($link);
+
+        // <guid/>
+        if (isset($item['id'])) {
+            $guid = $this->dom->createElement('guid');
+            $guid->setAttribute('isPermaLink', 'false');
+            $guid->appendChild($this->dom->createTextNode($item['id']));
+            $entry->appendChild($guid);
+        }
+        else {
+            $guid = $this->dom->createElement('guid');
+            $guid->setAttribute('isPermaLink', 'true');
+            $guid->appendChild($this->dom->createTextNode($item['url']));
+            $entry->appendChild($guid);
+        }
+
+        // <pubDate/>
+        $this->addPubDate($entry, isset($item['updated']) ? $item['updated'] : '');
+
+        // <description/>
+        if (isset($item['summary'])) {
+            $description = $this->dom->createElement('description');
+            $description->appendChild($this->dom->createTextNode($item['summary']));
+            $entry->appendChild($description);
+        }
+
+        // <content/>
+        if (isset($item['content'])) {
+            $content = $this->dom->createElement('content:encoded');
+            $content->appendChild($this->dom->createCDATASection($item['content']));
+            $entry->appendChild($content);
+        }
+
+        // <author/>
+        if (isset($item['author'])) {
+            $this->addAuthor($entry, 'author', $item['author']);
+        }
+
+        return $entry;
+    }
+
+    /**
      * Add publication date
      *
      * @access public
      * @param  DomElement   $xml     XML node
-     * @param  string       $value   Timestamp
+     * @param  integer      $value   Timestamp
      */
-    public function addPubDate(DomElement $xml, $value = '')
+    public function addPubDate(DomElement $xml, $value = 0)
     {
         $xml->appendChild($this->dom->createElement(
             'pubDate',

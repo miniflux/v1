@@ -6,9 +6,10 @@ use SimpleXMLElement;
 use PicoFeed\Parser;
 use PicoFeed\XmlParser;
 use PicoFeed\Logging;
-use PicoFeed\Filter;
 use PicoFeed\Feed;
+use PicoFeed\Filter;
 use PicoFeed\Item;
+use PicoFeed\Url;
 
 /**
  * Atom parser
@@ -43,6 +44,30 @@ class Atom extends Parser
     }
 
     /**
+     * Find the feed description
+     *
+     * @access public
+     * @param  SimpleXMLElement   $xml     Feed xml
+     * @param  \PicoFeed\Feed     $feed    Feed object
+     */
+    public function findFeedDescription(SimpleXMLElement $xml, Feed $feed)
+    {
+        $feed->description = (string) $xml->subtitle;
+    }
+
+    /**
+     * Find the feed logo url
+     *
+     * @access public
+     * @param  SimpleXMLElement   $xml     Feed xml
+     * @param  \PicoFeed\Feed     $feed    Feed object
+     */
+    public function findFeedLogo(SimpleXMLElement $xml, Feed $feed)
+    {
+        $feed->logo = (string) $xml->logo;
+    }
+
+    /**
      * Find the feed title
      *
      * @access public
@@ -51,7 +76,7 @@ class Atom extends Parser
      */
     public function findFeedTitle(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->title = $this->stripWhiteSpace((string) $xml->title) ?: $feed->url;
+        $feed->title = Filter::stripWhiteSpace((string) $xml->title) ?: $feed->url;
     }
 
     /**
@@ -63,7 +88,7 @@ class Atom extends Parser
      */
     public function findFeedLanguage(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->language = $this->getXmlLang($this->content);
+        $feed->language = XmlParser::getXmlLang($this->content);
     }
 
     /**
@@ -107,11 +132,11 @@ class Atom extends Parser
      *
      * @access public
      * @param  SimpleXMLElement   $entry   Feed item
-     * @param  Item           $item    Item object
+     * @param  Item               $item    Item object
      */
     public function findItemTitle(SimpleXMLElement $entry, Item $item)
     {
-        $item->title = $this->stripWhiteSpace((string) $entry->title);
+        $item->title = Filter::stripWhiteSpace((string) $entry->title);
 
         if (empty($item->title)) {
             $item->title = $item->url;
@@ -145,7 +170,7 @@ class Atom extends Parser
      */
     public function findItemContent(SimpleXMLElement $entry, Item $item)
     {
-        $item->content = $this->filterHtml($this->getContent($entry), $item->url);
+        $item->content = $this->getContent($entry);
     }
 
     /**
@@ -202,13 +227,8 @@ class Atom extends Parser
         foreach ($entry->link as $link) {
             if ((string) $link['rel'] === 'enclosure') {
 
-                $item->enclosure_url = (string) $link['href'];
+                $item->enclosure_url = Url::resolve((string) $link['href'], $feed->url);
                 $item->enclosure_type = (string) $link['type'];
-
-                if (Filter::isRelativePath($item->enclosure_url)) {
-                    $item->enclosure_url = Filter::getAbsoluteUrl($item->enclosure_url, $feed->url);
-                }
-
                 break;
             }
         }
