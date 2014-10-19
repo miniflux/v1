@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title><?= isset($title) ? Helper\escape($title) : 'Miniflux' ?></title>
+        <title><?= isset($title) ? Helper\escape($title) : t('Miniflux') ?></title>
 
         <meta name="viewport" content="width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
@@ -20,7 +20,7 @@
     <body>
         <header>
             <nav>
-                <a class="logo" href="?">mini<span>flux</span></a>
+                <a class="logo" href="?"><?= tne('mini<span>flux</span>') ?></a>
                 <ul>
                     <li <?= isset($menu) && $menu === 'unread' ? 'class="active"' : '' ?>>
                         <a href="?action=unread"><?= t('unread') ?> <span id="nav-counter"><?= isset($nb_unread_items) ? '('.$nb_unread_items.')' : '' ?></span></a>

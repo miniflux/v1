@@ -228,4 +228,6 @@ return array(
     'Force RTL mode (Right-to-left language)' => 'Forcer le mode RTL (Lecture de droite à gauche)',
     'Activated' => 'Activé',
     'Remove this feed' => 'Supprimer cet abonnement',
+    'Miniflux' => 'Miniflux',
+    'mini<span>flux</span>' => 'mini<span>flux</span>',
 );
