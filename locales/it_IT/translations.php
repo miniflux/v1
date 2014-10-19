@@ -225,4 +225,7 @@ return array(
     // 'Display items on lists' => '',
     // 'Summaries' => '',
     // 'Full contents' => '',
+    // 'Force RTL mode (Right-to-left language)' => '',
+    // 'Activated' => '',
+    // 'Remove this feed' => '',
 );

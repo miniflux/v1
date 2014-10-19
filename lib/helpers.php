@@ -2,9 +2,9 @@
 
 namespace Helper;
 
-function isRTL($language)
+function isRTL(array $item)
 {
-    return \PicoFeed\Parser::isLanguageRTL($language);
+    return ! empty($item['rtl']) || \PicoFeed\Parser::isLanguageRTL($item['language']);
 }
 
 function css()

@@ -2,17 +2,20 @@
 
 namespace Schema;
 
+function version_28($pdo)
+{
+    $pdo->exec('ALTER TABLE feeds ADD COLUMN rtl INTEGER DEFAULT 0');
+}
+
 function version_27($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN items_display_mode TEXT DEFAULT "summaries"');
 }
 
-
 function version_26($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN bookmarklet_token TEXT DEFAULT "'.\Model\Config\generate_token().'"');
 }
-
 
 function version_25($pdo)
 {
@@ -30,24 +33,20 @@ function version_25($pdo)
     );
 }
 
-
 function version_24($pdo)
 {
     $pdo->exec("ALTER TABLE config ADD COLUMN auto_update_url TEXT DEFAULT 'https://github.com/fguillot/miniflux/archive/master.zip'");
 }
-
 
 function version_23($pdo)
 {
     $pdo->exec('ALTER TABLE items ADD COLUMN language TEXT');
 }
 
-
 function version_22($pdo)
 {
     $pdo->exec("ALTER TABLE config ADD COLUMN timezone TEXT DEFAULT 'UTC'");
 }
-
 
 function version_21($pdo)
 {
@@ -55,12 +54,10 @@ function version_21($pdo)
     $pdo->exec('ALTER TABLE items ADD COLUMN enclosure_type TEXT');
 }
 
-
 function version_20($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN redirect_nothing_to_read TEXT DEFAULT "feeds"');
 }
-
 
 function version_19($pdo)
 {
@@ -75,18 +72,15 @@ function version_19($pdo)
     }
 }
 
-
 function version_18($pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN parsing_error INTEGER DEFAULT 0');
 }
 
-
 function version_17($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN items_sorting_direction TEXT DEFAULT "desc"');
 }
-
 
 function version_16($pdo)
 {
@@ -94,30 +88,25 @@ function version_16($pdo)
     $pdo->exec('ALTER TABLE config ADD COLUMN auth_mozilla_token TEXT DEFAULT ""');
 }
 
-
 function version_15($pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN download_content INTEGER DEFAULT 0');
 }
-
 
 function version_14($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN feed_token TEXT DEFAULT "'.\Model\Config\generate_token().'"');
 }
 
-
 function version_13($pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN enabled INTEGER DEFAULT 1');
 }
 
-
 function version_12($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN api_token TEXT DEFAULT "'.\Model\Config\generate_token().'"');
 }
-
 
 function version_11($pdo)
 {
@@ -148,61 +137,51 @@ function version_11($pdo)
     }
 }
 
-
 function version_10($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN theme TEXT DEFAULT "original"');
 }
-
 
 function version_9($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN items_per_page INTEGER DEFAULT 100');
 }
 
-
 function version_8($pdo)
 {
     $pdo->exec('ALTER TABLE items ADD COLUMN bookmark INTEGER DEFAULT 0');
 }
-
 
 function version_7($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN nocontent INTEGER DEFAULT 0');
 }
 
-
 function version_6($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN autoflush INTEGER DEFAULT 0');
 }
-
 
 function version_5($pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN last_checked INTEGER');
 }
 
-
 function version_4($pdo)
 {
     $pdo->exec('CREATE INDEX idx_status ON items(status)');
 }
-
 
 function version_3($pdo)
 {
     $pdo->exec("ALTER TABLE config ADD COLUMN language TEXT DEFAULT 'en_US'");
 }
 
-
 function version_2($pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN last_modified TEXT');
     $pdo->exec('ALTER TABLE feeds ADD COLUMN etag TEXT');
 }
-
 
 function version_1($pdo)
 {

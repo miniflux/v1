@@ -56,33 +56,14 @@
                 <li>
                     <a href="<?= $feed['site_url'] ?>" rel="noreferrer" target="_blank"><?= Helper\get_host_from_url($feed['site_url']) ?></a>
                 </li>
-                <li class="hide-mobile">
-                    <a href="?action=confirm-remove-feed&amp;feed_id=<?= $feed['id'] ?>"><?= t('remove') ?></a>
-                </li>
-                <li class="hide-mobile">
-                    <?php if ($feed['download_content']): ?>
-                        <a href="?action=disable-grabber-feed&amp;feed_id=<?= $feed['id'] ?>"><strong><?= t('disable full content') ?></strong></a>
-                    <?php else: ?>
-                        <a href="?action=enable-grabber-feed&amp;feed_id=<?= $feed['id'] ?>"><?= t('enable full content') ?></a>
-                    <?php endif ?>
-                </li>
 
                 <?php if ($feed['enabled']): ?>
-                <li class="hide-mobile">
-                    <a href="?action=confirm-disable-feed&amp;feed_id=<?= $feed['id'] ?>"><?= t('disable') ?></a>
-                </li>
-                <li class="hide-mobile">
-                    <a href="?action=refresh-feed&amp;feed_id=<?= $feed['id'] ?>" data-feed-id="<?= $feed['id'] ?>" data-action="refresh-feed"><?= t('refresh') ?></a>
-                </li>
-                <?php else: ?>
                 <li>
-                    <a href="?action=enable-feed&amp;feed_id=<?= $feed['id'] ?>"><?= t('enable') ?></a>
+                    <a href="?action=refresh-feed&amp;feed_id=<?= $feed['id'] ?>" data-feed-id="<?= $feed['id'] ?>" data-action="refresh-feed"><?= t('refresh') ?></a>
                 </li>
                 <?php endif ?>
 
-                <li class="hide-mobile">
-                    <a href="?action=edit-feed&amp;feed_id=<?= $feed['id'] ?>"><?= t('edit') ?></a>
-                </li>
+                <li><a href="?action=edit-feed&amp;feed_id=<?= $feed['id'] ?>"><?= t('edit') ?></a></li>
             </ul>
         </article>
     <?php endforeach ?>

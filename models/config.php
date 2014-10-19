@@ -8,7 +8,7 @@ use PicoDb\Database;
 use PicoFeed\Config as ReaderConfig;
 use PicoFeed\Logging;
 
-const DB_VERSION = 27;
+const DB_VERSION = 28;
 const HTTP_USER_AGENT = 'Miniflux (http://miniflux.net)';
 
 // Get PicoFeed config

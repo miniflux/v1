@@ -27,7 +27,8 @@ function get_everything()
             'items.content',
             'items.language',
             'feeds.site_url',
-            'feeds.title AS feed_title'
+            'feeds.title AS feed_title',
+            'feeds.rtl'
         )
         ->join('feeds', 'id', 'feed_id')
         ->in('status', array('read', 'unread'))
@@ -53,7 +54,8 @@ function get_everything_since($timestamp)
             'items.content',
             'items.language',
             'feeds.site_url',
-            'feeds.title AS feed_title'
+            'feeds.title AS feed_title',
+            'feeds.rtl'
         )
         ->join('feeds', 'id', 'feed_id')
         ->in('status', array('read', 'unread'))
@@ -90,7 +92,8 @@ function get_all($status, $offset = null, $limit = null, $order_column = 'update
             'items.content',
             'items.language',
             'feeds.site_url',
-            'feeds.title AS feed_title'
+            'feeds.title AS feed_title',
+            'feeds.rtl'
         )
         ->join('feeds', 'id', 'feed_id')
         ->eq('status', $status)
@@ -137,7 +140,8 @@ function get_bookmarks($offset = null, $limit = null)
             'items.feed_id',
             'items.language',
             'feeds.site_url',
-            'feeds.title AS feed_title'
+            'feeds.title AS feed_title',
+            'feeds.rtl'
         )
         ->join('feeds', 'id', 'feed_id')
         ->in('status', array('read', 'unread'))
@@ -175,7 +179,8 @@ function get_all_by_feed($feed_id, $offset = null, $limit = null, $order_column 
             'items.content',
             'items.bookmark',
             'items.language',
-            'feeds.site_url'
+            'feeds.site_url',
+            'feeds.rtl'
         )
         ->join('feeds', 'id', 'feed_id')
         ->in('status', array('unread', 'read'))

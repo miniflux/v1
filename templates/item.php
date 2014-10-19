@@ -7,7 +7,7 @@
     data-item-page="<?= $menu ?>"
     <?= $hide ? 'data-hide="true"' : '' ?>
     >
-    <h2 <?= Helper\isRTL($item['language']) ? 'dir="rtl"' : '' ?>>
+    <h2 <?= Helper\isRTL($item) ? 'dir="rtl"' : '' ?>>
         <?= $item['bookmark'] ? '<span id="bookmark-icon-'.$item['id'].'">★ </span>' : '' ?>
         <?= $item['status'] === 'read' ? '<span id="read-icon-'.$item['id'].'">✔ </span>' : '' ?>
         <a
@@ -20,11 +20,11 @@
         </a>
     </h2>
     <?php if($display_mode === 'full'): ?>
-        <div class="preview" <?= Helper\isRTL($item['language']) ? 'dir="rtl"' : '' ?>>
+        <div class="preview" <?= Helper\isRTL($item) ? 'dir="rtl"' : '' ?>>
             <?= $item['content'] ?>
         </div>
     <?php else: ?>
-        <p class="preview" <?= Helper\isRTL($item['language']) ? 'dir="rtl"' : '' ?>>
+        <p class="preview" <?= Helper\isRTL($item) ? 'dir="rtl"' : '' ?>>
             <?= Helper\escape(Helper\summary(strip_tags($item['content']), 50, 300)) ?>
         </p>
     <?php endif ?>

@@ -30,7 +30,7 @@
         </nav>
         <?php endif ?>
 
-        <h1 <?= Helper\isRTL($item['language']) ? 'dir="rtl"' : '' ?>>
+        <h1 <?= Helper\isRTL($item + array('rtl' => $feed['rtl'])) ? 'dir="rtl"' : '' ?>>
             <a href="<?= $item['url'] ?>" rel="noreferrer" target="_blank" id="original-<?= $item['id'] ?>">
                 <?= Helper\escape($item['title']) ?>
             </a>
@@ -89,7 +89,7 @@
             </li>
         </ul>
 
-        <div id="item-content" <?= Helper\isRTL($item['language']) ? 'dir="rtl"' : '' ?>>
+        <div id="item-content" <?= Helper\isRTL($item + array('rtl' => $feed['rtl']))  ? 'dir="rtl"' : '' ?>>
 
             <?php if ($item['enclosure']): ?>
             <div id="item-content-enclosure">

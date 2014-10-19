@@ -53,78 +53,6 @@ Router\post_action('edit-feed', function() {
     )));
 });
 
-// Disable content grabber for a feed
-Router\get_action('disable-grabber-feed', function() {
-
-    $id = Request\int_param('feed_id');
-
-    if ($id && Model\Feed\disable_grabber($id)) {
-        Session\flash(t('The content grabber is disabled successfully.'));
-    }
-    else {
-        Session\flash_error(t('Unable to disable the content grabber for this subscription.'));
-    }
-
-    Response\redirect('?action=feeds');
-});
-
-// Enable content grabber for a feed
-Router\get_action('enable-grabber-feed', function() {
-
-    $id = Request\int_param('feed_id');
-
-    if ($id && Model\Feed\enable_grabber($id)) {
-        Session\flash(t('The content grabber is enabled successfully.'));
-    }
-    else {
-        Session\flash_error(t('Unable to activate the content grabber for this subscription.'));
-    }
-
-    Response\redirect('?action=feeds');
-});
-
-// Confirmation box to disable a feed
-Router\get_action('confirm-disable-feed', function() {
-
-    $id = Request\int_param('feed_id');
-
-    Response\html(Template\layout('confirm_disable_feed', array(
-        'feed' => Model\Feed\get($id),
-        'menu' => 'feeds',
-        'title' => t('Confirmation')
-    )));
-});
-
-// Disable a feed
-Router\get_action('disable-feed', function() {
-
-    $id = Request\int_param('feed_id');
-
-    if ($id && Model\Feed\disable($id)) {
-        Session\flash(t('This subscription has been disabled successfully.'));
-    }
-    else {
-        Session\flash_error(t('Unable to disable this subscription.'));
-    }
-
-    Response\redirect('?action=feeds');
-});
-
-// Enable a feed
-Router\get_action('enable-feed', function() {
-
-    $id = Request\int_param('feed_id');
-
-    if ($id && Model\Feed\enable($id)) {
-        Session\flash(t('This subscription has been enabled successfully.'));
-    }
-    else {
-        Session\flash_error(t('Unable to enable this subscription.'));
-    }
-
-    Response\redirect('?action=feeds');
-});
-
 // Confirmation box to remove a feed
 Router\get_action('confirm-remove-feed', function() {
 
@@ -232,9 +160,9 @@ Router\action('subscribe', function() {
         }
     }
 
-    $values += array('download_content' => 0);
+    $values += array('download_content' => 0, 'rtl' => 0);
     $url = trim($url);
-    $feed_id = Model\Feed\create($url, $values['download_content']);
+    $feed_id = Model\Feed\create($url, $values['download_content'], $values['rtl']);
 
     if ($feed_id) {
         Session\flash(t('Subscription added successfully.'));

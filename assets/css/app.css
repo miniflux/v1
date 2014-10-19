@@ -263,6 +263,9 @@ textarea.form-error {
     border-color: #ddd;
 }
 
+.alert-error a {
+    color: #b94a48;
+}
 
 /* buttons */
 .btn {

@@ -16,7 +16,13 @@
 
     <section class="items" id="listing">
         <?php foreach ($items as $item): ?>
-            <?= \PicoFarad\Template\load('item', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'hide' => true, 'display_mode' => $display_mode)) ?>
+            <?= \PicoFarad\Template\load('item', array(
+                'item' => $item,
+                'menu' => $menu,
+                'offset' => $offset,
+                'hide' => true,
+                'display_mode' => $display_mode,
+            )) ?>
         <?php endforeach ?>
 
         <div id="bottom-menu">

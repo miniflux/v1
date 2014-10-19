@@ -23,7 +23,10 @@ function update(array $values)
             ->save(array(
                 'title' => $values['title'],
                 'site_url' => $values['site_url'],
-                'feed_url' => $values['feed_url']
+                'feed_url' => $values['feed_url'],
+                'enabled' => empty($values['enabled']) ? 0 : $values['enabled'],
+                'rtl' => empty($values['rtl']) ? 0 : $values['rtl'],
+                'download_content' => empty($values['download_content']) ? 0 : $values['download_content'],
             ));
 }
 
@@ -71,7 +74,7 @@ function import_opml($content)
 }
 
 // Add a new feed from an URL
-function create($url, $enable_grabber = false)
+function create($url, $enable_grabber = false, $force_rtl = false)
 {
     $reader = new Reader(Config\get_reader_config());
     $resource = $reader->download($url);
@@ -110,7 +113,8 @@ function create($url, $enable_grabber = false)
                 'title' => $feed->getTitle(),
                 'site_url' => $feed->getUrl(),
                 'feed_url' => $reader->getUrl(),
-                'download_content' => $enable_grabber ? 1 : 0
+                'download_content' => $enable_grabber ? 1 : 0,
+                'rtl' => $force_rtl ? 1 : 0,
             ));
 
             if ($rs) {
@@ -383,18 +387,6 @@ function enable($feed_id)
 function disable($feed_id)
 {
     return Database::get('db')->table('feeds')->eq('id', $feed_id)->save((array('enabled' => 0)));
-}
-
-// Enable content download
-function enable_grabber($feed_id)
-{
-    return Database::get('db')->table('feeds')->eq('id', $feed_id)->save((array('download_content' => 1)));
-}
-
-// Disable content download
-function disable_grabber($feed_id)
-{
-    return Database::get('db')->table('feeds')->eq('id', $feed_id)->save((array('download_content' => 0)));
 }
 
 // Validation for edit
