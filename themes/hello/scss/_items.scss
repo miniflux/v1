@@ -12,6 +12,30 @@
 			}
 		}
 
+		&[data-item-bookmark="1"] {
+			.item-menu {
+				a {
+					&[id*="bookmark-"] {
+						&:before {
+							content: "\f088";
+						}
+					}
+				}
+			}
+		}
+                
+		&[data-item-bookmark="0"] {
+			.item-menu {
+				a {
+					&[id*="bookmark-"] {
+						&:before {
+							content: "\f087";
+						}
+					}
+				}
+			}
+		}
+		
 		h2 {
 			display: block;
 			margin-bottom:  5px;
@@ -85,18 +109,6 @@
 						content: "\f021";
 					}
 				}
-
-				&[id*="bookmark-"] {
-					&:before {
-						content: "\f088";
-					}
-					&[data-reverse-label*="remove"] {
-						&:before {
-							content: "\f087";
-						}
-					}
-				}
-
 
 				&[href*="action=mark-item-removed"] {
 					&:before {
