@@ -71,7 +71,15 @@ Miniflux.Event = (function() {
 
             document.onkeypress = function(e) {
 
-                if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) return;
+                if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) {
+                    return;
+                }
+
+                // Do not handle events when there is a focus in form fields
+                var target = e.target || e.srcElement;
+                if (target.tagName == 'INPUT' || target.tagName == 'TEXTAREA') {
+                    return;
+                }
 
                 Miniflux.Event.lastEventType = "keyboard";
 
