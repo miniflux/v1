@@ -2,13 +2,14 @@
 
 namespace Model\Config;
 
+use DirectoryIterator;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 use PicoDb\Database;
 use PicoFeed\Config as ReaderConfig;
 use PicoFeed\Logging;
 
-const DB_VERSION = 28;
+const DB_VERSION = 29;
 const HTTP_USER_AGENT = 'Miniflux (http://miniflux.net)';
 
 // Get PicoFeed config
@@ -34,7 +35,6 @@ function get_reader_config()
 function get_iframe_whitelist()
 {
     return array(
-        '//www.youtube.com',
         'http://www.youtube.com',
         'https://www.youtube.com',
         'http://player.vimeo.com',
@@ -62,27 +62,23 @@ function write_debug()
 // Get available timezone
 function get_timezones()
 {
-    $timezones = \timezone_identifiers_list();
+    $timezones = timezone_identifiers_list();
     return array_combine(array_values($timezones), $timezones);
 }
 
 // Get all supported languages
 function get_languages()
 {
-    $languages = array(
-        'cs_CZ' => t('Czech'),
-        'de_DE' => t('German'),
-        'en_US' => t('English'),
-        'es_ES' => t('Spanish'),
-        'fr_FR' => t('French'),
-        'it_IT' => t('Italian'),
-        'pt_BR' => t('Portuguese'),
-        'zh_CN' => t('Simplified Chinese'),
+    return array(
+        'cs_CZ' => 'Čeština',
+        'de_DE' => 'Deutsch',
+        'en_US' => 'English',
+        'es_ES' => 'Español',
+        'fr_FR' => 'Français',
+        'it_IT' => 'Italiano',
+        'pt_BR' => 'Português',
+        'zh_CN' => '简体中国',
     );
-
-    asort($languages);
-
-    return $languages;
 }
 
 // Get all skins
@@ -94,7 +90,7 @@ function get_themes()
 
     if (file_exists(THEME_DIRECTORY)) {
 
-        $dir = new \DirectoryIterator(THEME_DIRECTORY);
+        $dir = new DirectoryIterator(THEME_DIRECTORY);
 
         foreach ($dir as $fileinfo) {
 
@@ -180,6 +176,7 @@ function new_tokens()
         'api_token' => generate_token(),
         'feed_token' => generate_token(),
         'bookmarklet_token' => generate_token(),
+        'fever_token' => substr(generate_token(), 0, 8),
     );
 
     return Database::get('db')->table('config')->update($values);
@@ -242,6 +239,7 @@ function get_all()
             'theme',
             'api_token',
             'feed_token',
+            'fever_token',
             'bookmarklet_token',
             'auth_google_token',
             'auth_mozilla_token',

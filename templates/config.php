@@ -72,15 +72,27 @@
 </div>
 <section>
     <div class="alert alert-normal">
-        <h3 id="api"><?= t('API') ?></h3>
+        <h3 id="fever"><?= t('Fever API') ?></h3>
+        <ul>
+            <li><?= t('Link:') ?> <strong><?= Helper\get_current_base_url().'fever/' ?></strong></li>
+            <li><?= t('Username:') ?> <strong><?= Helper\escape($values['username']) ?></strong></li>
+            <li><?= t('Password:') ?> <strong><?= Helper\escape($values['fever_token']) ?></strong></li>
+        </ul>
+    </div>
+    <div class="alert alert-normal">
+        <h3 id="bookmarks"><?= t('Bookmarks') ?></h3>
         <ul>
             <li>
                 <?= t('Bookmarklet:') ?>
                 <a href="javascript:location.href='<?= Helper\get_current_base_url() ?>?action=subscribe&amp;token=<?= urlencode($values['bookmarklet_token']) ?>&amp;url='+encodeURIComponent(location.href)"><?= t('Subscribe with Miniflux') ?></a> (<?= t('Drag and drop this link to your bookmarks') ?>)
             <li>
-                <?= t('Bookmarks RSS Feed:') ?>
-                <a href="<?= Helper\get_current_base_url().'?action=bookmark-feed&amp;token='.urlencode($values['feed_token']) ?>" target="_blank"><?= Helper\get_current_base_url().'?action=bookmark-feed&amp;token='.urlencode($values['feed_token']) ?></a>
+                <a href="<?= Helper\get_current_base_url().'?action=bookmark-feed&amp;token='.urlencode($values['feed_token']) ?>" target="_blank"><?= t('Bookmark RSS Feed') ?></a>
             </li>
+        </ul>
+    </div>
+    <div class="alert alert-normal">
+        <h3 id="api"><?= t('API') ?></h3>
+        <ul>
             <li><?= t('API endpoint:') ?> <strong><?= Helper\get_current_base_url().'jsonrpc.php' ?></strong></li>
             <li><?= t('API username:') ?> <strong><?= Helper\escape($values['username']) ?></strong></li>
             <li><?= t('API token:') ?> <strong><?= Helper\escape($values['api_token']) ?></strong></li>

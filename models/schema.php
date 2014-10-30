@@ -2,6 +2,14 @@
 
 namespace Schema;
 
+use PDO;
+use Model\Config;
+
+function version_29($pdo)
+{
+    $pdo->exec('ALTER TABLE config ADD COLUMN fever_token INTEGER DEFAULT "'.substr(Config\generate_token(), 0, 8).'"');
+}
+
 function version_28($pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN rtl INTEGER DEFAULT 0');
@@ -14,7 +22,7 @@ function version_27($pdo)
 
 function version_26($pdo)
 {
-    $pdo->exec('ALTER TABLE config ADD COLUMN bookmarklet_token TEXT DEFAULT "'.\Model\Config\generate_token().'"');
+    $pdo->exec('ALTER TABLE config ADD COLUMN bookmarklet_token TEXT DEFAULT "'.Config\generate_token().'"');
 }
 
 function version_25($pdo)
@@ -95,7 +103,7 @@ function version_15($pdo)
 
 function version_14($pdo)
 {
-    $pdo->exec('ALTER TABLE config ADD COLUMN feed_token TEXT DEFAULT "'.\Model\Config\generate_token().'"');
+    $pdo->exec('ALTER TABLE config ADD COLUMN feed_token TEXT DEFAULT "'.Config\generate_token().'"');
 }
 
 function version_13($pdo)
@@ -105,7 +113,7 @@ function version_13($pdo)
 
 function version_12($pdo)
 {
-    $pdo->exec('ALTER TABLE config ADD COLUMN api_token TEXT DEFAULT "'.\Model\Config\generate_token().'"');
+    $pdo->exec('ALTER TABLE config ADD COLUMN api_token TEXT DEFAULT "'.Config\generate_token().'"');
 }
 
 function version_11($pdo)
@@ -119,7 +127,7 @@ function version_11($pdo)
 
     $rq->execute();
 
-    $items = $rq->fetchAll(\PDO::FETCH_ASSOC);
+    $items = $rq->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($items as $item) {
 

@@ -69,6 +69,7 @@ Documentation
 - [Translations](docs/translations.markdown)
 - [Themes](docs/themes.markdown)
 - [API documentation](http://miniflux.net/api.html)
+- [Fever API](docs/fever.markdown)
 - [FAQ](docs/faq.markdown)
 
 Todo and known bugs

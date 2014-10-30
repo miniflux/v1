@@ -74,7 +74,7 @@ Router\get_action('auto-update', function() {
 Router\get_action('generate-tokens', function() {
 
     Model\Config\new_tokens();
-    Response\redirect('?action=config#api');
+    Response\redirect('?action=config');
 });
 
 // Optimize the database manually
