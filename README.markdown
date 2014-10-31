@@ -61,14 +61,15 @@ Requirements
 Documentation
 -------------
 
-- [Installation and updates](docs/installation-and-updates.markdown)
+- [Installation](docs/installation.markdown)
+- [Upgrade to a new version](docs/upgrade.markdown)
 - [Cronjob](docs/cronjob.markdown)
 - [Advanced configuration](docs/config.markdown)
 - [Full article download](docs/full-article-download.markdown)
 - [Multiple users](docs/multiple-users.markdown)
 - [Translations](docs/translations.markdown)
 - [Themes](docs/themes.markdown)
-- [API documentation](docs/json-rpc-api.markdown)
+- [Json-RPC API](docs/json-rpc-api.markdown)
 - [Fever API](docs/fever.markdown)
 - [FAQ](docs/faq.markdown)
 

@@ -1,10 +1,9 @@
-Cronjob (background feeds update)
-=================================
+Cronjob
+=======
 
-How do I update my feeds with a cronjob?
-----------------------------------------
+The cronjob is a background task to update your feeds automatically.
 
-You just need to be inside the directory `miniflux` and run the script `cronjob.php`.
+Technically, you just need to be inside the directory `miniflux` and run the script `cronjob.php`.
 
 
 Parameters          | Type                           | Value
@@ -17,16 +16,18 @@ Parameters          | Type                           | Value
 
 Examples:
 
-    crontab -e
+```bash
+crontab -e
 
-    # Update all feeds every 4 hours
-    0 */4 * * *  cd /path/to/miniflux && php cronjob.php >/dev/null 2>&1
+# Update all feeds every 4 hours
+0 */4 * * *  cd /path/to/miniflux && php cronjob.php >/dev/null 2>&1
 
-    # Update the 10 oldest feeds each time
-    0 */4 * * *  cd /path/to/miniflux && php cronjob.php --limit=10 >/dev/null 2>&1
+# Update the 10 oldest feeds each time
+0 */4 * * *  cd /path/to/miniflux && php cronjob.php --limit=10 >/dev/null 2>&1
 
-    # Update all feeds in 60 minutes (updates the 8 oldest feeds each time with a total of 120 feeds).
-    * */4 * * *  cd /path/to/miniflux && php cronjob.php --call-interval=4 --update-interval=60 >/dev/null 2>&1
+# Update all feeds in 60 minutes (updates the 8 oldest feeds each time with a total of 120 feeds).
+* */4 * * *  cd /path/to/miniflux && php cronjob.php --call-interval=4 --update-interval=60 >/dev/null 2>&1
+```
 
 Note: cronjob.php can also be called from the web, in this case specify the options as GET variables.
 

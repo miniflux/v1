@@ -11,7 +11,9 @@ A theme doesn't change the behaviour of the application but only the page layout
 
 The first step is to create a new directory structure for your theme:
 
-    mkdir -p themes/mysuperskin/{css,img,fonts}
+```bash
+mkdir -p themes/mysuperskin/{css,img,fonts}
+```
 
 The name of your theme should be only alphanumeric.
 
@@ -43,4 +45,4 @@ Other themes included in the default installation:
 - NoStyle by Frederic Guillot
 - Still by Franklin
 
-**PS: Those themes are maintained and tested by their authors.**
+**PS: Those themes are maintained and tested by their respective authors.**

@@ -30,7 +30,7 @@ define('ENABLE_MULTIPLE_DB', true);
 define('DEBUG', true);
 
 // DEBUG_FILENAME => default is data/debug.log
-define('DEBUG_FILENAME', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'debug.log');
+define('DEBUG_FILENAME', DATA_DIRECTORY.'/debug.log');
 
 // THEME_DIRECTORY => default is themes
 define('THEME_DIRECTORY', 'themes');
