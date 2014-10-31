@@ -68,7 +68,7 @@ Documentation
 - [Multiple users](docs/multiple-users.markdown)
 - [Translations](docs/translations.markdown)
 - [Themes](docs/themes.markdown)
-- [API documentation](http://miniflux.net/api.html)
+- [API documentation](docs/json-rpc-api.markdown)
 - [Fever API](docs/fever.markdown)
 - [FAQ](docs/faq.markdown)
 
