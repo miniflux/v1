@@ -31,12 +31,6 @@ I don't use Microsoft products, and as such I have no idea if Miniflux works cor
 ### How to setup Miniflux on OVH?
 
 OVH shared web-hosting can use different PHP versions.
-To have Miniflux working properly you have to use a custom `.htaccess` like that:
+To have Miniflux working properly you have to use a custom `.htaccess`.
 
-```
-SetEnv PHP_VER 5_4
-SetEnv ZEND_OPTIMIZER 1
-SetEnv MAGIC_QUOTES 0
-```
-
-You can also just rename the file `.htaccess_ovh` to `.htaccess`.
+There is example in the Miniflux root folder. Just rename the file `.htaccess_ovh` to `.htaccess`.
