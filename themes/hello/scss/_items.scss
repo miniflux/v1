@@ -120,11 +120,6 @@
 						content: "\f058";
 					}	
 				}
-				&[href*="action=confirm-disable-feed"] {
-					&:before {
-						content: "\f05c";
-					}	
-				}
 				&[href*="action=enable-feed"] {
 					&:before {
 						content: "\f05d";

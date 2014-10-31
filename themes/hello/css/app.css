@@ -351,8 +351,6 @@ section.page {
         content: "\f057"; }
       .items .item-menu li a[href*="action=enable-grabber-feed"]:before {
         content: "\f058"; }
-      .items .item-menu li a[href*="action=confirm-disable-feed"]:before {
-        content: "\f05c"; }
       .items .item-menu li a[href*="action=enable-feed"]:before {
         content: "\f05d"; }
 .items #bottom-menu {
