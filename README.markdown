@@ -71,6 +71,7 @@ Documentation
 - [Themes](docs/themes.markdown)
 - [Json-RPC API](docs/json-rpc-api.markdown)
 - [Fever API](docs/fever.markdown)
+- [Run Miniflux with Docker](docs/docker.markdown)
 - [FAQ](docs/faq.markdown)
 
 Todo and known bugs
@@ -113,6 +114,7 @@ People who sent a pull-request, report a bug, make a new theme or share a super 
 - [Julian Oster](https://github.com/jlnostr)
 - [Jarek](https://github.com/jarek)
 - [Luca Marra](https://github.com/facciocose)
+- [Martin Simon](https://github.com/c0ding)
 - [Mathias Kresin](https://github.com/mkresin)
 - [Maxime](https://github.com/EpocDotFr)
 - [Meradoou](https://github.com/meradoou)

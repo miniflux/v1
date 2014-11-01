@@ -34,7 +34,7 @@ RUN \
   rm /etc/lighttpd/lighttpd.conf
 
 ADD \
-  lighttpd.conf /etc/lighttpd/lighttpd.conf
+  scripts/docker/lighttpd.conf /etc/lighttpd/lighttpd.conf
 
 EXPOSE 80
 
