@@ -302,7 +302,8 @@ foreach (array_keys($_GET) as $action) {
     route($action);
 }
 
-if (! empty($_POST['mark']) && ! empty($_POST['as']) && ! empty($_POST['id'])) {
+if (! empty($_POST['mark']) && ! empty($_POST['as'])
+    && ! is_null(filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, array('options' => array('default' => NULL,'min_range' => -1)))) ){
 
     if ($_POST['mark'] === 'item') {
         route('write_items');
