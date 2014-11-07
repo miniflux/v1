@@ -23,8 +23,8 @@ require __DIR__.'/models/auto_update.php';
 require __DIR__.'/models/database.php';
 require __DIR__.'/models/remember_me.php';
 
-if (file_exists('config.php')) {
-    require 'config.php';
+if (file_exists(__DIR__.'/config.php')) {
+    require __DIR__.'/config.php';
 }
 
 defined('APP_VERSION') or define('APP_VERSION', 'master');
