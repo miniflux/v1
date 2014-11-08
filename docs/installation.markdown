@@ -4,7 +4,7 @@ Installation instructions
 Installation
 ------------
 
-### From the archive:
+### From the archive (stable version)
 
 1. You must have a web server with PHP installed (version 5.3.3 minimum) with the Sqlite and XML extensions
 2. Download the source code and copy the directory `miniflux` where you want
@@ -14,7 +14,7 @@ Installation
 6. Start to use the software
 7. Don't forget to change your password!
 
-### From the repository:
+### From the repository (development version)
 
 1. `git clone https://github.com/fguillot/miniflux.git`
 2. Go to the third step just above

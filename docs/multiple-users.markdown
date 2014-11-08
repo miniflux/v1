@@ -7,7 +7,7 @@ Each user have his own Sqlite database and people can choose which database they
 
 To create a new database:
 
-1. Go to the preferences page
+1. Go to the page **preferences > about**
 2. Scroll-down to the database section
 3. Click on the link "Add a new database"
 4. Fill the form (db name, the new username and password) and save

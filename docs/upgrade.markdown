@@ -1,7 +1,7 @@
 Upgrade to a new version
 ========================
 
-### From the archive:
+### From the archive (stable version)
 
 1. Close your session (logout)
 2. Rename your actual miniflux directory (to keep a backup)
@@ -10,7 +10,7 @@ Upgrade to a new version
 5. Login and check if everything is ok
 6. Remove the old miniflux directory
 
-### From the repository:
+### From the repository (development version)
 
 1. Close your session (logout)
 2. `git pull`
