@@ -186,7 +186,7 @@ function check_csrf_values(array &$values)
 function check_csrf($token)
 {
     if (isset($_SESSION['csrf'][$token])) {
-        unset($_SESSION['csrf'][$values['csrf']]);
+        unset($_SESSION['csrf'][$token]);
         return true;
     }
 
