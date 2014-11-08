@@ -11,7 +11,7 @@
     >
 
         <?php if (isset($item_nav)): ?>
-        <nav class="top hide-desktop">
+        <nav class="top">
             <span class="nav-left">
                 <?php if ($item_nav['previous']): ?>
                     <a href="?action=show&amp;menu=<?= $menu ?>&amp;id=<?= $item_nav['previous']['id'] ?>" id="previous-item" title="<?= Helper\escape($item_nav['previous']['title']) ?>">« <?= t('Previous') ?></a>

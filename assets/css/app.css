@@ -16,6 +16,8 @@ body {
 
 body {
     margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-bottom: 30px;
     max-width: 780px;
     color: #333;
@@ -653,8 +655,14 @@ iframe {
     opacity: 0;
 }
 
-#login-form {
-    margin-bottom: 20px;
+#login {
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 15%;
+}
+
+#login form {
+    border: none;
 }
 
 /* desktop design */

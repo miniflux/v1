@@ -284,6 +284,14 @@ a.btn-red:hover,
     color: #cf7c4b;
 }
 
+.item nav.top {
+    margin-bottom: 20px;
+}
+
+#login {
+    border-radius: 8px;
+}
+
 @media only screen and (max-width: 480px) {
 
     body {

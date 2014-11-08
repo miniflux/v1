@@ -14,17 +14,12 @@
         <link href="<?= Helper\css() ?>" rel="stylesheet" media="screen">
     </head>
     <body id="login-page">
-        <section class="page">
-            <div class="page-header">
-                <h2><?= t('Sign in') ?></h2>
-            </div>
-            <section>
-
+        <section class="page" id="login">
             <?php if (isset($errors['login'])): ?>
                 <p class="alert alert-error"><?= Helper\escape($errors['login']) ?></p>
             <?php endif ?>
 
-            <form method="post" action="?action=login" id="login-form">
+            <form method="post" action="?action=login">
 
                 <?= Helper\form_hidden('csrf', $values) ?>
 
@@ -57,8 +52,6 @@
                 </ul>
             </div>
             <?php endif ?>
-
-            </section>
         </section>
     </body>
 </html>
