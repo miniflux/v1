@@ -9,6 +9,8 @@
 <section>
 <form method="post" action="?action=config" autocomplete="off">
 
+    <?= Helper\form_hidden('csrf', $values) ?>
+
     <?= Helper\form_label(t('Username'), 'username') ?>
     <?= Helper\form_text('username', $values, $errors, array('required')) ?><br/>
 

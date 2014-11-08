@@ -22,8 +22,8 @@
         <h3><?= t('Database') ?></h3>
         <ul>
             <li><?= t('Database size:') ?> <strong><?= Helper\format_bytes($db_size) ?></strong></li>
-            <li><a href="?action=optimize-db"><?= t('Optimize the database') ?></a> <?= t('(VACUUM command)') ?></li>
-            <li><a href="?action=download-db"><?= t('Download the entire database') ?></a> <?= t('(Gzip compressed Sqlite file)') ?></li>
+            <li><a href="?action=optimize-db&amp;csrf=<?= $csrf ?>"><?= t('Optimize the database') ?></a> <?= t('(VACUUM command)') ?></li>
+            <li><a href="?action=download-db&amp;csrf=<?= $csrf ?>"><?= t('Download the entire database') ?></a> <?= t('(Gzip compressed Sqlite file)') ?></li>
             <?php if (ENABLE_MULTIPLE_DB): ?>
             <li>
                 <a href="?action=new-db"><?= t('Add a new database (new user)') ?></a>

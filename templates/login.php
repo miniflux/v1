@@ -26,6 +26,8 @@
 
             <form method="post" action="?action=login" id="login-form">
 
+                <?= Helper\form_hidden('csrf', $values) ?>
+
                 <?= Helper\form_label(t('Username'), 'username') ?>
                 <?= Helper\form_text('username', $values, $errors, array('autofocus', 'required')) ?><br/>
 

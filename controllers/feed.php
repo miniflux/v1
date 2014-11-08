@@ -136,7 +136,9 @@ Router\get_action('feeds', function() {
 Router\get_action('add', function() {
 
     Response\html(Template\layout('add', array(
-        'values' => array(),
+        'values' => array(
+            'csrf' => Model\Config\generate_csrf(),
+        ),
         'errors' => array(),
         'menu' => 'feeds',
         'title' => t('New subscription')
@@ -148,6 +150,7 @@ Router\action('subscribe', function() {
 
     if (Request\is_post()) {
         $values = Request\values();
+        Model\Config\check_csrf_values($values);
         $url = isset($values['url']) ? $values['url'] : '';
     }
     else {
@@ -173,7 +176,10 @@ Router\action('subscribe', function() {
     }
 
     Response\html(Template\layout('add', array(
-        'values' => array('url' => $url),
+        'values' => array(
+            'url' => $url,
+            'csrf' => Model\Config\generate_csrf(),
+        ),
         'menu' => 'feeds',
         'title' => t('Subscriptions')
     )));

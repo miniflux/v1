@@ -23,7 +23,9 @@ Router\get_action('login', function() {
 
     Response\html(Template\load('login', array(
         'errors' => array(),
-        'values' => array(),
+        'values' => array(
+            'csrf' => Model\Config\generate_csrf(),
+        ),
         'databases' => Model\Database\get_list(),
         'current_database' => Model\Database\select()
     )));
@@ -33,6 +35,7 @@ Router\get_action('login', function() {
 Router\post_action('login', function() {
 
     $values = Request\values();
+    Model\Config\check_csrf_values($values);
     list($valid, $errors) = Model\User\validate_login($values);
 
     if ($valid) {
@@ -41,7 +44,7 @@ Router\post_action('login', function() {
 
     Response\html(Template\load('login', array(
         'errors' => $errors,
-        'values' => $values,
+        'values' => $values + array('csrf' => Model\Config\generate_csrf()),
         'databases' => Model\Database\get_list(),
         'current_database' => Model\Database\select()
     )));

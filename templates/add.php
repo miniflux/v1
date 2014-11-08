@@ -8,6 +8,9 @@
 </div>
 
 <form method="post" action="?action=subscribe" autocomplete="off">
+
+    <?= Helper\form_hidden('csrf', $values) ?>
+
     <?= Helper\form_label(t('Website or Feed URL'), 'url') ?>
     <?= Helper\form_text('url', $values, array(), array('required', 'autofocus', 'placeholder="'.t('http://website/').'"')) ?><br/><br/>
 
