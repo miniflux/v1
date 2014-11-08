@@ -74,7 +74,7 @@ Router\get_action('auto-update', function() {
 Router\get_action('generate-tokens', function() {
 
     Model\Config\new_tokens();
-    Response\redirect('?action=config');
+    Response\redirect('?action=api');
 });
 
 // Optimize the database manually
@@ -143,5 +143,36 @@ Router\post_action('config', function() {
         'display_mode' => Model\Config\get_display_mode(),
         'menu' => 'config',
         'title' => t('Preferences')
+    )));
+});
+
+// Display help page
+Router\get_action('help', function() {
+
+    Response\html(Template\layout('help', array(
+        'config' => Model\Config\get_all(),
+        'menu' => 'config',
+        'title' => t('Help')
+    )));
+});
+
+// Display about page
+Router\get_action('about', function() {
+
+    Response\html(Template\layout('about', array(
+        'config' => Model\Config\get_all(),
+        'db_size' => filesize(\Model\Database\get_path()),
+        'menu' => 'config',
+        'title' => t('About')
+    )));
+});
+
+// Display API page
+Router\get_action('api', function() {
+
+    Response\html(Template\layout('api', array(
+        'config' => Model\Config\get_all(),
+        'menu' => 'config',
+        'title' => t('API')
     )));
 });
