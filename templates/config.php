@@ -67,5 +67,3 @@
 </ul>
 </section>
 <?php endif ?>
-
-<script type="text/javascript" src="assets/js/persona.js" async></script>
