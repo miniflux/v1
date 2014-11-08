@@ -11,7 +11,6 @@ Features
 - Your Raspberry Pi, a shared web-hosting, a virtual machine or localhost
 - Easy setup => copy and paste the source code and you are done!
 - Use a lightweight Sqlite database instead of Mysql or Postgresql
-- Auto-update from the user interface
 
 ### Readability
 
@@ -30,11 +29,6 @@ Features
 - Translated in English, French, German, Italian, Czech, Spanish, Portuguese and Simplified Chinese
 - RTL languages support
 
-### Users management
-
-- Alternate authentication with a Google Account or Mozilla Persona
-- Multiple databases (each user has his own database)
-
 ### Awesome features
 
 - Keyboard shortcuts
@@ -48,6 +42,8 @@ Features
 - Basic bookmarks
 - Import/Export of OPML feeds
 - Themes
+- Auto-update from the user interface
+- Multiple databases (each user has his own database)
 
 Requirements
 ------------

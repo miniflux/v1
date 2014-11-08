@@ -241,8 +241,6 @@ function get_all()
             'feed_token',
             'fever_token',
             'bookmarklet_token',
-            'auth_google_token',
-            'auth_mozilla_token',
             'items_sorting_direction',
             'items_display_mode',
             'redirect_nothing_to_read',

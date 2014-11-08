@@ -17,7 +17,7 @@ Router\before(function($action) {
     }
 
     // Redirect to the login form if the user is not authenticated
-    $ignore_actions = array('login', 'google-auth', 'google-redirect-auth', 'mozilla-auth', 'bookmark-feed', 'select-db');
+    $ignore_actions = array('login', 'bookmark-feed', 'select-db');
 
     if (! isset($_SESSION['user']) && ! in_array($action, $ignore_actions)) {
 
@@ -37,13 +37,10 @@ Router\before(function($action) {
     date_default_timezone_set(Model\Config\get('timezone') ?: 'UTC');
 
     // HTTP secure headers
-    $frame_src = Model\Config\get_iframe_whitelist();;
-    $frame_src[] = 'https://login.persona.org';
-
     Response\csp(array(
         'media-src' => '*',
         'img-src' => '*',
-        'frame-src' => $frame_src
+        'frame-src' => Model\Config\get_iframe_whitelist(),
     ));
 
     Response\xframe();

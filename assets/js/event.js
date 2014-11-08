@@ -55,14 +55,6 @@ Miniflux.Event = (function() {
                             e.preventDefault();
                             Miniflux.Item.MarkListingAsRead("?action=feed-items&feed_id=" + e.target.getAttribute("data-feed-id"));
                             break;
-                        case 'mozilla-login':
-                            e.preventDefault();
-                            Miniflux.App.MozillaAuth("mozilla-auth");
-                            break;
-                        case 'mozilla-link':
-                            e.preventDefault();
-                            Miniflux.App.MozillaAuth("mozilla-link");
-                            break;
                     }
                 }
             };
