@@ -233,4 +233,5 @@ return array(
     'api' => 'api',
     'about' => 'a propos',
     'Link:' => 'Lien :',
+    'This action will update Miniflux with the last development version, are you sure?' => 'Cette action va mettre à jour Miniflux avec la dernière version en cours de développement, êtes-vous certain ?',
 );

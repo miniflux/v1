@@ -63,7 +63,7 @@
 </div>
 <section class="alert alert-error">
 <ul>
-    <li><a href="?action=auto-update"><?= t('Update Miniflux') ?></a> (<?= t('Don\'t forget to backup your database') ?>)</li>
+    <li><a href="?action=confirm-auto-update"><?= t('Update Miniflux') ?></a> (<?= t('Don\'t forget to backup your database') ?>)</li>
 </ul>
 </section>
 <?php endif ?>

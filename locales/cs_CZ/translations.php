@@ -233,4 +233,5 @@ return array(
     // 'api' => '',
     // 'about' => '',
     // 'Link:' => '',
+    // 'This action will update Miniflux with the last development version, are you sure?' => '',
 );
