@@ -137,8 +137,16 @@ Miniflux.Item = (function() {
             var request = new XMLHttpRequest();
             
             request.onload = function() {
-                item.setAttribute("data-item-bookmark", value);
-                if (Miniflux.Nav.IsListing()) changeBookmarkLabel(item);
+                if (Miniflux.Nav.IsListing() && item.getAttribute("data-item-page") === "bookmarks") {
+                    hideItem(item);
+                }
+                else {
+                    item.setAttribute("data-item-bookmark", value);
+
+                    if (Miniflux.Nav.IsListing()) {
+                        changeBookmarkLabel(item);
+                    }
+                }
             };
 
             request.open("POST", "?action=bookmark&id=" + item_id + "&value=" + value, true);
