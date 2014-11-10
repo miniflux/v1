@@ -23,11 +23,11 @@ Miniflux.Nav = (function() {
 
             for (var i = 0, ilen = items.length; i < ilen; i++) {
 
-                if (items[i].id == "current-item") {
-
-                    items[i].id = "item-" + items[i].getAttribute("data-item-id");
+                if (items[i].id === "current-item") {
 
                     if (i + 1 < ilen) {
+                        items[i].id = "item-" + items[i].getAttribute("data-item-id");
+
                         items[i + 1].id = "current-item";
                         scrollPageTo(items[i + 1]);
                     }
@@ -51,11 +51,10 @@ Miniflux.Nav = (function() {
 
             for (var i = items.length - 1; i >= 0; i--) {
 
-                if (items[i].id == "current-item") {
-
-                    items[i].id = "item-" + items[i].getAttribute("data-item-id");
+                if (items[i].id === "current-item") {
 
                     if (i - 1 >= 0) {
+                        items[i].id = "item-" + items[i].getAttribute("data-item-id");
                         items[i - 1].id = "current-item";
                         scrollPageTo(items[i - 1]);
                     }
