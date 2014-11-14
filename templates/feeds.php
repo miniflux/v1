@@ -41,7 +41,7 @@
                             <?= t('checked at').' '.dt('%e %B %Y %k:%M', $feed['last_checked']) ?>
                         </time>
                     <?php else: ?>
-                        <span class="feed-last-checked" id="last-checked-feed-<?= $feed['id'] ?>" data-after-update="<?= t('now') ?>">
+                        <span class="feed-last-checked" id="last-checked-feed-<?= $feed['id'] ?>" data-after-update="<?= t('updated just now') ?>">
                             <?= t('never updated after creation') ?>
                         </span>
                     <?php endif ?>

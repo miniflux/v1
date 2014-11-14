@@ -11,9 +11,9 @@
     <div class="alert alert-normal">
         <h3 id="fever"><?= t('Fever API') ?></h3>
         <ul>
-            <li><?= t('Link:') ?> <strong><?= Helper\get_current_base_url().'fever/' ?></strong></li>
-            <li><?= t('Username:') ?> <strong><?= Helper\escape($config['username']) ?></strong></li>
-            <li><?= t('Password:') ?> <strong><?= Helper\escape($config['fever_token']) ?></strong></li>
+            <li><?= t('API endpoint:') ?> <strong><?= Helper\get_current_base_url().'fever/' ?></strong></li>
+            <li><?= t('API username:') ?> <strong><?= Helper\escape($config['username']) ?></strong></li>
+            <li><?= t('API token:') ?> <strong><?= Helper\escape($config['fever_token']) ?></strong></li>
         </ul>
     </div>
     <div class="alert alert-normal">

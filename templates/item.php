@@ -40,7 +40,7 @@
         </li>
         <?php if ($item['enclosure']): ?>
             <li>
-                <a href="<?= $item['enclosure'] ?>" rel="noreferrer" target="_blank"><?= t('media') ?></a>
+                <a href="<?= $item['enclosure'] ?>" rel="noreferrer" target="_blank"><?= t('attachment') ?></a>
             </li>
         <?php endif ?>
         <?= \PicoFarad\Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'source' => '')) ?>
