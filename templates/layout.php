@@ -23,7 +23,7 @@
                 <a class="logo" href="?"><?= tne('mini<span>flux</span>') ?></a>
                 <ul>
                     <li <?= isset($menu) && $menu === 'unread' ? 'class="active"' : '' ?>>
-                        <a href="?action=unread"><?= t('unread') ?><span id="nav-counter"><?= isset($nb_unread_items) && $nb_unread_items > 0 ? $nb_unread_items : '' ?></span></a>
+                        <a href="?action=unread"><?= t('unread') ?><span id="nav-counter"><?= empty($nb_unread_items) ? '' : $nb_unread_items ?></span></a>
                     </li>
                     <li class="<?= isset($menu) && $menu === 'bookmarks' ? 'active hide-mobile' : 'hide-mobile' ?>">
                         <a href="?action=bookmarks"><?= t('bookmarks') ?></a>

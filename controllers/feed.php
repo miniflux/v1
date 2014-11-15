@@ -22,6 +22,7 @@ Router\get_action('edit-feed', function() {
     Response\html(Template\layout('edit_feed', array(
         'values' => Model\Feed\get($id),
         'errors' => array(),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'feeds',
         'title' => t('Edit subscription')
     )));
@@ -48,6 +49,7 @@ Router\post_action('edit-feed', function() {
     Response\html(Template\layout('edit_feed', array(
         'values' => $values,
         'errors' => $errors,
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'feeds',
         'title' => t('Edit subscription')
     )));
@@ -60,6 +62,7 @@ Router\get_action('confirm-remove-feed', function() {
 
     Response\html(Template\layout('confirm_remove_feed', array(
         'feed' => Model\Feed\get($id),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'feeds',
         'title' => t('Confirmation')
     )));
@@ -131,6 +134,7 @@ Router\get_action('feeds', function() {
         'favicons' => Model\Feed\get_all_favicons(),
         'feeds' => Model\Feed\get_all_item_counts(),
         'nothing_to_read' => Request\int_param('nothing_to_read'),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'feeds',
         'title' => t('Subscriptions')
     )));
@@ -144,6 +148,7 @@ Router\get_action('add', function() {
             'csrf' => Model\Config\generate_csrf(),
         ),
         'errors' => array(),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'feeds',
         'title' => t('New subscription')
     )));
@@ -184,6 +189,7 @@ Router\action('subscribe', function() {
             'url' => $url,
             'csrf' => Model\Config\generate_csrf(),
         ),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'feeds',
         'title' => t('Subscriptions')
     )));
@@ -201,6 +207,7 @@ Router\get_action('import', function() {
 
     Response\html(Template\layout('import', array(
         'errors' => array(),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'feeds',
         'title' => t('OPML Import')
     )));

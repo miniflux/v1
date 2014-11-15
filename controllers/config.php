@@ -17,6 +17,7 @@ Router\get_action('new-db', function() {
             'values' => array(
                 'csrf' => Model\Config\generate_csrf(),
             ),
+            'nb_unread_items' => Model\Item\count_by_status('unread'),
             'menu' => 'config',
             'title' => t('New database')
         )));
@@ -49,6 +50,7 @@ Router\post_action('new-db', function() {
         Response\html(Template\layout('new_db', array(
             'errors' => $errors,
             'values' => $values + array('csrf' => Model\Config\generate_csrf()),
+            'nb_unread_items' => Model\Item\count_by_status('unread'),
             'menu' => 'config',
             'title' => t('New database')
         )));
@@ -61,6 +63,7 @@ Router\post_action('new-db', function() {
 Router\get_action('confirm-auto-update', function() {
 
     Response\html(Template\layout('confirm_auto_update', array(
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
         'title' => t('Confirmation')
     )));
@@ -126,6 +129,7 @@ Router\get_action('config', function() {
         'sorting_options' => Model\Config\get_sorting_directions(),
         'display_mode' => Model\Config\get_display_mode(),
         'redirect_nothing_to_read_options' => Model\Config\get_nothing_to_read_redirections(),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
         'title' => t('Preferences')
     )));
@@ -162,6 +166,7 @@ Router\post_action('config', function() {
         'sorting_options' => Model\Config\get_sorting_directions(),
         'redirect_nothing_to_read_options' => Model\Config\get_nothing_to_read_redirections(),
         'display_mode' => Model\Config\get_display_mode(),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
         'title' => t('Preferences')
     )));
@@ -172,6 +177,7 @@ Router\get_action('help', function() {
 
     Response\html(Template\layout('help', array(
         'config' => Model\Config\get_all(),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
         'title' => t('Help')
     )));
@@ -183,6 +189,7 @@ Router\get_action('about', function() {
     Response\html(Template\layout('about', array(
         'csrf' => Model\Config\generate_csrf(),
         'config' => Model\Config\get_all(),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
         'title' => t('About')
     )));
@@ -195,6 +202,7 @@ Router\get_action('database', function() {
         'csrf' => Model\Config\generate_csrf(),
         'config' => Model\Config\get_all(),
         'db_size' => filesize(\Model\Database\get_path()),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
         'title' => t('Database')
     )));
@@ -205,6 +213,7 @@ Router\get_action('api', function() {
 
     Response\html(Template\layout('api', array(
         'config' => Model\Config\get_all(),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
         'title' => t('API')
     )));

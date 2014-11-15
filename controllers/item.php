@@ -53,7 +53,6 @@ Router\get_action('show', function() {
     switch ($menu) {
         case 'unread':
             $nav = Model\Item\get_nav($item);
-            $nb_unread_items = Model\Item\count_by_status('unread');
             break;
         case 'history':
             $nav = Model\Item\get_nav($item, array('read'));
@@ -67,7 +66,7 @@ Router\get_action('show', function() {
     }
 
     Response\html(Template\layout('show_item', array(
-        'nb_unread_items' => isset($nb_unread_items) ? $nb_unread_items : null,
+        'nb_unread_items' => $nb_unread_items = Model\Item\count_by_status('unread'),
         'item' => $item,
         'feed' => $feed,
         'item_nav' => isset($nav) ? $nav : null,
@@ -96,6 +95,7 @@ Router\get_action('feed-items', function() {
         'feed' => $feed,
         'items' => $items,
         'nb_items' => $nb_items,
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'offset' => $offset,
         'items_per_page' => Model\Config\get('items_per_page'),
         'menu' => 'feed-items',

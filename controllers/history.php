@@ -26,6 +26,7 @@ Router\get_action('history', function() {
         'direction' => '',
         'display_mode' => Model\Config\get('items_display_mode'),
         'nb_items' => $nb_items,
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'offset' => $offset,
         'items_per_page' => Model\Config\get('items_per_page'),
         'nothing_to_read' => Request\int_param('nothing_to_read'),
@@ -38,6 +39,7 @@ Router\get_action('history', function() {
 Router\get_action('confirm-flush-history', function() {
 
     Response\html(Template\layout('confirm_flush_items', array(
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'history',
         'title' => t('Confirmation')
     )));

@@ -5,6 +5,7 @@ require_once 'minifluxTestCase.php';
 class keyboardShortcutTest extends minifluxTestCase
 {
     const DEFAULT_COUNTER_PAGE = 8;
+    const DEFAULT_COUNTER_UNREAD = 6;
     
     public function setUpPage()
     {
@@ -34,6 +35,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->assertTrue($secondIsCurrentArticle, 'The second Article is not the current Article');
        
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
     }
     
@@ -51,6 +53,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->assertTrue($secondIsCurrentArticle, 'The second Article is not the current Article');
         
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');;
     }
     
@@ -68,6 +71,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->assertTrue($secondIsNotCurrentArticle, 'The second Article is still the current Article');
         
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
     }
     
@@ -85,6 +89,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->assertTrue($secondIsNotCurrentArticle, 'The second Article is still the current Article');
         
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
     }
     
@@ -103,6 +108,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->assertTrue($lastIsCurrentArticle, 'The last Article is not the current Article');
         
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
     }
     
@@ -121,6 +127,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->assertTrue($firstIsCurrentArticle, 'The first Article is not the current Article');
         
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
     }
     
@@ -131,6 +138,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->url($url);
         $this->byId('form-username')->value($this->getShortcutGoToUnread());
         
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = $url;
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
         
@@ -142,6 +150,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->sendKeysAndWaitForPageLoaded('gb');
 
         $this->expectedCounterPage = '6';
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = $this->getURLPageBookmarks();
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
         
@@ -153,6 +162,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->sendKeysAndWaitForPageLoaded('gh');
         
         $this->expectedCounterPage = '6';
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = $this->getURLPageHistory();
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
         
@@ -164,7 +174,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->sendKeysAndWaitForPageLoaded($this->getShortcutGoToUnread());
         
         $this->expectedCounterPage = '6';
-        $this->expectedCounterUnread = '6';
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = $this->getURLPageUnread();
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
         
@@ -175,6 +185,7 @@ class keyboardShortcutTest extends minifluxTestCase
     {
         $this->sendKeysAndWaitForPageLoaded('gs');
 
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds';
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
         
@@ -185,6 +196,7 @@ class keyboardShortcutTest extends minifluxTestCase
     {
         $this->sendKeysAndWaitForPageLoaded('gp');
         
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = $this->getURLPagePreferences();
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
         

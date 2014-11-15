@@ -199,6 +199,7 @@ class pageUnreadTest extends minifluxTestCase
         $read = $this->waitForArticlesMarkRead();
         $this->assertTrue($read, 'there are still unread articles');
         
+        $this->expectedCounterPage = NULL;
         $this->expectedCounterUnread = '';
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds&nothing_to_read=1';
         $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles', FALSE);
@@ -214,6 +215,7 @@ class pageUnreadTest extends minifluxTestCase
         $read = $this->waitForArticlesMarkRead();
         $this->assertTrue($read, 'there are still unread articles');
         
+        $this->expectedCounterPage = NULL;
         $this->expectedCounterUnread = '';
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds&nothing_to_read=1';
         $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles', FALSE);
@@ -236,6 +238,7 @@ class pageUnreadTest extends minifluxTestCase
         $visible = $this->waitForAlert();
         $this->assertTrue($visible, 'alert box did not appear');
         
+        $this->expectedCounterPage = NULL;
         $this->expectedCounterUnread = '';
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds&nothing_to_read=1';
         $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles', FALSE);

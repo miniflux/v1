@@ -55,6 +55,7 @@ Router\get_action('bookmarks', function() {
         'offset' => $offset,
         'items_per_page' => Model\Config\get('items_per_page'),
         'nothing_to_read' => Request\int_param('nothing_to_read'),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'bookmarks',
         'title' => t('Bookmarks').' ('.$nb_items.')'
     )));
