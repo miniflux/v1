@@ -37,7 +37,7 @@
             </form>
 
             <?php if (ENABLE_MULTIPLE_DB && count($databases) > 1): ?>
-            <div class="alert alert-normal">
+            <div>
                 <h3><?= t('Select another database') ?></h3>
                 <ul>
                     <?php foreach ($databases as $filename => $dbname): ?>

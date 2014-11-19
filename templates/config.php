@@ -3,6 +3,7 @@
     <ul>
         <li><a href="?action=about"><?= t('about') ?></a></li>
         <li><a href="?action=help"><?= t('help') ?></a></li>
+        <li><a href="?action=database"><?= t('database') ?></a></li>
         <li><a href="?action=api"><?= t('api') ?></a></li>
     </ul>
 </div>

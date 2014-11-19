@@ -22,7 +22,7 @@ Router\get_action('new-db', function() {
         )));
     }
 
-    Response\redirect('?action=about');
+    Response\redirect('?action=database');
 });
 
 // Create a new database
@@ -43,7 +43,7 @@ Router\post_action('new-db', function() {
                 Session\flash_error(t('Unable to create the new database.'));
             }
 
-            Response\redirect('?action=about');
+            Response\redirect('?action=database');
         }
 
         Response\html(Template\layout('new_db', array(
@@ -54,7 +54,7 @@ Router\post_action('new-db', function() {
         )));
     }
 
-    Response\redirect('?action=about');
+    Response\redirect('?action=database');
 });
 
 // Comfirmation box before auto-update
@@ -99,7 +99,7 @@ Router\get_action('optimize-db', function() {
         Database::get('db')->getConnection()->exec('VACUUM');
     }
 
-    Response\redirect('?action=about');
+    Response\redirect('?action=database');
 });
 
 // Download the compressed database
@@ -181,9 +181,20 @@ Router\get_action('about', function() {
     Response\html(Template\layout('about', array(
         'csrf' => Model\Config\generate_csrf(),
         'config' => Model\Config\get_all(),
-        'db_size' => filesize(\Model\Database\get_path()),
         'menu' => 'config',
         'title' => t('About')
+    )));
+});
+
+// Display database page
+Router\get_action('database', function() {
+
+    Response\html(Template\layout('database', array(
+        'csrf' => Model\Config\generate_csrf(),
+        'config' => Model\Config\get_all(),
+        'db_size' => filesize(\Model\Database\get_path()),
+        'menu' => 'config',
+        'title' => t('Database')
     )));
 });
 

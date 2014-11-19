@@ -3,6 +3,7 @@
     <ul>
         <li><a href="?action=config"><?= t('settings') ?></a></li>
         <li><a href="?action=help"><?= t('help') ?></a></li>
+        <li><a href="?action=database"><?= t('database') ?></a></li>
         <li><a href="?action=api"><?= t('api') ?></a></li>
     </ul>
 </div>
@@ -16,19 +17,6 @@
             <li>
                 <a href="<?= Helper\get_current_base_url().'?action=bookmark-feed&amp;token='.urlencode($config['feed_token']) ?>" target="_blank"><?= t('Bookmark RSS Feed') ?></a>
             </li>
-        </ul>
-    </div>
-    <div class="alert alert-normal">
-        <h3><?= t('Database') ?></h3>
-        <ul>
-            <li><?= t('Database size:') ?> <strong><?= Helper\format_bytes($db_size) ?></strong></li>
-            <li><a href="?action=optimize-db&amp;csrf=<?= $csrf ?>"><?= t('Optimize the database') ?></a> <?= t('(VACUUM command)') ?></li>
-            <li><a href="?action=download-db&amp;csrf=<?= $csrf ?>"><?= t('Download the entire database') ?></a> <?= t('(Gzip compressed Sqlite file)') ?></li>
-            <?php if (ENABLE_MULTIPLE_DB): ?>
-            <li>
-                <a href="?action=new-db"><?= t('Add a new database (new user)') ?></a>
-            </li>
-            <?php endif ?>
         </ul>
     </div>
     <div class="alert alert-normal">
