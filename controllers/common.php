@@ -16,22 +16,31 @@ Router\before(function($action) {
         Model\Database\select($_SESSION['database']);
     }
 
-    // Redirect to the login form if the user is not authenticated
-    $ignore_actions = array('login', 'bookmark-feed', 'select-db');
+    // Authentication
+    if (Model\User\is_logged()) {
 
-    if (! isset($_SESSION['user']) && ! in_array($action, $ignore_actions)) {
-
-        if (! Model\RememberMe\authenticate()) {
+        if (! Model\User\is_user_session()) {
+            Session\close();
             Response\redirect('?action=login');
         }
+
+        if (Model\RememberMe\has_cookie()) {
+            Model\RememberMe\refresh();
+        }
     }
-    else if (Model\RememberMe\has_cookie()) {
-        Model\RememberMe\refresh();
+    else {
+
+        if (! in_array($action, array('login', 'bookmark-feed', 'select-db'))) {
+
+            if (! Model\RememberMe\authenticate()) {
+               Response\redirect('?action=login');
+            }
+        }
     }
 
     // Load translations
     $language = Model\Config\get('language') ?: 'en_US';
-    if ($language !== 'en_US') \Translator\load($language);
+    if ($language !== 'en_US') Translator\load($language);
 
     // Set timezone
     date_default_timezone_set(Model\Config\get('timezone') ?: 'UTC');

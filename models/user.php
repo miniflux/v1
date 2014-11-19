@@ -9,6 +9,21 @@ use Model\Config;
 use Model\RememberMe;
 use Model\Database as DatabaseModel;
 
+// Check if the user is logged
+function is_logged()
+{
+    return ! empty($_SESSION['user']);
+}
+
+// Check if the logged user is the right one
+function is_user_session()
+{
+    return Database::get('db')
+        ->table('config')
+        ->eq('username', $_SESSION['user']['username'])
+        ->count() === 1;
+}
+
 // Get a user by username
 function get($username)
 {
