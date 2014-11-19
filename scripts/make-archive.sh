@@ -6,14 +6,15 @@ APP="miniflux"
 cd /tmp
 rm -rf /tmp/$APP /tmp/$APP-*.zip 2>/dev/null
 
-git clone --depth 1 git@github.com:fguillot/$APP.git
+git clone --depth 1 https://github.com/fguillot/$APP.git
 
 rm -rf $APP/data/*.sqlite \
        $APP/.git \
        $APP/.gitignore \
        $APP/scripts \
        $APP/docs \
-       $APP/README.*
+       $APP/README.* \
+       $APP/Dockerfile
 
 find $APP -name *.less -delete
 find $APP -name *.scss -delete
