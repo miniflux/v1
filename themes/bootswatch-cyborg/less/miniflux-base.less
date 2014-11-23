@@ -41,6 +41,32 @@ header > nav > ul li:nth-child(4) a:before {content:"\e012";} // Subscriptions
 header > nav > ul li:nth-child(5) a:before {content:"\1f527";} // Préférences
 header > nav > ul li:nth-child(6) a:before {content:"\e017";} // Logout
 
+// Counter
+span {
+    &#nav-counter,
+    &#page-counter {
+        &:not(:empty) {
+            &:before {
+                content: " @{icon-bracket-open}";
+            }
+        
+            &:after {
+                content: "@{icon-bracket-close}";
+            }
+        }
+    }
+    
+    &[id^="items-count-"] {
+        &:before {
+            content: "@{icon-bracket-open}";
+        }
+        
+        &:after {
+            content: "@{icon-bracket-close}";
+        }
+    }
+}
+
 // Logo
 .logo {
 	min-width: 100px;
@@ -166,6 +192,28 @@ body > header {
 .item h5 {font-size:14px}
 .item h6 {font-size:12px}
 .item blockquote p {font-size: 15px;}
+
+article {
+    &[data-item-status="read"] {
+        .read-icon:before {
+            content: "@{icon-read}";
+        }
+    }
+    
+    &[data-item-bookmark="1"] {
+        .bookmark-icon:before {
+            content: "@{icon-bookmarked}";
+        }
+    }
+    
+    &[data-item-bookmark="0"] {
+        .item-infos {
+            .bookmark-icon:before {
+                content: "@{icon-not-bookmarked}";
+            }
+        }
+    }
+}
 
 article img {
 	max-width: 100%;

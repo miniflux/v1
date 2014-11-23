@@ -1,3 +1,17 @@
+article {
+	&[data-item-bookmark="1"] {
+		.bookmark-icon:before {
+			content: $icon-bookmarked;
+		}
+	}
+			
+	&[data-item-bookmark="0"] {
+		.bookmark-icon:before {
+			content: $icon-not-bookmarked;
+		}
+	}
+}
+
 .items {
 	article {
 
@@ -10,12 +24,16 @@
 			&[data-item-page="feed-items"] {
 				background-color: rgba(lighten(black,60%), .7);
 			}
+
+			.read-icon:before {
+				content: $icon-read;
+			}
 		}
 
 		&[data-item-bookmark="1"] {
 			.item-menu {
 				a {
-					&[id*="bookmark-"] {
+					&.bookmark {
 						&:before {
 							content: "\f088";
 						}
@@ -27,7 +45,7 @@
 		&[data-item-bookmark="0"] {
 			.item-menu {
 				a {
-					&[id*="bookmark-"] {
+					&.bookmark {
 						&:before {
 							content: "\f087";
 						}
@@ -89,7 +107,7 @@
 						content: "\f0b0";
 					}
 				}
-				&[id*="original-"] {
+				&.original {
 					&:before {
 						content: "\f08e";
 					}
@@ -117,7 +135,7 @@
 					}	
 				}
 				
-				&[id*="status-"] {
+				&.mark {
 					&:before {
 						content: "\f058";
 					}	

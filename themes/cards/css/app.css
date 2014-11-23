@@ -159,9 +159,9 @@ nav .active a {
     color: #929292;
 }
 
-.items .item-menu .item-bookmark,
-.items .item-menu .item-delete,
-.items .item-menu .item-mark{
+.items .item-menu .bookmark,
+.items .item-menu .delete,
+.items .item-menu .mark{
     color: transparent;
     text-indent: -9999px;
     background-repeat: no-repeat;
@@ -171,15 +171,15 @@ nav .active a {
     height: 15px;
 }
 
-.items .item-menu .item-bookmark{
+.items .item-menu .bookmark{
     background-image: url("../img/star.png");
 }
 
-.items .item-menu .item-delete{
+.items .item-menu .delete{
     background-image: url("../img/cross.png");
 }
 
-.items .item-menu .item-mark{
+.items .item-menu .mark{
     background-image: url("../img/tick.png");
 }
 

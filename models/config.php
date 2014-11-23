@@ -85,7 +85,7 @@ function get_languages()
 function get_themes()
 {
     $themes = array(
-        'original' => t('Original')
+        'original' => t('Default')
     );
 
     if (file_exists(THEME_DIRECTORY)) {
@@ -150,9 +150,9 @@ function get_paging_options()
 function get_nothing_to_read_redirections()
 {
     return array(
-        'feeds' => t('Subscription page'),
-        'history' => t('History page'),
-        'bookmarks' => t('Bookmark page'),
+        'feeds' => t('Subscriptions'),
+        'history' => t('History'),
+        'bookmarks' => t('Bookmarks'),
     );
 }
 

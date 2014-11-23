@@ -3,7 +3,7 @@
 <?php else: ?>
 
     <div class="page-header">
-        <h2><?= t('Bookmarks') ?> (<span id="page-counter"><?= $nb_items ?></span>)</h2>
+        <h2><?= t('Bookmarks') ?><span id="page-counter"><?= isset($nb_items) ? $nb_items : '' ?></span></h2>
     </div>
 
     <?php if ($nothing_to_read): ?>

@@ -8,13 +8,11 @@
     <?= $hide ? 'data-hide="true"' : '' ?>
     >
     <h2 <?= Helper\isRTL($item) ? 'dir="rtl"' : '' ?>>
-        <?= $item['bookmark'] ? '<span id="bookmark-icon-'.$item['id'].'">★ </span>' : '' ?>
-        <?= $item['status'] === 'read' ? '<span id="read-icon-'.$item['id'].'">✔ </span>' : '' ?>
+        <span class="bookmark-icon"></span>
+        <span class="read-icon"></span>
         <a
             href="?action=show&amp;menu=<?= $menu ?>&amp;id=<?= $item['id'] ?>"
-            data-item-id="<?= $item['id'] ?>"
-            id="show-<?= $item['id'] ?>"
-            <?= $item['status'] === 'read' ? 'class="read"' : '' ?>
+            class="show"
         ><?= Helper\escape($item['title']) ?></a>
     </h2>
     <?php if($display_mode === 'full'): ?>
@@ -38,11 +36,11 @@
             <span title="<?= dt('%e %B %Y %k:%M', $item['updated']) ?>"><?= Helper\relative_time($item['updated']) ?></span>
         </li>
         <li class="hide-mobile">
-            <a href="<?= $item['url'] ?>" id="original-<?= $item['id'] ?>" rel="noreferrer" target="_blank" data-item-id="<?= $item['id'] ?>" data-action="original-link"><?= t('original link') ?></a>
+            <a href="<?= $item['url'] ?>" class="original" rel="noreferrer" target="_blank" data-action="original-link"><?= t('original link') ?></a>
         </li>
         <?php if ($item['enclosure']): ?>
             <li>
-                <a href="<?= $item['enclosure'] ?>" rel="noreferrer" target="_blank"><?= t('media') ?></a>
+                <a href="<?= $item['enclosure'] ?>" rel="noreferrer" target="_blank"><?= t('attachment') ?></a>
             </li>
         <?php endif ?>
         <?= \PicoFarad\Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'source' => '')) ?>

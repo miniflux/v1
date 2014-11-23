@@ -28,7 +28,7 @@
                     <span id="loading-feed-<?= $feed['id'] ?>" class="loading-icon"></span>
                 <?php endif ?>
 
-                <span id="items-count-<?= $feed['id'] ?>">(<?= $feed['items_unread'] .'/' . $feed['items_total'] ?>)</span>
+                <span id="items-count-<?= $feed['id'] ?>"><?= $feed['items_unread'] .'/' . $feed['items_total'] ?></span>
 
                 <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>" title="<?= t('Show only this subscription') ?>"><?= Helper\escape($feed['title']) ?></a>
 
@@ -41,7 +41,7 @@
                             <?= t('checked at').' '.dt('%e %B %Y %k:%M', $feed['last_checked']) ?>
                         </time>
                     <?php else: ?>
-                        <span class="feed-last-checked" id="last-checked-feed-<?= $feed['id'] ?>" data-after-update="<?= t('now') ?>">
+                        <span class="feed-last-checked" id="last-checked-feed-<?= $feed['id'] ?>" data-after-update="<?= t('updated just now') ?>">
                             <?= t('never updated after creation') ?>
                         </span>
                     <?php endif ?>

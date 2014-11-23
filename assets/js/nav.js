@@ -23,11 +23,11 @@ Miniflux.Nav = (function() {
 
             for (var i = 0, ilen = items.length; i < ilen; i++) {
 
-                if (items[i].id == "current-item") {
-
-                    items[i].id = "item-" + items[i].getAttribute("data-item-id");
+                if (items[i].id === "current-item") {
 
                     if (i + 1 < ilen) {
+                        items[i].id = "item-" + items[i].getAttribute("data-item-id");
+
                         items[i + 1].id = "current-item";
                         scrollPageTo(items[i + 1]);
                     }
@@ -51,11 +51,10 @@ Miniflux.Nav = (function() {
 
             for (var i = items.length - 1; i >= 0; i--) {
 
-                if (items[i].id == "current-item") {
-
-                    items[i].id = "item-" + items[i].getAttribute("data-item-id");
+                if (items[i].id === "current-item") {
 
                     if (i - 1 >= 0) {
+                        items[i].id = "item-" + items[i].getAttribute("data-item-id");
                         items[i - 1].id = "current-item";
                         scrollPageTo(items[i - 1]);
                     }
@@ -73,14 +72,6 @@ Miniflux.Nav = (function() {
     }
 
     return {
-        GetCurrentItem: function() {
-            return document.getElementById("current-item");
-        },
-        GetCurrentItemId: function() {
-            var item = Miniflux.Nav.GetCurrentItem();
-            if (item) return item.getAttribute("data-item-id");
-            return null;
-        },
         OpenNextPage: function() {
             var link = document.getElementById("next-page");
             if (link) link.click();

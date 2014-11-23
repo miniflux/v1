@@ -212,6 +212,15 @@ header {
     header .logo span {
       color: #b3e6cc; }
 
+span#nav-counter:not(:empty):before, span#page-counter:not(:empty):before {
+  content: " ("; }
+span#nav-counter:not(:empty):after, span#page-counter:not(:empty):after {
+  content: ")"; }
+span[id^="items-count-"]:before {
+  content: "("; }
+span[id^="items-count-"]:after {
+  content: ")"; }
+
 section.page {
   right: 0;
   width: 81.69839%;
@@ -288,6 +297,11 @@ section.page {
   margin-bottom: 15px;
   margin-top: 15px; }
 
+article[data-item-bookmark="1"] .bookmark-icon:before {
+  content: "★"; }
+article[data-item-bookmark="0"] .bookmark-icon:before {
+  content: "☆"; }
+
 .items article {
   -moz-box-shadow: 0 3px 0 #006644;
   -webkit-box-shadow: 0 3px 0 #006644;
@@ -297,9 +311,11 @@ section.page {
   padding: 10px 20px; }
   .items article[data-item-status="read"][data-item-page="feed-items"] {
     background-color: rgba(153, 153, 153, 0.7); }
-  .items article[data-item-bookmark="1"] .item-menu a[id*="bookmark-"]:before {
+  .items article[data-item-status="read"] .read-icon:before {
+    content: "✔"; }
+  .items article[data-item-bookmark="1"] .item-menu a.bookmark:before {
     content: "\f088"; }
-  .items article[data-item-bookmark="0"] .item-menu a[id*="bookmark-"]:before {
+  .items article[data-item-bookmark="0"] .item-menu a.bookmark:before {
     content: "\f087"; }
   .items article h2 {
     display: block;
@@ -334,7 +350,7 @@ section.page {
         margin-right: 2px; }
       .items .item-menu li a:first-child:before {
         content: "\f0b0"; }
-      .items .item-menu li a[id*="original-"]:before {
+      .items .item-menu li a.original:before {
         content: "\f08e"; }
       .items .item-menu li a[href*="action=confirm-remove-feed"]:before {
         content: "\f014"; }
@@ -345,7 +361,7 @@ section.page {
       .items .item-menu li a[href*="action=mark-item-removed"]:before {
         content: "\f014";
         margin-right: 2px; }
-      .items .item-menu li a[id*="status-"]:before {
+      .items .item-menu li a.mark:before {
         content: "\f058"; }
       .items .item-menu li a[href*="action=disable-grabber-feed"]:before {
         content: "\f057"; }

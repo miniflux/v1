@@ -211,7 +211,7 @@ table {
   img {
     max-width: 100% !important;
   }
-  @page  {
+  @page {
     margin: 2cm .5cm;
   }
   p,
@@ -4532,9 +4532,6 @@ article.item > .panel-footer + .panel-collapse .panel-body,
 .hide {
   display: none !important;
 }
-.show {
-  display: block !important;
-}
 .invisible {
   visibility: hidden;
 }
@@ -5078,6 +5075,20 @@ header > nav > ul li:nth-child(5) a:before {
 header > nav > ul li:nth-child(6) a:before {
   content: "\e017";
 }
+span#nav-counter:not(:empty):before,
+span#page-counter:not(:empty):before {
+  content: " (";
+}
+span#nav-counter:not(:empty):after,
+span#page-counter:not(:empty):after {
+  content: ")";
+}
+span[id^="items-count-"]:before {
+  content: "(";
+}
+span[id^="items-count-"]:after {
+  content: ")";
+}
 .logo {
   min-width: 100px;
   min-height: 45px;
@@ -5268,6 +5279,15 @@ body > header > nav > ul li.hide-mobile {
 }
 .item blockquote p {
   font-size: 15px;
+}
+article[data-item-status="read"] .read-icon:before {
+  content: "✔";
+}
+article[data-item-bookmark="1"] .bookmark-icon:before {
+  content: "★";
+}
+article[data-item-bookmark="0"] .item-infos .bookmark-icon:before {
+  content: "☆";
 }
 article img {
   max-width: 100%;
