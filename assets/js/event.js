@@ -76,7 +76,7 @@ Miniflux.Event = (function() {
 
             document.onkeypress = function(e) {
 
-                if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) {
+                if (e.keyCode != 63 && (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)) {
                     return;
                 }
 
