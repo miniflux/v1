@@ -172,6 +172,22 @@ Router\post_action('config', function() {
     )));
 });
 
+Router\post_action('get-config', function() {
+    $return = array();
+    $options = Request\values();
+    
+    if (empty($options)) {
+        $return = Model\Config\get_all();
+    }
+    else {
+        foreach ($options as $name) {
+            $return[$name] = Model\Config\get($name);
+        }
+    }
+    
+    Response\json($return);
+});
+
 // Display help page
 Router\get_action('help', function() {
 

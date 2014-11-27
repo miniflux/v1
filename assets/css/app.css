@@ -163,6 +163,7 @@ input[type="checkbox"] {
 input[type="email"],
 input[type="tel"],
 input[type="password"],
+input[type="number"],
 input[type="text"] {
     border: 1px solid #ccc;
     padding: 3px;
@@ -176,6 +177,7 @@ input[type="text"] {
 input[type="email"]:focus,
 input[type="tel"]:focus,
 input[type="password"]:focus,
+input[type="number"]:focus,
 input[type="text"]:focus,
 textarea:focus {
     color: #000;

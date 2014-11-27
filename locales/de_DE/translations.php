@@ -231,4 +231,5 @@ return array(
     'Download favicons' => 'Favicons herunterladen',
     'general' => 'allgemein',
     'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'Fehler bei der letzten Aktualisierung. Aktualisiere den Feed manuell und prüfe die %sKonsole%s anschließend auf Fehler!',
+    // 'Frontend updatecheck interval in minutes' => '',
 );

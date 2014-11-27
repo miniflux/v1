@@ -5,7 +5,12 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
-const VERSION = 35;
+const VERSION = 36;
+
+function version_36($pdo)
+{
+    $pdo->exec('INSERT INTO settings ("key", "value") VALUES ("frontend_updatecheck_interval", 10)');
+}
 
 function version_35($pdo)
 {

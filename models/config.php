@@ -282,6 +282,7 @@ function validate_modification(array $values)
         new Validators\Required('items_per_page', t('Value required')),
         new Validators\Integer('items_per_page', t('Must be an integer')),
         new Validators\Required('theme', t('Value required')),
+        new Validators\Integer('frontend_updatecheck_interval', t('Must be an integer')),
     );
 
     if (ENABLE_AUTO_UPDATE) {

@@ -200,3 +200,21 @@ Router\get_action('mark-item-removed', function() {
 
     Response\Redirect('?action='.$redirect.'&offset='.$offset.'&feed_id='.$feed_id);
 });
+
+Router\post_action('latest-feeds-items', function() {
+    $items = Model\Item\get_latest_feeds_items();
+    $nb_unread_items = Model\Item\count_by_status('unread');
+            
+    $feeds = array_reduce($items, function ($result, $item) {
+        $result[$item['id']] = array(
+            'time' => $item['updated'] ?: 0,
+            'status' => $item['status']
+        );
+        return $result;
+    }, array());
+    
+    Response\json(array(
+        'feeds' => $feeds,
+        'nbUnread' => $nb_unread_items
+    ));
+});

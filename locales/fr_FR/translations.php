@@ -231,4 +231,5 @@ return array(
     'Download favicons' => 'Télécharger les icônes des sites web',
     'general' => 'général',
     'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'Une erreur est survenue pendant la dernière vérification. Actualisez, le flux manuellement and vérifiez les erreurs dans la %sconsole%s !',
+    'Frontend updatecheck interval in minutes' => 'Frontend updatecheck interval in minutes',
 );

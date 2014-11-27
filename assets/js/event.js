@@ -208,8 +208,17 @@ Miniflux.Event = (function() {
                         Miniflux.Nav.SelectNextItem();
                         break;
                 }
-            }
+            };
+        },
+        ListenVisibilityEvents: function() {
+            document.addEventListener('visibilitychange', function() {
+                Miniflux.App.Log('document.visibilityState: ' + document.visibilityState);
+
+                if (!document.hidden && Miniflux.Item.hasNewUnread()) {
+                    Miniflux.App.Log('Need to update the unread counter with fresh values from the database');
+                    Miniflux.Item.CheckForUpdates();
+                }
+            });
         }
     };
-
 })();

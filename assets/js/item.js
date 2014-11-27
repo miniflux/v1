@@ -1,5 +1,11 @@
 Miniflux.Item = (function() {
 
+    // timestamp of the latest item per feed ever seen
+    var latest_feeds_items = [];
+
+    // indicator for new unread items
+    var unreadItems = false;
+
     var nbUnreadItems = function() {
         var navCounterElement = document.getElementById("nav-counter");
 
@@ -93,16 +99,35 @@ Miniflux.Item = (function() {
 
     function updateCounters()
     {
-        // imitate special handling within miniflux
-        if (nbPageItems  === 0) {
+        // redirect to unread if we're on a nothing to read page
+        if (window.location.href.indexOf('nothing_to_read=1') > -1 && nbUnreadItems > 0) {
+            window.location.href = '?action=unread';
+        } // reload to get a nothing to read page
+        else if (nbPageItems  === 0) {
             window.location.reload();
         }
 
         var pageCounterElement = document.getElementById("page-counter");
-        pageCounterElement.textContent = nbPageItems || '';
+        if (pageCounterElement) pageCounterElement.textContent = nbPageItems || '';
 
         var navCounterElement = document.getElementById("nav-counter");
         navCounterElement.textContent = nbUnreadItems || '';
+
+        var pageHeadingElement = document.querySelector("div.page-header h2:first-of-type");
+        if (pageHeadingElement) {
+            pageHeading = pageHeadingElement.firstChild.nodeValue;
+        }
+        else {
+            // special handling while viewing an article.
+            // 1. The article does not have a page-header element
+            // 2. An article could be opened from any page and has the original
+            // page as data-item-page value
+            var itemHeading = document.querySelector("article.item h1:first-of-type");
+            if (itemHeading) {
+                document.title = itemHeading.textContent;
+                return;
+            }
+        }
 
         // pagetitle depends on current page
         var sectionElement = document.querySelector("section.page");
@@ -111,10 +136,15 @@ Miniflux.Item = (function() {
                 document.title = "Miniflux (" + nbUnreadItems + ")";
                 break;
             case "feed-items":
-                document.title = "(" + nbPageItems  + ") " + pageCounterElement.parentNode.firstChild.nodeValue;
+                document.title = "(" + nbPageItems + ") " + pageHeading;
                 break;
             default:
-                document.title = pageCounterElement.parentNode.firstChild.nodeValue + " (" + nbPageItems + ")";
+                if (pageCounterElement) {
+                    document.title = pageHeading + " (" + nbPageItems + ")";
+                }
+                else {
+                    document.title = pageHeading;
+                }
                 break;
         }
     }
@@ -283,6 +313,56 @@ Miniflux.Item = (function() {
                     tag.dir = tag.dir == "" ? "rtl" : "";
                 }
             }
+        },
+        hasNewUnread: function() {
+            return unreadItems;
+        },
+        CheckForUpdates: function() {
+           if (document.hidden && unreadItems) {
+                Miniflux.App.Log('We already have updates, no need to check again');
+                return;
+            }
+
+            var request = new XMLHttpRequest();
+            request.onload = function() {
+                var first_run = (latest_feeds_items.length === 0);
+                var current_unread = false;
+                var response = JSON.parse(this.responseText);
+
+                for(var feed_id in response['feeds']) {
+                    var current_feed = response['feeds'][feed_id];
+
+                    if (!latest_feeds_items.hasOwnProperty(feed_id) || current_feed.time > latest_feeds_items[feed_id]) {
+                        Miniflux.App.Log('feed ' + feed_id + ': New item(s)');
+                        latest_feeds_items[feed_id] = current_feed.time;
+
+                        if (current_feed.status === 'unread') {
+                            Miniflux.App.Log('feed ' + feed_id + ': New unread item(s)');
+                            current_unread = true;
+                        }
+                    }
+                }
+
+                Miniflux.App.Log('first_run: ' + first_run + ', current_unread: ' + current_unread + ', response.nbUnread: ' + response['nbUnread'] + ', nbUnreadItems: ' + nbUnreadItems);
+
+                if (!document.hidden && (response['nbUnread'] !== nbUnreadItems || unreadItems)) {
+                    Miniflux.App.Log('Counter changed! Updating unread counter.');
+                    unreadItems = false;
+                    nbUnreadItems = response['nbUnread'];
+                    updateCounters();
+                }
+                else if (document.hidden && !first_run && current_unread) {
+                    Miniflux.App.Log('New Unread! Updating pagetitle.');
+                    unreadItems = true;
+                    document.title = "↻ " + document.title;
+                } else {
+                    Miniflux.App.Log('No update.');
+                }
+
+                Miniflux.App.Log('unreadItems: ' + unreadItems);
+            };
+            request.open("POST", "?action=latest-feeds-items", true);
+            request.send();
         }
     };
 

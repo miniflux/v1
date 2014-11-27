@@ -35,6 +35,9 @@
     <?= Helper\form_label(t('Theme'), 'theme') ?>
     <?= Helper\form_select('theme', $theme_options, $values, $errors) ?><br/>
 
+    <?= Helper\form_label(t('Frontend updatecheck interval in minutes'), 'frontend_updatecheck_interval') ?>
+    <?= Helper\form_number('frontend_updatecheck_interval', $values, $errors, array('min="0"')) ?><br/>
+    
     <?php if (ENABLE_AUTO_UPDATE): ?>
         <?= Helper\form_label(t('Auto-Update URL'), 'auto_update_url') ?>
         <?= Helper\form_text('auto_update_url', $values, $errors, array('required')) ?><br/>
