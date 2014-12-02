@@ -22,8 +22,6 @@ body {
     max-width: 780px;
     color: #333;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
 
@@ -173,8 +171,6 @@ input[type="text"] {
     font-size: 99%;
     margin-bottom: 10px;
     margin-top: 5px;
-    -webkit-appearance: none;
-    appearance: none;
 }
 
 input[type="email"]:focus,
@@ -281,8 +277,6 @@ textarea.form-error {
 
 /* buttons */
 .btn {
-    -webkit-appearance: none;
-    appearance: none;
     display: inline-block;
     color: #333;
     border: 1px solid #ccc;
@@ -301,7 +295,7 @@ a.btn {
 }
 
 .btn-red {
-    border-color: #b0281a;;
+    border-color: #b0281a;
     background: #d14836;
     color: #fff;
 }
@@ -350,6 +344,31 @@ span[id^="items-count-"]:before {
 
 span#nav-counter:not(:empty):after, span#page-counter:not(:empty):after, span[id^="items-count-"]:after {
     content: ")";
+}
+
+@keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+.loading-icon:before {
+    content: "☀";   
+    animation-name: blinker;
+    -webkit-animation-name: blinker; /* Chrome, Safari, Opera */
+    animation-duration: 500ms;
+    -webkit-animation-duration: 500ms; /* Chrome, Safari, Opera */
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out; /* Chrome, Safari, Opera */
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
 }
 
 /* header */
@@ -629,13 +648,7 @@ ul.item-infos {
     margin-bottom: 20px;
 }
 
-span.downloading img {
-    display: inline;
-    margin: 0;
-    padding: 0;
-}
-
-.downloading {
+#download-item {
     color: #000;
 }
 
@@ -688,16 +701,6 @@ iframe {
 .menu-more a {
     text-decoration: none;
     color: #333;
-}
-
-.loading-icon {
-    color: #000;
-    opacity: 1;
-    transition: opacity 0.2s ease-in-out;
-}
-
-.loading-icon-blink {
-    opacity: 0;
 }
 
 #login {

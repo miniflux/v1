@@ -178,6 +178,6 @@ textarea:focus {
     color: #fff;
 }
 
-.loading-icon {
+.loading-icon:before {
     color: #fff;
 }

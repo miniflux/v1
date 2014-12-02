@@ -188,48 +188,27 @@ Miniflux.Item = (function() {
             var container = document.getElementById("download-item");
             if (! container) return;
 
-            var item_id = getItemID(item);
-            var message = container.getAttribute("data-before-message");
-
-            var span = document.createElement("span");
-            span.appendChild(document.createTextNode("☀"));
-            span.className = "loading-icon";
-
-            container.innerHTML = "";
-            container.className = "downloading";
-            container.appendChild(span);
-            container.appendChild(document.createTextNode(" " + message));
-
-            var icon_interval = setInterval(Miniflux.App.BlinkIcon, 250);
-
+            container.innerHTML = " " + container.getAttribute("data-before-message");
+            container.className = "loading-icon";
+            
             var request = new XMLHttpRequest();
-
             request.onload = function() {
 
                 var response = JSON.parse(request.responseText);
-                clearInterval(icon_interval);
-
+                container.className = "";
+                
                 if (response.result) {
-
                     var content = document.getElementById("item-content");
                     if (content) content.innerHTML = response.content;
-
-                    if (container) {
-                        var message = container.getAttribute("data-after-message");
-                        container.innerHTML = "";
-                        container.appendChild(document.createTextNode(" " + message));
-                    }
+                    
+                    container.innerHTML = container.getAttribute("data-after-message");
                 }
                 else {
-
-                    if (container) {
-                        var message = container.getAttribute("data-failure-message");
-                        container.innerHTML = "";
-                        container.appendChild(document.createTextNode(" " + message));
-                    }
+                    container.innerHTML = container.getAttribute("data-failure-message");
                 }
             };
-
+            
+            var item_id = getItemID(item);
             request.open("POST", "?action=download-item&id=" + item_id, true);
             request.send();
         },

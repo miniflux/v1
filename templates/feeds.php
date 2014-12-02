@@ -21,11 +21,9 @@
     <section class="items">
     <?php foreach ($feeds as $feed): ?>
         <article>
-            <h2 class="<?= (! $feed['enabled']) ? 'feed-disabled' : '' ?>">
+            <h2 <?= (! $feed['enabled']) ? 'class="feed-disabled"' : '' ?>>
                 <?php if (! $feed['enabled']): ?>
                     <span title="<?= t('Subscription disabled') ?>">✖</a>
-                <?php else: ?>
-                    <span id="loading-feed-<?= $feed['id'] ?>" class="loading-icon"></span>
                 <?php endif ?>
 
                 <?= Helper\favicon($favicons, $feed['id']) ?>
