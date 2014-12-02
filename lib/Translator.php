@@ -72,6 +72,11 @@ namespace Translator {
 
     function datetime($format, $timestamp)
     {
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
+            $format = preg_replace('#(?<!%)((?:%%)*)%k#', '\1%#H', $format);
+        }
+        
         return strftime($format, (int) $timestamp);
     }
 
