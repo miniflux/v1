@@ -36,21 +36,13 @@
 
         <ul class="item-infos">
             <li>
-            <?php if ($item['bookmark']): ?>
                 <a
                     class="bookmark-icon"
-                    href="?action=bookmark&amp;value=0&amp;id=<?= $item['id'] ?>&amp;source=show&amp;menu=<?= $menu ?>"
-                    title="<?= t('remove bookmark') ?>"
+                    href="?action=bookmark&amp;value=<?= (int)!$item['bookmark'] ?>&amp;id=<?= $item['id'] ?>&amp;source=show&amp;menu=<?= $menu ?>"
+                    title="<?= ($item['bookmark']) ? t('remove bookmark') : t('bookmark') ?>"
+                    data-reverse-title="<?= ($item['bookmark']) ? t('bookmark') :t('remove bookmark') ?>"
                     data-action="bookmark"
                 ></a>
-            <?php else: ?>
-                <a
-                    class="bookmark-icon"
-                    href="?action=bookmark&amp;value=1&amp;id=<?= $item['id'] ?>&amp;source=show&amp;menu=<?= $menu ?>"
-                    title="<?= t('bookmark') ?>"
-                    data-action="bookmark"
-                ></a>
-            <?php endif ?>
             </li>
             <li>
                 <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>"><?= Helper\escape($feed['title']) ?></a>

@@ -146,6 +146,15 @@ Miniflux.Item = (function() {
                     if (Miniflux.Nav.IsListing()) {
                         changeBookmarkLabel(item);
                     }
+                    else {
+                        var link = item.querySelector("a.bookmark-icon");
+                        if (link && link.hasAttribute("data-reverse-title")) {
+                            var title = link.getAttribute("title");
+            
+                            link.setAttribute("title", link.getAttribute("data-reverse-title"));
+                            link.setAttribute("data-reverse-title", title);
+                        }
+                    }
                 }
             };
 
