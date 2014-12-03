@@ -52,7 +52,7 @@ Miniflux.Feed = (function() {
     function updateItemsCounter(feed_id, counts)
     {
         var container = document.getElementById("items-count-" + feed_id);
-        if (container) container.innerHTML = "(" + counts["items_unread"] + "/" + counts['items_total'] + ")";
+        if (container) container.innerHTML = counts["items_unread"] + "/" + counts['items_total'];
     }
 
     return {
