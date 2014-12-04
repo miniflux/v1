@@ -67,7 +67,7 @@ Miniflux.Item = (function() {
         var pageCounter = document.getElementById("page-counter");
 
         if (pageCounter) {
-            var source = item.getAttribute("data-item-page");
+            var sectionElement = document.querySelector("section.page");
             var counter = parseInt(pageCounter.textContent, 10) - 1;
             var articles = document.getElementsByTagName("article");
 
@@ -77,7 +77,7 @@ Miniflux.Item = (function() {
 
             pageCounter.textContent = counter;
 
-            switch (source) {
+            switch (sectionElement.getAttribute("data-item-page")) {
                 case "unread":
                     document.title = "Miniflux (" + counter + ")";
                     document.getElementById("nav-counter").textContent = counter;
@@ -137,7 +137,9 @@ Miniflux.Item = (function() {
             var request = new XMLHttpRequest();
 
             request.onload = function() {
-                if (Miniflux.Nav.IsListing() && item.getAttribute("data-item-page") === "bookmarks") {
+                var sectionElement = document.querySelector("section.page");
+                
+                if (Miniflux.Nav.IsListing() && sectionElement.getAttribute("data-item-page") === "bookmarks") {
                     hideItem(item);
                 }
                 else {

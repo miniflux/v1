@@ -46,7 +46,7 @@
                 </ul>
             </nav>
         </header>
-        <section class="page">
+        <section class="page" data-item-page="<?= $menu ?>">
             <?= Helper\flash('<div class="alert alert-success">%s</div>') ?>
             <?= Helper\flash_error('<div class="alert alert-error">%s</div>') ?>
             <?= $content_for_layout ?>

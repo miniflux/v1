@@ -317,6 +317,9 @@ article[data-item-bookmark="1"] .bookmark-icon:before {
 article[data-item-bookmark="0"] .bookmark-icon:before {
   content: "☆"; }
 
+section.page[data-item-page="feed-items"] article[data-item-status="read"] {
+  background-color: rgba(153, 153, 153, 0.7); }
+
 .items article {
   -moz-box-shadow: 0 3px 0 #006644;
   -webkit-box-shadow: 0 3px 0 #006644;
@@ -324,8 +327,6 @@ article[data-item-bookmark="0"] .bookmark-icon:before {
   background-color: #fFFFFF;
   margin-bottom: 15px;
   padding: 10px 20px; }
-  .items article[data-item-status="read"][data-item-page="feed-items"] {
-    background-color: rgba(153, 153, 153, 0.7); }
   .items article[data-item-status="read"] .read-icon:before {
     content: "✔"; }
   .items article[data-item-bookmark="1"] .item-menu a.bookmark:before {

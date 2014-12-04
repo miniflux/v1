@@ -4,7 +4,6 @@
     data-item-id="<?= $item['id'] ?>"
     data-item-status="<?= $item['status'] ?>"
     data-item-bookmark="<?= $item['bookmark'] ?>"
-    data-item-page="<?= $menu ?>"
     <?= $hide ? 'data-hide="true"' : '' ?>
     >
     <h2 <?= Helper\isRTL($item) ? 'dir="rtl"' : '' ?>>

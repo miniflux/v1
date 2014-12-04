@@ -7,7 +7,6 @@
         data-item-id="<?= $item['id'] ?>"
         data-item-status="<?= $item['status'] ?>"
         data-item-bookmark="<?= $item['bookmark'] ?>"
-        data-item-page="<?= $menu ?>"
     >
 
         <?php if (isset($item_nav)): ?>

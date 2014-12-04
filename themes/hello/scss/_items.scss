@@ -12,6 +12,18 @@ article {
 	}
 }
 
+section {
+    &.page {
+        &[data-item-page="feed-items"] {
+            article {
+                &[data-item-status="read"] {
+                    background-color: rgba(lighten(black,60%), .7);
+                }
+            }
+        }    
+    }
+}
+
 .items {
 	article {
 
@@ -21,10 +33,6 @@ article {
 		padding: 10px 20px;
 
 		&[data-item-status="read"] {
-			&[data-item-page="feed-items"] {
-				background-color: rgba(lighten(black,60%), .7);
-			}
-
 			.read-icon:before {
 				content: $icon-read;
 			}
