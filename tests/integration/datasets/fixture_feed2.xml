@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+	<table name="feeds">
+		<column>id</column>
+		<column>site_url</column>
+		<column>feed_url</column>
+		<column>title</column>
+		<column>last_modified</column>
+		<column>etag</column>
+		<column>last_checked</column>
+		<column>enabled</column>
+		<column>download_content</column>
+		<column>parsing_error</column>
+		<column>rtl</column>
+		<row>
+			<value>2</value>
+			<value>https://github.com/fguillot/miniflux/commits/master</value>
+			<value>https://github.com/fguillot/miniflux/commits/master.atom</value>
+			<value>Recent Commits to miniflux:master</value>
+			<null />
+			<null />
+			<null />
+			<value>1</value>
+			<value>0</value>
+			<value>0</value>
+			<value>0</value>
+		</row>
+	</table>
+	<table name="items">
+		<column>id</column>
+		<column>url</column>
+		<column>title</column>
+		<column>author</column>
+		<column>content</column>
+		<column>updated</column>
+		<column>status</column>
+		<column>feed_id</column>
+		<column>bookmark</column>
+		<column>enclosure</column>
+		<column>enclosure_type</column>
+		<column>language</column>
+		<row>
+			<value>1f4670bf</value>
+			<value>https://github.com/fguillot/miniflux/commit/e1b22f2d3592d653d4c22ce5f137bb1e0ae5dd3f</value>
+			<value>Redirect to the feed page after adding a subscription</value>
+			<value>fguillot</value>
+			<value>&lt;pre&gt;Redirect to the feed page after adding a subscription&lt;/pre&gt;</value>
+			<value>##TIMESTAMP##89</value>
+			<value>unread</value>
+			<value>2</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>2063e830</value>
+			<value>https://github.com/fguillot/miniflux/commit/e732e80deed05ea46667957835b2499bb895ebe9</value>
+			<value>Update the Json-RPC library and improve make-archive.sh</value>
+			<value>fguillot</value>
+			<value>&lt;pre&gt;Update the Json-RPC library and improve make-archive.sh&lt;/pre&gt;</value>
+			<value>##TIMESTAMP##88</value>
+			<value>read</value>
+			<value>2</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>208ee9dd</value>
+			<value>https://github.com/fguillot/miniflux/commit/871f1d1d6410403599c774ad9aa20e55c77162fc</value>
+			<value>Update PicoDb and improve schema migration error handling</value>
+			<value>fguillot</value>
+			<value>&lt;pre&gt;Update PicoDb and improve schema migration error handling&lt;/pre&gt;</value>
+			<value>##TIMESTAMP##87</value>
+			<value>unread</value>
+			<value>2</value>
+			<value>1</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>3530d7cd</value>
+			<value>https://github.com/fguillot/miniflux/commit/d7e5cd0ad424859912fc209651494fad5c52cd34</value>
+			<value>New theme: 'Hello' created by Meradoou</value>
+			<value>fguillot</value>
+			<value>&lt;pre&gt;New theme: &amp;#039;Hello&amp;#039; created by Meradoou&lt;/pre&gt;</value>
+			<value>##TIMESTAMP##86</value>
+			<value>read</value>
+			<value>2</value>
+			<value>1</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+	</table>
+</dataset>

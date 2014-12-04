@@ -1,0 +1,41 @@
+<phpunit>
+    <php>
+        <const name="DB_FILENAME" value="unittest.sqlite" />
+        <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL" value="http://localhost/miniflux/" />
+        <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BROWSERS" value='
+            [
+              {
+                "browserName": "firefox",
+                "host": "localhost",
+                "port": 4444,
+                "sessionStrategy": "shared"
+              },
+              {
+                "browserName": "iexplore",
+                "host": "localhost",
+                "port": 4444,
+                "sessionStrategy": "shared"
+              },
+              {
+                "browserName": "chrome",
+                "host": "localhost",
+                "port": 4444,
+                "sessionStrategy": "shared"
+              }
+            ]
+        '/>
+    </php>
+    <listeners>
+        <listener class="PHPUnit_Extensions_Selenium2TestCase_ScreenshotListener">
+            <arguments>
+                <string>./tests/</string>
+            </arguments>
+        </listener>
+    </listeners>
+    <testsuites>
+        <testsuite name="Miniflux">
+            <directory>tests/</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>

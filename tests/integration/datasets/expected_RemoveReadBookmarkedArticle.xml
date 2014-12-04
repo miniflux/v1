@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+	<table name="feeds">
+		<column>id</column>
+		<column>site_url</column>
+		<column>feed_url</column>
+		<column>title</column>
+		<column>last_modified</column>
+		<column>etag</column>
+		<column>last_checked</column>
+		<column>enabled</column>
+		<column>download_content</column>
+		<column>parsing_error</column>
+		<column>rtl</column>
+		<row>
+			<value>1</value>
+			<value>http://miniflux.net/</value>
+			<value>http://miniflux.net/feed.xml</value>
+			<value>Recent Miniflux Releases</value>
+			<null />
+			<null />
+			<null />
+			<value>1</value>
+			<value>0</value>
+			<value>0</value>
+			<value>0</value>
+		</row>
+	</table>
+	<table name="items">
+		<column>id</column>
+		<column>url</column>
+		<column>title</column>
+		<column>author</column>
+		<column>content</column>
+		<column>updated</column>
+		<column>status</column>
+		<column>feed_id</column>
+		<column>bookmark</column>
+		<column>enclosure</column>
+		<column>enclosure_type</column>
+		<column>language</column>
+		<row>
+			<value>22ca3b4f</value>
+			<value>http://miniflux.net/news.html#2013-03-21</value>
+			<value>Miniflux 1.0.2 is released</value>
+			<value></value>
+			<value>&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://miniflux.net/miniflux-1.0.2.zip&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;Download archive&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;</value>
+			<value>##TIMESTAMP##92</value>
+			<value>unread</value>
+			<value>1</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>30d227f3</value>
+			<value>http://miniflux.net/news.html#2013-07-22</value>
+			<value>Miniflux 1.0.10 is released!</value>
+			<value></value>
+			<value>&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://miniflux.net/miniflux-1.0.10.zip&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;Download archive&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;</value>
+			<value>##TIMESTAMP##97</value>
+			<value>unread</value>
+			<value>1</value>
+			<value>1</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>4b2dbd17</value>
+			<value>http://miniflux.net/news.html#2013-03-26</value>
+			<value>Miniflux 1.0.3 is released</value>
+			<value></value>
+			<value>&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://miniflux.net/miniflux-1.0.3.zip&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;Download archive&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.3&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;</value>
+			<value>##TIMESTAMP##93</value>
+			<value>read</value>
+			<value>1</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>51b4239b</value>
+			<value>http://miniflux.net/news.html#2013-04-12</value>
+			<value>Miniflux 1.0.6 is released</value>
+			<value></value>
+			<value>&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://miniflux.net/miniflux-1.0.6.zip&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;Download archive&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.6&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;</value>
+			<value>##TIMESTAMP##94</value>
+			<value>read</value>
+			<value>1</value>
+			<value>1</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>7c6afaa5</value>
+			<value>http://miniflux.net/news.html#2014-01-02</value>
+			<value>Miniflux 1.1.1 is released</value>
+			<value></value>
+			<value>&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://miniflux.net/miniflux-1.1.1.zip&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;Download archive&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.1.1&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;&lt;p&gt;Major improvements:&lt;/p&gt;
+    &lt;ul&gt;&lt;li&gt;New theme: Copper (By the contributor Nicolas Dewaele)&lt;/li&gt;
+        &lt;li&gt;Display a message next to a feed when there is a parsing error&lt;/li&gt;
+        &lt;li&gt;Change default value of autoflush to 15 days if not set to avoid large database&lt;/li&gt;
+        &lt;li&gt;Add autoflush value &amp;quot;immediately&amp;quot;&lt;/li&gt;
+        &lt;li&gt;Add an option to choose where to be redirected when there is nothing to read&lt;/li&gt;
+        &lt;li&gt;Bug fixes&lt;/li&gt;
+    &lt;/ul&gt;</value>
+			<value>##TIMESTAMP##99</value>
+			<value>unread</value>
+			<value>1</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>7cb2809d</value>
+			<value>http://miniflux.net/news.html#2013-09-02</value>
+			<value>Miniflux 1.0.11 is released</value>
+			<value></value>
+			<value>&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://miniflux.net/miniflux-1.0.11.zip&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;Download archive&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;</value>
+			<value>##TIMESTAMP##98</value>
+			<value>unread</value>
+			<value>1</value>
+			<value>1</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>9b20eb66</value>
+			<value>http://miniflux.net/news.html#2013-04-30</value>
+			<value>Miniflux 1.0.7 is released</value>
+			<value></value>
+			<value>&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://miniflux.net/miniflux-1.0.7.zip&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;Download archive&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.7&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;</value>
+			<value>##TIMESTAMP##95</value>
+			<value>read</value>
+			<value>1</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>9fa78b54</value>
+			<value>http://miniflux.net/news.html#2013-06-02</value>
+			<value>Miniflux 1.0.8 is released</value>
+			<value></value>
+			<value></value>
+			<value>##TIMESTAMP##96</value>
+			<value>removed</value>
+			<value>1</value>
+			<value>1</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+	</table>
+</dataset>

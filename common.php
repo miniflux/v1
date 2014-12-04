@@ -11,7 +11,7 @@ defined('HTTP_TIMEOUT') or define('HTTP_TIMEOUT', 20);
 
 defined('BASE_URL_DIRECTORY') or define('BASE_URL_DIRECTORY', dirname($_SERVER['PHP_SELF']));
 defined('ROOT_DIRECTORY') or define('ROOT_DIRECTORY', __DIR__);
-defined('DATA_DIRECTORY') or define('DATA_DIRECTORY', __DIR__.'/data');
+defined('DATA_DIRECTORY') or define('DATA_DIRECTORY', ROOT_DIRECTORY.DIRECTORY_SEPARATOR.'data');
 
 defined('ENABLE_MULTIPLE_DB') or define('ENABLE_MULTIPLE_DB', true);
 defined('DB_FILENAME') or define('DB_FILENAME', 'db.sqlite');
