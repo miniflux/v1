@@ -19,6 +19,7 @@ Router\get_action('console', function() {
 
     Response\html(Template\layout('console', array(
         'content' => @file_get_contents(DEBUG_FILENAME),
+        'menu' => 'config',
         'title' => t('Console')
     )));
 });
