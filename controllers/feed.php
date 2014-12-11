@@ -83,8 +83,11 @@ Router\get_action('remove-feed', function() {
 // Refresh one feed and redirect to unread items
 Router\get_action('refresh-feed', function() {
 
-    Model\Feed\refresh(Request\int_param('feed_id'));
-    Response\redirect('?action=unread');
+    $feed_id = Request\int_param('feed_id');
+    $redirect = Request\param('redirect', 'unread');
+
+    Model\Feed\refresh($feed_id);
+    Response\redirect('?action='.$redirect.'&feed_id='.$feed_id);
 });
 
 // Ajax call to refresh one feed
