@@ -37,11 +37,18 @@
         <ul class="item-infos">
             <li>
                 <a
-                    class="bookmark-icon"
+                    class="bookmark-icon icon"
                     href="?action=bookmark&amp;value=<?= (int)!$item['bookmark'] ?>&amp;id=<?= $item['id'] ?>&amp;source=show&amp;menu=<?= $menu ?>"
                     title="<?= ($item['bookmark']) ? t('remove bookmark') : t('bookmark') ?>"
                     data-reverse-title="<?= ($item['bookmark']) ? t('bookmark') :t('remove bookmark') ?>"
                     data-action="bookmark"
+                ></a>
+            </li>
+            <li>
+                <a
+                    href="?action=mark-item-unread&amp;id=<?= $item['id'] ?>&amp;redirect=<?= $menu ?>&amp;feed_id=<?= $item['feed_id'] ?>"
+                    title="<?= t('mark as unread') ?>"
+                    class="read-icon icon"
                 ></a>
             </li>
             <li>
@@ -55,11 +62,6 @@
                 <a href="<?= $item['enclosure'] ?>" rel="noreferrer" target="_blank"><?= t('attachment') ?></a>
             </li>
             <?php endif ?>
-            <li>
-                <a
-                    href="?action=mark-item-unread&amp;id=<?= $item['id'] ?>&amp;redirect=unread"
-                ><?= t('mark as unread') ?></a>
-            </li>
             <li class="hide-mobile">
                 <span id="download-item"
                       data-failure-message="<?= t('unable to fetch content') ?>"

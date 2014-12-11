@@ -638,9 +638,14 @@ span.downloading img {
     text-align: center;
 }
 
-a.bookmark-icon {
+a.icon {
     color: #333;
     text-decoration: none;
+}
+
+a.icon:focus,
+a.icon:hover {
+    color: #000;
 }
 
 #item-content-enclosure {

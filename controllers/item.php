@@ -46,6 +46,7 @@ Router\get_action('show', function() {
     $feed = Model\Feed\get($item['feed_id']);
 
     Model\Item\set_read($id);
+    $item['status'] = 'read';
 
     switch ($menu) {
         case 'unread':
