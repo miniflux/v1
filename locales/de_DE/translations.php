@@ -215,4 +215,5 @@ return array(
     'Default' => 'Standard',
     'Value required' => 'Wert ist erforderlich',
     'Must be an integer' => 'Muss eine Ganzzahl sein',
+    // 'Remove automatically unread items' => '',
 );

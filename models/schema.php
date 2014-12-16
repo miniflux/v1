@@ -5,6 +5,11 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
+function version_30($pdo)
+{
+    $pdo->exec('ALTER TABLE config ADD COLUMN autoflush_unread INTEGER DEFAULT 45');
+}
+
 function version_29($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN fever_token INTEGER DEFAULT "'.substr(Config\generate_token(), 0, 8).'"');

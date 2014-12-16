@@ -381,7 +381,7 @@ function mark_feed_as_read($feed_id)
 }
 
 // Mark all read items to removed after X days
-function autoflush()
+function autoflush_read()
 {
     $autoflush = (int) Config\get('autoflush');
 
@@ -402,6 +402,23 @@ function autoflush()
             ->table('items')
             ->eq('bookmark', 0)
             ->eq('status', 'read')
+            ->save(array('status' => 'removed', 'content' => ''));
+    }
+}
+
+// Mark all unread items to removed after X days
+function autoflush_unread()
+{
+    $autoflush = (int) Config\get('autoflush_unread');
+
+    if ($autoflush > 0) {
+
+        // Mark read items removed after X days
+        Database::get('db')
+            ->table('items')
+            ->eq('bookmark', 0)
+            ->eq('status', 'unread')
+            ->lt('updated', strtotime('-'.$autoflush.'day'))
             ->save(array('status' => 'removed', 'content' => ''));
     }
 }

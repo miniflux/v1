@@ -9,7 +9,7 @@ use PicoDb\Database;
 use PicoFeed\Config as ReaderConfig;
 use PicoFeed\Logging;
 
-const DB_VERSION = 29;
+const DB_VERSION = 30;
 const HTTP_USER_AGENT = 'Miniflux (http://miniflux.net)';
 
 // Get PicoFeed config
@@ -121,8 +121,8 @@ function get_display_mode()
 	);
 }
 
-// Autoflush choices for items
-function get_autoflush_options()
+// Autoflush choices for read items
+function get_autoflush_read_options()
 {
     return array(
         '0' => t('Never'),
@@ -131,6 +131,18 @@ function get_autoflush_options()
         '5' => t('After %d days', 5),
         '15' => t('After %d days', 15),
         '30' => t('After %d days', 30)
+    );
+}
+
+// Autoflush choices for unread items
+function get_autoflush_unread_options()
+{
+    return array(
+        '0' => t('Never'),
+        '15' => t('After %d days', 15),
+        '30' => t('After %d days', 30),
+        '45' => t('After %d days', 45),
+        '60' => t('After %d days', 60),
     );
 }
 
@@ -271,6 +283,7 @@ function get_all()
             'language',
             'timezone',
             'autoflush',
+            'autoflush_unread',
             'nocontent',
             'items_per_page',
             'theme',
@@ -293,6 +306,7 @@ function validate_modification(array $values)
         new Validators\Required('username', t('The user name is required')),
         new Validators\MaxLength('username', t('The maximum length is 50 characters'), 50),
         new Validators\Required('autoflush', t('Value required')),
+        new Validators\Required('autoflush_unread', t('Value required')),
         new Validators\Required('items_per_page', t('Value required')),
         new Validators\Integer('items_per_page', t('Must be an integer')),
         new Validators\Required('theme', t('Value required')),

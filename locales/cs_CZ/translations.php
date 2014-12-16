@@ -215,4 +215,5 @@ return array(
     // 'Default' => '',
     // 'Value required' => '',
     // 'Must be an integer' => '',
+    // 'Remove automatically unread items' => '',
 );

@@ -28,7 +28,10 @@
     <?= Helper\form_select('language', $languages, $values, $errors) ?><br/>
 
     <?= Helper\form_label(t('Remove automatically read items'), 'autoflush') ?>
-    <?= Helper\form_select('autoflush', $autoflush_options, $values, $errors) ?><br/>
+    <?= Helper\form_select('autoflush', $autoflush_read_options, $values, $errors) ?><br/>
+
+    <?= Helper\form_label(t('Remove automatically unread items'), 'autoflush_unread') ?>
+    <?= Helper\form_select('autoflush_unread', $autoflush_unread_options, $values, $errors) ?><br/>
 
     <?= Helper\form_label(t('Items per page'), 'items_per_page') ?>
     <?= Helper\form_select('items_per_page', $paging_options, $values, $errors) ?><br/>
