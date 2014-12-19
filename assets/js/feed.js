@@ -34,7 +34,12 @@ Miniflux.Feed = (function() {
                     feed.setAttribute("data-feed-error", "1");
                 }
 
-                if (callback) callback(response);
+                if (callback) {
+                    callback(response);
+                }
+                else {
+                    Miniflux.Item.CheckForUpdates();
+                }
             };
 
             request.open("POST", "?action=refresh-feed&feed_id=" + feed_id, true);
@@ -54,7 +59,7 @@ Miniflux.Feed = (function() {
 
                         if (feeds.length === 0 && queue.length === 0) {
                             clearInterval(interval);
-                            window.location.href = "?action=unread";
+                            Miniflux.Item.CheckForUpdates();
                         }
                     });
                 }
