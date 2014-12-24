@@ -33,13 +33,14 @@ Features
 
 - Keyboard shortcuts
 - Full article download for feeds that display only a summary
+- Bookmarks
+- Send your favorite articles to Pinboard and Instapaper
 - Enclosure support (videos and podcasts)
 - Feed updates via a cronjob or with the user interface with one click
 
 ### More
 
 - Keeps history of read items
-- Basic bookmarks
 - Import/Export of OPML feeds
 - Themes
 - Auto-update from the user interface
