@@ -217,4 +217,9 @@ return array(
     'Must be an integer' => 'Must be an integer',
     'Remove automatically unread items' => 'Supprimer automatiquement les éléments non lus',
     'Toggle RTL mode' => 'Basculer entre le mode RTL',
+    'external services' => 'services externes',
+    'External services' => 'Services externes',
+    'Send bookmarks to Pinboard' => 'Envoyer les favoris vers Pinboard',
+    'Pinboard API token' => 'Jeton d\'accès à l\'API de Pinboard',
+    'Pinboard tags' => 'Tags Pinboard',
 );

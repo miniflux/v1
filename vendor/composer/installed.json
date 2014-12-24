@@ -117,45 +117,6 @@
         "homepage": "https://github.com/fguillot/picoDb"
     },
     {
-        "name": "fguillot/picofeed",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "11589851f91cc3f04c84ba873484486d1457e638"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/11589851f91cc3f04c84ba873484486d1457e638",
-            "reference": "11589851f91cc3f04c84ba873484486d1457e638",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2014-12-22 03:23:04",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "PicoFeed": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Unlicense"
-        ],
-        "authors": [
-            {
-                "name": "Frédéric Guillot",
-                "homepage": "http://fredericguillot.com"
-            }
-        ],
-        "description": "Modern library to write or read feeds (RSS/Atom)",
-        "homepage": "http://fguillot.github.io/picoFeed"
-    },
-    {
         "name": "fguillot/picofarad",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -193,5 +154,44 @@
         ],
         "description": "Minimalist micro-framework",
         "homepage": "https://github.com/fguillot/picoFarad"
+    },
+    {
+        "name": "fguillot/picofeed",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fguillot/picoFeed.git",
+            "reference": "2d538a140020794fad248ccc0f88bb29263a61d6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/2d538a140020794fad248ccc0f88bb29263a61d6",
+            "reference": "2d538a140020794fad248ccc0f88bb29263a61d6",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2014-12-24 02:16:53",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PicoFeed": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Unlicense"
+        ],
+        "authors": [
+            {
+                "name": "Frédéric Guillot",
+                "homepage": "http://fredericguillot.com"
+            }
+        ],
+        "description": "Modern library to write or read feeds (RSS/Atom)",
+        "homepage": "http://fguillot.github.io/picoFeed"
     }
 ]

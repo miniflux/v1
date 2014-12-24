@@ -9,7 +9,7 @@ use PicoDb\Database;
 use PicoFeed\Config\Config as ReaderConfig;
 use PicoFeed\Logging\Logger;
 
-const DB_VERSION = 30;
+const DB_VERSION = 31;
 const HTTP_USER_AGENT = 'Miniflux (http://miniflux.net)';
 
 // Get PicoFeed config
@@ -300,7 +300,10 @@ function get_all()
             'items_sorting_direction',
             'items_display_mode',
             'redirect_nothing_to_read',
-            'auto_update_url'
+            'auto_update_url',
+            'pinboard_enabled',
+            'pinboard_token',
+            'pinboard_tags'
         )
         ->findOne();
 }
@@ -349,18 +352,24 @@ function save(array $values)
 
     unset($values['confirmation']);
 
-    // Reload configuration in session
-    $_SESSION['config'] = $values;
-
-    // Reload translations for flash session message
-    \Translator\load($values['language']);
-
     // If the user does not want content of feeds, remove it in previous ones
     if (isset($values['nocontent']) && (bool) $values['nocontent']) {
         Database::get('db')->table('items')->update(array('content' => ''));
     }
 
-    return Database::get('db')->table('config')->update($values);
+    if (Database::get('db')->table('config')->update($values)) {
+        reload();
+        return true;
+    }
+
+    return false;
+}
+
+// Reload the cache in session
+function reload()
+{
+    $_SESSION['config'] = get_all();
+    \Translator\load(get('language'));
 }
 
 // Get the user agent of the connected user

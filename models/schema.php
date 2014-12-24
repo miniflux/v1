@@ -5,6 +5,13 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
+function version_31($pdo)
+{
+    $pdo->exec('ALTER TABLE config ADD COLUMN pinboard_enabled INTEGER DEFAULT 0');
+    $pdo->exec('ALTER TABLE config ADD COLUMN pinboard_token TEXT');
+    $pdo->exec('ALTER TABLE config ADD COLUMN pinboard_tags TEXT DEFAULT "miniflux"');
+}
+
 function version_30($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN autoflush_unread INTEGER DEFAULT 45');

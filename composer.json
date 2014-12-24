@@ -13,6 +13,7 @@
         "files": [
             "lib/Translator.php",
             "models/config.php",
+            "models/service.php",
             "models/user.php",
             "models/feed.php",
             "models/item.php",

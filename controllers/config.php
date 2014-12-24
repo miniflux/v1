@@ -209,3 +209,30 @@ Router\get_action('api', function() {
         'title' => t('API')
     )));
 });
+
+// Display bookmark services page
+Router\get_action('services', function() {
+
+    Response\html(Template\layout('services', array(
+        'errors' => array(),
+        'values' => Model\Config\get_all() + array('csrf' => Model\Config\generate_csrf()),
+        'menu' => 'config',
+        'title' => t('External services')
+    )));
+});
+
+// Update bookmark services
+Router\post_action('services', function() {
+
+    $values = Request\values() + array('pinboard_enabled' => 0);
+    Model\Config\check_csrf_values($values);
+
+    if (Model\Config\save($values)) {
+        Session\flash(t('Your preferences are updated.'));
+    }
+    else {
+        Session\flash_error(t('Unable to update your preferences.'));
+    }
+
+    Response\redirect('?action=services');
+});

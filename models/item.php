@@ -2,6 +2,7 @@
 
 namespace Model\Item;
 
+use Model\Service;
 use Model\Config;
 use PicoDb\Database;
 use PicoFeed\Logging\Logger;
@@ -300,6 +301,10 @@ function set_status($status, array $items)
 // Enable/disable bookmark flag
 function set_bookmark_value($id, $value)
 {
+    if ($value == 1) {
+        Service\push($id);
+    }
+
     return Database::get('db')
         ->table('items')
         ->eq('id', $id)

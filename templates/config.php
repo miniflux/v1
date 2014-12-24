@@ -1,6 +1,7 @@
 <div class="page-header">
     <h2><?= t('Preferences') ?></h2>
     <ul>
+        <li><a href="?action=services"><?= t('external services') ?></a></li>
         <li><a href="?action=about"><?= t('about') ?></a></li>
         <li><a href="?action=help"><?= t('help') ?></a></li>
         <li><a href="?action=database"><?= t('database') ?></a></li>

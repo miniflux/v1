@@ -217,4 +217,9 @@ return array(
     // 'Must be an integer' => '',
     // 'Remove automatically unread items' => '',
     // 'Toggle RTL mode' => '',
+    // 'external services' => '',
+    // 'External services' => '',
+    // 'Send bookmarks to Pinboard' => '',
+    // 'Pinboard API token' => '',
+    // 'Pinboard tags' => '',
 );
