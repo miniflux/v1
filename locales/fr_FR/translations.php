@@ -232,4 +232,5 @@ return array(
     'Application' => 'Application',
     'Enable image proxy' => 'Activer le proxy pour les images',
     'Avoid mixed content warnings with HTTPS' => 'Évite les alertes du navigateur web en HTTPS',
+    'Download favicons' => 'Télécharger les icônes des sites web',
 );

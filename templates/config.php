@@ -12,7 +12,6 @@
 <form method="post" action="?action=config" autocomplete="off">
 
     <h3><?= t('Authentication') ?></h3>
-
     <?= Helper\form_hidden('csrf', $values) ?>
     <?= Helper\form_label(t('Username'), 'username') ?>
     <?= Helper\form_text('username', $values, $errors, array('required')) ?><br/>
@@ -61,6 +60,8 @@
     <?= Helper\form_select('redirect_nothing_to_read', $redirect_nothing_to_read_options, $values, $errors) ?><br/>
 
     <?= Helper\form_checkbox('nocontent', t('Do not fetch the content of articles'), 1, isset($values['nocontent']) && $values['nocontent'] == 1) ?><br />
+
+    <?= Helper\form_checkbox('favicons', t('Download favicons'), 1, isset($values['favicons']) && $values['favicons'] == 1) ?><br />
 
     <div class="form-actions">
         <input type="submit" value="<?= t('Save') ?>" class="btn btn-blue"/>

@@ -2,6 +2,15 @@
 
 namespace Helper;
 
+function favicon(array $favicons, $feed_id)
+{
+    if (isset($favicons[$feed_id])) {
+        return '<img src="'.$favicons[$feed_id].'" class="favicon"/>';
+    }
+
+    return '';
+}
+
 function isRTL(array $item)
 {
     return ! empty($item['rtl']) || \PicoFeed\Parser\Parser::isLanguageRTL($item['language']);

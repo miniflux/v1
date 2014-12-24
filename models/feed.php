@@ -2,17 +2,71 @@
 
 namespace Model\Feed;
 
+use Model\Config;
+use Model\Item;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 use PicoDb\Database;
-use Model\Config;
-use Model\Item;
 use PicoFeed\Serialization\Export;
 use PicoFeed\Serialization\Import;
 use PicoFeed\Reader\Reader;
+use PicoFeed\Reader\Favicon;
 use PicoFeed\PicoFeedException;
 
 const LIMIT_ALL = -1;
+
+// Download and store the favicon
+function fetch_favicon($feed_id, $site_url)
+{
+    $favicon = new Favicon;
+
+    return Database::get('db')
+            ->table('favicons')
+            ->save(array(
+                'feed_id' => $feed_id,
+                'link' => $favicon->find($site_url),
+                'icon' => $favicon->getDataUri(),
+            ));
+}
+
+// Refresh favicon
+function refresh_favicon($feed_id, $site_url)
+{
+    if (Config\get('favicons') == 1 && ! has_favicon($feed_id)) {
+        fetch_favicon($feed_id, $site_url);
+    }
+}
+
+// Return true if the feed have a favicon
+function has_favicon($feed_id)
+{
+    return Database::get('db')->table('favicons')->eq('feed_id', $feed_id)->count() === 1;
+}
+
+// Get favicons for those feeds
+function get_favicons(array $feed_ids)
+{
+    if (Config\get('favicons') == 0) {
+        return array();
+    }
+
+    return Database::get('db')
+            ->table('favicons')
+            ->in('feed_id', $feed_ids)
+            ->listing('feed_id', 'icon');
+}
+
+// Get all favicons for a list of items
+function get_item_favicons(array $items)
+{
+    $feed_ids = array();
+
+    foreach ($items as $item) {
+        $feeds_ids[] = $item['feed_id'];
+    }
+
+    return get_favicons($feed_ids);
+}
 
 // Update feed information
 function update(array $values)
@@ -117,6 +171,8 @@ function create($url, $enable_grabber = false, $force_rtl = false)
             $feed_id = $db->getConnection()->getLastId();
 
             Item\update_all($feed_id, $feed->getItems());
+            refresh_favicon($feed_id, $feed->getSiteUrl());
+
             Config\write_debug();
 
             return (int) $feed_id;
@@ -187,6 +243,7 @@ function refresh($feed_id)
             update_cache($feed_id, $resource->getLastModified(), $resource->getEtag());
 
             Item\update_all($feed_id, $feed->getItems());
+            refresh_favicon($feed_id, $feed->getSiteUrl());
         }
 
         update_parsing_error($feed_id, 0);

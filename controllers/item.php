@@ -25,6 +25,7 @@ Router\get_action('unread', function() {
     }
 
     Response\html(Template\layout('unread_items', array(
+        'favicons' => Model\Feed\get_item_favicons($items),
         'order' => $order,
         'direction' => $direction,
         'display_mode' => Model\Config\get('items_display_mode'),
@@ -88,6 +89,7 @@ Router\get_action('feed-items', function() {
     $items = Model\Item\get_all_by_feed($feed_id, $offset, Model\Config\get('items_per_page'), $order, $direction);
 
     Response\html(Template\layout('feed_items', array(
+        'favicons' => Model\Feed\get_favicons(array($feed['id'])),
         'order' => $order,
         'direction' => $direction,
         'display_mode' => Model\Config\get('items_display_mode'),

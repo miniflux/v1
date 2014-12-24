@@ -285,34 +285,13 @@ function get($name)
 // Get all config parameters
 function get_all()
 {
-    return Database::get('db')
+    $config = Database::get('db')
         ->table('config')
-        ->columns(
-            'username',
-            'language',
-            'timezone',
-            'autoflush',
-            'autoflush_unread',
-            'nocontent',
-            'items_per_page',
-            'theme',
-            'api_token',
-            'feed_token',
-            'fever_token',
-            'bookmarklet_token',
-            'items_sorting_direction',
-            'items_display_mode',
-            'redirect_nothing_to_read',
-            'auto_update_url',
-            'pinboard_enabled',
-            'pinboard_token',
-            'pinboard_tags',
-            'instapaper_enabled',
-            'instapaper_username',
-            'instapaper_password',
-            'image_proxy'
-        )
         ->findOne();
+
+    unset($config['password']);
+
+    return $config;
 }
 
 // Validation for edit action

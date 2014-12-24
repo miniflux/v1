@@ -11,15 +11,17 @@ Router\get_action('history', function() {
 
     $offset = Request\int_param('offset', 0);
     $nb_items = Model\Item\count_by_status('read');
+    $items = Model\Item\get_all(
+        'read',
+        $offset,
+        Model\Config\get('items_per_page'),
+        'updated',
+        Model\Config\get('items_sorting_direction')
+    );
 
     Response\html(Template\layout('history', array(
-        'items' => Model\Item\get_all(
-            'read',
-            $offset,
-            Model\Config\get('items_per_page'),
-            'updated',
-            Model\Config\get('items_sorting_direction')
-        ),
+        'favicons' => Model\Feed\get_item_favicons($items),
+        'items' => $items,
         'order' => '',
         'direction' => '',
         'display_mode' => Model\Config\get('items_display_mode'),

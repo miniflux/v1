@@ -134,7 +134,7 @@ Router\get_action('config', function() {
 // Update preferences
 Router\post_action('config', function() {
 
-    $values = Request\values() + array('nocontent' => 0, 'image_proxy' => 0);
+    $values = Request\values() + array('nocontent' => 0, 'image_proxy' => 0, 'favicons' => 0);
     Model\Config\check_csrf_values($values);
     list($valid, $errors) = Model\Config\validate_modification($values);
 

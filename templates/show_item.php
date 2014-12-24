@@ -45,13 +45,6 @@
                 ></a>
             </li>
             <li>
-                <a
-                    href="?action=mark-item-unread&amp;id=<?= $item['id'] ?>&amp;redirect=<?= $menu ?>&amp;feed_id=<?= $item['feed_id'] ?>"
-                    title="<?= t('mark as unread') ?>"
-                    class="read-icon icon"
-                ></a>
-            </li>
-            <li>
                 <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>"><?= Helper\escape($feed['title']) ?></a>
             </li>
             <li class="hide-mobile">

@@ -5,7 +5,21 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
-const VERSION = 33;
+const VERSION = 34;
+
+function version_34($pdo)
+{
+    $pdo->exec('ALTER TABLE config ADD COLUMN favicons INTEGER DEFAULT 0');
+
+    $pdo->exec(
+        'CREATE TABLE favicons (
+            feed_id INTEGER UNIQUE,
+            link TEXT,
+            icon TEXT,
+            FOREIGN KEY(feed_id) REFERENCES feeds(id) ON DELETE CASCADE
+        )'
+    );
+}
 
 function version_33($pdo)
 {

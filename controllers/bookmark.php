@@ -42,12 +42,14 @@ Router\get_action('bookmarks', function() {
 
     $offset = Request\int_param('offset', 0);
     $nb_items = Model\Item\count_bookmarks();
+    $items = Model\Item\get_bookmarks($offset, Model\Config\get('items_per_page'));
 
     Response\html(Template\layout('bookmarks', array(
+        'favicons' => Model\Feed\get_item_favicons($items),
         'order' => '',
         'direction' => '',
         'display_mode' => Model\Config\get('items_display_mode'),
-        'items' => Model\Item\get_bookmarks($offset, Model\Config\get('items_per_page')),
+        'items' => $items,
         'nb_items' => $nb_items,
         'offset' => $offset,
         'items_per_page' => Model\Config\get('items_per_page'),

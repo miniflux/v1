@@ -662,6 +662,10 @@ a.icon:hover {
     padding-bottom: 10px;
 }
 
+.items article .favicon {
+    height: 16px;
+}
+
 /* other pages */
 section li {
     margin-left: 15px;

@@ -232,4 +232,5 @@ return array(
     // 'Application' => '',
     // 'Enable image proxy' => '',
     // 'Avoid mixed content warnings with HTTPS' => '',
+    // 'Download favicons' => '',
 );

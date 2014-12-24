@@ -22,6 +22,7 @@
                 'offset' => $offset,
                 'hide' => true,
                 'display_mode' => $display_mode,
+                'favicons' => $favicons,
             )) ?>
         <?php endforeach ?>
 
