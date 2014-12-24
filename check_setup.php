@@ -59,5 +59,5 @@ if (! is_writable(DATA_DIRECTORY)) {
 
 // Include password_compat for PHP < 5.5
 if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-    require __DIR__.'/vendor/password.php';
+    require __DIR__.'/lib/password.php';
 }

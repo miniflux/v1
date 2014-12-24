@@ -4,10 +4,9 @@ namespace Model\Item;
 
 use Model\Config;
 use PicoDb\Database;
-use PicoFeed\Logging;
-use PicoFeed\Grabber;
-use PicoFeed\Client;
-use PicoFeed\Filter;
+use PicoFeed\Logging\Logger;
+use PicoFeed\Client\Grabber;
+use PicoFeed\Filter\Filter;
 
 // Get all items without filtering
 function get_everything()
@@ -424,7 +423,7 @@ function autoflush_unread()
 }
 
 // Update all items
-function update_all($feed_id, array $items, $enable_grabber = false)
+function update_all($feed_id, array $items)
 {
     $nocontent = (bool) Config\get('nocontent');
 
@@ -435,12 +434,12 @@ function update_all($feed_id, array $items, $enable_grabber = false)
 
     foreach ($items as $item) {
 
-        Logging::setMessage('Item => '.$item->getId().' '.$item->getUrl());
+        Logger::setMessage('Item => '.$item->getId().' '.$item->getUrl());
 
         // Item parsed correctly?
         if ($item->getId() && $item->getUrl()) {
 
-            Logging::setMessage('Item parsed correctly');
+            Logger::setMessage('Item parsed correctly');
 
             // Get item record in database, if any
             $itemrec = $db
@@ -452,11 +451,7 @@ function update_all($feed_id, array $items, $enable_grabber = false)
             // Insert a new item
             if ($itemrec === null) {
 
-                Logging::setMessage('Item added to the database');
-
-                if ($enable_grabber && ! $nocontent && ! $item->getContent()) {
-                    $item->content = download_content_url($item->getUrl());
-                }
+                Logger::setMessage('Item added to the database');
 
                 $db->table('items')->save(array(
                     'id' => $item->getId(),
@@ -474,7 +469,7 @@ function update_all($feed_id, array $items, $enable_grabber = false)
             }
             else if (! $itemrec['enclosure'] && $item->getEnclosureUrl()) {
 
-                Logging::setMessage('Update item enclosure');
+                Logger::setMessage('Update item enclosure');
 
                 $db->table('items')->eq('id', $item->getId())->save(array(
                     'status' => 'unread',
@@ -483,7 +478,7 @@ function update_all($feed_id, array $items, $enable_grabber = false)
                 ));
             }
             else {
-                Logging::setMessage('Item already in the database');
+                Logger::setMessage('Item already in the database');
             }
 
             // Items inside this feed
@@ -523,7 +518,7 @@ function cleanup($feed_id, array $items_in_feed)
             if (! empty($items_to_remove)) {
 
                 $nb_items = count($items_to_remove);
-                Logging::setMessage('There is '.$nb_items.' items to remove');
+                Logger::setMessage('There is '.$nb_items.' items to remove');
 
                 // Handle the case when there is a huge number of items to remove
                 // Sqlite have a limit of 1000 sql variables by default
@@ -554,7 +549,7 @@ function download_content_url($url)
     $grabber->download();
 
     if ($grabber->parse()) {
-        $content = $grabber->getcontent();
+        $content = $grabber->getFilteredcontent();
     }
 
     if (! empty($content)) {

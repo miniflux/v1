@@ -6,8 +6,8 @@ use DirectoryIterator;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 use PicoDb\Database;
-use PicoFeed\Config as ReaderConfig;
-use PicoFeed\Logging;
+use PicoFeed\Config\Config as ReaderConfig;
+use PicoFeed\Logging\Logger;
 
 const DB_VERSION = 30;
 const HTTP_USER_AGENT = 'Miniflux (http://miniflux.net)';
@@ -18,16 +18,22 @@ function get_reader_config()
     $config = new ReaderConfig;
     $config->setTimezone(get('timezone'));
 
+    // Client
     $config->setClientTimeout(HTTP_TIMEOUT);
     $config->setClientUserAgent(HTTP_USER_AGENT);
     $config->setGrabberUserAgent(HTTP_USER_AGENT);
 
+    // Proxy
     $config->setProxyHostname(PROXY_HOSTNAME);
     $config->setProxyPort(PROXY_PORT);
     $config->setProxyUsername(PROXY_USERNAME);
     $config->setProxyPassword(PROXY_PASSWORD);
 
+    // Filter
     $config->setFilterIframeWhitelist(get_iframe_whitelist());
+
+    // Parser
+    $config->setParserHashAlgo('crc32b');
 
     return $config;
 }
@@ -47,7 +53,7 @@ function get_iframe_whitelist()
 // Send a debug message to the console
 function debug($line)
 {
-    Logging::setMessage($line);
+    Logger::setMessage($line);
     write_debug();
 }
 
@@ -55,7 +61,7 @@ function debug($line)
 function write_debug()
 {
     if (DEBUG) {
-        file_put_contents(DEBUG_FILENAME, implode(PHP_EOL, Logging::getMessages()));
+        file_put_contents(DEBUG_FILENAME, implode(PHP_EOL, Logger::getMessages()));
     }
 }
 

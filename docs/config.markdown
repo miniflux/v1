@@ -52,5 +52,4 @@ define('PROXY_PASSWORD', '');
 
 // ENABLE_AUTO_UPDATE => default is true (enable Miniflux update from the user interface)
 define('ENABLE_AUTO_UPDATE', true);
-
 ```

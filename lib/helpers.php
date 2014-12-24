@@ -4,7 +4,7 @@ namespace Helper;
 
 function isRTL(array $item)
 {
-    return ! empty($item['rtl']) || \PicoFeed\Parser::isLanguageRTL($item['language']);
+    return ! empty($item['rtl']) || \PicoFeed\Parser\Parser::isLanguageRTL($item['language']);
 }
 
 function css()

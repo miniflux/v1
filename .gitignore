@@ -43,6 +43,5 @@ Thumbs.db
 # App specific #
 ################
 config.php
-!vendor/PicoFeed/*
 !models/*
 !controllers/*

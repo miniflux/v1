@@ -1,0 +1,31 @@
+{
+    "config": {
+        "preferred-install": "dist"
+    },
+    "require": {
+        "fguillot/simple-validator": "dev-master",
+        "fguillot/json-rpc": "dev-master",
+        "fguillot/picodb": "dev-master",
+        "fguillot/picofeed": "dev-master",
+        "fguillot/picofarad": "dev-master"
+    },
+    "autoload": {
+        "files": [
+            "lib/Translator.php",
+            "models/config.php",
+            "models/user.php",
+            "models/feed.php",
+            "models/item.php",
+            "models/schema.php",
+            "models/auto_update.php",
+            "models/database.php",
+            "models/remember_me.php"
+        ],
+        "classmap": [
+            "vendor/fguillot/json-rpc/src/",
+            "vendor/fguillot/picodb/lib/",
+            "vendor/fguillot/picofeed/lib/",
+            "vendor/fguillot/simple-validator/src/"
+        ]
+    }
+}

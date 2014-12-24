@@ -10,12 +10,18 @@ git clone --depth 1 https://github.com/fguillot/$APP.git
 
 rm -rf $APP/data/*.sqlite \
        $APP/.git \
-       $APP/.gitignore \
        $APP/scripts \
-       $APP/docs \
-       $APP/README.* \
-       $APP/Dockerfile
+       $APP/Dockerfile \
+       $APP/vendor/composer/installed.json
 
+find $APP -name docs -type d -exec rm -rf {} +;
+find $APP -name tests -type d -exec rm -rf {} +;
+
+find $APP -name composer.json -delete
+find $APP -name phpunit.xml -delete
+find $APP -name .travis.yml -delete
+find $APP -name README.* -delete
+find $APP -name .gitignore -delete
 find $APP -name *.less -delete
 find $APP -name *.scss -delete
 find $APP -name *.rb -delete

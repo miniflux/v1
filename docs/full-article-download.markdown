@@ -20,7 +20,7 @@ However the content grabber doesn't work very well with all websites.
 How to write a grabber rules file?
 ----------------------------------
 
-Add a PHP file to the directory `PicoFeed\Rules`, the filename must be the domain name:
+Add a PHP file to the directory `vendor\fguillot\PicoFeed\Rules`, the filename must be the domain name:
 
 Example with the BBC website, `www.bbc.co.uk.php`:
 

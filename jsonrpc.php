@@ -1,7 +1,6 @@
 <?php
 
 require __DIR__.'/common.php';
-require __DIR__.'/vendor/JsonRPC/Server.php';
 
 use JsonRPC\Server;
 
