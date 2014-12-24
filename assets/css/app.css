@@ -145,6 +145,14 @@ form {
     border-left: 2px dotted #ddd;
 }
 
+form h3 {
+    font-weight: bold;
+}
+
+form h3:first-child {
+    margin-top: 0;
+}
+
 label {
     cursor: pointer;
     display: block;

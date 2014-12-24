@@ -222,4 +222,9 @@ return array(
     'Send bookmarks to Pinboard' => 'Envoyer les favoris vers Pinboard',
     'Pinboard API token' => 'Jeton d\'accès à l\'API de Pinboard',
     'Pinboard tags' => 'Tags Pinboard',
+    'Instapaper username' => 'Utilisateur Instapaper',
+    'Instapaper password' => 'Mot de passe Instapaper',
+    'Instapaper' => 'Instapaper',
+    'Pinboard' => 'Pinboard',
+    'Send bookmarks to Instapaper' => 'Envoyer les favoris vers Instapaper',
 );

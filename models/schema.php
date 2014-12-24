@@ -5,6 +5,13 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
+function version_32($pdo)
+{
+    $pdo->exec('ALTER TABLE config ADD COLUMN instapaper_enabled INTEGER DEFAULT 0');
+    $pdo->exec('ALTER TABLE config ADD COLUMN instapaper_username TEXT');
+    $pdo->exec('ALTER TABLE config ADD COLUMN instapaper_password TEXT');
+}
+
 function version_31($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN pinboard_enabled INTEGER DEFAULT 0');

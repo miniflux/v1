@@ -222,4 +222,9 @@ return array(
     // 'Send bookmarks to Pinboard' => '',
     // 'Pinboard API token' => '',
     // 'Pinboard tags' => '',
+    // 'Instapaper username' => '',
+    // 'Instapaper password' => '',
+    // 'Instapaper' => '',
+    // 'Pinboard' => '',
+    // 'Send bookmarks to Instapaper' => '',
 );

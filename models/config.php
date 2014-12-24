@@ -9,7 +9,7 @@ use PicoDb\Database;
 use PicoFeed\Config\Config as ReaderConfig;
 use PicoFeed\Logging\Logger;
 
-const DB_VERSION = 31;
+const DB_VERSION = 32;
 const HTTP_USER_AGENT = 'Miniflux (http://miniflux.net)';
 
 // Get PicoFeed config
@@ -303,7 +303,10 @@ function get_all()
             'auto_update_url',
             'pinboard_enabled',
             'pinboard_token',
-            'pinboard_tags'
+            'pinboard_tags',
+            'instapaper_enabled',
+            'instapaper_username',
+            'instapaper_password'
         )
         ->findOne();
 }
