@@ -227,4 +227,9 @@ return array(
     'Instapaper' => 'Instapaper',
     'Pinboard' => 'Pinboard',
     'Send bookmarks to Instapaper' => 'Envoyer les favoris vers Instapaper',
+    'Authentication' => 'Authentification',
+    'Reading' => 'Lecture',
+    'Application' => 'Application',
+    'Enable image proxy' => 'Activer le proxy pour les images',
+    'Avoid mixed content warnings with HTTPS' => 'Évite les alertes du navigateur web en HTTPS',
 );

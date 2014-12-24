@@ -38,10 +38,10 @@ PicoDb\Database::bootstrap('db', function() {
 
     $db = new PicoDb\Database(array(
         'driver' => 'sqlite',
-        'filename' => \Model\Database\get_path(),
+        'filename' => Model\Database\get_path(),
     ));
 
-    if ($db->schema()->check(Model\Config\DB_VERSION)) {
+    if ($db->schema()->check(Schema\VERSION)) {
         return $db;
     }
     else {

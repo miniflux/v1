@@ -78,3 +78,15 @@ Router\get_action('select-db', function() {
 
     Response\redirect('?action=login');
 });
+
+// Image proxy (avoid SSL mixed content warnings)
+Router\get_action('proxy', function() {
+    list($content, $type) = Model\Proxy\download(urldecode(Request\param('url')));
+
+    if (empty($content)) {
+        Response\text('Not Found', 404);
+    }
+
+    Response\content_type($type);
+    echo $content;
+});

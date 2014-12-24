@@ -17,6 +17,7 @@
             "models/user.php",
             "models/feed.php",
             "models/item.php",
+            "models/proxy.php",
             "models/schema.php",
             "models/auto_update.php",
             "models/database.php",

@@ -12,6 +12,7 @@ return array(
     $baseDir . '/models/user.php',
     $baseDir . '/models/feed.php',
     $baseDir . '/models/item.php',
+    $baseDir . '/models/proxy.php',
     $baseDir . '/models/schema.php',
     $baseDir . '/models/auto_update.php',
     $baseDir . '/models/database.php',

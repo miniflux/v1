@@ -45,6 +45,7 @@ Features
 - Themes
 - Auto-update from the user interface
 - Multiple databases (each user has his own database)
+- Image proxy to avoid mixed content warnings with HTTPS
 
 Requirements
 ------------

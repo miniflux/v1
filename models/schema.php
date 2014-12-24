@@ -5,6 +5,13 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
+const VERSION = 33;
+
+function version_33($pdo)
+{
+    $pdo->exec('ALTER TABLE config ADD COLUMN image_proxy INTEGER DEFAULT 0');
+}
+
 function version_32($pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN instapaper_enabled INTEGER DEFAULT 0');

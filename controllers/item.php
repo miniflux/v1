@@ -71,7 +71,8 @@ Router\get_action('show', function() {
         'feed' => $feed,
         'item_nav' => isset($nav) ? $nav : null,
         'menu' => $menu,
-        'title' => $item['title']
+        'title' => $item['title'],
+        'image_proxy_enabled' => (bool) Model\Config\get('image_proxy'),
     )));
 });
 

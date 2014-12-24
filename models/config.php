@@ -9,7 +9,6 @@ use PicoDb\Database;
 use PicoFeed\Config\Config as ReaderConfig;
 use PicoFeed\Logging\Logger;
 
-const DB_VERSION = 32;
 const HTTP_USER_AGENT = 'Miniflux (http://miniflux.net)';
 
 // Get PicoFeed config
@@ -31,6 +30,10 @@ function get_reader_config()
 
     // Filter
     $config->setFilterIframeWhitelist(get_iframe_whitelist());
+
+    if ((bool) get('image_proxy')) {
+        $config->setFilterImageProxyUrl('?action=proxy&url=%s');
+    }
 
     // Parser
     $config->setParserHashAlgo('crc32b');
@@ -306,7 +309,8 @@ function get_all()
             'pinboard_tags',
             'instapaper_enabled',
             'instapaper_username',
-            'instapaper_password'
+            'instapaper_password',
+            'image_proxy'
         )
         ->findOne();
 }

@@ -557,12 +557,6 @@ function download_content_url($url)
         $content = $grabber->getFilteredcontent();
     }
 
-    if (! empty($content)) {
-        $filter = Filter::html($content, $url);
-        $filter->setConfig(Config\get_reader_config());
-        $content = $filter->execute();
-    }
-
     return $content;
 }
 
