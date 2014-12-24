@@ -128,6 +128,7 @@ Router\get_action('feeds', function() {
     }
 
     Response\html(Template\layout('feeds', array(
+        'favicons' => Model\Feed\get_all_favicons(),
         'feeds' => Model\Feed\get_all_item_counts(),
         'nothing_to_read' => Request\int_param('nothing_to_read'),
         'menu' => 'feeds',

@@ -68,6 +68,18 @@ function get_item_favicons(array $items)
     return get_favicons($feed_ids);
 }
 
+// Get all favicons
+function get_all_favicons()
+{
+    if (Config\get('favicons') == 0) {
+        return array();
+    }
+
+    return Database::get('db')
+            ->table('favicons')
+            ->listing('feed_id', 'icon');
+}
+
 // Update feed information
 function update(array $values)
 {

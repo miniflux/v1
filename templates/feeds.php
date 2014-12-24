@@ -28,9 +28,11 @@
                     <span id="loading-feed-<?= $feed['id'] ?>" class="loading-icon"></span>
                 <?php endif ?>
 
-                <span id="items-count-<?= $feed['id'] ?>"><?= $feed['items_unread'] .'/' . $feed['items_total'] ?></span>
+                <?= Helper\favicon($favicons, $feed['id']) ?>
+
 
                 <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>" title="<?= t('Show only this subscription') ?>"><?= Helper\escape($feed['title']) ?></a>
+                <span id="items-count-<?= $feed['id'] ?>"><?= $feed['items_unread'] .'/' . $feed['items_total'] ?></span>
 
                 <?php if ($feed['enabled']): ?>
 

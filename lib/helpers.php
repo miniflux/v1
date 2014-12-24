@@ -4,7 +4,7 @@ namespace Helper;
 
 function favicon(array $favicons, $feed_id)
 {
-    if (isset($favicons[$feed_id])) {
+    if (! empty($favicons[$feed_id])) {
         return '<img src="'.$favicons[$feed_id].'" class="favicon"/>';
     }
 
