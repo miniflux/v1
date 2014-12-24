@@ -70,7 +70,7 @@ Miniflux.Item = (function() {
             var source = item.getAttribute("data-item-page");
             var counter = parseInt(pageCounter.textContent, 10) - 1;
             var articles = document.getElementsByTagName("article");
-            
+
             if (counter === 0 || articles.length === 0) {
                 window.location = location.href;
             }
@@ -95,7 +95,7 @@ Miniflux.Item = (function() {
     {
         var item_id = getItemID(item);
         var request = new XMLHttpRequest();
-        
+
         request.onload = function() {
             if (Miniflux.Nav.IsListing()) showItemAsRead(item);
         };
@@ -107,7 +107,7 @@ Miniflux.Item = (function() {
     {
         var item_id = getItemID(item);
         var request = new XMLHttpRequest();
-        
+
         request.onload = function() {
             if (Miniflux.Nav.IsListing()) showItemAsUnread(item);
         };
@@ -119,7 +119,7 @@ Miniflux.Item = (function() {
     {
         var item_id = getItemID(item);
         var request = new XMLHttpRequest();
-        
+
         request.onload = function() {
             if (Miniflux.Nav.IsListing()) hideItem(item);
         };
@@ -135,7 +135,7 @@ Miniflux.Item = (function() {
             var item_id = getItemID(item);
             var value = item.getAttribute("data-item-bookmark") === "1" ? "0" : "1";
             var request = new XMLHttpRequest();
-            
+
             request.onload = function() {
                 if (Miniflux.Nav.IsListing() && item.getAttribute("data-item-page") === "bookmarks") {
                     hideItem(item);
@@ -150,7 +150,7 @@ Miniflux.Item = (function() {
                         var link = item.querySelector("a.bookmark-icon");
                         if (link && link.hasAttribute("data-reverse-title")) {
                             var title = link.getAttribute("title");
-            
+
                             link.setAttribute("title", link.getAttribute("data-reverse-title"));
                             link.setAttribute("data-reverse-title", title);
                         }
@@ -249,6 +249,22 @@ Miniflux.Item = (function() {
 
             request.open("POST", "?action=mark-items-as-read", true);
             request.send(JSON.stringify(listing));
+        },
+        ToggleRTLMode: function() {
+            var tags = [
+                "#current-item h1",
+                "#item-content",
+                "#current-item h2",
+                "#current-item .preview"
+            ];
+
+            for (var i = 0; i < tags.length; i++) {
+                var tag = document.querySelector(tags[i]);
+
+                if (tag) {
+                    tag.dir = tag.dir == "" ? "rtl" : "";
+                }
+            }
         }
     };
 

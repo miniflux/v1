@@ -3,6 +3,9 @@
 in=assets/js/all.js
 out=assets/js/all.min.js
 
+rm -f $in 2>/dev/null
+rm -f $out 2>/dev/null
+
 cat assets/js/app.js assets/js/feed.js assets/js/item.js assets/js/event.js assets/js/nav.js > $in
 echo "Miniflux.App.Run();" >> $in
 

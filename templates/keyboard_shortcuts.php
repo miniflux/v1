@@ -16,6 +16,7 @@
         <li><?= t('Bookmark item') ?> = <strong>f</strong></li>
         <li><?= t('Previous page') ?> = <strong>h</strong></li>
         <li><?= t('Next page') ?> = <strong>l</strong></li>
+        <li><?= t('Toggle RTL mode') ?> = <strong>z</strong></li>
         <li><?= t('Show help') ?> = <strong>?</strong></li>
         <li><?= t('Close help') ?> = <strong>q</strong></li>
     </ul>

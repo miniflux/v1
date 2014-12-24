@@ -164,6 +164,9 @@ Miniflux.Event = (function() {
                         case 63: // ?
                             Miniflux.Nav.ShowHelp();
                             break;
+                        case 122: // z
+                            Miniflux.Item.ToggleRTLMode();
+                            break;
                     }
                 }
             }

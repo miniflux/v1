@@ -216,4 +216,5 @@ return array(
     'Value required' => 'Wert ist erforderlich',
     'Must be an integer' => 'Muss eine Ganzzahl sein',
     // 'Remove automatically unread items' => '',
+    // 'Toggle RTL mode' => '',
 );

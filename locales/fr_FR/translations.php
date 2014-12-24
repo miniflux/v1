@@ -216,4 +216,5 @@ return array(
     'Value required' => 'Value required',
     'Must be an integer' => 'Must be an integer',
     'Remove automatically unread items' => 'Supprimer automatiquement les éléments non lus',
+    'Toggle RTL mode' => 'Basculer entre le mode RTL',
 );
