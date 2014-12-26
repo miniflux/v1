@@ -12,6 +12,7 @@ use PicoFeed\Serialization\Import;
 use PicoFeed\Reader\Reader;
 use PicoFeed\Reader\Favicon;
 use PicoFeed\PicoFeedException;
+use PicoFeed\Client\InvalidUrlException;
 
 const LIMIT_ALL = -1;
 
@@ -263,7 +264,11 @@ function refresh($feed_id)
 
         return true;
     }
-    catch (PicoFeedException $e) {}
+    catch (InvalidUrlException $e) {
+        disable($feed_id);
+    }
+    catch (PicoFeedException $e) {
+    }
 
     update_parsing_error($feed_id, 1);
     Config\write_debug();
