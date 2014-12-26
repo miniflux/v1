@@ -711,6 +711,26 @@ iframe {
     margin-bottom: 45px;
 }
 
+.bookmarklet {
+    font-size: 0.9em;
+    font-weight: bold;
+    line-height: 30px;
+    padding: 4px;
+    text-decoration: none;
+    color: #333;
+    background: #fcfcfc;
+    border: 1px dotted #ccc;
+    border-radius: 4px;
+    cursor: move;
+}
+
+.bookmarklet:focus,
+.bookmarklet:hover {
+    background: #fff;
+    color: #339966;
+    border: 1px solid #ccc;
+}
+
 /* desktop design */
 @media only screen and (min-width: 480px) {
 
