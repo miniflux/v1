@@ -5,6 +5,7 @@ use PicoFarad\Response;
 use PicoFarad\Request;
 use PicoFarad\Session;
 use PicoFarad\Template;
+use PicoFeed\Syndication\Atom;
 
 // Ajax call to add or remove a bookmark
 Router\post_action('bookmark', function() {
@@ -71,7 +72,7 @@ Router\get_action('bookmark-feed', function() {
     }
 
     // Build Feed
-    $writer = new PicoFeed\Writers\Atom;
+    $writer = new Atom;
     $writer->title = t('Bookmarks').' - Miniflux';
     $writer->site_url = Helper\get_current_base_url();
     $writer->feed_url = $writer->site_url.'?action=bookmark-feed&token='.urlencode($feed_token);
