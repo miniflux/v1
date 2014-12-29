@@ -88,5 +88,5 @@ Router\get_action('proxy', function() {
     }
 
     Response\content_type($type);
-    echo $content;
+    Response\raw($content);
 });

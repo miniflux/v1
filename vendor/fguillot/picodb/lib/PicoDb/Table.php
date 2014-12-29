@@ -376,7 +376,19 @@ class Table
                 break;
 
             case 'like':
-                $sql = sprintf('%s LIKE ?', $this->db->escapeIdentifier($column));
+                $sql = sprintf(
+                    '%s %s ?',
+                    $this->db->escapeIdentifier($column),
+                    $this->db->getConnection()->operatorLikeCaseSensitive()
+                );
+                break;
+
+            case 'ilike':
+                $sql = sprintf(
+                    '%s %s ?',
+                    $this->db->escapeIdentifier($column),
+                    $this->db->getConnection()->operatorLikeNotCaseSensitive()
+                );
                 break;
 
             case 'eq':

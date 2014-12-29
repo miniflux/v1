@@ -90,6 +90,14 @@ function js($data, $status_code = 200)
 }
 
 
+function raw($data, $status_code = 200)
+{
+    status($status_code);
+    echo $data;
+    exit;
+}
+
+
 function binary($data, $status_code = 200)
 {
     status($status_code);

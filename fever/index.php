@@ -29,10 +29,10 @@ function response(array $response)
 // Fever authentication
 function auth()
 {
-    if (!empty($_GET['database'])) {
+    if (! empty($_GET['database'])) {
         Model\Database\select($_GET['database']);
     }
-    
+
     $credentials = Database::get('db')->table('config')
                        ->columns('username', 'fever_token')
                        ->findOne();

@@ -1,7 +1,7 @@
 PicoDb
 ======
 
-PicoDb is a minimalist database query builder for PHP
+PicoDb is a minimalist database query builder for PHP.
 **It's not an ORM**.
 
 Features
@@ -23,14 +23,14 @@ Requirements
 Todo
 ----
 
-- Add driver for Postgresql
-- Add support for Distinct...
+- Add support for Distinct and group by
 
 Documentation
 -------------
 
 ## Connect to your database
 
+```php
     use PicoDb\Database;
 
     // Sqlite driver
@@ -46,29 +46,38 @@ Documentation
         'database' => 'my_db_name',
         'charset' => 'utf8',
     ));
+```
 
 ## Execute a SQL request
 
+```php
     $db->execute('CREATE TABLE toto (column1 TEXT)');
+```
 
 ## Insert some data
 
+```php
     $db->table('toto')->save(['column1' => 'hey']);
+```
 
 ## Transations
 
+```php
     $db->transaction(function($db) {
         $db->table('toto')->save(['column1' => 'foo']);
         $db->table('toto')->save(['column1' => 'bar']);
     });
+```
 
 ## Fetch all data
 
+```php
     $records = $db->table('toto')->findAll();
 
     foreach ($records as $record) {
         var_dump($record['column1']);
     }
+```
 
 ## Update something
 
@@ -78,111 +87,158 @@ You just need to add a condition to perform an update.
 
 ## Remove rows
 
+```php
     $db->table('toto')->lowerThan('column1', 10)->remove();
+```
 
 ## Sorting
 
+```php
     $db->table('toto')->asc('column1')->findAll();
+```
 
 or
 
+```php
     $db->table('toto')->desc('column1')->findAll();
+```
 
 ## Limit and offset
 
+```php
     $db->table('toto')->limit(10)->offset(5)->findAll();
+```
 
 ## Fetch only some columns
 
+```php
     $db->table('toto')->columns('column1', 'column2')->findAll();
+```
 
 ## Conditions
 
 ### Equals condition
 
+```php
     $db->table('toto')
        ->equals('column1', 'hey')
        ->findAll();
+```
 
 or
 
+```php
     $db->table('toto')
        ->eq('column1', 'hey')
        ->findAll();
+```
 
 Yout got: 'SELECT * FROM toto WHERE column1=?'
 
 ### IN condition
 
+```php
     $db->table('toto')
            ->in('column1', ['hey', 'bla'])
            ->findAll();
+```
 
 ### Like condition
 
+Case-sensitive (only Mysql and Postgres):
+
+```php
     $db->table('toto')
-       ->like('column1', '%hey%')
+       ->like('column1', '%Foo%')
        ->findAll();
+```
+
+Not case-sensitive:
+
+```php
+    $db->table('toto')
+       ->ilike('column1', '%foo%')
+       ->findAll();
+```
 
 ### Lower than
 
+```php
     $db->table('toto')
        ->lowerThan('column1', 2)
        ->findAll();
+```
 
 or
 
+```php
     $db->table('toto')
        ->lt('column1', 2)
        ->findAll();
+```
 
 ### Lower than or equals
 
+```php
     $db->table('toto')
        ->lowerThanOrEquals('column1', 2)
        ->findAll();
+```
 
 or
 
+```php
     $db->table('toto')
        ->lte('column1', 2)
        ->findAll();
+```
 
 ### Greater than
 
+```php
     $db->table('toto')
        ->greaterThan('column1', 3)
        ->findAll();
+```
 
 or
 
+```php
     $db->table('toto')
        ->gt('column1', 3)
        ->findAll();
+```
 
 ### Greater than or equals
 
+```php
     $db->table('toto')
        ->greaterThanOrEquals('column1', 3)
        ->findAll();
+```
 
 or
 
+```php
     $db->table('toto')
         ->gte('column1', 3)
         ->findAll();
+```
 
 ### Multiple conditions
 
 Each condition is joined by a AND.
 
+```php
     $db->table('toto')
         ->like('column2', '%toto')
         ->gte('column1', 3)
         ->findAll();
+```
 
 How to make a OR condition:
 
+```php
     $db->table('toto')
         ->beginOr()
         ->like('column2', '%toto')
@@ -190,6 +246,7 @@ How to make a OR condition:
         ->closeOr()
         ->eq('column5', 'titi')
         ->findAll();
+```
 
 ## Schema migrations
 
@@ -201,6 +258,7 @@ How to make a OR condition:
 
 Example:
 
+```php
     namespace Schema;
 
     function version_1($pdo)
@@ -225,6 +283,7 @@ Example:
             )
         ');
     }
+```
 
 ### Run schema update automatically
 
@@ -235,6 +294,7 @@ Example:
 
 Example:
 
+```php
     $last_schema_version = 5;
 
     $db = new PicoDb\Database(array(
@@ -250,11 +310,13 @@ Example:
 
         die('Unable to migrate database schema.');
     }
+```
 
 ### Use a singleton to handle database instances
 
 Setup a new instance:
 
+```php
     PicoDb\Database::bootstrap('myinstance', function() {
 
         $db = new PicoDb\Database(array(
@@ -269,7 +331,10 @@ Setup a new instance:
             die('Unable to migrate database schema.');
         }
     });
+```
 
 Get this instance anywhere in your code:
 
+```php
     PicoDb\Database::get('myinstance')->table(...)
+```

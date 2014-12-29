@@ -151,6 +151,12 @@ Response\xml('<xml ... >');
 Response\binary($my_file_content);
 ```
 
+### Send a raw response (no content-type)
+
+```php
+Response\raw($content);
+```
+
 ### Force browser download
 
 ```php
