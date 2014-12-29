@@ -265,7 +265,7 @@ function refresh($feed_id)
         return true;
     }
     catch (InvalidUrlException $e) {
-        disable($feed_id);
+        // disable($feed_id);
     }
     catch (PicoFeedException $e) {
     }
