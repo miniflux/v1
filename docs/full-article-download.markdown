@@ -6,7 +6,7 @@ For feeds that accept only a summary, it's possible to download the full content
 How the content grabber works?
 ------------------------------
 
-1. Try with rules first (xpath patterns) for the domain name (see `PicoFeed\Rules\`)
+1. Try with rules first (Xpath patterns) for the domain name
 2. Try to find the text content by using common attributes for class and id
 3. Finally, if nothing is found, the feed content is displayed
 
