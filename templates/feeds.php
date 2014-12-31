@@ -20,35 +20,36 @@
 
     <section class="items">
     <?php foreach ($feeds as $feed): ?>
-        <article>
-            <h2 <?= (! $feed['enabled']) ? 'class="feed-disabled"' : '' ?>>
+        <article data-feed-id="<?= $feed['id'] ?>" <?= (! $feed['enabled']) ? 'data-feed-disabled="1"' : '' ?>>
+            <h2>
                 <?php if (! $feed['enabled']): ?>
                     <span title="<?= t('Subscription disabled') ?>">✖</a>
                 <?php endif ?>
 
                 <?= Helper\favicon($favicons, $feed['id']) ?>
 
-
                 <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>" title="<?= t('Show only this subscription') ?>"><?= Helper\escape($feed['title']) ?></a>
-                <span id="items-count-<?= $feed['id'] ?>"><?= $feed['items_unread'] .'/' . $feed['items_total'] ?></span>
+                <span class="items-count"><?= $feed['items_unread'] .'/' . $feed['items_total'] ?></span>
 
                 <?php if ($feed['enabled']): ?>
 
                     <br/>
 
                     <?php if ($feed['last_checked']): ?>
-                        <time class="feed-last-checked" id="last-checked-feed-<?= $feed['id'] ?>" data-after-update="<?= t('updated just now') ?>">
+                        <time class="feed-last-checked" data-after-update="<?= t('updated just now') ?>">
                             <?= t('checked at').' '.dt('%e %B %Y %k:%M', $feed['last_checked']) ?>
                         </time>
                     <?php else: ?>
-                        <span class="feed-last-checked" id="last-checked-feed-<?= $feed['id'] ?>" data-after-update="<?= t('updated just now') ?>">
+                        <span class="feed-last-checked" data-after-update="<?= t('updated just now') ?>">
                             <?= t('never updated after creation') ?>
                         </span>
                     <?php endif ?>
 
-                    <?php if ($feed['parsing_error']): ?>
-                        <span class="feed-parsing-error"><?= t('(error occurred during the last check)') ?></span>
-                    <?php endif ?>
+                    <span class="feed-parsing-error" data-after-error="<?= t('(error occurred during the last check)') ?>">
+                        <?php if ($feed['parsing_error']): ?>
+                            <?= t('(error occurred during the last check)') ?>
+                        <?php endif ?>
+                    </span>
 
                 <?php endif ?>
             </h2>
@@ -59,7 +60,7 @@
 
                 <?php if ($feed['enabled']): ?>
                 <li>
-                    <a href="?action=refresh-feed&amp;feed_id=<?= $feed['id'] ?>" data-feed-id="<?= $feed['id'] ?>" data-action="refresh-feed"><?= t('refresh') ?></a>
+                    <a href="?action=refresh-feed&amp;feed_id=<?= $feed['id'] ?>" data-action="refresh-feed"><?= t('refresh') ?></a>
                 </li>
                 <?php endif ?>
 

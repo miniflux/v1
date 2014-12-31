@@ -231,9 +231,9 @@ span#nav-counter:not(:empty):before, span#page-counter:not(:empty):before {
   content: " ("; }
 span#nav-counter:not(:empty):after, span#page-counter:not(:empty):after {
   content: ")"; }
-span[id^="items-count-"]:before {
+span.items-count:before {
   content: "("; }
-span[id^="items-count-"]:after {
+span.items-count:after {
   content: ")"; }
 
 section.page {

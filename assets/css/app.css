@@ -338,11 +338,11 @@ span#nav-counter:not(:empty):before, span#page-counter:not(:empty):before {
     content: " (";
 }
 
-span[id^="items-count-"]:before {
+span.items-count:before {
     content: "(";
 }
 
-span#nav-counter:not(:empty):after, span#page-counter:not(:empty):after, span[id^="items-count-"]:after {
+span#nav-counter:not(:empty):after, span#page-counter:not(:empty):after, span.items-count:after {
     content: ")";
 }
 
@@ -448,8 +448,7 @@ nav .active a {
     padding-top: 30px;
 }
 
-.feed-disabled,
-.feed-disabled a {
+[data-feed-disabled] * {
     color: #aaa;
 }
 

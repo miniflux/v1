@@ -34,7 +34,7 @@ Miniflux.Event = (function() {
                             break;
                         case 'refresh-feed':
                             e.preventDefault();
-                            Miniflux.Feed.Update(e.target.getAttribute("data-feed-id"));
+                            Miniflux.Feed.Update(currentItem);
                             break;
                         case 'mark-read':
                             e.preventDefault();

@@ -9,28 +9,33 @@ Miniflux.Feed = (function() {
     // Number of concurrent requests when updating all feeds
     var queue_length = 5;
 
-    // Update the items unread/total count for the feed
-    function updateItemsCounter(feed_id, counts)
-    {
-        var container = document.getElementById("items-count-" + feed_id);
-        if (container) container.innerHTML = counts["items_unread"] + "/" + counts['items_total'];
-    }
-
     return {
-        Update: function(feed_id, callback) {
-            var container = document.getElementById("items-count-" + feed_id);
-            if (! container) return;
+        Update: function(feed, callback) {
+            var itemsCounter = feed.querySelector("span.items-count");
+            if (! itemsCounter) return;
 
-            //add data-feed-id to article element and couse the first h2
-            container.parentNode.className = "loading-icon";
-            
+            var feed_id = feed.getAttribute("data-feed-id")
+
+            var heading = feed.querySelector("h2:first-of-type");
+            heading.className = "loading-icon";
+
             var request = new XMLHttpRequest();
             request.onload = function() {
-                container.parentNode.className = "";
+                heading.className = "";
+
+                var lastChecked = feed.querySelector(".feed-last-checked");
+                if (lastChecked) lastChecked.innerHTML = lastChecked.getAttribute("data-after-update");
+
+                var feedParsingError = feed.querySelector(".feed-parsing-error");
+                if (feedParsingError) feedParsingError.innerHTML = "";
 
                 var response = JSON.parse(this.responseText);
-                if (response.result) updateItemsCounter(feed_id, response.items_count);
-                
+                if (response.result) {
+                    itemsCounter.innerHTML = response.items_count["items_unread"] + "/" + response.items_count['items_total'];
+                } else {
+                    if (feedParsingError) feedParsingError.innerHTML = feedParsingError.getAttribute("data-after-error"); 
+                }
+
                 if (callback) callback(response);
             };
 
@@ -38,19 +43,14 @@ Miniflux.Feed = (function() {
             request.send();
         },
         UpdateAll: function() {
-            var links = document.getElementsByTagName("a");
-
-            for (var i = 0, ilen = links.length; i < ilen; i++) {
-                var feed_id = links[i].getAttribute('data-feed-id');
-                if (feed_id) feeds.push(parseInt(feed_id));
-            }
+            var feeds = Array.prototype.slice.call(document.querySelectorAll("article:not([data-feed-disabled])"));
 
             var interval = setInterval(function() {
                 while (feeds.length > 0 && queue.length < queue_length) {
-                    var feed_id = feeds.shift();
-                    queue.push(feed_id);
+                    var feed = feeds.shift();
+                    queue.push(parseInt(feed.getAttribute('data-feed-id')));
 
-                    Miniflux.Feed.Update(feed_id, function(response) {
+                    Miniflux.Feed.Update(feed, function(response) {
                         var index = queue.indexOf(response.feed_id);
                         if (index >= 0) queue.splice(index, 1);
 
