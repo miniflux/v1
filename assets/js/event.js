@@ -7,10 +7,23 @@ Miniflux.Event = (function() {
         ListenMouseEvents: function() {
 
             document.onclick = function(e) {
+                var action = e.target.getAttribute("data-action");
+
+                if (action && action !== 'original-link') {
+                    e.preventDefault();
+                }
+            };
+
+            document.onmouseup = function(e) {
+
+                // ignore right mouse button (context menu)
+                if (e.button === 2) {
+                    return;
+                }
 
                 // Auto-select input content
 
-                if (e.target.nodeName == "INPUT" && e.target.className == "auto-select") {
+                if (e.target.nodeName === "INPUT" && e.target.className === "auto-select") {
                     e.target.select();
                     return;
                 }
@@ -38,42 +51,33 @@ Miniflux.Event = (function() {
 
                     switch (action) {
                         case 'refresh-all':
-                            e.preventDefault();
                             Miniflux.Feed.UpdateAll();
                             break;
                         case 'refresh-feed':
-                            e.preventDefault();
                             Miniflux.Feed.Update(currentItem);
                             break;
                         case 'mark-read':
-                            e.preventDefault();
                             Miniflux.Item.MarkAsRead(currentItem);
                             break;
                         case 'mark-unread':
-                            e.preventDefault();
                             Miniflux.Item.MarkAsUnread(currentItem);
                             break;
                         case 'mark-removed':
-                            e.preventDefault();
                             Miniflux.Item.MarkAsRemoved(currentItem);
                             break;
                         case 'bookmark':
-                            e.preventDefault();
                             Miniflux.Item.SwitchBookmark(currentItem);
                             break;
                         case 'download-item':
-                            e.preventDefault();
                             Miniflux.Item.DownloadContent(currentItem);
                             break;
                         case 'original-link':
                             Miniflux.Item.OpenOriginal(currentItem);
                             break;
                         case 'mark-all-read':
-                            e.preventDefault();
                             Miniflux.Item.MarkListingAsRead("?action=unread");
                             break;
                         case 'mark-feed-read':
-                            e.preventDefault();
                             Miniflux.Item.MarkListingAsRead("?action=feed-items&feed_id=" + e.target.getAttribute("data-feed-id"));
                             break;
                     }
@@ -84,13 +88,13 @@ Miniflux.Event = (function() {
 
             document.onkeypress = function(e) {
 
-                if (e.keyCode != 63 && (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)) {
+                if (e.keyCode !== 63 && (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)) {
                     return;
                 }
 
                 // Do not handle events when there is a focus in form fields
                 var target = e.target || e.srcElement;
-                if (target.tagName == 'INPUT' || target.tagName == 'TEXTAREA') {
+                if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
                     return;
                 }
 
@@ -177,7 +181,7 @@ Miniflux.Event = (function() {
                             break;
                     }
                 }
-            }
+            };
         }
     };
 
