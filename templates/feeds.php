@@ -23,7 +23,7 @@
         <article>
             <h2 <?= (! $feed['enabled']) ? 'class="feed-disabled"' : '' ?>>
                 <?php if (! $feed['enabled']): ?>
-                    <span title="<?= t('Subscription disabled') ?>">✖</a>
+                    <span title="<?= t('Subscription disabled') ?>">✖</span>
                 <?php endif ?>
 
                 <?= Helper\favicon($favicons, $feed['id']) ?>
