@@ -1,6 +1,6 @@
 body {
 	background-color: $theme-background-main;
-	
+
 	font: {
 		family: $ui-font-content;
 		weight: normal;
@@ -9,7 +9,7 @@ body {
 
 	> header,
 	> section {
-		bottom: 0;		
+		bottom: 0;
 		top: 0;
 	}
 
@@ -128,18 +128,18 @@ span {
             &:before {
                 content: " " + $icon-bracket-open;
             }
-        
+
             &:after {
                 content: $icon-bracket-close;
             }
         }
     }
-    
+
     &.items-count {
         &:before {
             content: $icon-bracket-open;
         }
-        
+
         &:after {
             content: $icon-bracket-close;
         }
@@ -179,16 +179,16 @@ section {
 		 li {
 			@include inline-block;
 			text-align: center;
-			
+
 			a ,
 			a:after {
 				overflow: hidden;
 				display: block;
 				height: 25px;
 				text-decoration: none;
-				width: 25px;	
+				width: 25px;
 			}
-			
+
 			a {
 				background-color: $button-background-grey;
 				color: darken($theme-background-highlight, 5%);
@@ -206,10 +206,10 @@ section {
 					z-index: 999;
 					text-indent: 0;
 				}
-				
+
 			}
 
-			
+
 			a{
 				&[href*="action=unread"],
 				&[href*="action=feed-items"] {
@@ -217,7 +217,7 @@ section {
 						&:after {
 							content: "\f162";
 						}
-					}					
+					}
 				}
 			}
 			a {
@@ -267,6 +267,41 @@ section {
 			a[href="?action=feeds"] {
 				&:after {
 					content: "\f143";
+				}
+			}
+			a[href="?action=config"] {
+				&:after {
+					content: "\f013";
+				}
+			}
+			a[href="?action=help"] {
+				&:after {
+					content: "\f128";
+				}
+			}
+			a[href="?action=services"] {
+				&:after {
+					content: "\f1e0";
+				}
+			}
+			a[href="?action=about"] {
+				&:after {
+					content: "\f129";
+				}
+			}
+			a[href="?action=database"] {
+				&:after {
+					content: "\f1b3";
+				}
+			}
+			a[href="?action=api"] {
+				&:after {
+					content: "\f0ec";
+				}
+			}
+			a[href*="action=refresh-feed"] {
+				&:after {
+					content: "\f021";
 				}
 			}
 		}

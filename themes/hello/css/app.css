@@ -307,6 +307,20 @@ section.page {
         content: "\f014"; }
       .page-header ul li a[href="?action=feeds"]:after {
         content: "\f143"; }
+      .page-header ul li a[href="?action=config"]:after {
+        content: "\f013"; }
+      .page-header ul li a[href="?action=help"]:after {
+        content: "\f128"; }
+      .page-header ul li a[href="?action=services"]:after {
+        content: "\f1e0"; }
+      .page-header ul li a[href="?action=about"]:after {
+        content: "\f129"; }
+      .page-header ul li a[href="?action=database"]:after {
+        content: "\f1b3"; }
+      .page-header ul li a[href="?action=api"]:after {
+        content: "\f0ec"; }
+      .page-header ul li a[href*="action=refresh-feed"]:after {
+        content: "\f021"; }
 
 .page-section h2 {
   margin-bottom: 15px;
