@@ -44,7 +44,7 @@ return array(
     'API username:' => 'usuário da API:',
     'API token:' => 'token da API:',
     'Generate new tokens' => 'Gerar novos tokens',
-    'Bookmarks RSS Feed:' => 'Bookmarks RSS Feed:',
+    // 'Bookmark RSS Feed' => '',
     'updated just now' => 'atualizado agora mesmo',
     'checked at' => 'verificado em',
     'never updated after creation' => 'nunca atualizado após criação',

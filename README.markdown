@@ -111,6 +111,7 @@ People who sent a pull-request, report a bug, make a new theme or share a super 
 - [James Barwell](https://github.com/JamesBarwell)
 - [Julian Oster](https://github.com/jlnostr)
 - [Jarek](https://github.com/jarek)
+- [Kaminary Shadows](https://github.com/kaminary)
 - [Luca Marra](https://github.com/facciocose)
 - [Martin Simon](https://github.com/c0ding)
 - [Mathias Kresin](https://github.com/mkresin)
