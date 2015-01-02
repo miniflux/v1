@@ -23,7 +23,7 @@
         <article data-feed-id="<?= $feed['id'] ?>" <?= (! $feed['enabled']) ? 'data-feed-disabled="1"' : '' ?>>
             <h2>
                 <?php if (! $feed['enabled']): ?>
-                    <span title="<?= t('Subscription disabled') ?>">✖</a>
+                    <span title="<?= t('Subscription disabled') ?>">✖</span>
                 <?php endif ?>
 
                 <?= Helper\favicon($favicons, $feed['id']) ?>
