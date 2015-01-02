@@ -183,7 +183,10 @@ Miniflux.Item = (function() {
             if (link) {
                 if (item.getAttribute("data-item-status") === "unread") markAsRead(item);
                 link.removeAttribute("data-action");
-                link.click();
+
+                if (Miniflux.Event.lastEventType !== "mouse") {
+                    link.click();
+                }
             }
         },
         DownloadContent: function(item) {

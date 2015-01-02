@@ -66,7 +66,6 @@ Miniflux.Event = (function() {
                             Miniflux.Item.DownloadContent(currentItem);
                             break;
                         case 'original-link':
-                            e.preventDefault();
                             Miniflux.Item.OpenOriginal(currentItem);
                             break;
                         case 'mark-all-read':
