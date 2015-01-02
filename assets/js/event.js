@@ -8,6 +8,15 @@ Miniflux.Event = (function() {
 
             document.onclick = function(e) {
 
+                // Auto-select input content
+
+                if (e.target.nodeName == "INPUT" && e.target.className == "auto-select") {
+                    e.target.select();
+                    return;
+                }
+
+                // Application actions
+
                 var action = e.target.getAttribute("data-action");
 
                 if (action) {

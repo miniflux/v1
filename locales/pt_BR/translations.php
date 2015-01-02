@@ -33,7 +33,7 @@ return array(
     'Go to history' => 'Ir para histórico',
     'Go to subscriptions' => 'Ir para assinaturas',
     'Go to preferences' => 'Ir para preferências',
-    // 'Bookmarklet:' => '',
+    // 'Bookmarklet' => '',
     'Subscribe with Miniflux' => 'Assinar com Miniflux',
     'Drag and drop this link to your bookmarks' => 'Arraste e solte este link para seus bookmarks',
     'Download full content' => 'Download contéudo completo',

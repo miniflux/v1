@@ -346,7 +346,7 @@ span#nav-counter:not(:empty):after, span#page-counter:not(:empty):after, span.it
     content: ")";
 }
 
-@keyframes blinker {  
+@keyframes blinker {
     0% { opacity: 1.0; }
     50% { opacity: 0.0; }
     100% { opacity: 1.0; }
@@ -360,7 +360,7 @@ span#nav-counter:not(:empty):after, span#page-counter:not(:empty):after, span.it
 }
 
 .loading-icon:before {
-    content: "☀";   
+    content: "☀";
     animation-name: blinker;
     -webkit-animation-name: blinker; /* Chrome, Safari, Opera */
     animation-duration: 500ms;
@@ -720,7 +720,7 @@ iframe {
     padding: 4px;
     text-decoration: none;
     color: #333;
-    background: #fcfcfc;
+    background: #fff;
     border: 1px dotted #ccc;
     border-radius: 4px;
     cursor: move;
@@ -728,9 +728,7 @@ iframe {
 
 .bookmarklet:focus,
 .bookmarklet:hover {
-    background: #fff;
     color: #339966;
-    border: 1px solid #ccc;
 }
 
 /* desktop design */
