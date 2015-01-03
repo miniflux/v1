@@ -89,7 +89,7 @@ Router\get_action('generate-tokens', function() {
         Model\Config\new_tokens();
     }
 
-    Response\redirect('?action=api');
+    Response\redirect('?action=config');
 });
 
 // Optimize the database manually
@@ -204,7 +204,6 @@ Router\get_action('database', function() {
 Router\get_action('api', function() {
 
     Response\html(Template\layout('api', array(
-        'csrf' => Model\Config\generate_csrf(),
         'config' => Model\Config\get_all(),
         'menu' => 'config',
         'title' => t('API')
