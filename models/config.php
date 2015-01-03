@@ -240,28 +240,6 @@ function new_tokens()
     return Database::get('db')->table('config')->update($values);
 }
 
-// Save tokens for external authentication
-function save_auth_token($type, $value)
-{
-    return Database::get('db')
-        ->table('config')
-        ->update(array(
-            'auth_'.$type.'_token' => $value
-        ));
-}
-
-// Clear authentication tokens
-function remove_auth_token($type)
-{
-    Database::get('db')
-        ->table('config')
-        ->update(array(
-            'auth_'.$type.'_token' => ''
-        ));
-
-    $_SESSION['config'] = get_all();
-}
-
 // Get a config value from the DB or from the session
 function get($name)
 {
