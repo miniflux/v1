@@ -6,12 +6,12 @@ class pageBookmarksTest extends minifluxTestCase
 {
     const DEFAULT_COUNTER_PAGE = 6;
     const DEFAULT_COUNTER_UNREAD = 6;
-    
+
     public function setUpPage()
     {
         $url = $this->getURLPageBookmarks();
-        parent::setUpPage($url);
-        
+        $this->doLoginIfRequired($url);
+
         $this->basePageHeading = $this->getBasePageHeading();
         $this->expectedPageUrl = $url;
     }
@@ -25,22 +25,22 @@ class pageBookmarksTest extends minifluxTestCase
     {
         $articles = $this->getArticlesNotFromFeedOne();
         $this->assertNotEmpty($articles, 'no articles from other feeds found');
-        
+
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
     }
-    
+
     public function testOnlyBookmarkedArticles()
     {
         $articles = $this->getArticlesNotBookmarked();
         $this->assertEmpty($articles, 'found not bookmarked articles.');
-        
+
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('fixture_feed1');
     }
-    
+
     public function testMarkReadBookmarkedArticleLink()
     {
         $article = $this->getArticleUnreadBookmarked();
@@ -59,10 +59,10 @@ class pageBookmarksTest extends minifluxTestCase
     public function testMarkReadBookmarkedArticleKeyboard()
     {
         $article = $this->getArticleUnreadBookmarked();
-        
+
         $this->setArticleAsCurrentArticle($article);
         $this->keys($this->getShortcutToogleReadStatus());
-        
+
         $visible = $this->waitForIconMarkReadVisible($article);
         $this->assertTrue($visible, 'read icon is not visible');
 
@@ -89,7 +89,7 @@ class pageBookmarksTest extends minifluxTestCase
     public function testMarkUnreadBookmarkedArticleKeyboard()
     {
         $article = $this->getArticleReadBookmarked();
-        
+
         $this->setArticleAsCurrentArticle($article);
         $this->keys($this->getShortcutToogleReadStatus());
 
@@ -114,7 +114,7 @@ class pageBookmarksTest extends minifluxTestCase
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE - 1;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('expected_UnbookmarkReadArticle');
-        
+
     }
 
     public function testUnbookmarkReadArticleKeyboard()
@@ -141,7 +141,7 @@ class pageBookmarksTest extends minifluxTestCase
 
         $invisible = $this->waitForArticleInvisible($article);
         $this->assertTrue($invisible, 'bookmark icon is not invisible');
-        
+
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE - 1;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('expected_UnbookmarkUnreadArticle');
@@ -191,27 +191,27 @@ class pageBookmarksTest extends minifluxTestCase
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD - 1;
         $this->expectedDataSet = $this->getDataSet('expected_RemoveUnreadBookmarkedArticle');
     }
-    
+
     public function testUnreadCounterFromNothingToValue()
     {
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
-        
+
         static::$databaseTester = NULL;
         $this->getDatabaseTester('fixture_OnlyReadArticles', FALSE)->onSetUp();
-        
+
         static::$databaseTester = $backupDataTester;
         $this->refresh();
-        
+
         // start the "real" test
         // dont't trust the name! The Article is read+bookmarked here
         $article = $this->getArticleUnreadBookmarked();
-        
+
         $link = $this->getLinkReadStatusToogle($article);
         $link->click();
-        
+
         $this->waitForIconMarkReadInvisible($article);
-        
+
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = 1;
         $this->expectedDataSet = $this->getDataSet('fixture_OneUnreadArticle',FALSE);
@@ -221,40 +221,40 @@ class pageBookmarksTest extends minifluxTestCase
     {
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
-        
+
         static::$databaseTester = NULL;
         $this->getDatabaseTester('fixture_OneUnreadArticle', FALSE)->onSetUp();
-        
+
         static::$databaseTester = $backupDataTester;
         $this->refresh();
-        
+
         // start the "real" test
         $article = $this->getArticleUnreadBookmarked();
-        
+
         $link = $this->getLinkReadStatusToogle($article);
         $link->click();
-        
+
         $this->waitForIconMarkReadVisible($article);
-        
+
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = '';
         $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles',FALSE);
     }
-    
+
     public function testRedirectWithZeroArticles()
     {
         $articles = $this->getArticles();
-        
+
         foreach($articles as $article) {
             $link = $this->getLinkBookmarkStatusToogle($article);
             $link->click();
-            
+
             $this->waitForArticleInvisible($article);
         }
-        
+
         $visible = $this->waitForAlert();
         $this->assertTrue($visible, 'alert box did not appear');
-        
+
         $this->expectedCounterPage = NULL;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('expected_NoBookmarkedArticles', FALSE);

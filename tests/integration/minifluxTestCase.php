@@ -7,34 +7,32 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
     protected $expectedDataSet = NULL;
     protected $expectedCounterPage = NULL;
     protected $expectedCounterUnread = '';
-    
+
     protected $ignorePageTitle = FALSE;
-    
+
     protected static $databaseConnection = NULL;
     protected static $databaseTester = NULL;
-    
+
     private $waitTimeout = 5000;
-    
+
     public static function browsers()
     {
         return json_decode(PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BROWSERS, true);
     }
-    
+
     protected function setUp()
     {
         parent::setUp();
 
         // trigger database fixtures onSetUp routines
         $this->getDatabaseTester('fixture_feed1', TRUE)->onSetUp();
-        
+
         // Set the base URL for the tests.
         $this->setBrowserUrl(PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL);
     }
 
-    public function setUpPage($url)
+    public function doLoginIfRequired($url)
     {
-        parent::setUpPage();
-
         // (re)load the requested page
         $this->url($url);
 
@@ -43,13 +41,13 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
         if (count($elements) === 1) {
             $this->url('?action=select-db&database='.DB_FILENAME);
-            
+
             $this->byId('form-username')->click();
             $this->keys('admin');
             $this->byId('form-password')->click();
             $this->keys('admin');
             $this->byTag('form')->submit();
-            
+
             $this->url($url);
         }
     }
@@ -59,13 +57,13 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         static::$databaseConnection = NULL;
         static::$databaseTester = NULL;
     }
-    
+
     protected function assertPostConditions()
     {
         // counter exists on every page
         $this->assertEquals($this->expectedCounterPage, $this->getCounterPage(), 'page-counter differ from expectation');
         $this->assertEquals($this->expectedCounterUnread, $this->getCounterUnread(), 'unread counter differ from expectation');
-        
+
         // url has not been changed (its likely that everything was done via javascript then)
         $this->assertEquals($this->expectedPageUrl, $this->url(), 'URL has been changed.');
 
@@ -76,16 +74,16 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
             $pagetitle = preg_replace('/\x{200E}/u', '', $this->title());
             $this->assertEquals($this->getExpectedPageTitle(), $pagetitle, 'page title differ from expectation');
         }
-        
+
         // assert that the current database matches the expected database
         $expectedDataSetFiltered = new PHPUnit_Extensions_Database_DataSet_DataSetFilter($this->expectedDataSet);
         $expectedDataSetFiltered->addIncludeTables(array('items'));
         $expectedDataSetFiltered->setExcludeColumnsForTable('items', array('updated'));
-        
+
         // TODO: changes row order, why?
-        //$actualDataSet = $this->getConnection()->createDataSet();        
+        //$actualDataSet = $this->getConnection()->createDataSet();
         $actualDataSet = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
-        $actualDataSet->addTable('items', 'SELECT * FROM items'); 
+        $actualDataSet->addTable('items', 'SELECT * FROM items');
         $actualDataSetFiltered = new PHPUnit_Extensions_Database_DataSet_DataSetFilter($actualDataSet);
         $actualDataSetFiltered->setExcludeColumnsForTable('items', array('updated'));
 
@@ -98,22 +96,22 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
         $ds1 = new PHPUnit_Extensions_Database_DataSet_XmlDataSet(dirname(__FILE__).DIRECTORY_SEPARATOR.'datasets'.DIRECTORY_SEPARATOR.$dataSetFile.'.xml');
         $compositeDs->addDataSet($ds1);
-        
+
         if ($appendFeed2) {
             // feed2 should be normaly untouched
             $ds2 = new PHPUnit_Extensions_Database_DataSet_XmlDataSet(dirname(__FILE__).DIRECTORY_SEPARATOR.'datasets'.DIRECTORY_SEPARATOR.'fixture_feed2.xml');
             $compositeDs->addDataSet($ds2);
         }
-        
+
         return $compositeDs;
     }
-    
+
     protected function getConnection()
     {
         if (is_null(static::$databaseConnection)) {
             // let Miniflux setup the database
             require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'common.php';
-            
+
             if (!ENABLE_MULTIPLE_DB) {
                 throw new Exception('Enable multiple databases support to run the tests!');
             }
@@ -128,17 +126,17 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
             // make the database world writeable, maybe the current
             // user != webserver user
             chmod(\Model\Database\get_path(), 0666);
-            
+
             // get pdo object
             $pdo = $picoDb->getConnection();
-                    
+
             // disable fsync! its awefull slow without transactions and I found
             // no way to use setDataSet function with transactions
             $pdo->exec("pragma synchronous = off;");
 
             static::$databaseConnection = new PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection($pdo, 'sqlite');
         }
-        
+
         return static::$databaseConnection;
     }
 
@@ -153,29 +151,29 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
             $rdataset = new PHPUnit_Extensions_Database_DataSet_ReplacementDataSet($dataset);
             $rdataset->addSubStrReplacement('##TIMESTAMP##', substr((string)(time()-100), 0, -2));
             $tester->setDataSet($rdataset);
-            
+
             static::$databaseTester = $tester;
-        }    
-        
+        }
+
         return static::$databaseTester;
     }
-    
+
     private function getCounterUnread()
     {
         $value = $this->element($this->using('id')->value('nav-counter'))->text();
         return $value;
     }
-    
+
     private function getCounterPage()
     {
         $value = NULL;
-        
+
         $elements = $this->elements($this->using('id')->value('page-counter'));
 
         if (count($elements) === 1) {
             $value = $elements[0]->text();
         }
-        
+
         return $value;
     }
 
@@ -224,10 +222,10 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         try {
             // Workaround for PHP < 5.4
             $CI = $this;
-            
+
             $value = $this->waitUntil(function() use($cssSelector, $elementCount, $CI) {
                 $elements = $CI->elements($CI->using('css selector')->value($cssSelector));
-                
+
                 if (count($elements) === $elementCount) {
                     return TRUE;
                 }
@@ -243,14 +241,14 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
         return $value;
     }
-    
+
     private function waitForElementAttributeHasValue($element, $attribute, $attributeValue, $invertMatch = FALSE)
     {
         // return false in case of timeout
         try {
             $value = $this->waitUntil(function() use($element, $attribute, $attributeValue, $invertMatch) {
                 $attributeHasValue = ($element->attribute($attribute) === $attributeValue);
-                
+
                 if (($attributeHasValue && !$invertMatch) || (!$attributeHasValue && $invertMatch)) {
                     return TRUE;
                 }
@@ -263,10 +261,10 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
                 throw $e;
             }
         }
-        
+
         return $value;
     }
-    
+
     private function waitForIconMarkRead($article, $visible)
     {
         $icon = $article->elements($article->using('css selector')->value('span.read-icon'));
@@ -290,13 +288,13 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
          * the text of its childs. Thats why we have to differ between
          * pageheadings with counter and without counter.
          */
-        
+
         // text of its childs
         $pageHeading = $this->byCssSelector('div.page-header > h2:first-child')->text();
-        
+
         // Some PageHeadings have a counter included
         $innerHeadingElements = $this->elements($this->using('css selector')->value('div.page-header > h2:first-child *'));
-        
+
         if (count($innerHeadingElements) > 0)
         {
             $innerHeading = $innerHeadingElements[0]->text();
@@ -325,7 +323,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
     {
         return PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feed-items&feed_id=1';
     }
-    
+
     public function getURLPagePreferences()
     {
         return PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=config';
@@ -340,7 +338,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
     {
         return 'j';
     }
-    
+
     public function getShortcutPreviousItemA()
     {
         return 'p';
@@ -355,17 +353,17 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
     {
         return 'm';
     }
-    
+
     public function getShortcutToogleBookmarkStatus()
     {
         return 'f';
     }
-    
+
     public function getShortcutGoToUnread()
     {
         return 'gu';
     }
-    
+
     public function getArticles()
     {
         $cssSelector = 'article';
@@ -373,39 +371,39 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         $articles = $this->elements($this->using('css selector')->value($cssSelector));
         return $articles;
     }
-    
+
     public function getArticlesUnread()
     {
         $cssSelector = 'article[data-item-status="unread"]';
-        
+
         $articles = $this->elements($this->using('css selector')->value($cssSelector));
         return $articles;
     }
-    
+
     public function getArticlesRead()
     {
         $cssSelector = 'article[data-item-status="read"]';
-        
+
         $articles = $this->elements($this->using('css selector')->value($cssSelector));
         return $articles;
     }
-    
+
     public function getArticlesNotBookmarked()
     {
         $cssSelector = 'article[data-item-bookmark="0"]';
-        
+
         $articles = $this->elements($this->using('css selector')->value($cssSelector));
         return $articles;
     }
-   
+
     public function getArticlesNotFromFeedOne()
     {
         $cssSelector = 'article:not(.feed-1)';
-        
+
         $articles = $this->elements($this->using('css selector')->value($cssSelector));
         return $articles;
     }
-    
+
     public function getArticleUnreadNotBookmarked()
     {
         $cssSelector = 'article[data-item-id="7c6afaa5"]';
@@ -413,11 +411,11 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         $article = $this->element($this->using('css selector')->value($cssSelector));
         return $article;
     }
-    
+
     public function getArticleReadNotBookmarked()
     {
         $cssSelector = 'article[data-item-id="9b20eb66"]';
-        
+
         $article = $this->element($this->using('css selector')->value($cssSelector));
         return $article;
     }
@@ -425,7 +423,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
     public function getArticleUnreadBookmarked()
     {
         $cssSelector = 'article[data-item-id="7cb2809d"]';
-        
+
         $article = $this->element($this->using('css selector')->value($cssSelector));
         return $article;
      }
@@ -455,31 +453,31 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         $link = $article->element($article->using('css selector')->value('a.delete'));
         return $link;
     }
-    
+
     public function getLinkFeedMarkReadHeader()
     {
         $link = $this->element($this->using('css selector')->value('div.page-header a[data-action="mark-feed-read"]'));
         return $link;
     }
-    
+
     public function getLinkFeedMarkReadBottom()
     {
         $link = $this->element($this->using('css selector')->value('div#bottom-menu a[data-action="mark-feed-read"]'));
         return $link;
     }
-    
+
     public function getLinkMarkAllReadHeader()
     {
         $link = $this->element($this->using('css selector')->value('div.page-header a[data-action="mark-all-read"]'));
         return $link;
     }
-    
+
     public function getLinkMarkAllReadBottom()
     {
         $link = $this->element($this->using('css selector')->value('div#bottom-menu a[data-action="mark-all-read"]'));
         return $link;
     }
-    
+
     public function getLinkFlushHistory()
     {
         $link = $this->element($this->using('css selector')->value('div.page-header a[href="?action=confirm-flush-history"]'));
@@ -491,19 +489,19 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         $link = $this->element($this->using('css selector')->value('a.btn-red'));
         return $link;
     }
-    
+
     public function waitForArticleIsCurrentArticle($article)
     {
         $isCurrent = $this->waitForElementAttributeHasValue($article, 'id', 'current-item');
         return $isCurrent;
     }
-    
+
     public function waitForArticleIsNotCurrentArticle($article)
     {
         $isCurrent = $this->waitForElementAttributeHasValue($article, 'id', 'current-item', TRUE);
         return $isCurrent;
     }
-    
+
     public function waitForIconMarkReadVisible($article)
     {
         $visible = $this->waitForIconMarkRead($article, TRUE);
@@ -533,27 +531,27 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         $invisible = $this->waitForElementVisibility($article, FALSE);
         return $invisible;
     }
-    
+
     public function waitForArticlesMarkRead()
     {
         $cssSelector = 'article[data-item-status="unread"]';
-        
+
         $read = $this->waitForElementCountByCssSelector($cssSelector, 0);
         return $read;
     }
-    
+
     public function waitForAlert()
     {
         $cssSelector = 'p.alert';
-        
+
         $visible = $this->waitForElementCountByCssSelector($cssSelector, 1);
         return $visible;
     }
-    
+
     public function sendKeysAndWaitForPageLoaded($keys)
     {
         $this->keys($keys);
-        
+
         // Workaround for PHP < 5.4
         $CI = $this;
 
@@ -566,9 +564,9 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
             if ($readyState === 'complete') {
                 return TRUE;
             }
-        }, $this->waitTimeout);        
+        }, $this->waitTimeout);
     }
-   
+
     public function setArticleAsCurrentArticle($article)
     {
         $script = 'document.getElementById("' .$article->attribute('id') .'").id = "current-item";'
@@ -578,7 +576,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
             'script' => $script,
             'args'   => array()
         ));
-        
+
         $result = $this->waitForArticleIsCurrentArticle($article);
         if ($result === FALSE) {
             throw new Exception('the article could not be set as current article.');
