@@ -71,6 +71,7 @@ Documentation
 - [Fever API](docs/fever.markdown)
 - [Run Miniflux with Docker](docs/docker.markdown)
 - [FAQ](docs/faq.markdown)
+- [Tests](docs/tests.markdown)
 
 Todo and known bugs
 -------------------
