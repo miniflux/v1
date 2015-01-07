@@ -20,15 +20,16 @@ Requirements
 - PDO
 - A database: Sqlite, Mysql or Postgresql
 
-Todo
-----
-
-- Add support for Distinct and group by
-
 Documentation
 -------------
 
-## Connect to your database
+### Installation
+
+```bash
+composer require fguillot/picodb dev-master
+```
+
+### Connect to your database
 
 ```php
     use PicoDb\Database;
@@ -48,19 +49,19 @@ Documentation
     ));
 ```
 
-## Execute a SQL request
+### Execute a SQL request
 
 ```php
     $db->execute('CREATE TABLE toto (column1 TEXT)');
 ```
 
-## Insert some data
+### Insert some data
 
 ```php
     $db->table('toto')->save(['column1' => 'hey']);
 ```
 
-## Transations
+### Transations
 
 ```php
     $db->transaction(function($db) {
@@ -69,7 +70,7 @@ Documentation
     });
 ```
 
-## Fetch all data
+### Fetch all data
 
 ```php
     $records = $db->table('toto')->findAll();
@@ -79,19 +80,19 @@ Documentation
     }
 ```
 
-## Update something
+### Update something
 
     $db->table('toto')->eq('id', 1)->save(['column1' => 'hey']);
 
 You just need to add a condition to perform an update.
 
-## Remove rows
+### Remove rows
 
 ```php
     $db->table('toto')->lowerThan('column1', 10)->remove();
 ```
 
-## Sorting
+### Sorting
 
 ```php
     $db->table('toto')->asc('column1')->findAll();
@@ -103,19 +104,17 @@ or
     $db->table('toto')->desc('column1')->findAll();
 ```
 
-## Limit and offset
+### Limit and offset
 
 ```php
     $db->table('toto')->limit(10)->offset(5)->findAll();
 ```
 
-## Fetch only some columns
+### Fetch only some columns
 
 ```php
     $db->table('toto')->columns('column1', 'column2')->findAll();
 ```
-
-## Conditions
 
 ### Equals condition
 
@@ -248,9 +247,9 @@ How to make a OR condition:
         ->findAll();
 ```
 
-## Schema migrations
+### Schema migrations
 
-### Define a migration
+#### Define a migration
 
 - Migrations are defined in simple functions inside a namespace named "Schema".
 - An instance of PDO is passed to first argument of the function.
@@ -285,7 +284,7 @@ Example:
     }
 ```
 
-### Run schema update automatically
+#### Run schema update automatically
 
 - The method "check()" executes all migrations until to reach the correct version number.
 - If we are already on the last version nothing will happen.

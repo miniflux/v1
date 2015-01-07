@@ -6,6 +6,7 @@ use Closure;
 use PDO;
 use PDOException;
 use LogicException;
+use RuntimeException;
 use Picodb\Driver\Sqlite;
 use Picodb\Driver\Mysql;
 use Picodb\Driver\Postgres;
@@ -52,6 +53,14 @@ class Database
      * @var boolean
      */
     public $log_queries = false;
+
+    /**
+     * Number of SQL queries executed
+     *
+     * @access public
+     * @var integer
+     */
+    public $nb_queries = 0;
 
     /**
      * Constructor, iniatlize a PDO driver
@@ -199,7 +208,7 @@ class Database
      * @access public
      * @param  string    $sql      SQL query
      * @param  array     $values   Values
-     * @return PDOStatement
+     * @return PDOStatement|false
      */
     public function execute($sql, array $values = array())
     {
@@ -220,11 +229,21 @@ class Database
                 $this->setLogMessage('DURATION='.(microtime(true) - $start));
             }
 
+            $this->nb_queries++;
+
             return $rq;
         }
         catch (PDOException $e) {
+
+            $this->cancelTransaction();
+
+            if (in_array($e->getCode(), $this->pdo->getDuplicateKeyErrorCode())) {
+                return false;
+            }
+
             $this->setLogMessage($e->getMessage());
-            return false;
+
+            throw new RuntimeException('SQL error');
         }
     }
 
@@ -237,23 +256,9 @@ class Database
      */
     public function transaction(Closure $callback)
     {
-        try {
-
-            $this->pdo->beginTransaction();
-            $result = $callback($this);
-
-            if ($result === false) {
-                $this->pdo->rollback();
-            }
-            else {
-                $this->pdo->commit();
-            }
-        }
-        catch (PDOException $e) {
-            $this->pdo->rollback();
-            $this->setLogMessage($e->getMessage());
-            $result = false;
-        }
+        $this->pdo->beginTransaction();
+        $result = $callback($this); // Rollback is done in the execute() method
+        $this->closeTransaction();
 
         return $result === null ? true : $result;
     }

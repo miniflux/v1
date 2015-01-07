@@ -81,7 +81,7 @@ Router\get_action('select-db', function() {
 
 // Image proxy (avoid SSL mixed content warnings)
 Router\get_action('proxy', function() {
-    list($content, $type) = Model\Proxy\download(urldecode(Request\param('url')));
+    list($content, $type) = Model\Proxy\download(rawurldecode(Request\param('url')));
 
     if (empty($content)) {
         Response\text('Not Found', 404);

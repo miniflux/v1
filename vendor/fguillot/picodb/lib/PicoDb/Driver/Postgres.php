@@ -78,4 +78,9 @@ class Postgres extends PDO
     {
         return 'ILIKE';
     }
+
+    public function getDuplicateKeyErrorCode()
+    {
+        return array(23505, 23503);
+    }
 }

@@ -81,4 +81,9 @@ class Mysql extends PDO
     {
         return 'LIKE';
     }
+
+    public function getDuplicateKeyErrorCode()
+    {
+        return array(23000);
+    }
 }
