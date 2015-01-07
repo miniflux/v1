@@ -1,29 +1,3 @@
-article {
-	&[data-item-bookmark="1"] {
-		.bookmark-icon:before {
-			content: $icon-bookmarked;
-		}
-	}
-			
-	&[data-item-bookmark="0"] {
-		.bookmark-icon:before {
-			content: $icon-not-bookmarked;
-		}
-	}
-}
-
-section {
-    &.page {
-        &[data-item-page="feed-items"] {
-            article {
-                &[data-item-status="read"] {
-                    background-color: rgba(lighten(black,60%), .7);
-                }
-            }
-        }    
-    }
-}
-
 .items {
 	article {
 
@@ -33,45 +7,39 @@ section {
 		padding: 10px 20px;
 
 		&[data-item-status="read"] {
-			.read-icon:before {
-				content: $icon-read;
-			}
+			// &[data-item-status="feed-items"] {
+				background-color: rgba(lighten(black,60%), .7);
+			// }
 		}
 
-		&[data-item-bookmark="1"] {
-			.item-menu {
-				a {
-					&.bookmark {
-						&:before {
-							content: "\f088";
-						}
-					}
-				}
-			}
-		}
-                
-		&[data-item-bookmark="0"] {
-			.item-menu {
-				a {
-					&.bookmark {
-						&:before {
-							content: "\f087";
-						}
-					}
-				}
-			}
-		}
-		
 		h2 {
 			display: block;
 			margin-bottom:  5px;
 			
+			%commonChld {
+				display: inline-block;
+			}
+
+			a,
+			.favicon {
+				@extends %commonChld;
+				vertical-align: middle;
+			}
+
 			a {
 				@extend %title;
 				color: #000;
 				text-decoration: none;
 			}
 
+			.bookmark-icon {
+				display: none;
+			}
+
+			.favicon {
+				height: 16px;
+				width: 16px;
+			}
 			.feed-last-checked {
 				font-size:  .8em;
 			}
@@ -112,12 +80,12 @@ section {
 
 				&:first-child {
 					&:before {
-						content: "\f0b0";
+						content: "\f09e";
 					}
 				}
 				&.original {
 					&:before {
-						content: "\f08e";
+						content: "\f0ac";
 					}
 				}
 				&[href*="action=confirm-remove-feed"] {
@@ -136,6 +104,20 @@ section {
 					}
 				}
 
+				// Add to bookmark
+				&.bookmark {
+					&:before {
+						content: "\f005";
+					}
+					// remove to bookmark
+					&[data-reverse-label*="remove"] {
+						&:before {
+							content: "\f006";
+						}
+					}
+				}
+
+
 				&[href*="action=mark-item-removed"] {
 					&:before {
 						content: "\f014";
@@ -143,11 +125,19 @@ section {
 					}	
 				}
 				
+				// Mark as Read 
 				&.mark {
 					&:before {
-						content: "\f058";
-					}	
+						content: "\f05d";
+					}
+					// Mark as Unread
+					&[data-action="mark-read"] {
+						&:before {
+							content: "\f058";
+						}
+					}
 				}
+
 				&[href*="action=disable-grabber-feed"] {
 					&:before {
 						content: "\f057";
@@ -156,6 +146,11 @@ section {
 				&[href*="action=enable-grabber-feed"] {
 					&:before {
 						content: "\f058";
+					}	
+				}
+				&[href*="action=confirm-disable-feed"] {
+					&:before {
+						content: "\f05c";
 					}	
 				}
 				&[href*="action=enable-feed"] {

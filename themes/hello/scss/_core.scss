@@ -1,6 +1,6 @@
 body {
 	background-color: $theme-background-main;
-
+	
 	font: {
 		family: $ui-font-content;
 		weight: normal;
@@ -9,7 +9,7 @@ body {
 
 	> header,
 	> section {
-		bottom: 0;
+		bottom: 0;		
 		top: 0;
 	}
 
@@ -119,34 +119,6 @@ header {
 		}
 	}
 }
-
-// Counter
-span {
-    &#nav-counter,
-    &#page-counter {
-        &:not(:empty) {
-            &:before {
-                content: " " + $icon-bracket-open;
-            }
-
-            &:after {
-                content: $icon-bracket-close;
-            }
-        }
-    }
-
-    &.items-count {
-        &:before {
-            content: $icon-bracket-open;
-        }
-
-        &:after {
-            content: $icon-bracket-close;
-        }
-    }
-}
-
-
 // Main container
 section {
 	&.page {
@@ -163,156 +135,170 @@ section {
 		}
 	}
 }
-// Toolbar
-.page-header {
-	margin: 0  0 15px;
-	@include pie-clearfix;
+.page {
+	// Toolbar
+	&-header {
+		margin: 0  0 15px;
+		@include pie-clearfix;
 
-	 h2 {
-		float: left;
-		line-height: 30px;
-		@extend %title;
-	}
-	 ul {
-		float: right;
+		 h2 {
+			float: left;
+			line-height: 30px;
+			@extend %title;
+		}
+		 ul {
+			float: right;
 
-		 li {
-			@include inline-block;
-			text-align: center;
-
-			a ,
-			a:after {
-				overflow: hidden;
-				display: block;
-				height: 25px;
-				text-decoration: none;
-				width: 25px;
-			}
-
-			a {
-				background-color: $button-background-grey;
-				color: darken($theme-background-highlight, 5%);
-				position: relative;
-				text-indent: -999px;
-				@include border-radius(5px);
-				@include box-shadow(0 3px 0 $theme-background-highlight);
-				@extend %awesome;
-
-				&:after {
-					position: absolute;
-					top: 0;
-					left: 0;
-					line-height: 25px;
-					z-index: 999;
-					text-indent: 0;
+			 li {
+				@include inline-block;
+				text-align: center;
+				
+				a ,
+				a:after {
+					overflow: hidden;
+					display: block;
+					height: 25px;
+					text-decoration: none;
+					width: 25px;	
 				}
+				
+				a {
+					background-color: $button-background-grey;
+					color: darken($theme-background-highlight, 5%);
+					position: relative;
+					text-indent: -999px;
+					@include border-radius(5px);
+					@include box-shadow(0 3px 0 $theme-background-highlight);
+					@extend %awesome;
 
-			}
-
-
-			a{
-				&[href*="action=unread"],
-				&[href*="action=feed-items"] {
-					&[href*="direction=asc"] {
-						&:after {
-							content: "\f162";
-						}
-					}
-				}
-			}
-			a {
-				&[href*="action=unread"],
-				&[href*="action=feed-items"] {
-					&[href*="direction=desc"] {
-						&:after {
-							content: "\f163";
-						}
-					}
-				}
-			}
-
-			a{
-				&[href*="mark-as-read"],
-				&[href*="mark-feed-as-read"] {
 					&:after {
-						content: "\f058";
+						position: absolute;
+						top: 0;
+						left: 0;
+						line-height: 25px;
+						z-index: 999;
+						text-indent: 0;
+					}
+					
+					&[href*="action=unread"],
+					&[href*="action=feed-items"] {
+						&[href*="direction=asc"] {
+							&:after {
+								content: "\f162";
+							}
+						}					
+					}
+					&[href*="action=unread"],
+					&[href*="action=feed-items"] {
+						&[href*="direction=desc"] {
+							&:after {
+								content: "\f163";
+							}
+						}
+					}
+					&[href*="mark-as-read"],
+					&[href*="mark-feed-as-read"] {
+						&:after {
+							content: "\f058";
+						}
+					}
+					&[href="?action=add"] {
+						&:after {
+							content: "\f067";
+						}
+					}
+					&[href="?action=import"] {
+						&:after {
+							content: "\f093";
+						}
+					}
+					&[href="?action=export"] {
+						&:after {
+							content: "\f019";
+						}
+					}					
+					&[href="?action=refresh-all"] {
+						&:after {
+							content: "\f021";
+						}
+					}
+					&[href="?action=confirm-flush-history"] {
+						&:after {
+							content: "\f014";
+						}
+					}
+					&[href="?action=feeds"] {
+						&:after {
+							content: "\f09e";
+						}
+					}
+					&[href="?action=config"] {
+						&:after {
+							content: "\f013";
+						}
+					}
+
+					&[href="?action=help"] {
+						&:after {
+							content: "\f128";
+						}
+					}
+					
+					&[href="?action=services"] {
+						&:after {
+							content: "\f1e0";
+						}
+					}
+					&[href="?action=about"] {
+						&:after {
+							content: "\f129";
+						}
+					}
+					&[href="?action=database"] {
+						&:after {
+							content: "\f1c0";
+						}
+					}
+					&[href="?action=api"] {
+						&:after {
+							content: "\f0ec";
+						}
+					}
+					&[href*="action=refresh-feed"] {
+						&:after {
+							content: "\f021";
+						}
 					}
 				}
-			}
-			a[href="?action=add"] {
-				&:after {
-					content: "\f067";
-				}
-			}
-			a[href="?action=import"] {
-				&:after {
-					content: "\f093";
-				}
-			}
-			a[href="?action=export"] {
-				&:after {
-					content: "\f019";
-				}
-			}
-			a[href="?action=refresh-all"] {
-				&:after {
-					content: "\f021";
-				}
-			}
-			a[href="?action=confirm-flush-history"] {
-				&:after {
-					content: "\f014";
-				}
-			}
-			a[href="?action=feeds"] {
-				&:after {
-					content: "\f143";
-				}
-			}
-			a[href="?action=config"] {
-				&:after {
-					content: "\f013";
-				}
-			}
-			a[href="?action=help"] {
-				&:after {
-					content: "\f128";
-				}
-			}
-			a[href="?action=services"] {
-				&:after {
-					content: "\f1e0";
-				}
-			}
-			a[href="?action=about"] {
-				&:after {
-					content: "\f129";
-				}
-			}
-			a[href="?action=database"] {
-				&:after {
-					content: "\f1b3";
-				}
-			}
-			a[href="?action=api"] {
-				&:after {
-					content: "\f0ec";
-				}
-			}
-			a[href*="action=refresh-feed"] {
-				&:after {
-					content: "\f021";
-				}
+
 			}
 		}
 	}
+
+	 &-section {
+	 	h2 {
+	 		@extend %title;
+	 		margin: {
+	 			bottom: 15px;
+	 			top: 15px;
+	 		}
+	 	}
+	 }
+
 }
- .page-section {
- 	h2 {
- 		@extend %title;
- 		margin: {
- 			bottom: 15px;
- 			top: 15px;
- 		}
- 	}
- }
+// Counters
+#page {
+	 &-counter {
+	 	margin: 0 3px;
+
+	 	&:before {
+	 		content: " (";
+	 	}
+	 	&:after {
+	 		content: ") ";
+	 	}
+	 }	
+}
+#nav-counter {
+	@extend #page-counter;
+}

@@ -1,6 +1,5 @@
 #current-item {
 	position: relative;
-
 	> nav {
 		@include pie-clearfix;
 
@@ -80,6 +79,22 @@
 				&:hover{
 					text-decoration: underline;
 				}
+				&.bookmark-icon {
+					@extend %awesome;
+
+					&:before  {
+						content: "\f006";
+					}
+					&[data-reverse-title*="remove"] {
+						&:before {
+							content: "\f005";
+						}
+					}
+
+					&:hover {
+						text-decoration: none;
+					}
+				}
 			}
 		}
 	}
@@ -109,7 +124,14 @@
 		}
 	}
 	p {
+		margin: {
+			top: 5px;
+			bottom: 5px;
+		}
 
+		&:first-letter{
+			text-transform: uppercase;
+		}
 	}
 	ul,
 	ol {
