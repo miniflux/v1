@@ -1,12 +1,12 @@
 <?php
 
+require __DIR__.'/lib/helpers.php';
 require __DIR__.'/common.php';
 require __DIR__.'/vendor/fguillot/picofarad/lib/PicoFarad/Template.php';
 require __DIR__.'/vendor/fguillot/picofarad/lib/PicoFarad/Response.php';
 require __DIR__.'/vendor/fguillot/picofarad/lib/PicoFarad/Request.php';
 require __DIR__.'/vendor/fguillot/picofarad/lib/PicoFarad/Session.php';
 require __DIR__.'/vendor/fguillot/picofarad/lib/PicoFarad/Router.php';
-require __DIR__.'/lib/helpers.php';
 
 use PicoFarad\Router;
 use PicoFarad\Response;

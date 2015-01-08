@@ -6,7 +6,7 @@ if (file_exists(__DIR__.'/config.php')) {
     require __DIR__.'/config.php';
 }
 
-defined('APP_VERSION') or define('APP_VERSION', 'master');
+defined('APP_VERSION') or define('APP_VERSION', Helper\parseAppVersion('$Format:%d$','$Format:%H$'));
 defined('HTTP_TIMEOUT') or define('HTTP_TIMEOUT', 20);
 
 defined('BASE_URL_DIRECTORY') or define('BASE_URL_DIRECTORY', dirname($_SERVER['PHP_SELF']));
