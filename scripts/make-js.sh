@@ -14,6 +14,6 @@ curl -s \
 -d output_format=text \
 -d output_info=compiled_code \
 --data-urlencode "js_code@${in}" \
-http://closure-compiler.appspot.com/compile > $out
+https://closure-compiler.appspot.com/compile > $out
 
 rm -f $in
