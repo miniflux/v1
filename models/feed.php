@@ -16,25 +16,30 @@ use PicoFeed\Client\InvalidUrlException;
 
 const LIMIT_ALL = -1;
 
-// Download and store the favicon
-function fetch_favicon($feed_id, $site_url)
+// Store the favicon
+function store_favicon($feed_id, $link, $icon)
 {
-    $favicon = new Favicon;
-
     return Database::get('db')
             ->table('favicons')
             ->save(array(
                 'feed_id' => $feed_id,
-                'link' => $favicon->find($site_url),
-                'icon' => $favicon->getDataUri(),
+                'link' => $link,
+                'icon' => $icon,
             ));
 }
 
-// Refresh favicon
-function refresh_favicon($feed_id, $site_url)
+// Download favicon
+function fetch_favicon($feed_id, $site_url)
 {
     if (Config\get('favicons') == 1 && ! has_favicon($feed_id)) {
-        fetch_favicon($feed_id, $site_url);
+        $favicon = new Favicon;
+
+        $link = $favicon->find($site_url);
+        $icon = $favicon->getDataUri();
+
+        if ($icon !== '') {
+            store_favicon($feed_id, $link, $icon);
+        }
     }
 }
 
@@ -63,7 +68,7 @@ function get_item_favicons(array $items)
     $feed_ids = array();
 
     foreach ($items as $item) {
-        $feeds_ids[] = $item['feed_id'];
+        $feed_ids[] = $item['feed_id'];
     }
 
     return get_favicons($feed_ids);
@@ -184,7 +189,7 @@ function create($url, $enable_grabber = false, $force_rtl = false)
             $feed_id = $db->getConnection()->getLastId();
 
             Item\update_all($feed_id, $feed->getItems());
-            refresh_favicon($feed_id, $feed->getSiteUrl());
+            fetch_favicon($feed_id, $feed->getSiteUrl());
 
             Config\write_debug();
 
@@ -256,7 +261,7 @@ function refresh($feed_id)
             update_cache($feed_id, $resource->getLastModified(), $resource->getEtag());
 
             Item\update_all($feed_id, $feed->getItems());
-            refresh_favicon($feed_id, $feed->getSiteUrl());
+            fetch_favicon($feed_id, $feed->getSiteUrl());
         }
 
         update_parsing_error($feed_id, 0);

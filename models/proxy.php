@@ -13,12 +13,16 @@ function download($url)
         $client->setUserAgent(Config\HTTP_USER_AGENT);
         $client->execute($url);
 
-        return array(
+        $content = array(
             $client->getContent(),
             $client->getContentType(),
         );
     }
     catch (ClientException $e) {
-        return array(false, false);
+        $content = array(false, false);
     }
+
+    Config\write_debug();
+
+    return $content;
 }

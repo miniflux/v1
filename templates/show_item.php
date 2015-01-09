@@ -76,7 +76,7 @@
                     <video controls>
                         <source src="<?= $item['enclosure'] ?>" type="<?= $item['enclosure_type'] ?>">
                     </video>
-                <?php elseif (strpos($item['enclosure_type'], 'image') !== false): ?>
+                <?php elseif (strpos($item['enclosure_type'], 'image') !== false && $item['content'] === ''): ?>
                     <?php if ($image_proxy_enabled): ?>
                         <img src="?action=proxy&amp;url=<?= urlencode($item['enclosure']) ?>" alt="enclosure"/>
                     <?php else: ?>
