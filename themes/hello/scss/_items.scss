@@ -6,6 +6,22 @@
 		margin-bottom: 15px;
 		padding: 10px 20px;
 
+		&[data-item-bookmark="0"] {
+			.bookmark {
+				&:before {
+					content: "\f005";
+				}
+			}
+		}
+		
+		&[data-item-bookmark="1"] {
+			.bookmark {
+				&:before {
+					content: "\f006";
+				}
+			}
+		}
+		
 		&[data-item-status="read"] {
 			// &[data-item-status="feed-items"] {
 				background-color: rgba(lighten(black,60%), .7);
@@ -30,10 +46,6 @@
 				@extend %title;
 				color: #000;
 				text-decoration: none;
-			}
-
-			.bookmark-icon {
-				display: none;
 			}
 
 			.favicon {
@@ -68,6 +80,12 @@
 				&:before {
 					display: none;
 				}
+				
+				a {
+					&:before {
+						content: "\f09e";
+					}
+				}
 			}
 			a {
 				color: darken($theme-background-highlight, 5%);
@@ -76,12 +94,6 @@
 				&:before {
 					margin-right: 2px;
 					@extend %awesome;
-				}
-
-				&:first-child {
-					&:before {
-						content: "\f09e";
-					}
 				}
 				&.original {
 					&:before {
@@ -103,20 +115,6 @@
 						content: "\f021";
 					}
 				}
-
-				// Add to bookmark
-				&.bookmark {
-					&:before {
-						content: "\f005";
-					}
-					// remove to bookmark
-					&[data-reverse-label*="remove"] {
-						&:before {
-							content: "\f006";
-						}
-					}
-				}
-
 
 				&[href*="action=mark-item-removed"] {
 					&:before {
@@ -146,11 +144,6 @@
 				&[href*="action=enable-grabber-feed"] {
 					&:before {
 						content: "\f058";
-					}	
-				}
-				&[href*="action=confirm-disable-feed"] {
-					&:before {
-						content: "\f05c";
 					}	
 				}
 				&[href*="action=enable-feed"] {

@@ -291,14 +291,17 @@ section {
 	 &-counter {
 	 	margin: 0 3px;
 
-	 	&:before {
+	 	&:not(:empty):before {
 	 		content: " (";
 	 	}
-	 	&:after {
+	 	&:not(:empty):after {
 	 		content: ") ";
 	 	}
 	 }	
 }
 #nav-counter {
+	@extend #page-counter;
+}
+.items-count {
 	@extend #page-counter;
 }

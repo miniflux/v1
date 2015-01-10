@@ -1,5 +1,22 @@
-#current-item {
+.item {
 	position: relative;
+	
+	&[data-item-bookmark="0"] {
+		.bookmark-icon {
+			&:before  {
+				content: "\f006";
+			}
+		}
+	}
+
+	&[data-item-bookmark="1"] {
+		.bookmark-icon {
+			&:before  {
+				content: "\f005";
+			}
+		}
+	}
+	
 	> nav {
 		@include pie-clearfix;
 
@@ -81,15 +98,6 @@
 				}
 				&.bookmark-icon {
 					@extend %awesome;
-
-					&:before  {
-						content: "\f006";
-					}
-					&[data-reverse-title*="remove"] {
-						&:before {
-							content: "\f005";
-						}
-					}
 
 					&:hover {
 						text-decoration: none;
