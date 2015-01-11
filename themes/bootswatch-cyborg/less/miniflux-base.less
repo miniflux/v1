@@ -49,18 +49,18 @@ span {
             &:before {
                 content: " @{icon-bracket-open}";
             }
-        
+
             &:after {
                 content: "@{icon-bracket-close}";
             }
         }
     }
-    
+
     &.items-count {
         &:before {
             content: "@{icon-bracket-open}";
         }
-        
+
         &:after {
             content: "@{icon-bracket-close}";
         }
@@ -69,7 +69,7 @@ span {
 
 // Loading
 .loading-icon:before {
-    content: "@{icon-loading}";   
+    content: "@{icon-loading}";
     animation-name: blinker;
     -webkit-animation-name: blinker; /* Chrome, Safari, Opera */
     animation-duration: 500ms;
@@ -212,13 +212,13 @@ article {
             content: "@{icon-read}";
         }
     }
-    
+
     &[data-item-bookmark="1"] {
         .bookmark-icon:before {
             content: "@{icon-bookmarked}";
         }
     }
-    
+
     &[data-item-bookmark="0"] {
         .item-infos {
             .bookmark-icon:before {
@@ -242,6 +242,10 @@ article.item,
 	&:extend(.panel all, .panel-default all);
 	position: relative;
 	padding: 10px;
+
+	.favicon {
+		height: 16px;
+	}
 }
 
 article.item h1,
