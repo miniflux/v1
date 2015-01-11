@@ -11,6 +11,7 @@
     },
     "autoload": {
         "files": [
+            "lib/helpers.php",
             "lib/Translator.php",
             "models/config.php",
             "models/service.php",

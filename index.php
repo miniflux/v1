@@ -1,6 +1,5 @@
 <?php
 
-require __DIR__.'/lib/helpers.php';
 require __DIR__.'/common.php';
 require __DIR__.'/vendor/fguillot/picofarad/lib/PicoFarad/Template.php';
 require __DIR__.'/vendor/fguillot/picofarad/lib/PicoFarad/Response.php';

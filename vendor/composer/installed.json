@@ -162,18 +162,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "b25b74c8aee8e6af3d9c1b15e0772628ea313e0c"
+            "reference": "efe811fcf56644df4664370815bccab90c289b13"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/b25b74c8aee8e6af3d9c1b15e0772628ea313e0c",
-            "reference": "b25b74c8aee8e6af3d9c1b15e0772628ea313e0c",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/efe811fcf56644df4664370815bccab90c289b13",
+            "reference": "efe811fcf56644df4664370815bccab90c289b13",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2015-01-07 01:50:53",
+        "time": "2015-01-10 22:07:07",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

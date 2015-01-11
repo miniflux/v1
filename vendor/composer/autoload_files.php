@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    $baseDir . '/lib/helpers.php',
     $baseDir . '/lib/Translator.php',
     $baseDir . '/models/config.php',
     $baseDir . '/models/service.php',
