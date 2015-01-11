@@ -69,14 +69,14 @@
 </form>
 </section>
 
-<?php if (ENABLE_AUTO_UPDATE): ?>
 <div class="page-section">
     <h2><?= t('Advanced') ?></h2>
 </div>
 <section class="alert alert-error">
 <ul>
     <li><a href="?action=generate-tokens&amp;csrf=<?= $values['csrf'] ?>"><?= t('Generate new tokens') ?></a> (<?= t('Miniflux API') ?>, <?= t('Fever API') ?>, <?= t('Bookmarklet') ?>, <?= t('Bookmark RSS Feed') ?>)</li>
+<?php if (ENABLE_AUTO_UPDATE): ?>
     <li><a href="?action=confirm-auto-update"><?= t('Update Miniflux') ?></a> (<?= t('Don\'t forget to backup your database') ?>)</li>
+<?php endif ?>
 </ul>
 </section>
-<?php endif ?>
