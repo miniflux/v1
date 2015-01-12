@@ -121,7 +121,7 @@ Router\get_action('feeds', function() {
             }
 
             $message = t(
-                'There is %d empty feeds, there is maybe an error: %s...',
+                'There are %d empty feeds, there is maybe an error: %s...',
                 count($empty_feeds),
                 implode(', ', array_slice($listing, 0, 5))
             );

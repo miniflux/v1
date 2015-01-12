@@ -56,7 +56,7 @@ return array(
     // 'download content' => '',
     'Help' => 'Aiuto',
     'Theme' => 'Tema',
-    // 'There is %d empty feeds, there is maybe an error: %s...' => '',
+    // 'There are %d empty feeds, there is maybe an error: %s...' => '',
     'Items per page' => 'Articoli per pagina',
     'Previous page' => 'Pagina precedente',
     'Next page' => 'Pagina successiva',

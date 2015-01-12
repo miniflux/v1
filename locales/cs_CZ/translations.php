@@ -56,7 +56,7 @@ return array(
     'download content' => 'stáhnout obsah',
     'Help' => 'Nápověda',
     'Theme' => 'Vzhled',
-    'There is %d empty feeds, there is maybe an error: %s...' => 'K dispozici je %d prázdné kanály, je možná chyba: %s...',
+    'There are %d empty feeds, there is maybe an error: %s...' => 'K dispozici je %d prázdné kanály, je možná chyba: %s...',
     'Items per page' => 'Článků na stránku',
     'Previous page' => 'Předchozí stránka',
     'Next page' => 'Další stránka',

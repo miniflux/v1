@@ -56,7 +56,7 @@ return array(
     'download content' => 'download conteúdo',
     'Help' => 'Ajuda',
     'Theme' => 'Tema',
-    'There is %d empty feeds, there is maybe an error: %s...' => 'Existem %d feeds vazios, talvez haja um erro: %s...',
+    'There are %d empty feeds, there is maybe an error: %s...' => 'Existem %d feeds vazios, talvez haja um erro: %s...',
     'Items per page' => 'Itens por página',
     'Previous page' => 'Página anterior',
     'Next page' => 'Proxima página',

@@ -56,7 +56,7 @@ return array(
     // 'download content' => '',
     'Help' => '帮助',
     // 'Theme' => '',
-    // 'There is %d empty feeds, there is maybe an error: %s...' => '',
+    // 'There are %d empty feeds, there is maybe an error: %s...' => '',
     'Items per page' => '每页条目数',
     'Previous page' => '上一页',
     'Next page' => '下一页',
