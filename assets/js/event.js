@@ -2,6 +2,21 @@ Miniflux.Event = (function() {
 
     var queue = [];
 
+    function isEventIgnored(e)
+    {
+        if (e.keyCode !== 63 && (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)) {
+            return true;
+        }
+
+        // Do not handle events when there is a focus in form fields
+        var target = e.target || e.srcElement;
+        if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+            return true;
+        }
+
+        return false;
+    }
+
     return {
         lastEventType: "",
         ListenMouseEvents: function() {
@@ -88,13 +103,7 @@ Miniflux.Event = (function() {
 
             document.onkeypress = function(e) {
 
-                if (e.keyCode !== 63 && (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)) {
-                    return;
-                }
-
-                // Do not handle events when there is a focus in form fields
-                var target = e.target || e.srcElement;
-                if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+                if (isEventIgnored(e)) {
                     return;
                 }
 
@@ -182,6 +191,24 @@ Miniflux.Event = (function() {
                     }
                 }
             };
+
+            document.onkeydown = function(e) {
+
+                if (isEventIgnored(e)) {
+                    return;
+                }
+
+                Miniflux.Event.lastEventType = "keyboard";
+
+                switch (e.keyCode || e.which) {
+                    case 37: // left arrow
+                        Miniflux.Nav.SelectPreviousItem();
+                        break;
+                    case 39: // right arrow
+                        Miniflux.Nav.SelectNextItem();
+                        break;
+                }
+            }
         }
     };
 
