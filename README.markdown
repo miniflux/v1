@@ -117,6 +117,7 @@ People who sent a pull-request, report a bug, make a new theme or share a super 
 - [Horsely](https://github.com/horsley)
 - [Ing. Jan Kaláb](https://github.com/Pitel)
 - [Itoine](https://github.com/itoine)
+- [Kordian Bruck](https://github.com/kordianbruck)
 - [James Scott-Brown](https://github.com/jamesscottbrown)
 - [James Barwell](https://github.com/JamesBarwell)
 - [Julian Oster](https://github.com/jlnostr)
