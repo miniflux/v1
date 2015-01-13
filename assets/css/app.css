@@ -65,7 +65,7 @@ blockquote {
     margin-left: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
-    color: #777;
+    color: #888;
     line-height: 1.4em;
     font-family: Georgia, serif;
 }
@@ -114,10 +114,10 @@ th {
 }
 
 pre, code {
-    background: #f0f0f0;
+    background: #fcfcfc;
     border: 1px solid #ccc;
     font-family: monospace;
-    color: brown;
+    color: #666;
     line-height: 1.3em;
     border-radius: 5px;
 }
@@ -545,6 +545,10 @@ nav .active a {
 
 .item ul {
     margin-left: 25px;
+}
+
+#item-content {
+    font-size: 1.1em;
 }
 
 #item-content[dir="rtl"] blockquote {
