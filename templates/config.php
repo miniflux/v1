@@ -1,12 +1,15 @@
 <div class="page-header">
-    <h2><?= t('Preferences') ?></h2>
-    <ul>
-        <li><a href="?action=services"><?= t('external services') ?></a></li>
-        <li><a href="?action=about"><?= t('about') ?></a></li>
-        <li><a href="?action=help"><?= t('help') ?></a></li>
-        <li><a href="?action=database"><?= t('database') ?></a></li>
-        <li><a href="?action=api"><?= t('api') ?></a></li>
-    </ul>
+    <h2><?= $title ?></h2>
+    <nav>
+        <ul>
+            <li class="active"><a href="?action=config"><?= t('general') ?></a></li>
+            <li><a href="?action=services"><?= t('external services') ?></a></li>
+            <li><a href="?action=api"><?= t('api') ?></a></li>
+            <li><a href="?action=database"><?= t('database') ?></a></li>
+            <li><a href="?action=help"><?= t('help') ?></a></li>
+            <li><a href="?action=about"><?= t('about') ?></a></li>
+        </ul>
+    </nav>
 </div>
 <section>
 <form method="post" action="?action=config" autocomplete="off">

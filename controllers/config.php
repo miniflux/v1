@@ -179,7 +179,7 @@ Router\get_action('help', function() {
         'config' => Model\Config\get_all(),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
-        'title' => t('Help')
+        'title' => t('Preferences')
     )));
 });
 
@@ -191,7 +191,7 @@ Router\get_action('about', function() {
         'config' => Model\Config\get_all(),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
-        'title' => t('About')
+        'title' => t('Preferences')
     )));
 });
 
@@ -204,7 +204,7 @@ Router\get_action('database', function() {
         'db_size' => filesize(\Model\Database\get_path()),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
-        'title' => t('Database')
+        'title' => t('Preferences')
     )));
 });
 
@@ -215,7 +215,7 @@ Router\get_action('api', function() {
         'config' => Model\Config\get_all(),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
-        'title' => t('API')
+        'title' => t('Preferences')
     )));
 });
 
@@ -226,7 +226,7 @@ Router\get_action('services', function() {
         'errors' => array(),
         'values' => Model\Config\get_all() + array('csrf' => Model\Config\generate_csrf()),
         'menu' => 'config',
-        'title' => t('External services')
+        'title' => t('Preferences')
     )));
 });
 
