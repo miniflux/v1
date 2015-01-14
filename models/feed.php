@@ -293,24 +293,13 @@ function get_ids($limit = LIMIT_ALL)
     return $query->listing('id', 'id');
 }
 
-// Get feeds with no item
-function get_all_empty()
+// get number of feeds with errors
+function count_failed_feeds()
 {
-    $feeds = Database::get('db')
+    return Database::get('db')
         ->table('feeds')
-        ->columns('feeds.id', 'feeds.title', 'COUNT(items.id) AS nb_items')
-        ->join('items', 'feed_id', 'id')
-        ->isNull('feeds.last_checked')
-        ->groupBy('feeds.id')
-        ->findAll();
-
-    foreach ($feeds as $key => &$feed) {
-        if ($feed['nb_items'] > 0) {
-            unset($feeds[$key]);
-        }
-    }
-
-    return $feeds;
+        ->eq('parsing_error', '1')
+        ->count();
 }
 
 // Get all feeds
@@ -322,53 +311,22 @@ function get_all()
         ->findAll();
 }
 
-// Get all feeds with the number unread/total items
+// Get all feeds with the number unread/total items in the order failed, working, disabled
 function get_all_item_counts()
 {
-    $counts = Database::get('db')
-        ->table('items')
-        ->columns('feed_id', 'status', 'count(*) as item_count')
-        ->in('status', array('read', 'unread'))
-        ->groupBy('feed_id', 'status')
-        ->findAll();
-
-    $feeds = Database::get('db')
+    return Database::get('db')
         ->table('feeds')
-        ->asc('title')
+        ->columns(
+            'feeds.*',
+            'SUM(CASE WHEN items.status IN ("unread") THEN 1 ELSE 0 END) as "items_unread"',
+            'SUM(CASE WHEN items.status IN ("read", "unread") THEN 1 ELSE 0 END) as "items_total"'
+          )
+        ->join('items', 'feed_id', 'id')
+        ->groupBy('feeds.id')
+        ->desc('feeds.parsing_error')
+        ->desc('feeds.enabled')
+        ->asc('feeds.title')
         ->findAll();
-
-    $item_counts = array();
-
-    foreach ($counts as &$count) {
-
-        if (! isset($item_counts[$count['feed_id']])) {
-            $item_counts[$count['feed_id']] = array(
-                'items_unread' => 0,
-                'items_total' => 0,
-            );
-        }
-
-        $item_counts[$count['feed_id']]['items_total'] += $count['item_count'];
-
-        if ($count['status'] === 'unread') {
-            $item_counts[$count['feed_id']]['items_unread'] = $count['item_count'];
-        }
-    }
-
-    foreach ($feeds as &$feed) {
-
-        if (isset($item_counts[$feed['id']])) {
-            $feed += $item_counts[$feed['id']];
-        }
-        else {
-            $feed += array(
-                'items_unread' => 0,
-                'items_total' => 0,
-            );
-        }
-    }
-
-    return $feeds;
 }
 
 // Get unread/total count for one feed

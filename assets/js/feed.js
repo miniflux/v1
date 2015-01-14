@@ -22,18 +22,16 @@ Miniflux.Feed = (function() {
             var request = new XMLHttpRequest();
             request.onload = function() {
                 heading.className = "";
+                feed.removeAttribute("data-feed-error");
 
                 var lastChecked = feed.querySelector(".feed-last-checked");
                 if (lastChecked) lastChecked.innerHTML = lastChecked.getAttribute("data-after-update");
-
-                var feedParsingError = feed.querySelector(".feed-parsing-error");
-                if (feedParsingError) feedParsingError.innerHTML = "";
 
                 var response = JSON.parse(this.responseText);
                 if (response.result) {
                     itemsCounter.innerHTML = response.items_count["items_unread"] + "/" + response.items_count['items_total'];
                 } else {
-                    if (feedParsingError) feedParsingError.innerHTML = feedParsingError.getAttribute("data-after-error"); 
+                    feed.setAttribute("data-feed-error", "1");
                 }
 
                 if (callback) callback(response);

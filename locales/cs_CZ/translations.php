@@ -56,7 +56,6 @@ return array(
     'download content' => 'stáhnout obsah',
     'Help' => 'Nápověda',
     'Theme' => 'Vzhled',
-    'There are %d empty feeds, there is maybe an error: %s...' => 'K dispozici je %d prázdné kanály, je možná chyba: %s...',
     'Items per page' => 'Článků na stránku',
     'Previous page' => 'Předchozí stránka',
     'Next page' => 'Další stránka',
@@ -231,4 +230,5 @@ return array(
     // 'Avoid mixed content warnings with HTTPS' => '',
     // 'Download favicons' => '',
     // 'general' => '',
+    // 'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => '',
 );
