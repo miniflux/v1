@@ -1,10 +1,13 @@
 <div class="page-header">
     <h2><?= t('New subscription') ?></h2>
-    <ul>
-        <li><a href="?action=feeds"><?= t('feeds') ?></a></li>
-        <li><a href="?action=import"><?= t('import') ?></a></li>
-        <li><a href="?action=export"><?= t('export') ?></a></li>
-    </ul>
+    <nav>
+        <ul>
+            <li class="active"><a href="?action=add"><?= t('add') ?></a></li>
+            <li><a href="?action=feeds"><?= t('feeds') ?></a></li>
+            <li><a href="?action=import"><?= t('import') ?></a></li>
+            <li><a href="?action=export"><?= t('export') ?></a></li>
+        </ul>
+    </nav>
 </div>
 
 <form method="post" action="?action=subscribe" autocomplete="off">
