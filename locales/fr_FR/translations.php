@@ -229,6 +229,6 @@ return array(
     'Enable image proxy' => 'Activer le proxy pour les images',
     'Avoid mixed content warnings with HTTPS' => 'Évite les alertes du navigateur web en HTTPS',
     'Download favicons' => 'Télécharger les icônes des sites web',
-    'general' => 'general',
-    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!',
+    'general' => 'général',
+    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'Une erreur est survenue pendant la dernière vérification. Actualisez, le flux manuellement and vérifiez les erreurs dans la %sconsole%s !',
 );
