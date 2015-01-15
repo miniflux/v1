@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+	<table name="feeds">
+		<column>id</column>
+		<column>site_url</column>
+		<column>feed_url</column>
+		<column>title</column>
+		<column>last_modified</column>
+		<column>etag</column>
+		<column>last_checked</column>
+		<column>enabled</column>
+		<column>download_content</column>
+		<column>parsing_error</column>
+		<column>rtl</column>
+		<row>
+			<value>1</value>
+			<value>http://www.01net.com/actus/</value>
+			<value>http://www.netzsensor.de/noone.rss</value>
+			<value>01net. Actualités</value>
+			<null />
+			<null />
+			<null />
+			<value>1</value>
+			<value>0</value>
+			<value>0</value>
+			<value>0</value>
+		</row>
+		<row>
+			<value>2</value>
+			<value>http://devopsreactions.tumblr.com/</value>
+			<value>http://devopsreactions.tumblr.com/rss</value>
+			<value>DevOps Reactions</value>
+			<null />
+			<null />
+			<value>##TIMESTAMP##00</value>
+			<value>0</value>
+			<value>0</value>
+			<value>0</value>
+			<value>0</value>
+		</row>
+		<row>
+			<value>3</value>
+			<value>http://forums.fedoraforum.org/</value>
+			<value>http://forums.fedoraforum.org/external.php?type=RSS2</value>
+			<value>FedoraForum.org</value>
+			<null />
+			<null />
+			<value>##TIMESTAMP##00</value>
+			<value>1</value>
+			<value>0</value>
+			<value>0</value>
+			<value>0</value>
+		</row>
+		<row>
+			<value>4</value>
+			<value>https://news.ycombinator.com/</value>
+			<value>https://news.ycombinator.com/rss</value>
+			<value>Hacker News</value>
+			<null />
+			<null />
+			<value>##TIMESTAMP##00</value>
+			<value>1</value>
+			<value>0</value>
+			<value>1</value>
+			<value>0</value>
+		</row>
+		<row>
+			<value>5</value>
+			<value>http://xakep.ru/</value>
+			<value>http://www.xakep.ru/articles/rss/</value>
+			<value>XAKEP.RU</value>
+			<null />
+			<null />
+			<value>##TIMESTAMP##00</value>
+			<value>1</value>
+			<value>0</value>
+			<value>0</value>
+			<value>0</value>
+		</row>
+	</table>
+	<table name="items">
+		<column>id</column>
+		<column>url</column>
+		<column>title</column>
+		<column>author</column>
+		<column>content</column>
+		<column>updated</column>
+		<column>status</column>
+		<column>feed_id</column>
+		<column>bookmark</column>
+		<column>enclosure</column>
+		<column>enclosure_type</column>
+		<column>language</column>
+		<row>
+			<value>0fccceb1</value>
+			<value>http://www.expatsoftware.com/Articles/bootstrapping-abroad.html?try=3</value>
+			<value>Bootstrapping overseas as an American</value>
+			<value></value>
+			<value>&lt;a href=&quot;https://news.ycombinator.com/item?id=8898238&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;&gt;Comments&lt;/a&gt;</value>
+			<value>##TIMESTAMP##00</value>
+			<value>read</value>
+			<value>4</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value></value>
+		</row>
+		<row>
+			<value>6b8e4aa3</value>
+			<value>http://forums.fedoraforum.org/showthread.php?t=302442&amp;goto=newpost</value>
+			<value>Question about http hack from another thread</value>
+			<value>lightman47</value>
+			<value>Ref:   &lt;a href=&quot;http://www.forums.fedoraforum.org/showthread.php?t=302439&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;&gt;http://www.forums.fedoraforum.org/sh...d.php?t=302439&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;
+I didn&amp;#039;t want to hijack this thread, but the bigger question remains - How could this happen? In my mind I wouldn&amp;#039;t think that user Apache (or ftpsecure) could even get to the &amp;#039;etc&amp;#039; directory - much less abscond a file.&lt;br/&gt;&lt;br/&gt;
+I&amp;#039;m curious because I run a site of my own, although I also run denyhosts with bad attempts throttled to 3 and lock out all sevrvices.&lt;br/&gt;&lt;br/&gt;
+Thx</value>
+			<value>##TIMESTAMP##00</value>
+			<value>unread</value>
+			<value>3</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>72d36b63</value>
+			<value>http://ocsigen.org/js_of_ocaml/</value>
+			<value>Js_of_ocaml – A compiler of OCaml bytecode to Javascript</value>
+			<value></value>
+			<value>&lt;a href=&quot;https://news.ycombinator.com/item?id=8898680&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;&gt;Comments&lt;/a&gt;</value>
+			<value>##TIMESTAMP##00</value>
+			<value>unread</value>
+			<value>4</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value></value>
+		</row>
+		<row>
+			<value>8374a575</value>
+			<value>http://devopsreactions.tumblr.com/post/108246850813</value>
+			<value>Who will pick up this bug in the legacy code?</value>
+			<value>sharhalakis</value>
+			<value>&lt;p&gt;&lt;img src=&quot;?action=proxy&amp;amp;url=https%3A%2F%2Fi.imgur.com%2FqSU3xKV.gif&quot;/&gt;&lt;/p&gt;
+&lt;p&gt;by uaiHebert&lt;/p&gt;</value>
+			<value>##TIMESTAMP##00</value>
+			<value>read</value>
+			<value>2</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value></value>
+		</row>
+		<row>
+			<value>b8b894ad</value>
+			<value>https://xakep.ru/2015/01/16/hackers-list/</value>
+			<value>Hacker’s List: найми правильного хакера!</value>
+			<value>Denis Mirkov</value>
+			<value>&lt;a href=&quot;https://xakep.ru/2015/01/16/hackers-list/&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;?action=proxy&amp;amp;url=https%3A%2F%2Fxakep.ru%2Fwp-content%2Fuploads%2F2015%2F01%2F00228-120x76.jpg%3F614ffd&quot; title=&quot;Hacker’s List: найми правильного хакера!&quot;/&gt;&lt;/a&gt;&lt;p&gt;Нужно провести разведывательную операцию? Шпионаж? Прослушка? Никаких проблем — в онлайне сотни хакеров, готовых помочь за вознаграждение. Нужно только выбрать среди них.&lt;/p&gt;
+&lt;p&gt;«Найми подходящего хакера!», — под таким девизом открылся новый сайт Hacker’s List, настоящий каталог со списком разнообразных услуг, &lt;a href=&quot;http://dealbook.nytimes.com/2015/01/15/need-some-espionage-done-hackers-are-for-hire-online/&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;&gt;пишет&lt;/a&gt; NY Times. Сайт открылся в начале ноября.&lt;/p&gt;
+&lt;p&gt;Спрос на хакерские услуги немаленький. Например, некий житель Швеции предлагает $2000 тому, кто сможет взломать сайт его арендодателя. Жительница Калифорнии предлагает $500 за взлом странички Facebook её парня, а также его почтового ящика Gmail — несчастная девушка хочет убедиться, что парень ей не изменяет. Какой-то австралиец готов выложить $2000, чтобы получить список клиентов из базы конкурента.&lt;/p&gt;
+&lt;p&gt;В наше время взлом, слежка и прослушка перестали быть монополией спецслужб. Соответствующие инструменты и обучающие курсы свободно доступны в онлайне. Специалисты по информационной безопасности работают не только на государственные структуры, но не гнушаются и более мелкими заказами от частных лиц. И если взломы крупных корпораций вроде Sony Pictures, JPMorgan Chase и Home Depot привлекают всеобщее внимание, то подпольная индустрия частного взлома тихо живёт и процветает.&lt;/p&gt;
+&lt;p&gt;Взлом почтовых ящиков, удаление фотографий из социальной сети, доступ к базе данных компании, изменение оценки на школьном сервере. Менее чем за три месяца работы на сайте Hacker’s List накопилось более 500 «грязных» заказов, по которым идёт торговля со снижением цены (голландский аукцион). Есть и «невинные» заказы, когда клиент просит восстановить забытый пароль от собственного почтового ящика (впрочем, кто докажет, что это именно его ящик?).&lt;/p&gt;
+&lt;p&gt;Всего на сайте сейчас около 40 зарегистрированных хакеров и 844 зарегистрированных клиента.&lt;/p&gt;
+&lt;p&gt;Все участники сохраняют анонимность, а неизвестный оператор сайта получает процент с каждого заказа. Есть опция «гарантированной оплаты», когда платёж происходит только после выполнения работы. Оператор сайта снимает с себя всякую ответственность: каждый пользователь должен подписать 10-страничное соглашение об использовании сервиса, в котором обязуется соблюдать закон. Сайт зарегистрирован в Новой Зеландии, у него даже есть твиттер-аккаунт (@hackerslist).&lt;/p&gt;
+&lt;p&gt;Пример этого сайта, а также исключительная активность в соответствующих ветках форума журнала «Хакер» показывает, что рынок «низкоуровневых» взломов процветает, а главное — существует огромный неудовлетворённый спрос на хакерские услуги. Независимые эксперты подтверждают, что взлом почтовых ящиков и аккаунтов в социальных сетях происходит на ежедневной основе. Появились даже специализированные ресурсы вроде &lt;a href=&quot;http://hackerforhirereview.com/&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;&gt;hackerforhirereview.com&lt;/a&gt; с обзором таких сервисов, где им выставляют оценки.&lt;/p&gt;
+&lt;p&gt;Прочитать полностью на сайте: &lt;a href=&quot;https://xakep.ru/2015/01/16/hackers-list/&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;&gt;Hacker’s List: найми правильного хакера!&lt;/a&gt;&lt;/p&gt;</value>
+			<value>##TIMESTAMP##00</value>
+			<value>unread</value>
+			<value>5</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+	</table>
+</dataset>

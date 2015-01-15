@@ -1,7 +1,5 @@
 <?php
 
-require_once 'minifluxTestCase.php';
-
 class keyboardShortcutTest extends minifluxTestCase
 {
     const DEFAULT_COUNTER_PAGE = 8;
@@ -21,6 +19,16 @@ class keyboardShortcutTest extends minifluxTestCase
         return "($this->expectedCounterPage) $this->basePageHeading";
     }
 
+    public function testNoAlertShown()
+    {
+        $alertBox = $this->getAlertBox();
+        $this->assertEmpty($alertBox, 'Unexpected alert box found');
+
+        $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
+    }
+
     public function testNextItemShortcutA()
     {
         $articles = $this->getArticles();
@@ -36,7 +44,7 @@ class keyboardShortcutTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
     public function testNextItemShortcutB()
@@ -54,7 +62,25 @@ class keyboardShortcutTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');;
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
+    }
+
+    public function testNextItemShortcutC()
+    {
+        $articles = $this->getArticles();
+
+        $this->setArticleAsCurrentArticle($articles[0]);
+        $this->keys($this->getShortcutNextItemC());
+
+        $firstIsNotCurrentArticle = $this->waitForArticleIsNotCurrentArticle($articles[0]);
+        $secondIsCurrentArticle = $this->waitForArticleIsCurrentArticle($articles[1]);
+
+        $this->assertTrue($firstIsNotCurrentArticle, 'The first Article is still the current Article');
+        $this->assertTrue($secondIsCurrentArticle, 'The second Article is not the current Article');
+
+        $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
     public function testPreviousItemA()
@@ -67,12 +93,12 @@ class keyboardShortcutTest extends minifluxTestCase
         $firstIsCurrentArticle = $this->waitForArticleIsCurrentArticle($articles[0]);
         $secondIsNotCurrentArticle = $this->waitForArticleIsNotCurrentArticle($articles[1]);
 
-        $this->assertTrue($firstIsCurrentArticle, 'The first Article is not the current Article');
+        $this->assertTrue($firstIsCurrentArticle, 'The first article is not the current article');
         $this->assertTrue($secondIsNotCurrentArticle, 'The second Article is still the current Article');
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
     public function testPreviousItemB()
@@ -85,12 +111,30 @@ class keyboardShortcutTest extends minifluxTestCase
         $firstIsCurrentArticle = $this->waitForArticleIsCurrentArticle($articles[0]);
         $secondIsNotCurrentArticle = $this->waitForArticleIsNotCurrentArticle($articles[1]);
 
-        $this->assertTrue($firstIsCurrentArticle, 'The first Article is not the current Article');
+        $this->assertTrue($firstIsCurrentArticle, 'The first article is not the current article');
         $this->assertTrue($secondIsNotCurrentArticle, 'The second Article is still the current Article');
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
+    }
+
+    public function testPreviousItemC()
+    {
+        $articles = $this->getArticles();
+
+        $this->setArticleAsCurrentArticle($articles[1]);
+        $this->keys($this->getShortcutPreviousItemC());
+
+        $firstIsCurrentArticle = $this->waitForArticleIsCurrentArticle($articles[0]);
+        $secondIsNotCurrentArticle = $this->waitForArticleIsNotCurrentArticle($articles[1]);
+
+        $this->assertTrue($firstIsCurrentArticle, 'The first article is not the current article');
+        $this->assertTrue($secondIsNotCurrentArticle, 'The second Article is still the current Article');
+
+        $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
     public function testNextStopsAtLastArticle()
@@ -109,7 +153,7 @@ class keyboardShortcutTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
     public function testPreviousStopsAtFirstArticle()
@@ -124,11 +168,74 @@ class keyboardShortcutTest extends minifluxTestCase
         $firstIsCurrentArticle = $this->waitForArticleIsCurrentArticle($articles[0]);
 
         $this->assertTrue($lastIsNotCurrentArticle, 'The last Article is still the current Article');
-        $this->assertTrue($firstIsCurrentArticle, 'The first Article is not the current Article');
+        $this->assertTrue($firstIsCurrentArticle, 'The first article is not the current article');
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
+    }
+
+    public function testSHIFTModifierIsDisabled()
+    {
+        if ($this->getBrowser() === "iexplore") {
+            $this->markTestSkipped('Modifier key test is not supported with Internet Explorer [Selenium issue #4973].');
+        }
+
+        $articles = $this->getArticles();
+
+        $this->setArticleAsCurrentArticle($articles[0]);
+        $this->keys(PHPUnit_Extensions_Selenium2TestCase_Keys::SHIFT.$this->getShortcutNextItemC());
+        $this->keys(PHPUnit_Extensions_Selenium2TestCase_Keys::SHIFT);
+
+        $firstIsNotCurrentArticle = $this->waitForArticleIsNotCurrentArticle($articles[0]);
+
+        $this->assertFalse($firstIsNotCurrentArticle, 'The first article is not the current article');
+
+        $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
+    }
+
+    public function testALTModifierIsDisabled()
+    {
+        if ($this->getBrowser() === "iexplore") {
+            $this->markTestSkipped('Modifier key test is not supported with Internet Explorer [Selenium issue #4973].');
+        }
+
+        $articles = $this->getArticles();
+
+        $this->setArticleAsCurrentArticle($articles[0]);
+        $this->keys(PHPUnit_Extensions_Selenium2TestCase_Keys::ALT.$this->getShortcutNextItemB());
+        $this->keys(PHPUnit_Extensions_Selenium2TestCase_Keys::ALT);
+
+        $firstIsNotCurrentArticle = $this->waitForArticleIsNotCurrentArticle($articles[0]);
+
+        $this->assertFalse($firstIsNotCurrentArticle, 'The first article is not the current article');
+
+        $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
+    }
+
+    public function testCTRLModifierIsDisabled()
+    {
+        if ($this->getBrowser() === "iexplore") {
+            $this->markTestSkipped('Modifier key test is not supported with Internet Explorer [Selenium issue #4973].');
+        }
+
+        $articles = $this->getArticles();
+
+        $this->setArticleAsCurrentArticle($articles[0]);
+        $this->keys(PHPUnit_Extensions_Selenium2TestCase_Keys::CONTROL.$this->getShortcutNextItemB());
+        $this->keys(PHPUnit_Extensions_Selenium2TestCase_Keys::CONTROL);
+
+        $firstIsNotCurrentArticle = $this->waitForArticleIsNotCurrentArticle($articles[0]);
+
+        $this->assertFalse($firstIsNotCurrentArticle, 'The first article is not the current article');
+
+        $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
     public function testShortcutsOnInputFiledAreDisabled()
@@ -136,11 +243,13 @@ class keyboardShortcutTest extends minifluxTestCase
         $url = $this->getURLPagePreferences();
 
         $this->url($url);
-        $this->byId('form-username')->value($this->getShortcutGoToUnread());
+
+        $this->byId('form-username')->click();
+        $this->keys($this->getShortcutGoToUnread());
 
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = $url;
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
 
         $this->ignorePageTitle = TRUE;
     }
@@ -152,7 +261,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedCounterPage = '6';
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = $this->getURLPageBookmarks();
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
 
         $this->ignorePageTitle = TRUE;
     }
@@ -164,7 +273,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedCounterPage = '6';
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = $this->getURLPageHistory();
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
 
         $this->ignorePageTitle = TRUE;
     }
@@ -176,7 +285,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedCounterPage = '6';
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = $this->getURLPageUnread();
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
 
         $this->ignorePageTitle = TRUE;
     }
@@ -187,7 +296,7 @@ class keyboardShortcutTest extends minifluxTestCase
 
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds';
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
 
         $this->ignorePageTitle = TRUE;
     }
@@ -198,7 +307,7 @@ class keyboardShortcutTest extends minifluxTestCase
 
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedPageUrl = $this->getURLPagePreferences();
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
 
         $this->ignorePageTitle = TRUE;
     }
