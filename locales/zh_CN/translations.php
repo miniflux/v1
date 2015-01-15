@@ -56,7 +56,6 @@ return array(
     // 'download content' => '',
     'Help' => '帮助',
     // 'Theme' => '',
-    // 'There are %d empty feeds, there is maybe an error: %s...' => '',
     'Items per page' => '每页条目数',
     'Previous page' => '上一页',
     'Next page' => '下一页',
@@ -231,4 +230,5 @@ return array(
     // 'Avoid mixed content warnings with HTTPS' => '',
     // 'Download favicons' => '',
     // 'general' => '',
+    // 'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => '',
 );

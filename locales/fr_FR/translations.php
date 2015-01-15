@@ -56,7 +56,6 @@ return array(
     'download content' => 'télécharger le contenu',
     'Help' => 'Aide',
     'Theme' => 'Thème',
-    'There are %d empty feeds, there is maybe an error: %s...' => 'Il y a %d abonnements vides, il y a peut-être un problème : %s...',
     'Items per page' => 'Nombre d\'éléments par page',
     'Previous page' => 'Page précédente',
     'Next page' => 'Page suivante',
@@ -231,4 +230,5 @@ return array(
     'Avoid mixed content warnings with HTTPS' => 'Évite les alertes du navigateur web en HTTPS',
     'Download favicons' => 'Télécharger les icônes des sites web',
     'general' => 'general',
+    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!',
 );

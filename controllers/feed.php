@@ -108,33 +108,12 @@ Router\post_action('refresh-feed', function() {
 // Display all feeds
 Router\get_action('feeds', function() {
 
-    if (! Request\int_param('disable_empty_feeds_check')) {
-
-        $empty_feeds = Model\Feed\get_all_empty();
-
-        if (! empty($empty_feeds)) {
-
-            $listing = array();
-
-            foreach ($empty_feeds as &$feed) {
-                $listing[] = '"'.$feed['title'].'"';
-            }
-
-            $message = t(
-                'There are %d empty feeds, there is maybe an error: %s...',
-                count($empty_feeds),
-                implode(', ', array_slice($listing, 0, 5))
-            );
-
-            Session\flash_error($message);
-        }
-    }
-
     Response\html(Template\layout('feeds', array(
         'favicons' => Model\Feed\get_all_favicons(),
         'feeds' => Model\Feed\get_all_item_counts(),
         'nothing_to_read' => Request\int_param('nothing_to_read'),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
+        'nb_failed_feeds' => Model\Feed\count_failed_feeds(),
         'menu' => 'feeds',
         'title' => t('Subscriptions')
     )));
@@ -219,7 +198,7 @@ Router\post_action('import', function() {
     if (Model\Feed\import_opml(Request\file_content('file'))) {
 
         Session\flash(t('Your feeds have been imported.'));
-        Response\redirect('?action=feeds&disable_empty_feeds_check=1');
+        Response\redirect('?action=feeds');
     }
     else {
 

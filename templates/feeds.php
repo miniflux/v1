@@ -17,13 +17,15 @@
 
 <?php else: ?>
 
-    <?php if ($nothing_to_read): ?>
+    <?php if ($nb_failed_feeds > 0): ?>
+        <p class="alert alert-warning"><?= tne('An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!','<a href="?action=console">','</a>') ?></p>
+    <?php elseif ($nothing_to_read): ?>
         <p class="alert"><?= tne('Nothing to read, do you want to <a href="?action=refresh-all" data-action="refresh-all">update your subscriptions?</a>') ?></p>
     <?php endif ?>
 
     <section class="items">
     <?php foreach ($feeds as $feed): ?>
-        <article data-feed-id="<?= $feed['id'] ?>" <?= (! $feed['enabled']) ? 'data-feed-disabled="1"' : '' ?>>
+        <article data-feed-id="<?= $feed['id'] ?>" <?= (! $feed['enabled']) ? 'data-feed-disabled="1"' : '' ?> <?= ($feed['parsing_error']) ? 'data-feed-error="1"' : '' ?>>
             <h2>
                 <?php if (! $feed['enabled']): ?>
                     <span title="<?= t('Subscription disabled') ?>">✖</span>
@@ -48,10 +50,8 @@
                         </span>
                     <?php endif ?>
 
-                    <span class="feed-parsing-error" data-after-error="<?= t('(error occurred during the last check)') ?>">
-                        <?php if ($feed['parsing_error']): ?>
+                    <span class="feed-parsing-error">
                             <?= t('(error occurred during the last check)') ?>
-                        <?php endif ?>
                     </span>
 
                 <?php endif ?>

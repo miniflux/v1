@@ -449,10 +449,6 @@ nav .active a {
     padding-top: 30px;
 }
 
-[data-feed-disabled] * {
-    color: #aaa;
-}
-
 .feed-last-checked {
     color: brown;
     font-size: 0.7em;
@@ -460,6 +456,11 @@ nav .active a {
 }
 
 .feed-parsing-error {
+    visibility: hidden;
+}
+
+.items article[data-feed-error] .feed-parsing-error {
+    visibility: visible;
     color: #000;
     font-size: 0.7em;
     font-weight: normal;
@@ -471,6 +472,15 @@ nav .active a {
     margin-bottom: 20px;
     padding: 5px;
     background-color: #fff;
+}
+
+.items article[data-feed-error] {
+    background-color: #fcf8e3;
+    border-color: #fcf8e3;
+}
+
+.items article[data-feed-disabled] * {
+    color: #aaa;
 }
 
 .items h2 {

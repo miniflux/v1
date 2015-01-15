@@ -19,6 +19,12 @@
         </ul>
     </div>
 
+    <?php if ($feed['parsing_error']): ?>
+        <p class="alert alert-warning">
+            <?= tne('An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!','<a href="?action=console">','</a>') ?>
+        </p>
+    <?php endif; ?>
+
     <section class="items" id="listing">
         <?php foreach ($items as $item): ?>
             <?= \PicoFarad\Template\load('item', array(

@@ -56,7 +56,6 @@ return array(
     'download content' => 'descargar contenido',
     'Help' => 'Ayuda',
     'Theme' => 'Tema',
-    'There are %d empty feeds, there is maybe an error: %s...' => 'Hay %d suscripciones vacías, tal vez haya un problema: %s...',
     'Items per page' => 'Ítems por página',
     'Previous page' => 'Página anterior',
     'Next page' => 'Página siguiente',
@@ -231,4 +230,5 @@ return array(
     // 'Avoid mixed content warnings with HTTPS' => '',
     // 'Download favicons' => '',
     // 'general' => '',
+    // 'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => '',
 );
