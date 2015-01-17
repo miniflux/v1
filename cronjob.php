@@ -17,7 +17,9 @@ else {
 }
 
 if (! empty($options['database'])) {
-    Model\Database\select($options['database']);
+    if (! Model\Database\select($options['database'])) {
+        die("Database ".$options['database']." not found\r\n");
+    }
 }
 
 $limit = ! empty($options['limit']) && ctype_digit($options['limit']) ? (int) $options['limit'] : Model\Feed\LIMIT_ALL;

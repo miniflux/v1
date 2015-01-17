@@ -10,18 +10,15 @@ use Model\RememberMe;
 use Model\Database as DatabaseModel;
 
 // Check if the user is logged
-function is_logged()
+function is_loggedin()
 {
     return ! empty($_SESSION['user']);
 }
 
-// Check if the logged user is the right one
-function is_user_session()
+function logout()
 {
-    return Database::get('db')
-        ->table('config')
-        ->eq('username', $_SESSION['user']['username'])
-        ->count() === 1;
+    \Model\RememberMe\destroy();
+    \PicoFarad\Session\close();
 }
 
 // Get a user by username

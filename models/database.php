@@ -36,9 +36,25 @@ function select($filename = '')
 {
     static $current_filename = DB_FILENAME;
 
-    if (ENABLE_MULTIPLE_DB && $filename !== '' && in_array($filename, get_all())) {
-        $current_filename = $filename;
-        $_SESSION['config'] = \Model\Config\get_all();
+    // function gets called with a filename at least once the database
+    // connection is established
+    if ($filename !== '') {
+        if (ENABLE_MULTIPLE_DB && in_array($filename, get_all())) {
+            $current_filename = $filename;
+
+            // unset the authenticated flag if the database is changed
+            if (empty($_SESSION['database']) || $_SESSION['database'] !== $filename) {
+                if (isset($_SESSION)) {
+                    unset($_SESSION['user']);
+                }
+
+                $_SESSION['database'] = $filename;
+                $_SESSION['config'] = \Model\Config\get_all();
+            }
+        }
+        else {
+            return false;
+        }
     }
 
     return $current_filename;

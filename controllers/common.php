@@ -11,31 +11,26 @@ Router\before(function($action) {
 
     Session\open(BASE_URL_DIRECTORY, SESSION_SAVE_PATH);
 
-    // Select another database
+    // Select the requested database. If it fails, logout to destroy session and
+    // 'remember me' cookie
     if (! empty($_SESSION['database'])) {
-        Model\Database\select($_SESSION['database']);
-    }
-
-    // Authentication
-    if (Model\User\is_logged()) {
-
-        if (! Model\User\is_user_session()) {
-            Session\close();
+        if (! Model\Database\select($_SESSION['database'])) {
+            Model\User\logout();
             Response\redirect('?action=login');
         }
+    }
 
-        if (Model\RememberMe\has_cookie()) {
-            Model\RememberMe\refresh();
+    // These actions are considered to be safe even for unauthenticated users
+    $safe_actions = array('login', 'bookmark-feed', 'select-db', 'logout', 'notfound');
+
+    if ( ! Model\User\is_loggedin() && ! in_array($action, $safe_actions)) {
+        if (! Model\RememberMe\authenticate()) {
+            Model\User\logout();
+            Response\redirect('?action=login');
         }
     }
-    else {
-
-        if (! in_array($action, array('login', 'bookmark-feed', 'select-db'))) {
-
-            if (! Model\RememberMe\authenticate()) {
-               Response\redirect('?action=login');
-            }
-        }
+    else if (Model\RememberMe\has_cookie()) {
+        Model\RememberMe\refresh();
     }
 
     // Load translations
