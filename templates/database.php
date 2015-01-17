@@ -12,7 +12,7 @@
     </nav>
 </div>
 <section>
-    <div class="alert alert-normal">
+    <div class="panel panel-default">
         <ul>
             <li><?= t('Database size:') ?> <strong><?= Helper\format_bytes($db_size) ?></strong></li>
             <li><a href="?action=optimize-db&amp;csrf=<?= $csrf ?>"><?= t('Optimize the database') ?></a> <?= t('(VACUUM command)') ?></li>

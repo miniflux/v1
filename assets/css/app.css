@@ -237,7 +237,7 @@ textarea.form-error {
 }
 
 /* alerts */
-.alert {
+.alert, .panel {
     padding: 8px 35px 8px 14px;
     margin-bottom: 20px;
     color: #c09853;
@@ -253,7 +253,7 @@ textarea.form-error {
     border-color: #d6e9c6;
 }
 
-.alert-error {
+.alert-error, .panel-danger {
     color: #b94a48;
     background-color: #f2dede;
     border-color: #eed3d7;
@@ -265,13 +265,13 @@ textarea.form-error {
     border-color: #bce8f1;
 }
 
-.alert-normal {
+.alert-normal, .panel-default {
     color: #333;
     background-color: #f0f0f0;
     border-color: #ddd;
 }
 
-.alert-error a {
+.alert-error a, .panel-danger a {
     color: #b94a48;
 }
 

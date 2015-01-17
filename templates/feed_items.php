@@ -1,5 +1,5 @@
 <?php if (empty($items)): ?>
-    <p class="alert">
+    <p class="alert alert-info">
         <?= tne('This subscription is empty, <a href="?action=unread">go back to unread items</a>') ?>
     </p>
 <?php else: ?>
@@ -20,7 +20,7 @@
     </div>
 
     <?php if ($feed['parsing_error']): ?>
-        <p class="alert alert-warning">
+        <p class="alert alert-error">
             <?= tne('An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!','<a href="?action=console">','</a>') ?>
         </p>
     <?php endif; ?>

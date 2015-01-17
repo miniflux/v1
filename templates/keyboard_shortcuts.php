@@ -1,4 +1,4 @@
-<div class="alert alert-normal" id="shortcuts">
+<div class="panel panel-default" id="shortcuts">
     <h3><?= t('Keyboard shortcuts') ?></h3>
     <ul>
         <li><?= t('Go to unread') ?> = <strong>gu</strong></li>

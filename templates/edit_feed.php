@@ -32,9 +32,6 @@
         <?= t('or') ?> <a href="?action=feeds"><?= t('cancel') ?></a>
     </div>
 </form>
-<br/>
-<div class="alert alert-error">
-    <ul>
-        <li><a href="?action=confirm-remove-feed&amp;feed_id=<?= $values['id'] ?>"><?= t('Remove this feed') ?></a></li>
-    </ul>
+<div class="form-actions">
+    <a href="?action=confirm-remove-feed&amp;feed_id=<?= $values['id'] ?>" class="btn btn-red"><?= t('Remove this feed') ?></a>
 </div>
