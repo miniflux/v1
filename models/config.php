@@ -2,6 +2,7 @@
 
 namespace Model\Config;
 
+use Translator;
 use DirectoryIterator;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
@@ -309,7 +310,7 @@ function save(array $values)
 {
     // Update the password if needed
     if (! empty($values['password'])) {
-        $values['password'] = \password_hash($values['password'], PASSWORD_BCRYPT);
+        $values['password'] = password_hash($values['password'], PASSWORD_BCRYPT);
     } else {
         unset($values['password']);
     }
@@ -333,7 +334,7 @@ function save(array $values)
 function reload()
 {
     $_SESSION['config'] = get_all();
-    \Translator\load(get('language'));
+    Translator\load(get('language'));
 }
 
 // Get the user agent of the connected user

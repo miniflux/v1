@@ -5,6 +5,7 @@ namespace Model\User;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 use PicoDb\Database;
+use PicoFarad\Session;
 use Model\Config;
 use Model\RememberMe;
 use Model\Database as DatabaseModel;
@@ -15,10 +16,11 @@ function is_loggedin()
     return ! empty($_SESSION['user']);
 }
 
+// Destroy the session and the rememberMe cookie
 function logout()
 {
-    \Model\RememberMe\destroy();
-    \PicoFarad\Session\close();
+    RememberMe\destroy();
+    Session\close();
 }
 
 // Get a user by username
@@ -47,7 +49,7 @@ function validate_login(array $values)
 
         $user = get($values['username']);
 
-        if ($user && \password_verify($values['password'], $user['password'])) {
+        if ($user && password_verify($values['password'], $user['password'])) {
 
             unset($user['password']);
 

@@ -31,27 +31,29 @@
 
                 <?= Helper\form_checkbox('remember_me', t('Remember Me'), 1) ?><br/>
 
+                <?php if (ENABLE_MULTIPLE_DB && count($databases) > 1): ?>
+                <div id="database-selector">
+                    <h4><?= t('Select another database') ?></h4>
+                    <ul>
+                        <?php foreach ($databases as $filename => $dbname): ?>
+                            <li>
+                                <?php if ($current_database === $filename): ?>
+                                    <strong><?= Helper\escape($dbname) ?></strong>
+                                <?php else: ?>
+                                    <a href="?action=select-db&amp;database=<?= Helper\escape($filename) ?>"><?= Helper\escape($dbname) ?></a>
+                                <?php endif ?>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+                <?php endif ?>
+
+
                 <div class="form-actions">
                     <input type="submit" value="<?= t('Sign in') ?>" class="btn btn-blue"/>
                 </div>
             </form>
 
-            <?php if (ENABLE_MULTIPLE_DB && count($databases) > 1): ?>
-            <div>
-                <h3><?= t('Select another database') ?></h3>
-                <ul>
-                    <?php foreach ($databases as $filename => $dbname): ?>
-                        <li>
-                            <?php if ($current_database === $filename): ?>
-                                <strong><?= Helper\escape($dbname) ?></strong>
-                            <?php else: ?>
-                                <a href="?action=select-db&amp;database=<?= Helper\escape($filename) ?>"><?= Helper\escape($dbname) ?></a>
-                            <?php endif ?>
-                        </li>
-                    <?php endforeach ?>
-                </ul>
-            </div>
-            <?php endif ?>
         </section>
     </body>
 </html>

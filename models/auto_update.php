@@ -7,6 +7,7 @@ use DirectoryIterator;
 use RecursiveIterator;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
+use Model\Config;
 
 // Get all files of a given directory
 function get_files_list($directory)
@@ -49,7 +50,7 @@ function is_excluded_path($path, array $exclude_list)
 // Synchronize 2 directories (copy/remove files)
 function synchronize($source_directory, $destination_directory)
 {
-    \Model\Config\debug('[SYNCHRONIZE] '.$source_directory.' to '.$destination_directory);
+    Config\debug('[SYNCHRONIZE] '.$source_directory.' to '.$destination_directory);
 
     $src_files = get_files_list($source_directory);
     $dst_files = get_files_list($destination_directory);
@@ -62,7 +63,7 @@ function synchronize($source_directory, $destination_directory)
         if ($file !== '.htaccess') {
 
             $destination_file = $destination_directory.DIRECTORY_SEPARATOR.$file;
-            \Model\Config\debug('[REMOVE] '.$destination_file);
+            Config\debug('[REMOVE] '.$destination_file);
 
             if (! @unlink($destination_file)) {
                 return false;
@@ -77,7 +78,7 @@ function synchronize($source_directory, $destination_directory)
 
         if (! is_dir($directory)) {
 
-            \Model\Config\debug('[MKDIR] '.$directory);
+            Config\debug('[MKDIR] '.$directory);
 
             if (! @mkdir($directory, 0755, true)) {
                 return false;
@@ -87,7 +88,7 @@ function synchronize($source_directory, $destination_directory)
         $source_file = $source_directory.DIRECTORY_SEPARATOR.$file;
         $destination_file = $destination_directory.DIRECTORY_SEPARATOR.$file;
 
-        \Model\Config\debug('[COPY] '.$source_file.' to '.$destination_file);
+        Config\debug('[COPY] '.$source_file.' to '.$destination_file);
 
         if (! @copy($source_file, $destination_file)) {
             return false;
@@ -102,7 +103,7 @@ function uncompress_archive($url, $download_directory = AUTO_UPDATE_DOWNLOAD_DIR
 {
     $archive_file = $download_directory.DIRECTORY_SEPARATOR.'update.zip';
 
-    \Model\Config\debug('[DOWNLOAD] '.$url);
+    Config\debug('[DOWNLOAD] '.$url);
 
     if (($data = @file_get_contents($url)) === false) {
         return false;
@@ -112,7 +113,7 @@ function uncompress_archive($url, $download_directory = AUTO_UPDATE_DOWNLOAD_DIR
         return false;
     }
 
-    \Model\Config\debug('[UNZIP] '.$archive_file);
+    Config\debug('[UNZIP] '.$archive_file);
 
     $zip = new ZipArchive;
 
@@ -129,7 +130,7 @@ function uncompress_archive($url, $download_directory = AUTO_UPDATE_DOWNLOAD_DIR
 // Remove all files for a given directory
 function cleanup_directory($directory)
 {
-    \Model\Config\debug('[CLEANUP] '.$directory);
+    Config\debug('[CLEANUP] '.$directory);
 
     $dir = new DirectoryIterator($directory);
 
@@ -173,12 +174,12 @@ function find_archive_root($base_directory = AUTO_UPDATE_ARCHIVE_DIRECTORY)
     }
 
     if (empty($directory)) {
-        \Model\Config\debug('[FIND ARCHIVE] No directory found');
+        Config\debug('[FIND ARCHIVE] No directory found');
         return false;
     }
 
     $path = $base_directory.DIRECTORY_SEPARATOR.$directory;
-    \Model\Config\debug('[FIND ARCHIVE] '.$path);
+    Config\debug('[FIND ARCHIVE] '.$path);
 
     return $path;
 }

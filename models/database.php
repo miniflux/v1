@@ -2,6 +2,9 @@
 
 namespace Model\Database;
 
+use Schema;
+use DirectoryIterator;
+use Model\Config;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 
@@ -17,11 +20,11 @@ function create($filename, $username, $password)
             'filename' => $filename,
         ));
 
-        if ($db->schema()->check(\Model\Config\DB_VERSION)) {
+        if ($db->schema()->check(Schema\VERSION)) {
 
             $db->table('config')->update(array(
                 'username' => $username,
-                'password' => \password_hash($password, PASSWORD_BCRYPT)
+                'password' => password_hash($password, PASSWORD_BCRYPT)
             ));
 
             return true;
@@ -49,7 +52,7 @@ function select($filename = '')
                 }
 
                 $_SESSION['database'] = $filename;
-                $_SESSION['config'] = \Model\Config\get_all();
+                $_SESSION['config'] = Config\get_all();
             }
         }
         else {
@@ -63,7 +66,7 @@ function select($filename = '')
 // Get database path
 function get_path()
 {
-    return DATA_DIRECTORY.DIRECTORY_SEPARATOR.\Model\Database\select();
+    return DATA_DIRECTORY.DIRECTORY_SEPARATOR.select();
 }
 
 // Get the list of available databases
@@ -71,7 +74,7 @@ function get_all()
 {
     $listing = array();
 
-    $dir = new \DirectoryIterator(DATA_DIRECTORY);
+    $dir = new DirectoryIterator(DATA_DIRECTORY);
 
     foreach ($dir as $fileinfo) {
         if ($fileinfo->getExtension() === 'sqlite') {

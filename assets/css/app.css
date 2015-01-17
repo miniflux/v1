@@ -212,7 +212,7 @@ select {
 }
 
 .form-actions {
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 input.form-error,
@@ -726,6 +726,13 @@ iframe {
 #login form {
     border: none;
     margin-bottom: 45px;
+}
+
+#database-selector h4 {
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+    font-weight: normal;
 }
 
 .bookmarklet {

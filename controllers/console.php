@@ -13,7 +13,6 @@ Router\get_action('flush-console', function() {
     Response\redirect('?action=console');
 });
 
-
 // Display console
 Router\get_action('console', function() {
 

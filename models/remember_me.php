@@ -123,9 +123,6 @@ function remove($session_id)
  */
 function destroy()
 {
-    // delete the cookie without any conditions!
-    delete_cookie();
-
     $credentials = read_cookie();
 
     if ($credentials !== false) {
@@ -135,6 +132,8 @@ function destroy()
              ->eq('token', $credentials['token'])
              ->remove();
     }
+
+    delete_cookie();
 }
 
 /**

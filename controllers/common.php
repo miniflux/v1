@@ -23,7 +23,7 @@ Router\before(function($action) {
     // These actions are considered to be safe even for unauthenticated users
     $safe_actions = array('login', 'bookmark-feed', 'select-db', 'logout', 'notfound');
 
-    if ( ! Model\User\is_loggedin() && ! in_array($action, $safe_actions)) {
+    if (! Model\User\is_loggedin() && ! in_array($action, $safe_actions)) {
         if (! Model\RememberMe\authenticate()) {
             Model\User\logout();
             Response\redirect('?action=login');
@@ -35,7 +35,10 @@ Router\before(function($action) {
 
     // Load translations
     $language = Model\Config\get('language') ?: 'en_US';
-    if ($language !== 'en_US') Translator\load($language);
+    
+    if ($language !== 'en_US') {
+        Translator\load($language);
+    }
 
     // Set timezone
     date_default_timezone_set(Model\Config\get('timezone') ?: 'UTC');
