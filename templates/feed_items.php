@@ -1,6 +1,6 @@
 <?php if (empty($items)): ?>
     <p class="alert alert-info">
-        <?= tne('This subscription is empty, <a href="?action=unread">go back to unread items</a>') ?>
+        <?= tne('This subscription is empty, %sgo back to unread items%s','<a href="?action=unread">','</a>') ?>
     </p>
 <?php else: ?>
 
@@ -11,7 +11,7 @@
                 <a href="?action=refresh-feed&amp;feed_id=<?= $feed['id'] ?>&amp;redirect=feed-items"><?= t('refresh') ?></a>
             </li>
             <li>
-                <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>&amp;order=updated&amp;direction=<?= $direction == 'asc' ? 'desc' : 'asc' ?>"><?= tne('sort by date<span class="hide-mobile"> (%s)</span>', $direction == 'desc' ? t('older first') : t('most recent first')) ?></a>
+                <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>&amp;order=updated&amp;direction=<?= $direction == 'asc' ? 'desc' : 'asc' ?>"><?= tne('sort by date %s(%s)%s', '<span class="hide-mobile">', $direction == 'desc' ? t('older first') : t('most recent first'), '</span>') ?></a>
             </li>
             <li>
                 <a href="?action=mark-feed-as-read&amp;feed_id=<?= $feed['id'] ?>" data-action="mark-feed-read" data-feed-id="<?= $feed['id'] ?>"><?= t('mark all as read') ?></a>

@@ -20,7 +20,7 @@
     <body>
         <header>
             <nav>
-                <a class="logo" href="?"><?= tne('mini<span>flux</span>') ?></a>
+                <a class="logo" href="?"><?= tne('mini%sflux%s','<span>','</span>') ?></a>
                 <ul>
                     <li <?= isset($menu) && $menu === 'unread' ? 'class="active"' : '' ?>>
                         <a href="?action=unread"><?= t('unread') ?><span id="nav-counter"><?= empty($nb_unread_items) ? '' : $nb_unread_items ?></span></a>
