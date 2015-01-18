@@ -162,12 +162,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "d3785fc54d0bf9d521fd85e369cc5600f66099cc"
+            "reference": "f3ed9fef18b4cd0d25a1fd389c8a2e2370bcb51b"
         },
         "dist": {
             "type": "zip",
             "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/d3785fc54d0bf9d521fd85e369cc5600f66099cc",
-            "reference": "d3785fc54d0bf9d521fd85e369cc5600f66099cc",
+            "reference": "f3ed9fef18b4cd0d25a1fd389c8a2e2370bcb51b",
             "shasum": ""
         },
         "require": {
