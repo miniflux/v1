@@ -41,7 +41,7 @@ function select($filename = '')
 
     // function gets called with a filename at least once the database
     // connection is established
-    if ($filename !== '') {
+    if (! empty($filename)) {
         if (ENABLE_MULTIPLE_DB && in_array($filename, get_all())) {
             $current_filename = $filename;
 

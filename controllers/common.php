@@ -11,9 +11,14 @@ Router\before(function($action) {
 
     Session\open(BASE_URL_DIRECTORY, SESSION_SAVE_PATH, 0);
 
-    // Select the requested database. If it fails, logout to destroy session and
+    // Select the requested database either from post param database or from the
+    // session variable. If it fails, logout to destroy session and
     // 'remember me' cookie
-    if (! empty($_SESSION['database'])) {
+    if (! empty(Request\value('database')) && ! Model\Database\select(Request\value('database'))) {
+        Model\User\logout();
+        Response\redirect('?action=login');
+    }
+    elseif (! empty($_SESSION['database'])) {
         if (! Model\Database\select($_SESSION['database'])) {
             Model\User\logout();
             Response\redirect('?action=login');
@@ -29,13 +34,13 @@ Router\before(function($action) {
             Response\redirect('?action=login');
         }
     }
-    else if (Model\RememberMe\has_cookie()) {
+    elseif (Model\RememberMe\has_cookie()) {
         Model\RememberMe\refresh();
     }
 
     // Load translations
     $language = Model\Config\get('language') ?: 'en_US';
-    
+
     if ($language !== 'en_US') {
         Translator\load($language);
     }
