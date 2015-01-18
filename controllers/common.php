@@ -9,7 +9,7 @@ use PicoFarad\Template;
 // Called before each action
 Router\before(function($action) {
 
-    Session\open(BASE_URL_DIRECTORY, SESSION_SAVE_PATH);
+    Session\open(BASE_URL_DIRECTORY, SESSION_SAVE_PATH, 0);
 
     // Select the requested database. If it fails, logout to destroy session and
     // 'remember me' cookie

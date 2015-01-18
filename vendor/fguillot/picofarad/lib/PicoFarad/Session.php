@@ -5,13 +5,13 @@ namespace PicoFarad\Session;
 const SESSION_LIFETIME = 2678400;
 
 
-function open($base_path = '/', $save_path = '')
+function open($base_path = '/', $save_path = '', $session_lifetime = SESSION_LIFETIME)
 {
     if ($save_path !== '') session_save_path($save_path);
 
     // HttpOnly and secure flags for session cookie
     session_set_cookie_params(
-        SESSION_LIFETIME,
+        $session_lifetime,
         $base_path ?: '/',
         null,
         isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on',
