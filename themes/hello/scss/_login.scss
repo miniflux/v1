@@ -29,6 +29,21 @@
 		[type="password"] {
 			width: 380px;
 		}
+		+ div {
 
+			margin: {
+				left: 20px;
+				top:  20px;
+			}
+
+			h3 {
+				font-weight: bold;
+			}
+			ul {
+				list-style-type: square;
+
+				padding-left: 25px;
+			}
+		}
 	}
 }

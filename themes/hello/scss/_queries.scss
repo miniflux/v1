@@ -19,13 +19,22 @@
 			}
 		}
 	}
+	body {
+		> header {
+
+		}
+	}
+	section {
+		&.page {
+			
+		}
+	}
 }
 
-@media only screen and (max-width: 960px) {
-	#login-page {
-		background: url("../images/bg-small.jpg") repeat center center;
-	}
-	
+@media only screen  and (min-width: 481px) and (max-width: 980px) {
+
+}
+@media only screen  and (max-width: 980px) {
 	body {
 		> header {
 			top: 5px;
@@ -36,7 +45,7 @@
 			background-color: transparent !important;
 		}
 		> .page {
-			width: 100%;
+			width: auto !important;
 			position: relative;
 		}
 	}
@@ -126,8 +135,55 @@
 	}
 	.items {
 		article {
+			padding: {
+				left: 10px;
+				right: 10px;
+			}
 			.preview {
 				display: none;
+			}
+		}
+
+		.item {
+			&-menu {
+				display: block;
+
+				@include pie-clearfix;
+				li {
+					&:first-child {
+						display: block;
+						float: left;
+					}
+					&:last-child {
+						float: right;
+						&:before {
+							display: none;
+							visibility: hidden;
+						}
+					}
+					.mark,
+					.mark:before {
+						height: 25px;
+						text-align: center;
+						width: 25px;
+					}
+					.mark {
+						@include flat-box($theme-background-highlight, $button-background-grey, 5px);
+						display: block;
+						position: relative;
+						overflow: hidden;
+						text-indent: -999px;	
+						
+						&:before {
+							position: absolute;
+							top: 0;
+							left: 0;
+							line-height: 25px;
+							z-index: 999;
+							text-indent: 0;
+						}						
+					}
+				}
 			}
 		}
 	}
@@ -173,4 +229,8 @@
 	.hide-desktop {
 		display: block;
 	}
+}
+
+@media only screen and (max-width: 980px) {
+
 }

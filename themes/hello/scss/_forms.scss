@@ -10,6 +10,7 @@ form {
 		font-size: 1em;
 		color: darken($button-background-grey, 60%);
 	}
+
 	input,
 	textarea,
 	select {
@@ -17,6 +18,7 @@ form {
 		border: 1px solid $button-background-grey;
 		@include border-radius(5px);
 		padding: 5px;
+	
 
 		&:focus {
 
@@ -26,6 +28,9 @@ form {
 	input,
 	select {
 		@include inline-block(middle);
+		margin: {
+			bottom: 5px;
+		}
 	}
 	label[for*="form-"] {
 		width: px2cent(360px);

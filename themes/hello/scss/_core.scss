@@ -37,6 +37,9 @@ header {
 
 		li {
 			line-height: 30px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			color: lighten($theme-background-highlight, 75%);
 
 			&.active {
 				a {
@@ -51,7 +54,7 @@ header {
 					family: $ui-font-highlight;
 					weight: bold;
 				}
-
+				white-space: nowrap;
 				&:hover {
 					color:  $link-color-hover;
 				}
@@ -60,6 +63,7 @@ header {
 					@extend %awesome;
 					@include inline-block(middle);
 					color: white;
+					font-weight: normal;
 					margin-right: 10px;
 					text-align: center;
 					width: 24px;
@@ -67,7 +71,7 @@ header {
 
 				&[href="?action=unread"] {
 					&:before {
-						content: "\f0e0" ;
+						content: "\f1ea" ;
 					}
 				}
 				&[href="?action=bookmarks"] {
@@ -81,8 +85,8 @@ header {
 					}
 				}
 				&[href="?action=feeds"] {
-					&:before {
-						content: "\f143" ;
+					&:before {						
+						content: "\f09e" ;
 					}
 				}
 				&[href="?action=config"] {
@@ -261,7 +265,7 @@ section {
 					}
 					&[href="?action=api"] {
 						&:after {
-							content: "\f0ec";
+							content: "\f084";
 						}
 					}
 					&[href*="action=refresh-feed"] {
@@ -269,6 +273,16 @@ section {
 							content: "\f021";
 						}
 					}
+					&[href*="action=console"] {
+						&:after {
+							content: "\f120";
+						}
+					}
+					&[href*="action=flush-console"] {
+						&:after {
+							content: "\f12d";
+						}
+					}	
 				}
 
 			}

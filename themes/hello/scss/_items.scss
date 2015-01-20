@@ -1,33 +1,43 @@
+.feed-parsing-error {
+  	visibility: hidden;
+}
 .items {
 	article {
-
 		@include box-shadow(0 3px 0 darken($theme-background-highlight, 10%));
 		background-color:  $theme-background-light;
 		margin-bottom: 15px;
 		padding: 10px 20px;
-
+		// Add/Remove to bookmark
 		&[data-item-bookmark="0"] {
-			.bookmark {
-				&:before {
-					content: "\f005";
-				}
-			}
-		}
-		
-		&[data-item-bookmark="1"] {
 			.bookmark {
 				&:before {
 					content: "\f006";
 				}
 			}
 		}
-		
-		&[data-item-status="read"] {
-			// &[data-item-status="feed-items"] {
-				background-color: rgba(lighten(black,60%), .7);
-			// }
+		&[data-item-bookmark="1"] {
+			.bookmark {
+				&:before {
+					content: "\f005";
+				}
+			}
 		}
-
+		// Item  read
+		&[data-item-status="read"] {
+			background-color: $item-read-background;
+		}
+		// Item error
+		&[data-feed-error] {
+			background-color: $alert-error-background;
+			.feed-parsing-error {
+				 font-size: .8em;
+  				visibility: visible;
+			}
+		}
+		// Item disabled
+		&[data-feed-disabled="1"]{
+			background-color: $item-read-background;
+		}
 		h2 {
 			display: block;
 			margin-bottom:  5px;
@@ -155,11 +165,43 @@
 		}
 	}
 	#bottom-menu {
-		display: none;
-		visibility: hidden;
+		padding: 5px 0;
+		margin-bottom: 10px;
+		float: right;
+		
+		> a ,
+		> a:after {
+			overflow: hidden;
+			display: block;
+			height: 25px;
+			text-decoration: none;
+			width: 25px;	
+		}		
+		> a {
+			background-color: $button-background-grey;
+			color: darken($theme-background-highlight, 5%);
+			position: relative;
+			text-indent: -999px;
+			@include border-radius(5px);
+			@include box-shadow(0 3px 0 $theme-background-highlight);
+			@extend %awesome;
+			text-align: left;
+
+			&:after {
+			 	content: "\f058";
+				position: absolute;
+				top: 0;
+				left: 0;
+				line-height: 25px;
+				z-index: 999;
+				text-indent: 0;		
+				text-align: center;	 	
+			}
+		}
 	}
 }
 #items-paging {
+	clear: both;
 	display: block;
 	@include pie-clearfix;
 
