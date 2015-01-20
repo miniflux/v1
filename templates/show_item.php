@@ -67,23 +67,27 @@
         <div id="item-content" <?= Helper\isRTL($item + array('rtl' => $feed['rtl']))  ? 'dir="rtl"' : '' ?>>
 
             <?php if ($item['enclosure']): ?>
-            <div id="item-content-enclosure">
                 <?php if (strpos($item['enclosure_type'], 'audio') !== false): ?>
+                <div id="item-content-enclosure">
                     <audio controls>
                         <source src="<?= $item['enclosure'] ?>" type="<?= $item['enclosure_type'] ?>">
                     </audio>
+                </div>
                 <?php elseif (strpos($item['enclosure_type'], 'video') !== false): ?>
+                <div id="item-content-enclosure">
                     <video controls>
                         <source src="<?= $item['enclosure'] ?>" type="<?= $item['enclosure_type'] ?>">
                     </video>
+                </div>
                 <?php elseif (strpos($item['enclosure_type'], 'image') !== false && $item['content'] === ''): ?>
+                <div id="item-content-enclosure">
                     <?php if ($image_proxy_enabled): ?>
                         <img src="?action=proxy&amp;url=<?= urlencode($item['enclosure']) ?>" alt="enclosure"/>
                     <?php else: ?>
                         <img src="<?= $item['enclosure'] ?>" alt="enclosure"/>
                     <?php endif ?>
+                </div>
                 <?php endif ?>
-            </div>
             <?php endif ?>
 
             <?= $item['content'] ?>
