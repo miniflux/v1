@@ -1,4 +1,4 @@
-<phpunit>
+<phpunit bootstrap="tests/integration/minifluxTestCase.php" >
     <php>
         <const name="DB_FILENAME" value="unittest.sqlite" />
         <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL" value="http://localhost/miniflux/" />

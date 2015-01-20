@@ -4,7 +4,7 @@ Miniflux.Event = (function() {
 
     function isEventIgnored(e)
     {
-        if (e.keyCode !== 63 && (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)) {
+        if (e.keyCode !== 63 && e.which !== 63 && (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)) {
             return true;
         }
 
@@ -61,7 +61,7 @@ Miniflux.Event = (function() {
                             }
                         }
 
-                        return null;
+                        return;
                     }();
 
                     switch (action) {
@@ -69,25 +69,25 @@ Miniflux.Event = (function() {
                             Miniflux.Feed.UpdateAll();
                             break;
                         case 'refresh-feed':
-                            Miniflux.Feed.Update(currentItem);
+                            currentItem && Miniflux.Feed.Update(currentItem);
                             break;
                         case 'mark-read':
-                            Miniflux.Item.MarkAsRead(currentItem);
+                            currentItem && Miniflux.Item.MarkAsRead(currentItem);
                             break;
                         case 'mark-unread':
-                            Miniflux.Item.MarkAsUnread(currentItem);
+                            currentItem && Miniflux.Item.MarkAsUnread(currentItem);
                             break;
                         case 'mark-removed':
-                            Miniflux.Item.MarkAsRemoved(currentItem);
+                            currentItem && Miniflux.Item.MarkAsRemoved(currentItem);
                             break;
                         case 'bookmark':
-                            Miniflux.Item.SwitchBookmark(currentItem);
+                            currentItem && Miniflux.Item.SwitchBookmark(currentItem);
                             break;
                         case 'download-item':
-                            Miniflux.Item.DownloadContent(currentItem);
+                            currentItem && Miniflux.Item.DownloadContent(currentItem);
                             break;
                         case 'original-link':
-                            Miniflux.Item.OpenOriginal(currentItem);
+                            currentItem && Miniflux.Item.OpenOriginal(currentItem);
                             break;
                         case 'mark-all-read':
                             Miniflux.Item.MarkListingAsRead("?action=unread");
@@ -151,7 +151,7 @@ Miniflux.Event = (function() {
 
                     switch (e.keyCode || e.which) {
                         case 100: // d
-                            Miniflux.Item.DownloadContent(currentItem);
+                            currentItem && Miniflux.Item.DownloadContent(currentItem);
                             break;
                         case 112: // p
                         case 107: // k
@@ -162,16 +162,16 @@ Miniflux.Event = (function() {
                             Miniflux.Nav.SelectNextItem();
                             break;
                         case 118: // v
-                            Miniflux.Item.OpenOriginal(currentItem);
+                            currentItem && Miniflux.Item.OpenOriginal(currentItem);
                             break;
                         case 111: // o
-                            Miniflux.Item.Show(currentItem);
+                            currentItem && Miniflux.Item.Show(currentItem);
                             break;
                         case 109: // m
-                            Miniflux.Item.SwitchStatus(currentItem);
+                            currentItem && Miniflux.Item.SwitchStatus(currentItem);
                             break;
                         case 102: // f
-                            Miniflux.Item.SwitchBookmark(currentItem);
+                            currentItem && Miniflux.Item.SwitchBookmark(currentItem);
                             break;
                         case 104: // h
                             Miniflux.Nav.OpenPreviousPage();

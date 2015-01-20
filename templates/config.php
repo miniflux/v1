@@ -75,7 +75,7 @@
 <div class="page-section">
     <h2><?= t('Advanced') ?></h2>
 </div>
-<section class="alert alert-error">
+<section class="panel panel-danger">
 <ul>
     <li><a href="?action=generate-tokens&amp;csrf=<?= $values['csrf'] ?>"><?= t('Generate new tokens') ?></a> (<?= t('Miniflux API') ?>, <?= t('Fever API') ?>, <?= t('Bookmarklet') ?>, <?= t('Bookmark RSS Feed') ?>)</li>
 <?php if (ENABLE_AUTO_UPDATE): ?>

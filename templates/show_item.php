@@ -1,5 +1,5 @@
 <?php if (empty($item)): ?>
-    <p class="alert alert-info"><?= t('Item not found') ?></p>
+    <p class="alert alert-error"><?= t('Item not found') ?></p>
 <?php else: ?>
     <article
         class="item"

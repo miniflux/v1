@@ -1,5 +1,7 @@
 <?php
 
+use PHPUnit_Extensions_Selenium2TestCase_Keys as Keys;
+
 abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 {
     protected $basePageHeading = NULL;
@@ -25,7 +27,8 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         parent::setUp();
 
         // trigger database fixtures onSetUp routines
-        $this->getDatabaseTester('fixture_feed1', TRUE)->onSetUp();
+        $dataset = $this->getDataSet('fixture_feed1', 'fixture_feed2');
+        $this->getDatabaseTester($dataset)->onSetUp();
 
         // Set the base URL for the tests.
         $this->setBrowserUrl(PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL);
@@ -40,7 +43,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         $elements = $this->elements($this->using('css selector')->value('body#login-page'));
 
         if (count($elements) === 1) {
-            $this->url('?action=select-db&database='.DB_FILENAME);
+            $this->byCssSelector("input[value='".DB_FILENAME."']")->click();
 
             $this->byId('form-username')->click();
             $this->keys('admin');
@@ -90,17 +93,14 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         PHPUnit_Extensions_Database_TestCase::assertDataSetsEqual($expectedDataSetFiltered, $actualDataSetFiltered, 'Unexpected changes in database');
     }
 
-    protected function getDataSet($dataSetFile, $appendFeed2 = TRUE)
+    protected function getDataSet()
     {
         $compositeDs = new PHPUnit_Extensions_Database_DataSet_CompositeDataSet();
+        $dataSetFiles = func_get_args();
 
-        $ds1 = new PHPUnit_Extensions_Database_DataSet_XmlDataSet(dirname(__FILE__).DIRECTORY_SEPARATOR.'datasets'.DIRECTORY_SEPARATOR.$dataSetFile.'.xml');
-        $compositeDs->addDataSet($ds1);
-
-        if ($appendFeed2) {
-            // feed2 should be normaly untouched
-            $ds2 = new PHPUnit_Extensions_Database_DataSet_XmlDataSet(dirname(__FILE__).DIRECTORY_SEPARATOR.'datasets'.DIRECTORY_SEPARATOR.'fixture_feed2.xml');
-            $compositeDs->addDataSet($ds2);
+        foreach ($dataSetFiles as $dataSetFile) {
+            $ds = new PHPUnit_Extensions_Database_DataSet_XmlDataSet(dirname(__FILE__).DIRECTORY_SEPARATOR.'datasets'.DIRECTORY_SEPARATOR.$dataSetFile.'.xml');
+            $compositeDs->addDataSet($ds);
         }
 
         return $compositeDs;
@@ -140,16 +140,15 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         return static::$databaseConnection;
     }
 
-    protected function getDatabaseTester($dataSetFile, $appendFeed2)
+    protected function getDatabaseTester($dataset)
     {
         if (is_null(static::$databaseTester)) {
-            $tester = new PHPUnit_Extensions_Database_DefaultTester($this->getConnection());
-
-            // article/feed import on database->onSetUp();
-            $tester->setSetUpOperation(PHPUnit_Extensions_Database_Operation_Factory::CLEAN_INSERT());
-            $dataset = $this->getDataSet($dataSetFile, $appendFeed2);
             $rdataset = new PHPUnit_Extensions_Database_DataSet_ReplacementDataSet($dataset);
             $rdataset->addSubStrReplacement('##TIMESTAMP##', substr((string)(time()-100), 0, -2));
+
+            // article/feed import on database->onSetUp();
+            $tester = new PHPUnit_Extensions_Database_DefaultTester($this->getConnection());
+            $tester->setSetUpOperation(PHPUnit_Extensions_Database_Operation_Factory::CLEAN_INSERT());
             $tester->setDataSet($rdataset);
 
             static::$databaseTester = $tester;
@@ -177,18 +176,35 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         return $value;
     }
 
+    // public to be accessible within an closure
+    public function isElementVisible($element)
+    {
+        $displaySize = $element->size();
+
+        return ($element->displayed() && $displaySize['height']>0 && $displaySize['width']>0);
+    }
+
+    // public to be accessible within an closure
+    public function isElementInvisible($element)
+    {
+        $displaySize = $element->size();
+
+        return ($element->displayed() === FALSE || $displaySize['height']=0 || $displaySize['width']=0);
+    }
+
     private function waitForElementVisibility($element, $visible)
     {
         // return false in case of timeout
         try {
-            $value = $this->waitUntil(function() use($element, $visible) {
+            // Workaround for PHP < 5.4
+            $CI = $this;
+
+            $value = $this->waitUntil(function() use($CI, $element, $visible) {
                 // a "No such Element" or "Stale Element Reference" exception is
                 // valid if an object should disappear
                 try {
-                    $displaySize = $element->size();
-
-                    if ((($visible === TRUE) && ($element->displayed() && $displaySize['height']>0 && $displaySize['width']>0))
-                         || (($visible === FALSE) && ($element->displayed() === FALSE || $displaySize['height']=0 || $displaySize['width']=0))) {
+                    if (($visible && $CI->isElementVisible($element))
+                         || (! $visible && $CI->isElementInvisible($element))) {
                         return TRUE;
                     }
                 }
@@ -329,6 +345,11 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         return PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=config';
     }
 
+    public function getURLPageSubscriptions()
+    {
+        return PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds';
+    }
+
     public function getShortcutNextItemA()
     {
         return 'n';
@@ -339,6 +360,11 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         return 'j';
     }
 
+    public function getShortcutNextItemC()
+    {
+        return PHPUnit_Extensions_Selenium2TestCase_Keys::RIGHT;
+    }
+
     public function getShortcutPreviousItemA()
     {
         return 'p';
@@ -347,6 +373,11 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
     public function getShortcutPreviousItemB()
     {
         return 'k';
+    }
+
+    public function getShortcutPreviousItemC()
+    {
+        return PHPUnit_Extensions_Selenium2TestCase_Keys::LEFT;
     }
 
     public function getShortcutToogleReadStatus()
@@ -402,6 +433,43 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
         $articles = $this->elements($this->using('css selector')->value($cssSelector));
         return $articles;
+    }
+
+    public function getFeedFailed()
+    {
+        $cssSelector = 'article[data-feed-id="4"]';
+
+        $feed = $this->element($this->using('css selector')->value($cssSelector));
+        return $feed;
+    }
+
+    public function getFeedDisabled()
+    {
+        $cssSelector = 'article[data-feed-id="2"]';
+
+        $feed = $this->element($this->using('css selector')->value($cssSelector));
+        return $feed;
+    }
+
+    public function getFeedErrorMessages()
+    {
+        $cssSelector = 'article .feed-parsing-error';
+
+        if (func_num_args() === 0) {
+            $feed = $this;
+        }
+        else {
+            $feed = func_get_arg(0);
+        }
+
+        $feeds = $feed->elements($this->using('css selector')->value($cssSelector));
+
+        // Workaround for PHP < 5.4
+        $CI = $this;
+
+        return array_filter($feeds, function($feed) use($CI) {
+             return $CI->isElementVisible($feed);
+        });
     }
 
     public function getArticleUnreadNotBookmarked()
@@ -488,6 +556,14 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
     {
         $link = $this->element($this->using('css selector')->value('a.btn-red'));
         return $link;
+    }
+
+    public function getAlertBox()
+    {
+        $cssSelector = 'p.alert';
+
+        $alertBox = $this->elements($this->using('css selector')->value($cssSelector));
+        return $alertBox;
     }
 
     public function waitForArticleIsCurrentArticle($article)

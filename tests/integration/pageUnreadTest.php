@@ -1,7 +1,5 @@
 <?php
 
-require_once 'minifluxTestCase.php';
-
 class pageUnreadTest extends minifluxTestCase
 {
     const DEFAULT_COUNTER_PAGE = 6;
@@ -21,6 +19,16 @@ class pageUnreadTest extends minifluxTestCase
         return "Miniflux ($this->expectedCounterPage)";
     }
 
+    public function testNoAlertShown()
+    {
+        $alertBox = $this->getAlertBox();
+        $this->assertEmpty($alertBox, 'Unexpected alert box found');
+
+        $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
+    }
+
     public function testItemsFromAllFeeds()
     {
         $articles = $this->getArticlesNotFromFeedOne();
@@ -28,7 +36,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
     public function testOnlyUnreadArticles()
@@ -38,7 +46,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('fixture_feed1');
+        $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
     public function testMarkReadNotBookmarkedArticleLink()
@@ -53,7 +61,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE - 1;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD - 1;
-        $this->expectedDataSet = $this->getDataSet('expected_MarkReadNotBookmarkedArticle');
+        $this->expectedDataSet = $this->getDataSet('expected_MarkReadNotBookmarkedArticle', 'fixture_feed2');
     }
 
     public function testMarkReadNotBookmarkedArticleKeyboard()
@@ -68,7 +76,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE - 1;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD - 1;
-        $this->expectedDataSet = $this->getDataSet('expected_MarkReadNotBookmarkedArticle');
+        $this->expectedDataSet = $this->getDataSet('expected_MarkReadNotBookmarkedArticle', 'fixture_feed2');
     }
 
     public function testMarkReadBookmarkedArticleLink()
@@ -83,7 +91,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE - 1;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD - 1;
-        $this->expectedDataSet = $this->getDataSet('expected_MarkReadBookmarkedArticle');
+        $this->expectedDataSet = $this->getDataSet('expected_MarkReadBookmarkedArticle', 'fixture_feed2');
     }
 
     public function testMarkReadBookmarkedArticleKeyboard()
@@ -98,7 +106,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE - 1;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD - 1;
-        $this->expectedDataSet = $this->getDataSet('expected_MarkReadBookmarkedArticle');
+        $this->expectedDataSet = $this->getDataSet('expected_MarkReadBookmarkedArticle', 'fixture_feed2');
     }
 
     public function testBookmarkUnreadArticleLink()
@@ -113,7 +121,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('expected_BookmarkUnreadArticle');
+        $this->expectedDataSet = $this->getDataSet('expected_BookmarkUnreadArticle', 'fixture_feed2');
     }
 
     public function testBookmarkUnreadArticleKeyboard()
@@ -128,7 +136,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('expected_BookmarkUnreadArticle');
+        $this->expectedDataSet = $this->getDataSet('expected_BookmarkUnreadArticle', 'fixture_feed2');
     }
 
     public function testUnbookmarkUnreadArticleLink()
@@ -143,7 +151,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('expected_UnbookmarkUnreadArticle');
+        $this->expectedDataSet = $this->getDataSet('expected_UnbookmarkUnreadArticle', 'fixture_feed2');
     }
 
     public function testUnbookmarkUnreadArticleKeyboard()
@@ -158,7 +166,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
-        $this->expectedDataSet = $this->getDataSet('expected_UnbookmarkUnreadArticle');
+        $this->expectedDataSet = $this->getDataSet('expected_UnbookmarkUnreadArticle', 'fixture_feed2');
     }
 
     public function testRemoveUnreadNotBookmarkedArticleLink()
@@ -173,7 +181,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE - 1;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD - 1;
-        $this->expectedDataSet = $this->getDataSet('expected_RemoveUnreadNotBookmarkedArticle');
+        $this->expectedDataSet = $this->getDataSet('expected_RemoveUnreadNotBookmarkedArticle', 'fixture_feed2');
     }
 
     public function testRemoveUnreadBookmarkedArticleLink()
@@ -188,7 +196,7 @@ class pageUnreadTest extends minifluxTestCase
 
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE - 1;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD - 1;
-        $this->expectedDataSet = $this->getDataSet('expected_RemoveUnreadBookmarkedArticle');
+        $this->expectedDataSet = $this->getDataSet('expected_RemoveUnreadBookmarkedArticle', 'fixture_feed2');
     }
 
     public function testMarkAllReadHeaderLink()
@@ -202,7 +210,7 @@ class pageUnreadTest extends minifluxTestCase
         $this->expectedCounterPage = NULL;
         $this->expectedCounterUnread = '';
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds&nothing_to_read=1';
-        $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles', FALSE);
+        $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles');
 
         $this->ignorePageTitle = TRUE;
     }
@@ -218,7 +226,7 @@ class pageUnreadTest extends minifluxTestCase
         $this->expectedCounterPage = NULL;
         $this->expectedCounterUnread = '';
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds&nothing_to_read=1';
-        $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles', FALSE);
+        $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles');
 
         $this->ignorePageTitle = TRUE;
     }
@@ -241,7 +249,7 @@ class pageUnreadTest extends minifluxTestCase
         $this->expectedCounterPage = NULL;
         $this->expectedCounterUnread = '';
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds&nothing_to_read=1';
-        $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles', FALSE);
+        $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles');
 
         $this->ignorePageTitle = TRUE;
     }

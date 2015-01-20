@@ -34,17 +34,9 @@
                 <?php if (ENABLE_MULTIPLE_DB && count($databases) > 1): ?>
                 <div id="database-selector">
                     <h4><?= t('Select another database') ?></h4>
-                    <ul>
-                        <?php foreach ($databases as $filename => $dbname): ?>
-                            <li>
-                                <?php if ($current_database === $filename): ?>
-                                    <strong><?= Helper\escape($dbname) ?></strong>
-                                <?php else: ?>
-                                    <a href="?action=select-db&amp;database=<?= Helper\escape($filename) ?>"><?= Helper\escape($dbname) ?></a>
-                                <?php endif ?>
-                            </li>
-                        <?php endforeach ?>
-                    </ul>
+                    <?php foreach ($databases as $filename => $dbname): ?>
+                        <?= Helper\form_radio('database', $dbname, $filename, ($current_database === $filename)) ?>
+                    <?php endforeach ?>
                 </div>
                 <?php endif ?>
 

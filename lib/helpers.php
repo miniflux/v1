@@ -229,9 +229,9 @@ function form_radios($name, array $options, array $values = array())
     return $html;
 }
 
-function form_radio($name, $label, $value, $selected = false, $class = '')
+function form_radio($name, $label, $value, $checked = false, $class = '')
 {
-    return '<label><input type="radio" name="'.$name.'" class="'.$class.'" value="'.escape($value).'" '.($selected ? 'selected="selected"' : '').'>'.escape($label).'</label>';
+    return '<label><input type="radio" name="'.$name.'" class="'.$class.'" value="'.escape($value).'" '.($checked ? 'checked' : '').'>'.escape($label).'</label>';
 }
 
 function form_checkbox($name, $label, $value, $checked = false, $class = '')

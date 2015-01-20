@@ -20,7 +20,7 @@
     <?php if ($nb_failed_feeds > 0): ?>
         <p class="alert alert-error"><?= tne('An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!', '<a href="?action=console">', '</a>') ?></p>
     <?php elseif ($nothing_to_read): ?>
-        <p class="alert"><?= tne('Nothing to read, do you want to <a href="?action=refresh-all" data-action="refresh-all">update your subscriptions?</a>') ?></p>
+        <p class="alert alert-info"><?= tne('Nothing to read, do you want to %supdate your subscriptions%s?','<a href="?action=refresh-all" data-action="refresh-all">','</a>') ?></p>
     <?php endif ?>
 
     <section class="items">

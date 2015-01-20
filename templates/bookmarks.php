@@ -7,7 +7,7 @@
     </div>
 
     <?php if ($nothing_to_read): ?>
-        <p class="alert"><?= t('There is nothing new to read, enjoy your favorites articles!') ?></p>
+        <p class="alert alert-info"><?= t('There is nothing new to read, enjoy your favorites articles!') ?></p>
     <?php endif ?>
 
     <section class="items" id="listing">
