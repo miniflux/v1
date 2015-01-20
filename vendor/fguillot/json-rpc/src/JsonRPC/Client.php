@@ -82,6 +82,12 @@ class Client
         'Content-Type: application/json',
         'Accept: application/json'
     );
+    /**
+     * SSL certificates verification
+     * @access public
+     * @var boolean
+     */
+    public $ssl_verify_peer = true;
 
     /**
      * Constructor
@@ -288,6 +294,7 @@ class Client
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->ssl_verify_peer);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 
         if ($this->username && $this->password) {

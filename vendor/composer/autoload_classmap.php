@@ -36,6 +36,7 @@ return array(
     'PicoFeed\\Filter\\Tag' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Filter/Tag.php',
     'PicoFeed\\Logging\\Logger' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Logging/Logger.php',
     'PicoFeed\\Parser\\Atom' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/Atom.php',
+    'PicoFeed\\Parser\\DateParser' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/DateParser.php',
     'PicoFeed\\Parser\\Feed' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/Feed.php',
     'PicoFeed\\Parser\\Item' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/Item.php',
     'PicoFeed\\Parser\\MalformedXmlException' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/MalformedXmlException.php',

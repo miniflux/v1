@@ -34,6 +34,10 @@ defined('AUTO_UPDATE_BACKUP_DIRECTORY') or define('AUTO_UPDATE_BACKUP_DIRECTORY'
 
 require __DIR__.'/check_setup.php';
 
+if (DEBUG) {
+    PicoFeed\Logging\Logger::enable();
+}
+
 PicoDb\Database::bootstrap('db', function() {
 
     $db = new PicoDb\Database(array(

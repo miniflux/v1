@@ -59,7 +59,7 @@ function get_favicons(array $feed_ids)
     return Database::get('db')
             ->table('favicons')
             ->in('feed_id', $feed_ids)
-            ->listing('feed_id', 'icon');
+            ->hashmap('feed_id', 'icon');
 }
 
 // Get all favicons for a list of items
@@ -83,7 +83,7 @@ function get_all_favicons()
 
     return Database::get('db')
             ->table('favicons')
-            ->listing('feed_id', 'icon');
+            ->hashmap('feed_id', 'icon');
 }
 
 // Update feed information
@@ -290,7 +290,7 @@ function get_ids($limit = LIMIT_ALL)
         $query->limit((int) $limit);
     }
 
-    return $query->listing('id', 'id');
+    return $query->hashmap('id', 'id');
 }
 
 // get number of feeds with errors

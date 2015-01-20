@@ -71,7 +71,7 @@ function get_all_status()
         ->table('items')
         ->in('status', array('read', 'unread'))
         ->orderBy('updated', 'desc')
-        ->listing('id', 'status');
+        ->hashmap('id', 'status');
 }
 
 // Get all items by status
