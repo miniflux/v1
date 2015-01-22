@@ -21,11 +21,12 @@ function create($filename, $username, $password)
         ));
 
         if ($db->schema()->check(Schema\VERSION)) {
-
-            $db->table('config')->update(array(
+            $credentials = array(
                 'username' => $username,
                 'password' => password_hash($password, PASSWORD_BCRYPT)
-            ));
+            );
+
+            $db->table('config')->update($credentials);
 
             return true;
         }
@@ -48,7 +49,7 @@ function select($filename = '')
             // unset the authenticated flag if the database is changed
             if (empty($_SESSION['database']) || $_SESSION['database'] !== $filename) {
                 if (isset($_SESSION)) {
-                    unset($_SESSION['user']);
+                    unset($_SESSION['loggedin']);
                 }
 
                 $_SESSION['database'] = $filename;

@@ -10,10 +10,10 @@ use Model\Config;
 use Model\RememberMe;
 use Model\Database as DatabaseModel;
 
-// Check if the user is logged
+// Check if the user is logged in
 function is_loggedin()
 {
-    return ! empty($_SESSION['user']);
+    return ! empty($_SESSION['loggedin']);
 }
 
 // Destroy the session and the rememberMe cookie
@@ -23,13 +23,12 @@ function logout()
     Session\close();
 }
 
-// Get a user by username
-function get($username)
+// Get the credentials from the current selected database
+function getCredentials()
 {
     return Database::get('db')
         ->table('config')
-        ->columns('username', 'password', 'language')
-        ->eq('username', $username)
+        ->columns('username', 'password')
         ->findOne();
 }
 
@@ -47,19 +46,17 @@ function validate_login(array $values)
 
     if ($result) {
 
-        $user = get($values['username']);
+        $credentials = getCredentials();
 
-        if ($user && password_verify($values['password'], $user['password'])) {
+        if ($credentials && $credentials['username'] === $values['username'] && password_verify($values['password'], $credentials['password'])) {
 
-            unset($user['password']);
-
-            $_SESSION['user'] = $user;
+            $_SESSION['loggedin'] = true;
             $_SESSION['config'] = Config\get_all();
 
             // Setup the remember me feature
             if (! empty($values['remember_me'])) {
-                $credentials = RememberMe\create(DatabaseModel\select(), $values['username'], Config\get_ip_address(), Config\get_user_agent());
-                RememberMe\write_cookie($credentials['token'], $credentials['sequence'], $credentials['expiration']);
+                $cookie = RememberMe\create(DatabaseModel\select(), $values['username'], Config\get_ip_address(), Config\get_user_agent());
+                RememberMe\write_cookie($cookie['token'], $cookie['sequence'], $cookie['expiration']);
             }
         }
         else {

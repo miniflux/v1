@@ -72,16 +72,6 @@ Router\get_action('more', function() {
     Response\html(Template\layout('show_more', array('menu' => 'more')));
 });
 
-// Select another database
-Router\get_action('select-db', function() {
-
-    if (ENABLE_MULTIPLE_DB) {
-        $_SESSION['database'] = \Model\Database\select(Request\param('database'));
-    }
-
-    Response\redirect('?action=login');
-});
-
 // Image proxy (avoid SSL mixed content warnings)
 Router\get_action('proxy', function() {
     list($content, $type) = Model\Proxy\download(rawurldecode(Request\param('url')));

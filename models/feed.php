@@ -56,10 +56,13 @@ function get_favicons(array $feed_ids)
         return array();
     }
 
-    return Database::get('db')
+    $db = Database::get('db')
             ->hashtable('favicons')
-            ->in('feed_id', $feed_ids)
-            ->getAll('feed_id', 'icon');
+            ->columnKey('feed_id')
+            ->columnValue('icon');
+
+    // pass $feeds_ids as argument list to hashtable::get(), use ... operator with php 5.6+
+    return call_user_func_array(array($db, 'get'), $feed_ids);
 }
 
 // Get all favicons for a list of items
@@ -68,7 +71,7 @@ function get_item_favicons(array $items)
     $feed_ids = array();
 
     foreach ($items as $item) {
-        $feed_ids[] = $item['feed_id'];
+        $feed_ids[$item['feed_id']] = $item['feed_id'];
     }
 
     return get_favicons($feed_ids);

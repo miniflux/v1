@@ -4,7 +4,6 @@ namespace Model\RememberMe;
 
 use PicoDb\Database;
 use Model\Config;
-use Model\User;
 use Model\Database as DatabaseModel;
 
 const TABLE = 'remember_me';
@@ -65,8 +64,8 @@ function authenticate()
                 $record['expiration']
             );
 
-            // Create the session
-            $_SESSION['user'] = User\get($record['username']);
+            // mark user as sucessfull logged in
+            $_SESSION['loggedin'] = true;
 
             return true;
         }
