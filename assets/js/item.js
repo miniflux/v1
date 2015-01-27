@@ -2,7 +2,7 @@ Miniflux.Item = (function() {
 
     var nbUnreadItems = function() {
         var navCounterElement = document.getElementById("nav-counter");
-        
+
         if (navCounterElement) {
             counter = parseInt(navCounterElement.textContent, 10) || 0;
             return counter;
@@ -11,7 +11,7 @@ Miniflux.Item = (function() {
 
     var nbPageItems = function() {
         var pageCounterElement = document.getElementById("page-counter");
-        
+
         if (pageCounterElement) {
             counter = parseInt(pageCounterElement.textContent, 10) || 0;
             return counter;
@@ -58,7 +58,7 @@ Miniflux.Item = (function() {
             var link = item.querySelector("a.mark");
             if (link) link.setAttribute("data-action", "mark-unread");
         }
-        
+
         nbUnreadItems--;
         updateCounters();
     }
@@ -76,7 +76,7 @@ Miniflux.Item = (function() {
             var link = item.querySelector("a.mark");
             if (link) link.setAttribute("data-action", "mark-read");
         }
-        
+
         nbUnreadItems++;
         updateCounters();
     }
@@ -100,9 +100,9 @@ Miniflux.Item = (function() {
 
         var pageCounterElement = document.getElementById("page-counter");
         pageCounterElement.textContent = nbPageItems || '';
-        
+
         var navCounterElement = document.getElementById("nav-counter");
-        navCounterElement.textContent = nbUnreadItems || '';        
+        navCounterElement.textContent = nbUnreadItems || '';
 
         // pagetitle depends on current page
         var sectionElement = document.querySelector("section.page");
@@ -151,7 +151,7 @@ Miniflux.Item = (function() {
         request.onload = function() {
             if (Miniflux.Nav.IsListing()) {
                 hideItem(item);
-                
+
                 if (item.getAttribute("data-item-status") === "unread") nbUnreadItems--;
                 updateCounters();
             }
@@ -171,7 +171,7 @@ Miniflux.Item = (function() {
 
             request.onload = function() {
                 var sectionElement = document.querySelector("section.page");
-                
+
                 if (Miniflux.Nav.IsListing() && sectionElement.getAttribute("data-item-page") === "bookmarks") {
                     hideItem(item);
                     updateCounters();
@@ -229,24 +229,24 @@ Miniflux.Item = (function() {
 
             container.innerHTML = " " + container.getAttribute("data-before-message");
             container.className = "loading-icon";
-            
+
             var request = new XMLHttpRequest();
             request.onload = function() {
 
                 var response = JSON.parse(request.responseText);
                 container.className = "";
-                
-                if (response.result) {
+
+                if (response['result']) {
                     var content = document.getElementById("item-content");
-                    if (content) content.innerHTML = response.content;
-                    
+                    if (content) content.innerHTML = response['content'];
+
                     container.innerHTML = container.getAttribute("data-after-message");
                 }
                 else {
                     container.innerHTML = container.getAttribute("data-failure-message");
                 }
             };
-            
+
             var item_id = getItemID(item);
             request.open("POST", "?action=download-item&id=" + item_id, true);
             request.send();

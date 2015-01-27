@@ -28,8 +28,8 @@ Miniflux.Feed = (function() {
                 if (lastChecked) lastChecked.innerHTML = lastChecked.getAttribute("data-after-update");
 
                 var response = JSON.parse(this.responseText);
-                if (response.result) {
-                    itemsCounter.innerHTML = response.items_count["items_unread"] + "/" + response.items_count['items_total'];
+                if (response['result']) {
+                    itemsCounter.innerHTML = response['items_count']['items_unread'] + "/" + response['items_count']['items_total'];
                 } else {
                     feed.setAttribute("data-feed-error", "1");
                 }
@@ -46,10 +46,10 @@ Miniflux.Feed = (function() {
             var interval = setInterval(function() {
                 while (feeds.length > 0 && queue.length < queue_length) {
                     var feed = feeds.shift();
-                    queue.push(parseInt(feed.getAttribute('data-feed-id')));
+                    queue.push(parseInt(feed.getAttribute('data-feed-id'), 10));
 
                     Miniflux.Feed.Update(feed, function(response) {
-                        var index = queue.indexOf(response.feed_id);
+                        var index = queue.indexOf(response['feed_id']);
                         if (index >= 0) queue.splice(index, 1);
 
                         if (feeds.length === 0 && queue.length === 0) {
