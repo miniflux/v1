@@ -35,4 +35,6 @@ Thumbs.db
 *.swp
 *~
 *.lock
+.buildpath
+.project
 vendor

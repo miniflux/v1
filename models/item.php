@@ -68,10 +68,10 @@ function get_everything_since($timestamp)
 function get_all_status()
 {
     return Database::get('db')
-        ->table('items')
+        ->hashtable('items')
         ->in('status', array('read', 'unread'))
         ->orderBy('updated', 'desc')
-        ->hashmap('id', 'status');
+        ->getAll('id', 'status');
 }
 
 // Get all items by status

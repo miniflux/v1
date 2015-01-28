@@ -9,7 +9,10 @@ class Table
     const SORT_ASC = 'ASC';
     const SORT_DESC = 'DESC';
 
-    private $table_name = '';
+    protected $db;
+    protected $table_name = '';
+    protected $values = array();
+
     private $sql_limit = '';
     private $sql_offset = '';
     private $sql_order = '';
@@ -18,11 +21,9 @@ class Table
     private $or_conditions = array();
     private $is_or_condition = false;
     private $columns = array();
-    private $values = array();
     private $distinct = false;
     private $group_by = array();
     private $filter_callback = null;
-    private $db;
 
     /**
      * Constructor
@@ -131,30 +132,6 @@ class Table
     }
 
     /**
-     * Hashmap result [ [column1 => column2], [], ...]
-     *
-     * @access public
-     * @param  string    $key      Column 1
-     * @param  string    $value    Column 2
-     * @return array
-     */
-    public function hashmap($key, $value)
-    {
-        $listing = array();
-
-        $this->columns($key, $value);
-        $rq = $this->db->execute($this->buildSelectQuery(), $this->values);
-
-        $rows = $rq->fetchAll(PDO::FETCH_NUM);
-
-        foreach ($rows as $row) {
-            $listing[$row[0]] = $row[1];
-        }
-
-        return $listing;
-    }
-
-    /**
      * Add callback to alter the resultset
      *
      * @access public
@@ -241,7 +218,7 @@ class Table
     public function buildSelectQuery()
     {
         foreach ($this->columns as $key => $value) {
-            $this->columns[$key] = $this->db->escapeIdentifier($value);
+            $this->columns[$key] = $this->db->escapeIdentifier($value, $this->table_name);
         }
 
         return sprintf(
@@ -267,7 +244,7 @@ class Table
     public function count()
     {
         $sql = sprintf(
-            'SELECT COUNT(*) FROM %s'.$this->conditions().$this->sql_order.$this->sql_limit.$this->sql_offset,
+            'SELECT COUNT(*) FROM %s '.implode(' ', $this->joins).$this->conditions().$this->sql_order.$this->sql_limit.$this->sql_offset,
             $this->db->escapeIdentifier($this->table_name)
         );
 

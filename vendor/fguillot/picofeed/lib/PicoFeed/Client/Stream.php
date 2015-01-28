@@ -61,7 +61,7 @@ class Stream extends Client
                 'method' => 'GET',
                 'protocol_version' => 1.1,
                 'timeout' => $this->timeout,
-                'max_redirects' => $this->max_redirects,
+                'follow_location' => 0,
             )
         );
 
@@ -89,9 +89,10 @@ class Stream extends Client
      * Do the HTTP request
      *
      * @access public
-     * @return array   HTTP response ['body' => ..., 'status' => ..., 'headers' => ...]
+     * @param  bool    $follow_location    Flag used when there is an open_basedir restriction
+     * @return array                       HTTP response ['body' => ..., 'status' => ..., 'headers' => ...]
      */
-    public function doRequest()
+    public function doRequest($follow_location = false)
     {
         // Create context
         $context = stream_context_create($this->prepareContext());
@@ -120,6 +121,12 @@ class Stream extends Client
         list($status, $headers) = HttpHeaders::parse($metadata['wrapper_data']);
 
         fclose($stream);
+
+        // Do redirect manual to get only the headers of the last request and
+        // the final url
+        if ($status == 301 || $status == 302) {
+            return $this->handleRedirection($headers['Location']);
+        }
 
         return array(
             'status' => $status,

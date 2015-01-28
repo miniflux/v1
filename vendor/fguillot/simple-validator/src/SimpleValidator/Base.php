@@ -39,6 +39,9 @@ abstract class Base
 
     public function getField()
     {
+        if (is_array($this->field)) {
+            return $this->field[0];
+        }
         return $this->field;
     }
 }

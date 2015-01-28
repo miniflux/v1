@@ -55,13 +55,13 @@ class Url
      *
      * @static
      * @access public
-     * @param  string    $item_url      Unknown url (can be relative or not)
-     * @param  mixed     $website_url   Website url
+     * @param  mixed    $item_url      Unknown url (can be relative or not)
+     * @param  mixed    $website_url   Website url
      * @return string
      */
     public static function resolve($item_url, $website_url)
     {
-        $link = new Url($item_url);
+        $link = is_string($item_url) ? new Url($item_url) : $item_url;
         $website = is_string($website_url) ? new Url($website_url) : $website_url;
 
         if ($link->isRelativeUrl()) {
@@ -172,7 +172,7 @@ class Url
         $path = $this->isRelativePath() ? '/' : '';
         $path .= substr($current_path, -1) === '/' ? $current_path : dirname($current_path);
 
-        return str_replace('//', '/', $path.'/');
+        return preg_replace('/\\\\\/|\/\//', '/', $path.'/');
     }
 
     /**

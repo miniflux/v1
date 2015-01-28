@@ -15,6 +15,7 @@ use SimpleValidator\Base;
 
 /**
  * @author Frédéric Guillot <contact@fredericguillot.com>
+ * @author Olivier Maridat
  */
 class Unique extends Base
 {
@@ -35,44 +36,35 @@ class Unique extends Base
 
     public function execute(array $data)
     {
-        if (isset($data[$this->field]) && $data[$this->field] !== '') {
+      if (! is_array($this->field)) {
+          $this->field = array($this->field);
+      }
+      $fields = array();
+      $parameters = array();
+      foreach($this->field AS $field) {
+          if (! isset($data[$field]) || $data[$field] === '') {
+              return true;
+          }
+          $fields[] = $field;
+          $parameters[] = $data[$field];
+      }
+      
+      if (isset($data[$this->primary_key])) {
+          $parameters[] = $data[$this->primary_key];
+      }
 
-            if (! isset($data[$this->primary_key])) {
-
-                $rq = $this->pdo->prepare('SELECT COUNT(*) FROM '.$this->table.' WHERE '.$this->field.'=?');
-
-                $rq->execute(array(
-                    $data[$this->field]
-                ));
-
-                $result = $rq->fetch(\PDO::FETCH_NUM);
-
-                if (isset($result[0]) && $result[0] === '1') {
-
-                    return false;
-                }
-            }
-            else {
-
-                $rq = $this->pdo->prepare(
-                    'SELECT COUNT(*) FROM '.$this->table.'
-                    WHERE '.$this->field.'=? AND '.$this->primary_key.' != ?'
-                );
-                
-                $rq->execute(array(
-                    $data[$this->field], 
-                    $data[$this->primary_key]
-                ));
-                
-                $result = $rq->fetch(\PDO::FETCH_NUM);
-
-                if (isset($result[0]) && $result[0] === '1') {
-
-                    return false;
-                }
-            }
-        }
-
-        return true;
+      $rq = $this->pdo->prepare(
+          'SELECT COUNT(*) FROM '.$this->table.' WHERE '.implode('=? AND ', $fields).'=?'.(isset($data[$this->primary_key]) ? ' AND '.$this->primary_key.'!=?' : '')
+      );
+      
+      $rq->execute($parameters);
+      
+      $result = $rq->fetch(\PDO::FETCH_NUM);
+      
+      if (isset($result[0]) && $result[0] === '1') {
+          return false;
+      }
+      
+      return true;
     }
 }

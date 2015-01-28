@@ -5,7 +5,7 @@
     "require": {
         "fguillot/simple-validator": "dev-master",
         "fguillot/json-rpc": "dev-master",
-        "fguillot/picodb": "dev-master",
+        "fguillot/picodb": "0.0.2",
         "fguillot/picofeed": "dev-master",
         "fguillot/picofarad": "dev-master"
     },

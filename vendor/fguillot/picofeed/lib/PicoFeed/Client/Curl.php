@@ -13,38 +13,6 @@ use PicoFeed\Logging\Logger;
 class Curl extends Client
 {
     /**
-     * HTTP response body
-     *
-     * @access private
-     * @var string
-     */
-    private $body = '';
-
-    /**
-     * Body size
-     *
-     * @access private
-     * @var integer
-     */
-    private $body_length = 0;
-
-    /**
-     * HTTP response headers
-     *
-     * @access private
-     * @var array
-     */
-    private $headers = array();
-
-    /**
-     * Counter on the number of header received
-     *
-     * @access private
-     * @var integer
-     */
-    private $headers_counter = 0;
-
-    /**
      * cURL callback to read the HTTP body
      *
      * If the function return -1, curl stop to read the HTTP response
@@ -258,48 +226,6 @@ class Curl extends Client
     private function needToHandleRedirection($follow_location, $status)
     {
         return $follow_location && ini_get('open_basedir') !== '' && ($status == 301 || $status == 302);
-    }
-
-    /**
-     * Handle manually redirections when there is an open base dir restriction
-     *
-     * @access private
-     * @param  string     $location       Redirected URL
-     * @return array
-     */
-    private function handleRedirection($location)
-    {
-        $nb_redirects = 0;
-        $result = array();
-        $this->url = $location;
-        $this->body = '';
-        $this->body_length = 0;
-        $this->headers = array();
-        $this->headers_counter = 0;
-
-        while (true) {
-
-            $nb_redirects++;
-
-            if ($nb_redirects >= $this->max_redirects) {
-                throw new MaxRedirectException('Maximum number of redirections reached');
-            }
-
-            $result = $this->doRequest(false);
-
-            if ($result['status'] == 301 || $result['status'] == 302) {
-                $this->url = $result['headers']['Location'];
-                $this->body = '';
-                $this->body_length = 0;
-                $this->headers = array();
-                $this->headers_counter = 0;
-            }
-            else {
-                break;
-            }
-        }
-
-        return $result;
     }
 
     /**

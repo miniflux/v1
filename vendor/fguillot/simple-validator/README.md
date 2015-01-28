@@ -28,7 +28,7 @@ Frédéric Guillot: [http://fredericguillot.com](http://fredericguillot.com)
 Source code
 -----------
 
-On Github: [https://github.com/fguillot/simpleLogger](https://github.com/fguillot/simpleValidator)
+On Github: [https://github.com/fguillot/simpleValidator](https://github.com/fguillot/simpleValidator)
 
 
 License
@@ -109,6 +109,28 @@ The specified field must exists.
 
 	new Validators\Required($field, $error_message);
 
+### Equals
+
+The specified fields must be equals.
+
+	new Validators\Equals($field, $field2, $error_message);
+
+
+### NotEquals
+
+The specified fields must not be equals.
+
+	new Validators\NotEquals($field, $field2, $error_message);
+
+### Exists
+
+Check inside a database if the column value exists or not.
+
+	new Validators\Exists($field, $error_message, PDO $pdo, $table, $key = '');
+
+`$pdo` must be an PDO instance, `$table` is the table name.
+By default the key used in the table is the value of `$field`, but it can be override if the field doesn't have the same name in the database.
+
 ### Unique
 
 Check inside a database if the column value is unique or not.
@@ -116,5 +138,36 @@ Check inside a database if the column value is unique or not.
 	new Validators\Unique($field, $error_message, PDO $pdo, $table, $primary_key = 'id');
 
 `$pdo` must be an PDO instance, `$table` is the table name and by default the primary key is "id".
+
+`$field` can either be a string or an array of string to check inside a database if a value from several columns is unique or not.
+
 If the primary key value is not null, we don't check the uniqueness of the column for this row.
 It's useful if you perform validation for an update.
+
+Contributors
+----------
+### Install the latest version of PHPUnit
+
+Simply download the PHPUnit PHAR et copy the file somewhere in your $PATH:
+
+    wget https://phar.phpunit.de/phpunit.phar
+    chmod +x phpunit.phar
+    sudo mv phpunit.phar /usr/local/bin/phpunit
+    phpunit --version
+    PHPUnit 4.2.6 by Sebastian Bergmann.
+
+### Running unit tests
+
+Sqlite tests use a in-memory database, nothing is written on the filesystem.
+
+Example:
+
+    phpunit --bootstrap vendor/autoload.php tests
+    PHPUnit 4.4.2 by Sebastian Bergmann.
+    
+    ............
+    
+    Time: 69 ms, Memory: 3.75Mb
+    
+    OK (12 tests, 149 assertions)
+
