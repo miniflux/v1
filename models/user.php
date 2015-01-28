@@ -27,9 +27,8 @@ function logout()
 function getCredentials()
 {
     return Database::get('db')
-        ->table('config')
-        ->columns('username', 'password')
-        ->findOne();
+        ->hashtable('settings')
+        ->get('username', 'password');
 }
 
 // Validate authentication

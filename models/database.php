@@ -26,7 +26,7 @@ function create($filename, $username, $password)
                 'password' => password_hash($password, PASSWORD_BCRYPT)
             );
 
-            $db->table('config')->update($credentials);
+            $db->hashtable('settings')->put($credentials);
 
             return true;
         }

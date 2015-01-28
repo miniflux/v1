@@ -5,7 +5,51 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
-const VERSION = 34;
+const VERSION = 35;
+
+function version_35($pdo)
+{
+    $pdo->exec('DELETE FROM favicons WHERE icon = ""');
+
+    $pdo->exec('
+        CREATE TABLE settings (
+            "key" TEXT NOT NULL UNIQUE,
+            "value" TEXT Default NULL,
+            PRIMARY KEY(key)
+        )
+    ');
+
+    $pdo->exec("
+        INSERT INTO settings (key,value)
+            SELECT 'username', username FROM config UNION
+            SELECT 'password', password FROM config UNION
+            SELECT 'language', language FROM config UNION
+            SELECT 'autoflush', autoflush FROM config UNION
+            SELECT 'nocontent', nocontent FROM config UNION
+            SELECT 'items_per_page', items_per_page FROM config UNION
+            SELECT 'theme', theme FROM config UNION
+            SELECT 'api_token', api_token FROM config UNION
+            SELECT 'feed_token', feed_token FROM config UNION
+            SELECT 'items_sorting_direction', items_sorting_direction FROM config UNION
+            SELECT 'redirect_nothing_to_read', redirect_nothing_to_read FROM config UNION
+            SELECT 'timezone', timezone FROM config UNION
+            SELECT 'auto_update_url', auto_update_url FROM config UNION
+            SELECT 'bookmarklet_token', bookmarklet_token FROM config UNION
+            SELECT 'items_display_mode', items_display_mode FROM config UNION
+            SELECT 'fever_token', fever_token FROM config UNION
+            SELECT 'autoflush_unread', autoflush_unread FROM config UNION
+            SELECT 'pinboard_enabled', pinboard_enabled FROM config UNION
+            SELECT 'pinboard_token', pinboard_token FROM config UNION
+            SELECT 'pinboard_tags', pinboard_tags FROM config UNION
+            SELECT 'instapaper_enabled', instapaper_enabled FROM config UNION
+            SELECT 'instapaper_username', instapaper_username FROM config UNION
+            SELECT 'instapaper_password', instapaper_password FROM config UNION
+            SELECT 'image_proxy', image_proxy FROM config UNION
+            SELECT 'favicons', favicons FROM config
+    ");
+
+    $pdo->exec('DROP TABLE config');
+}
 
 function version_34($pdo)
 {

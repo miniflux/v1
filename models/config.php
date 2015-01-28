@@ -238,14 +238,14 @@ function new_tokens()
         'fever_token' => substr(generate_token(), 0, 8),
     );
 
-    return Database::get('db')->table('config')->update($values);
+    return Database::get('db')->hashtable('settings')->put($values);
 }
 
 // Get a config value from the DB or from the session
 function get($name)
 {
     if (! isset($_SESSION)) {
-        return Database::get('db')->table('config')->findOneColumn($name);
+        return current(Database::get('db')->hashtable('settings')->get($name));
     }
     else {
 
@@ -264,9 +264,7 @@ function get($name)
 // Get all config parameters
 function get_all()
 {
-    $config = Database::get('db')
-        ->table('config')
-        ->findOne();
+    $config = Database::get('db')->hashtable('settings')->get();
 
     unset($config['password']);
 
@@ -322,7 +320,7 @@ function save(array $values)
         Database::get('db')->table('items')->update(array('content' => ''));
     }
 
-    if (Database::get('db')->table('config')->update($values)) {
+    if (Database::get('db')->hashtable('settings')->put($values)) {
         reload();
         return true;
     }

@@ -39,10 +39,7 @@ function auth()
         }
     }
 
-    $credentials = Database::get('db')->table('config')
-                       ->columns('username', 'fever_token')
-                       ->findOne();
-
+    $credentials = Database::get('db')->hashtable('settings')->get('username', 'fever_token');
     $api_key = md5($credentials['username'].':'.$credentials['fever_token']);
 
     $response = array(
