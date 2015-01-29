@@ -35,9 +35,6 @@
     <?= Helper\form_label(t('Theme'), 'theme') ?>
     <?= Helper\form_select('theme', $theme_options, $values, $errors) ?><br/>
 
-    <?= Helper\form_label(t('Frontend updatecheck interval in minutes'), 'frontend_updatecheck_interval') ?>
-    <?= Helper\form_number('frontend_updatecheck_interval', $values, $errors, array('min="0"')) ?><br/>
-    
     <?php if (ENABLE_AUTO_UPDATE): ?>
         <?= Helper\form_label(t('Auto-Update URL'), 'auto_update_url') ?>
         <?= Helper\form_text('auto_update_url', $values, $errors, array('required')) ?><br/>
@@ -64,6 +61,9 @@
 
     <?= Helper\form_label(t('When there is nothing to read, redirect me to this page'), 'redirect_nothing_to_read') ?>
     <?= Helper\form_select('redirect_nothing_to_read', $redirect_nothing_to_read_options, $values, $errors) ?><br/>
+
+    <?= Helper\form_label(t('Refresh interval in minutes for unread counter'), 'frontend_updatecheck_interval') ?>
+    <?= Helper\form_number('frontend_updatecheck_interval', $values, $errors, array('min="0"')) ?><br/>
 
     <?= Helper\form_checkbox('nocontent', t('Do not fetch the content of articles'), 1, isset($values['nocontent']) && $values['nocontent'] == 1) ?><br />
 

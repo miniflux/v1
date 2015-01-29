@@ -186,6 +186,10 @@ textarea:focus {
     box-shadow: 0 0 8px rgba(82, 168, 236, 0.6);
 }
 
+input[type="number"] {
+    width: 40px;
+}
+
 textarea {
     border: 1px solid #ccc;
     padding: 3px;

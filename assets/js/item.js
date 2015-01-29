@@ -329,10 +329,10 @@ Miniflux.Item = (function() {
                 var current_unread = false;
                 var response = JSON.parse(this.responseText);
 
-                for(var feed_id in response['feeds']) {
+                for (var feed_id in response['feeds']) {
                     var current_feed = response['feeds'][feed_id];
 
-                    if (!latest_feeds_items.hasOwnProperty(feed_id) || current_feed.time > latest_feeds_items[feed_id]) {
+                    if (! latest_feeds_items.hasOwnProperty(feed_id) || current_feed.time > latest_feeds_items[feed_id]) {
                         Miniflux.App.Log('feed ' + feed_id + ': New item(s)');
                         latest_feeds_items[feed_id] = current_feed.time;
 
@@ -345,22 +345,24 @@ Miniflux.Item = (function() {
 
                 Miniflux.App.Log('first_run: ' + first_run + ', current_unread: ' + current_unread + ', response.nbUnread: ' + response['nbUnread'] + ', nbUnreadItems: ' + nbUnreadItems);
 
-                if (!document.hidden && (response['nbUnread'] !== nbUnreadItems || unreadItems)) {
+                if (! document.hidden && (response['nbUnread'] !== nbUnreadItems || unreadItems)) {
                     Miniflux.App.Log('Counter changed! Updating unread counter.');
                     unreadItems = false;
                     nbUnreadItems = response['nbUnread'];
                     updateCounters();
                 }
-                else if (document.hidden && !first_run && current_unread) {
+                else if (document.hidden && ! first_run && current_unread) {
                     Miniflux.App.Log('New Unread! Updating pagetitle.');
                     unreadItems = true;
                     document.title = "↻ " + document.title;
-                } else {
+                }
+                else {
                     Miniflux.App.Log('No update.');
                 }
 
                 Miniflux.App.Log('unreadItems: ' + unreadItems);
             };
+
             request.open("POST", "?action=latest-feeds-items", true);
             request.send();
         }
