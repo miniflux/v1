@@ -232,4 +232,6 @@ return array(
     'general' => 'allgemein',
     'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'Fehler bei der letzten Aktualisierung. Aktualisiere den Feed manuell und prüfe die %sKonsole%s anschließend auf Fehler!',
     // 'Refresh interval in minutes for unread counter' => '',
+    // 'Nothing to show. Enable the debug mode to see log messages.' => '',
+    // 'Enable debug mode' => '',
 );
