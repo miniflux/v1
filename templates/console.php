@@ -7,7 +7,7 @@
 </div>
 
 <?php if (empty($content)): ?>
-    <p class="alert alert-info"><?= t('No message') ?></p>
+    <p class="alert alert-info"><?= t('Nothing to show. Enable the debug mode to see log messages.') ?></p>
 <?php else: ?>
     <pre id="console"><code><?= Helper\escape($content) ?></code></pre>
 <?php endif ?>

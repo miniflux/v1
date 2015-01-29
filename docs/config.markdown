@@ -26,9 +26,6 @@ define('DB_FILENAME', 'db.sqlite');
 // ENABLE_MULTIPLE_DB => default value is true (multiple users support)
 define('ENABLE_MULTIPLE_DB', true);
 
-// DEBUG => default is true (enable logging of PicoFeed)
-define('DEBUG', true);
-
 // DEBUG_FILENAME => default is data/debug.log
 define('DEBUG_FILENAME', DATA_DIRECTORY.'/debug.log');
 

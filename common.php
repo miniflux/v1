@@ -16,7 +16,6 @@ defined('DATA_DIRECTORY') or define('DATA_DIRECTORY', ROOT_DIRECTORY.DIRECTORY_S
 defined('ENABLE_MULTIPLE_DB') or define('ENABLE_MULTIPLE_DB', true);
 defined('DB_FILENAME') or define('DB_FILENAME', 'db.sqlite');
 
-defined('DEBUG') or define('DEBUG', true);
 defined('DEBUG_FILENAME') or define('DEBUG_FILENAME', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'debug.log');
 
 defined('THEME_DIRECTORY') or define('THEME_DIRECTORY', 'themes');
@@ -33,10 +32,6 @@ defined('AUTO_UPDATE_ARCHIVE_DIRECTORY') or define('AUTO_UPDATE_ARCHIVE_DIRECTOR
 defined('AUTO_UPDATE_BACKUP_DIRECTORY') or define('AUTO_UPDATE_BACKUP_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'backup');
 
 require __DIR__.'/check_setup.php';
-
-if (DEBUG) {
-    PicoFeed\Logging\Logger::enable();
-}
 
 PicoDb\Database::bootstrap('db', function() {
 

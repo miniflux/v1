@@ -36,6 +36,10 @@ function get_reader_config()
         $config->setFilterImageProxyUrl('?action=proxy&url=%s');
     }
 
+    if ((bool) get('debug_mode')) {
+        Logger::enable();
+    }
+
     // Parser
     $config->setParserHashAlgo('crc32b');
 
@@ -64,7 +68,7 @@ function debug($line)
 // Write PicoFeed debug output to a file
 function write_debug()
 {
-    if (DEBUG) {
+    if ((bool) get('debug_mode')) {
         file_put_contents(DEBUG_FILENAME, implode(PHP_EOL, Logger::getMessages()));
     }
 }
@@ -219,7 +223,7 @@ function check_csrf($token)
 function generate_token()
 {
     if (function_exists('openssl_random_pseudo_bytes')) {
-        return bin2hex(\openssl_random_pseudo_bytes(25));
+        return bin2hex(openssl_random_pseudo_bytes(25));
     }
     else if (ini_get('open_basedir') === '' && strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
         return hash('sha256', file_get_contents('/dev/urandom', false, null, 0, 30));
@@ -283,6 +287,7 @@ function validate_modification(array $values)
         new Validators\Integer('items_per_page', t('Must be an integer')),
         new Validators\Required('theme', t('Value required')),
         new Validators\Integer('frontend_updatecheck_interval', t('Must be an integer')),
+        new Validators\Integer('debug_mode', t('Must be an integer')),
     );
 
     if (ENABLE_AUTO_UPDATE) {

@@ -759,6 +759,20 @@ iframe {
     color: #339966;
 }
 
+#config-form {
+    border-left: none;
+    padding: 0;
+}
+
+#config-form h3 {
+    border-bottom: 1px dotted #ccc;
+}
+
+.options {
+    border-left: 3px dotted #eee;
+    padding-left: 20px;
+}
+
 /* desktop design */
 @media only screen and (min-width: 480px) {
 

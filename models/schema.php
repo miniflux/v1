@@ -5,7 +5,12 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
-const VERSION = 36;
+const VERSION = 37;
+
+function version_37($pdo)
+{
+    $pdo->exec('INSERT INTO settings ("key", "value") VALUES ("debug_mode", 0)');
+}
 
 function version_36($pdo)
 {
