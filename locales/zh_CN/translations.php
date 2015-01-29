@@ -234,4 +234,5 @@ return array(
     // 'Refresh interval in minutes for unread counter' => '',
     // 'Nothing to show. Enable the debug mode to see log messages.' => '',
     // 'Enable debug mode' => '',
+    // 'Original link marks article as read' => '',
 );

@@ -5,7 +5,12 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
-const VERSION = 37;
+const VERSION = 38;
+
+function version_38($pdo)
+{
+    $pdo->exec('INSERT INTO settings ("key", "value") VALUES ("original_marks_read", 1)');
+}
 
 function version_37($pdo)
 {

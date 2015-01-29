@@ -288,6 +288,9 @@ function validate_modification(array $values)
         new Validators\Required('theme', t('Value required')),
         new Validators\Integer('frontend_updatecheck_interval', t('Must be an integer')),
         new Validators\Integer('debug_mode', t('Must be an integer')),
+        new Validators\Integer('nocontent', t('Must be an integer')),
+        new Validators\Integer('favicons', t('Must be an integer')),
+        new Validators\Integer('original_marks_read', t('Must be an integer')),
     );
 
     if (ENABLE_AUTO_UPDATE) {

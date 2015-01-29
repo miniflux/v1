@@ -22,9 +22,7 @@ Miniflux.Event = (function() {
         ListenMouseEvents: function() {
 
             document.onclick = function(e) {
-                var action = e.target.getAttribute("data-action");
-
-                if (action && action !== 'original-link') {
+                if (e.target.hasAttribute("data-action") && e.target.className !== 'original') {
                     e.preventDefault();
                 }
             };
@@ -85,9 +83,6 @@ Miniflux.Event = (function() {
                             break;
                         case 'download-item':
                             currentItem && Miniflux.Item.DownloadContent(currentItem);
-                            break;
-                        case 'original-link':
-                            currentItem && Miniflux.Item.OpenOriginal(currentItem);
                             break;
                         case 'mark-all-read':
                             Miniflux.Item.MarkListingAsRead("?action=unread");

@@ -72,6 +72,7 @@
         <?= Helper\form_label(t('Refresh interval in minutes for unread counter'), 'frontend_updatecheck_interval') ?>
         <?= Helper\form_number('frontend_updatecheck_interval', $values, $errors, array('min="0"')) ?><br/>
 
+        <?= Helper\form_checkbox('original_marks_read', t('Original link marks article as read'), 1, isset($values['original_marks_read']) && $values['original_marks_read'] == 1) ?><br/>
         <?= Helper\form_checkbox('nocontent', t('Do not fetch the content of articles'), 1, isset($values['nocontent']) && $values['nocontent'] == 1) ?><br/>
         <?= Helper\form_checkbox('favicons', t('Download favicons'), 1, isset($values['favicons']) && $values['favicons'] == 1) ?><br/>
     </div>

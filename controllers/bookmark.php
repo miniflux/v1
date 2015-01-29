@@ -47,6 +47,7 @@ Router\get_action('bookmarks', function() {
 
     Response\html(Template\layout('bookmarks', array(
         'favicons' => Model\Feed\get_item_favicons($items),
+        'original_marks_read' => Model\Config\get('original_marks_read'),
         'order' => '',
         'direction' => '',
         'display_mode' => Model\Config\get('items_display_mode'),

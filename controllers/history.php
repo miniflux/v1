@@ -21,6 +21,7 @@ Router\get_action('history', function() {
 
     Response\html(Template\layout('history', array(
         'favicons' => Model\Feed\get_item_favicons($items),
+        'original_marks_read' => Model\Config\get('original_marks_read'),
         'items' => $items,
         'order' => '',
         'direction' => '',

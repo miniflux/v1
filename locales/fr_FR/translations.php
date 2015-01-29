@@ -234,4 +234,5 @@ return array(
     'Refresh interval in minutes for unread counter' => 'Fréquence d\'actualisation en minute du compteur de non lus',
     'Nothing to show. Enable the debug mode to see log messages.' => 'Rien à montrer. Activez le mode debug pour voir les messages de log.',
     'Enable debug mode' => 'Activer le mode debug',
+    'Original link marks article as read' => 'Original link marks article as read',
 );

@@ -24,6 +24,19 @@ Miniflux.Item = (function() {
         }
     }();
 
+    function simulateMouseClick(element)
+    {
+        var event = document.createEvent("MouseEvents");
+        event.initEvent("mousedown", true, true);
+        element.dispatchEvent(event);
+
+        var event = document.createEvent("MouseEvents");
+        event.initEvent("mouseup", true, true);
+        element.dispatchEvent(event);
+
+        element.click();
+    }
+
     function getItemID(item)
     {
         item_id = item.getAttribute("data-item-id");
@@ -191,7 +204,10 @@ Miniflux.Item = (function() {
     }
 
     return {
-        MarkAsRead: markAsRead,
+        MarkAsRead: function(item) {
+            var status = item.getAttribute("data-item-status");
+            if (status !== "read") markAsRead(item);
+        },
         MarkAsUnread: markAsUnread,
         MarkAsRemoved: markAsRemoved,
         SwitchBookmark: function(item) {
@@ -239,19 +255,11 @@ Miniflux.Item = (function() {
         },
         Show: function(item) {
             var link = item.querySelector("a.show");
-            if (link) link.click();
+            if (link) simulateMouseClick(link);
         },
         OpenOriginal: function(item) {
             var link = item.querySelector("a.original");
-
-            if (link) {
-                if (item.getAttribute("data-item-status") === "unread") markAsRead(item);
-                link.removeAttribute("data-action");
-
-                if (Miniflux.Event.lastEventType !== "mouse") {
-                    link.click();
-                }
-            }
+            if (link) simulateMouseClick(link)
         },
         DownloadContent: function(item) {
             var container = document.getElementById("download-item");

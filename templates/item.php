@@ -36,7 +36,7 @@
             <span title="<?= dt('%e %B %Y %k:%M', $item['updated']) ?>"><?= Helper\relative_time($item['updated']) ?></span>
         </li>
         <li class="hide-mobile">
-            <a href="<?= $item['url'] ?>" class="original" rel="noreferrer" target="_blank" data-action="original-link"><?= t('original link') ?></a>
+            <a href="<?= $item['url'] ?>" class="original" rel="noreferrer" target="_blank" <?= ($original_marks_read) ? 'data-action="mark-read"' : '' ?>><?= t('original link') ?></a>
         </li>
         <?php if ($item['enclosure']): ?>
             <li>
