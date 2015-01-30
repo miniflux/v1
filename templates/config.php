@@ -40,7 +40,7 @@
 
         <?php if (ENABLE_AUTO_UPDATE): ?>
             <?= Helper\form_label(t('Auto-Update URL'), 'auto_update_url') ?>
-            <?= Helper\form_text('auto_update_url', $values, $errors, array('required')) ?><br/><br/>
+            <?= Helper\form_text('auto_update_url', $values, $errors, array('required')) ?><br/>
         <?php endif ?>
 
         <?= Helper\form_checkbox('debug_mode', t('Enable debug mode'), 1, isset($values['debug_mode']) && $values['debug_mode'] == 1) ?><br/>
