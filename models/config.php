@@ -142,9 +142,9 @@ function get_autoflush_read_options()
         '0' => t('Never'),
         '-1' => t('Immediately'),
         '1' => t('After %d day', 1),
-        '5' => t('After %d days', 5),
-        '15' => t('After %d days', 15),
-        '30' => t('After %d days', 30)
+        '5' => t('After %d day', 5),
+        '15' => t('After %d day', 15),
+        '30' => t('After %d day', 30)
     );
 }
 
@@ -153,10 +153,10 @@ function get_autoflush_unread_options()
 {
     return array(
         '0' => t('Never'),
-        '15' => t('After %d days', 15),
-        '30' => t('After %d days', 30),
-        '45' => t('After %d days', 45),
-        '60' => t('After %d days', 60),
+        '15' => t('After %d day', 15),
+        '30' => t('After %d day', 30),
+        '45' => t('After %d day', 45),
+        '60' => t('After %d day', 60),
     );
 }
 

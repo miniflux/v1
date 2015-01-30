@@ -40,10 +40,7 @@ Router\before(function($action) {
 
     // Load translations
     $language = Model\Config\get('language') ?: 'en_US';
-
-    if ($language !== 'en_US') {
-        Translator\load($language);
-    }
+    Translator\load($language);
 
     // Set timezone
     date_default_timezone_set(Model\Config\get('timezone') ?: 'UTC');

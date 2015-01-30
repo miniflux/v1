@@ -10,7 +10,7 @@ namespace Translator {
         $args = \func_get_args();
 
         \array_shift($args);
-        \array_unshift($args, get($identifier, $identifier));
+        \array_unshift($args, get($identifier, $identifier, $args));
 
         foreach ($args as &$arg) {
             $arg = htmlspecialchars($arg, ENT_QUOTES, 'UTF-8', false);
@@ -76,23 +76,36 @@ namespace Translator {
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
             $format = preg_replace('#(?<!%)((?:%%)*)%k#', '\1%#H', $format);
         }
-        
+
         return strftime($format, (int) $timestamp);
     }
 
 
-    function get($identifier, $default = '')
+    function get($identifier, $default = '', $values = array())
     {
         $locales = container();
+        $translation = $default;
+        $plural = 0;
+
+        foreach ($values as $value) {
+            $value = abs($value);
+
+            if (is_numeric($value)) {
+                $plural = (int)$locales['plural']($value);
+                break;
+            }
+        }
 
         if (isset($locales[$identifier])) {
-
-            return $locales[$identifier];
+            if (is_array($locales[$identifier])) {
+                $translation = $locales[$identifier][$plural];
+            }
+            else {
+                $translation = $locales[$identifier];
+            }
         }
-        else {
 
-            return $default;
-        }
+        return $translation;
     }
 
 
