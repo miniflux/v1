@@ -87,17 +87,16 @@ namespace Translator {
         $translation = $default;
         $plural = 0;
 
-        foreach ($values as $value) {
-            $value = abs($value);
-
-            if (is_numeric($value)) {
-                $plural = (int)$locales['plural']($value);
-                break;
-            }
-        }
-
         if (isset($locales[$identifier])) {
             if (is_array($locales[$identifier])) {
+                foreach ($values as $value) {
+                    if (is_numeric($value)) {
+                        $value = abs($value);
+                        $plural = (int)$locales['plural']($value);
+                        break;
+                    }
+                }
+
                 $translation = $locales[$identifier][$plural];
             }
             else {
