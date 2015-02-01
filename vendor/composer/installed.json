@@ -1,44 +1,5 @@
 [
     {
-        "name": "fguillot/picofarad",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fguillot/picoFarad.git",
-            "reference": "749506cd204ae05c3cc8894be1b4302b4aed6e53"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFarad/zipball/749506cd204ae05c3cc8894be1b4302b4aed6e53",
-            "reference": "749506cd204ae05c3cc8894be1b4302b4aed6e53",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2015-01-17 23:58:31",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "PicoFarad": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Unlicense"
-        ],
-        "authors": [
-            {
-                "name": "Frédéric Guillot",
-                "homepage": "http://fredericguillot.com"
-            }
-        ],
-        "description": "Minimalist micro-framework",
-        "homepage": "https://github.com/fguillot/picoFarad"
-    },
-    {
         "name": "fguillot/json-rpc",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -156,18 +117,57 @@
         "homepage": "https://github.com/fguillot/picoDb"
     },
     {
+        "name": "fguillot/picofarad",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fguillot/picoFarad.git",
+            "reference": "1bc48a4367adf359f3439c2e0ae20a7d299d8ccd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fguillot/picoFarad/zipball/1bc48a4367adf359f3439c2e0ae20a7d299d8ccd",
+            "reference": "1bc48a4367adf359f3439c2e0ae20a7d299d8ccd",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2015-02-01 19:40:13",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PicoFarad": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Unlicense"
+        ],
+        "authors": [
+            {
+                "name": "Frédéric Guillot",
+                "homepage": "http://fredericguillot.com"
+            }
+        ],
+        "description": "Minimalist micro-framework",
+        "homepage": "https://github.com/fguillot/picoFarad"
+    },
+    {
         "name": "fguillot/picofeed",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "9253c3d5ff1148a5175bf24633b73725832437c8"
+            "reference": "7f45ed03621778b30db0ff89a09f98d67096c253"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/9253c3d5ff1148a5175bf24633b73725832437c8",
-            "reference": "9253c3d5ff1148a5175bf24633b73725832437c8",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/7f45ed03621778b30db0ff89a09f98d67096c253",
+            "reference": "7f45ed03621778b30db0ff89a09f98d67096c253",
             "shasum": ""
         },
         "require": {
@@ -178,7 +178,7 @@
             "ext-xml": "*",
             "php": ">=5.3.0"
         },
-        "time": "2015-01-29 02:00:49",
+        "time": "2015-01-31 22:07:02",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

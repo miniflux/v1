@@ -123,7 +123,7 @@ function csp(array $policies = array())
 
             foreach ($hosts as &$host) {
 
-                if ($host === '*' || $host === 'self' || strpos($host, 'http') === 0) {
+                if ($host === '*' || $host === "'self'" || strpos($host, 'http') === 0) {
                     $acl .= $host.' ';
                 }
             }
