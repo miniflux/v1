@@ -74,12 +74,6 @@ Router\get_action('more', function() {
 
 // Image proxy (avoid SSL mixed content warnings)
 Router\get_action('proxy', function() {
-    list($content, $type) = Model\Proxy\download(rawurldecode(Request\param('url')));
-
-    if (empty($content)) {
-        Response\text('Not Found', 404);
-    }
-
-    Response\content_type($type);
-    Response\raw($content);
+    Model\Proxy\download(rawurldecode(Request\param('url')));
+    exit;
 });

@@ -12,6 +12,7 @@
 		<column>download_content</column>
 		<column>parsing_error</column>
 		<column>rtl</column>
+		<column>cloak_referrer</column>
 		<row>
 			<value>1</value>
 			<value>http://miniflux.net/</value>
@@ -23,6 +24,7 @@
 			<value>1</value>
 			<value>0</value>
 			<value>1</value>
+			<value>0</value>
 			<value>0</value>
 		</row>
 	</table>

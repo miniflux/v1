@@ -235,4 +235,5 @@ return array(
     // 'Nothing to show. Enable the debug mode to see log messages.' => '',
     // 'Enable debug mode' => '',
     // 'Original link marks article as read' => '',
+    // 'Cloak the image referrer' => '',
 );
