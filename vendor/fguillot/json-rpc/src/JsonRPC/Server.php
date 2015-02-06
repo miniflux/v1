@@ -49,6 +49,15 @@ class Server
     private $classes = array();
 
     /**
+     * List of instances
+     *
+     * @static
+     * @access private
+     * @var array
+     */
+    private $instances = array();
+
+    /**
      * Constructor
      *
      * @access public
@@ -127,6 +136,17 @@ class Server
     public function bind($procedure, $class, $method)
     {
         $this->classes[$procedure] = array($class, $method);
+    }
+
+    /**
+     * Bind a class instance
+     *
+     * @access public
+     * @param  mixed   $instance    Instance name
+     */
+    public function attach($instance)
+    {
+        $this->instances[] = $instance;
     }
 
     /**
@@ -320,6 +340,12 @@ class Server
         }
         else if (isset($this->classes[$procedure])) {
             return $this->executeMethod($this->classes[$procedure][0], $this->classes[$procedure][1], $params);
+        }
+
+        foreach ($this->instances as $instance) {
+            if (method_exists($instance, $procedure)) {
+                return $this->executeMethod($instance, $procedure, $params);
+            }
         }
 
         throw new BadFunctionCallException('Unable to find the procedure');
