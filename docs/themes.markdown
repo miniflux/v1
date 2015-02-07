@@ -38,6 +38,7 @@ You can download them from [the official Miniflux repositories](https://github.c
 - [Copper by Nicolas Dewaele](https://github.com/miniflux/theme-copper)
 - [Green by Maxime](https://github.com/miniflux/theme-green)
 - [Hello by Mirado ZAKASOA](https://github.com/meradoou/hello)
+- [Hello Flat by Mirado ZAKASOA](https://github.com/meradoou/hello/tree/flat)
 - [Midnight by Luca Marra](https://github.com/miniflux/theme-midnight)
 - [NoStyle by Frederic Guillot](https://github.com/miniflux/theme-nostyle)
 - [Still by Franklin Delehelle](https://github.com/miniflux/theme-still)
