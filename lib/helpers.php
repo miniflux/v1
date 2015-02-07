@@ -2,6 +2,11 @@
 
 namespace Helper;
 
+function isSecureConnection()
+{
+    return ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+}
+
 /*
  * get Version number from git archive output
  */
@@ -56,7 +61,7 @@ function css()
 
 function get_current_base_url()
 {
-    $url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+    $url = isSecureConnection() ? 'https://' : 'http://';
     $url .= $_SERVER['SERVER_NAME'];
     $url .= $_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443 ? '' : ':'.$_SERVER['SERVER_PORT'];
     $url .= dirname($_SERVER['PHP_SELF']) !== '/' ? dirname($_SERVER['PHP_SELF']).'/' : '/';

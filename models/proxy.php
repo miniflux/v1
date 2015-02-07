@@ -2,21 +2,17 @@
 
 namespace Model\Proxy;
 
+use Helper;
 use Model\Config;
 use PicoFeed\Config\Config as PicoFeedConfig;
 use PicoFeed\Filter\Filter;
 use PicoFeed\Client\Client;
 use PicoFeed\Logging\Logger;
 
-function isSecureConnection()
-{
-    return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
-}
-
 function addProxyToLink($link)
 {
-    if (isSecureConnection() && strpos($link, 'http:') === 0) {
-        $link = '?action=proxy&url='.urlencode($link);
+    if (Helper\isSecureConnection() && strpos($link, 'http:') === 0) {
+        $link = '?action=proxy&url='.rawurlencode($link);
     }
 
     return $link;
@@ -26,7 +22,7 @@ function addProxyToTags($html, $website, $proxy_images, $cloak_referrer)
 {
     if ($html === '' // no content, no proxy
         || (! $cloak_referrer && ! $proxy_images) // neither cloaking nor proxing enabled
-        || (! $cloak_referrer && $proxy_images && ! isSecureConnection())) { // only proxy enabled, but not connected via HTTPS
+        || (! $cloak_referrer && $proxy_images && ! Helper\isSecureConnection())) { // only proxy enabled, but not connected via HTTPS
 
         return $html;
     }
@@ -39,7 +35,7 @@ function addProxyToTags($html, $website, $proxy_images, $cloak_referrer)
         // they do not trigger mixed content warnings.
         $config->setFilterImageProxyProtocol('http');
     }
-    elseif (! $proxy_images && $cloak_referrer && isSecureConnection()) {
+    elseif (! $proxy_images && $cloak_referrer && Helper\isSecureConnection()) {
         // cloaking mode only: if a request from a HTTPS connection to a HTTP
         // connection is made, the referrer will be omitted by the browser.
         // Only the referrer for HTTPS to HTTPs requests needs to be cloaked.
