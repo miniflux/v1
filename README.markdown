@@ -85,7 +85,7 @@ External projects build around Miniflux:
 Todo and known bugs
 -------------------
 
-- See Issues: <https://github.com/fguillot/miniflux/issues>
+- See Issues: <https://github.com/miniflux/miniflux/issues>
 
 License
 -------

@@ -22,7 +22,7 @@ Sorry, I don't plan to have categories or tags.
 I found a bug, what next?
 -------------------------
 
-Report the bug to the [issues tracker](https://github.com/fguillot/miniflux/issues) and I will fix it.
+Report the bug to the [issues tracker](https://github.com/miniflux/miniflux/issues) and I will fix it.
 
 You can report feeds that doesn't works properly too.
 

@@ -21,7 +21,7 @@ RUN \
 
 RUN \
   cd /root && \
-  wget https://github.com/fguillot/miniflux/archive/master.zip -O miniflux.zip && \
+  wget https://github.com/miniflux/miniflux/archive/master.zip -O miniflux.zip && \
   unzip miniflux.zip -d /var/www && \
   mv /var/www/miniflux-master/* /var/www/ && \
   rm miniflux.zip && \

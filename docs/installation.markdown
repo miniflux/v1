@@ -16,7 +16,7 @@ Installation
 
 ### From the repository (development version)
 
-1. `git clone https://github.com/fguillot/miniflux.git`
+1. `git clone https://github.com/miniflux/miniflux.git`
 2. Go to the third step just above
 
 Security

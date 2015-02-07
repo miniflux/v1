@@ -55,6 +55,6 @@ Don't forget to send a pull request or a ticket to share your contribution with 
 List of content grabber rules
 -----------------------------
 
-[List of existing rules on the repository](https://github.com/fguillot/miniflux/tree/master/vendor/fguillot/picofeed/lib/PicoFeed/Rules)
+[List of existing rules on the repository](https://github.com/miniflux/miniflux/tree/master/vendor/fguillot/picofeed/lib/PicoFeed/Rules)
 
 If you want to add new rules, just open a ticket and I will do it.
