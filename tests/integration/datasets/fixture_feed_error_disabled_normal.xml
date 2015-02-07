@@ -12,6 +12,7 @@
 		<column>download_content</column>
 		<column>parsing_error</column>
 		<column>rtl</column>
+		<column>cloak_referrer</column>
 		<row>
 			<value>1</value>
 			<value>http://www.01net.com/actus/</value>
@@ -21,6 +22,7 @@
 			<null />
 			<null />
 			<value>1</value>
+			<value>0</value>
 			<value>0</value>
 			<value>0</value>
 			<value>0</value>

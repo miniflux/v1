@@ -25,6 +25,8 @@
 
     <?= Helper\form_checkbox('download_content', t('Download full content'), 1, isset($values['download_content']) ? $values['download_content'] : false) ?><br />
 
+    <?= Helper\form_checkbox('cloak_referrer', t('Cloak the image referrer'), 1, isset($values['cloak_referrer']) ? $values['cloak_referrer'] : false) ?><br />
+
     <?= Helper\form_checkbox('enabled', t('Activated'), 1, isset($values['enabled']) ? $values['enabled'] : false) ?>
 
     <div class="form-actions">

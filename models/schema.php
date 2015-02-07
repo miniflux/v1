@@ -5,7 +5,12 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
-const VERSION = 38;
+const VERSION = 39;
+
+function version_39($pdo)
+{
+    $pdo->exec('ALTER TABLE feeds ADD COLUMN cloak_referrer INTEGER DEFAULT 0');
+}
 
 function version_38($pdo)
 {

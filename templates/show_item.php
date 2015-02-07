@@ -81,11 +81,7 @@
                 </div>
                 <?php elseif (strpos($item['enclosure_type'], 'image') !== false && $item['content'] === ''): ?>
                 <div id="item-content-enclosure">
-                    <?php if ($image_proxy_enabled): ?>
-                        <img src="?action=proxy&amp;url=<?= urlencode($item['enclosure']) ?>" alt="enclosure"/>
-                    <?php else: ?>
-                        <img src="<?= $item['enclosure'] ?>" alt="enclosure"/>
-                    <?php endif ?>
+                    <img src="<?= $item['enclosure'] ?>" alt="enclosure"/>
                 </div>
                 <?php endif ?>
             <?php endif ?>

@@ -66,6 +66,15 @@ Router\get_action('show', function() {
             break;
     }
 
+    $image_proxy = Model\Config\get('image_proxy');
+
+    // add the image proxy if requested and required
+    $item['content'] = Model\Proxy\addProxyToTags($item['content'], $item['url'], $image_proxy, $feed['cloak_referrer']);
+
+    if ($image_proxy && strpos($item['enclosure_type'], 'image') === 0) {
+        $item['enclosure'] = Model\Proxy\addProxyToLink($item['enclosure']);
+    }
+
     Response\html(Template\layout('show_item', array(
         'nb_unread_items' => $nb_unread_items = Model\Item\count_by_status('unread'),
         'item' => $item,
@@ -73,7 +82,6 @@ Router\get_action('show', function() {
         'item_nav' => isset($nav) ? $nav : null,
         'menu' => $menu,
         'title' => $item['title'],
-        'image_proxy_enabled' => (bool) Model\Config\get('image_proxy'),
     )));
 });
 
@@ -107,8 +115,15 @@ Router\get_action('feed-items', function() {
 
 // Ajax call to download an item (fetch the full content from the original website)
 Router\post_action('download-item', function() {
+    $id = Request\param('id');
 
-    Response\json(Model\Item\download_content_id(Request\param('id')));
+    $item = Model\Item\get($id);
+    $feed = Model\Feed\get($item['feed_id']);
+
+    $download = Model\Item\download_content_id($id);
+    $download['content'] = Model\Proxy\addProxyToTags($download['content'], $item['url'], Model\Config\get('image_proxy'), $feed['cloak_referrer']);
+
+    Response\json($download);
 });
 
 // Ajax call change item status

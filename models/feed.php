@@ -102,6 +102,7 @@ function update(array $values)
                 'enabled' => empty($values['enabled']) ? 0 : $values['enabled'],
                 'rtl' => empty($values['rtl']) ? 0 : $values['rtl'],
                 'download_content' => empty($values['download_content']) ? 0 : $values['download_content'],
+                'cloak_referrer' => empty($values['cloak_referrer']) ? 0 : $values['cloak_referrer'],
             ));
 }
 
@@ -148,7 +149,7 @@ function import_opml($content)
 }
 
 // Add a new feed from an URL
-function create($url, $enable_grabber = false, $force_rtl = false)
+function create($url, $enable_grabber = false, $force_rtl = false, $cloak_referrer = false)
 {
     try {
         $db = Database::get('db');
@@ -185,6 +186,7 @@ function create($url, $enable_grabber = false, $force_rtl = false)
             'last_modified' => $resource->getLastModified(),
             'last_checked' => time(),
             'etag' => $resource->getEtag(),
+            'cloak_referrer' => $cloak_referrer ? 1 : 0,
         ));
 
         if ($result) {

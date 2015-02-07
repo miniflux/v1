@@ -32,10 +32,6 @@ function get_reader_config()
     // Filter
     $config->setFilterIframeWhitelist(get_iframe_whitelist());
 
-    if ((bool) get('image_proxy')) {
-        $config->setFilterImageProxyUrl('?action=proxy&url=%s');
-    }
-
     if ((bool) get('debug_mode')) {
         Logger::enable();
     }

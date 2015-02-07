@@ -12,6 +12,7 @@
 		<column>download_content</column>
 		<column>parsing_error</column>
 		<column>rtl</column>
+		<column>cloak_referrer</column>
 		<row>
 			<value>2</value>
 			<value>https://github.com/fguillot/miniflux/commits/master</value>
@@ -21,6 +22,7 @@
 			<null />
 			<null />
 			<value>1</value>
+			<value>0</value>
 			<value>0</value>
 			<value>0</value>
 			<value>0</value>

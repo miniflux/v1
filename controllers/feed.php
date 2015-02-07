@@ -158,9 +158,9 @@ Router\action('subscribe', function() {
         }
     }
 
-    $values += array('download_content' => 0, 'rtl' => 0);
+    $values += array('download_content' => 0, 'rtl' => 0, 'cloak_referrer' => 0);
     $url = trim($url);
-    $feed_id = Model\Feed\create($url, $values['download_content'], $values['rtl']);
+    $feed_id = Model\Feed\create($url, $values['download_content'], $values['rtl'], $values['cloak_referrer']);
 
     if ($feed_id) {
         Session\flash(t('Subscription added successfully.'));
