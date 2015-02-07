@@ -6,14 +6,15 @@ use Model\Config;
 use PicoFeed\Config\Config as PicoFeedConfig;
 use PicoFeed\Filter\Filter;
 use PicoFeed\Client\Client;
+use PicoFeed\Logging\Logger;
 
 function isSecureConnection()
 {
     return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
 }
 
-function addProxyToLink($link) {
-
+function addProxyToLink($link)
+{
     if (isSecureConnection() && strpos($link, 'http:') === 0) {
         $link = '?action=proxy&url='.urlencode($link);
     }
@@ -38,7 +39,7 @@ function addProxyToTags($html, $website, $proxy_images, $cloak_referrer)
         // they do not trigger mixed content warnings.
         $config->setFilterImageProxyProtocol('http');
     }
-    elseif (! $proxy_images && $cloak_referrer && isSecureConnection() ) {
+    elseif (! $proxy_images && $cloak_referrer && isSecureConnection()) {
         // cloaking mode only: if a request from a HTTPS connection to a HTTP
         // connection is made, the referrer will be omitted by the browser.
         // Only the referrer for HTTPS to HTTPs requests needs to be cloaked.
@@ -53,11 +54,14 @@ function addProxyToTags($html, $website, $proxy_images, $cloak_referrer)
 
 function download($url)
 {
+    if ((bool) Config\get('debug_mode')) {
+        Logger::enable();
+    }
+
     $client = Client::getInstance();
     $client->setUserAgent(Config\HTTP_USER_AGENT);
     $client->enablePassthroughMode();
     $client->execute($url);
 
-    // does not work
     Config\write_debug();
 }
