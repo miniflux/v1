@@ -10,17 +10,32 @@ function update_missing_locales(array $reference, $outdated_file)
 {
     $outdated = include $outdated_file;
 
-    $output = '<?php'.PHP_EOL.PHP_EOL;
-    $output .= 'return array('.PHP_EOL;
+    $output = "<?php\n\n";
+    $output .= "return array(\n";
 
-    foreach ($reference as $key => $value) {
+    foreach (array_keys($reference) as $key) {
+        $outputKey = str_replace("'", "\'", $key);
+        $outputValue = "    // '".$outputKey."' => ''";
 
         if (isset($outdated[$key])) {
-            $output .= "    '".str_replace("'", "\'", $key)."' => '".str_replace("'", "\'", $outdated[$key])."',\n";
+            if ($key === 'plural') {
+                $outputValue = $outputKey."' => ".getFunctionCode($outdated[$key]);
+            }
+            elseif (is_array($outdated[$key])) {
+                foreach($outdated[$key] as &$value) {
+                    $value = str_replace("'", "\'", $value);
+                }
+
+                $outputValue = $outputKey."' => array('".join("', '", $outdated[$key])."')";
+            }
+            else {
+                $outputValue = $outputKey."' => '".str_replace("'", "\'", $outdated[$key])."'";
+            }
+
+            $outputValue = "    '".$outputValue;
         }
-        else {
-            $output .= "    // '".str_replace("'", "\'", $key)."' => '',\n";
-        }
+
+        $output .= $outputValue.",\n";
     }
 
     $output .= ");\n";
@@ -30,7 +45,7 @@ function update_missing_locales(array $reference, $outdated_file)
 
 foreach (new DirectoryIterator('locales') as $fileInfo) {
 
-    if (! $fileInfo->isDot() && $fileInfo->isDir() && $fileInfo->getFilename() !== $reference_lang) {
+    if (! $fileInfo->isDot() && $fileInfo->isDir() && $fileInfo->getFilename() !== $reference_lang && $fileInfo->getFilename() !== 'en_US') {
 
         $filename = 'locales/'.$fileInfo->getFilename().'/translations.php';
 
@@ -38,4 +53,24 @@ foreach (new DirectoryIterator('locales') as $fileInfo) {
 
         file_put_contents($filename, update_missing_locales($reference, $filename));
     }
+}
+
+function getFunctionCode($name)
+{
+    $reflector = new ReflectionFunction($name);
+
+    $file = new SplFileObject($reflector->getFileName());
+    $file->seek($reflector->getStartLine()-1);
+
+    $sourcecode = '';
+    while ($file->key() < $reflector->getEndLine())
+    {
+        $sourcecode .= $file->current();
+        $file->next();
+    }
+
+    $begin = strpos($sourcecode, 'function');
+    $end = strrpos($sourcecode, '}');
+
+    return substr($sourcecode, $begin, $end - $begin + 1);
 }

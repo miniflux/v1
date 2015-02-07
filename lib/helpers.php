@@ -135,22 +135,22 @@ function relative_time($timestamp, $fallback_date_format = '%e %B %Y %k:%M')
 
     if ($diff < 0) return \dt($fallback_date_format, $timestamp);
 
-    if ($diff < 60) return \t('%d second'.($diff > 1 ? 's' : '').' ago', $diff);
+    if ($diff < 60) return \t('%d second ago', $diff);
 
     $diff = floor($diff / 60);
-    if ($diff < 60) return \t('%d minute'.($diff > 1 ? 's' : '').' ago', $diff);
+    if ($diff < 60) return \t('%d minute ago', $diff);
 
     $diff = floor($diff / 60);
-    if ($diff < 24) return \t('%d hour'.($diff > 1 ? 's' : '').' ago', $diff);
+    if ($diff < 24) return \t('%d hour ago', $diff);
 
     $diff = floor($diff / 24);
-    if ($diff < 7) return \t('%d day'.($diff > 1 ? 's' : '').' ago', $diff);
+    if ($diff < 7) return \t('%d day ago', $diff);
 
     $diff = floor($diff / 7);
-    if ($diff < 4) return \t('%d week'.($diff > 1 ? 's' : '').' ago', $diff);
+    if ($diff < 4) return \t('%d week ago', $diff);
 
     $diff = floor($diff / 4);
-    if ($diff < 12) return \t('%d month'.($diff > 1 ? 's' : '').' ago', $diff);
+    if ($diff < 12) return \t('%d month ago', $diff);
 
     return \dt($fallback_date_format, $timestamp);
 }
