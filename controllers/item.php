@@ -169,7 +169,14 @@ Router\get_action('mark-as-read', function() {
 Router\get_action('mark-feed-as-read', function() {
 
     Model\Item\mark_feed_as_read(Request\int_param('feed_id'));
-    Response\redirect('?action=unread');
+    Response\redirect('?action=feeds');
+});
+
+// Mark all unread items as read for a specific feed (Ajax request)
+Router\post_action('mark-feed-as-read', function() {
+
+    Model\Item\mark_feed_as_read(Request\int_param('feed_id'));
+    Response\json(array('OK'));
 });
 
 // Mark sent items id as read (Ajax request)

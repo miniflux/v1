@@ -88,7 +88,7 @@ Miniflux.Event = (function() {
                             Miniflux.Item.MarkListingAsRead("?action=unread");
                             break;
                         case 'mark-feed-read':
-                            Miniflux.Item.MarkListingAsRead("?action=feed-items&feed_id=" + e.target.getAttribute("data-feed-id"));
+                            Miniflux.Item.MarkFeedAsRead(e.target.getAttribute("data-feed-id"));
                             break;
                     }
                 }

@@ -306,6 +306,16 @@ Miniflux.Item = (function() {
             request.open("POST", "?action=mark-items-as-read", true);
             request.send(JSON.stringify(listing));
         },
+        MarkFeedAsRead: function(feed_id) {
+            var request = new XMLHttpRequest();
+
+            request.onload = function() {
+                window.location.href = '?action=feeds';
+            };
+
+            request.open("POST", "?action=mark-feed-as-read&feed_id=" + feed_id, true);
+            request.send();
+        },
         ToggleRTLMode: function() {
             var tags = [
                 "#current-item h1",
