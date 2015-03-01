@@ -252,7 +252,7 @@ class Client
     public function getResult(array $payload)
     {
         if (isset($payload['error']['code'])) {
-            $this->handleRpcErrors($payload['error']['code']);
+            $this->handleRpcErrors($payload['error']);
         }
 
         return isset($payload['result']) ? $payload['result'] : null;
@@ -264,15 +264,15 @@ class Client
      * @access public
      * @param  integer    $code
      */
-    public function handleRpcErrors($code)
+    public function handleRpcErrors($error)
     {
-        switch ($code) {
+        switch ($error['code']) {
             case -32601:
-                throw new BadFunctionCallException('Procedure not found');
+                throw new BadFunctionCallException('Procedure not found: '. $error['message']);
             case -32602:
-                throw new InvalidArgumentException('Invalid arguments');
+                throw new InvalidArgumentException('Invalid arguments: '. $error['message']);
             default:
-                throw new RuntimeException('Invalid request/response');
+                throw new RuntimeException('Invalid request/response: '. $error['message'], $error['code']);
         }
     }
 

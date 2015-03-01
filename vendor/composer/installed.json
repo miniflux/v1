@@ -1,44 +1,5 @@
 [
     {
-        "name": "fguillot/simple-validator",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fguillot/simpleValidator.git",
-            "reference": "9e9502c88ce239901c0fee12a1f504948342ab42"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/simpleValidator/zipball/9e9502c88ce239901c0fee12a1f504948342ab42",
-            "reference": "9e9502c88ce239901c0fee12a1f504948342ab42",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2015-01-21 02:00:33",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "SimpleValidator": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Frédéric Guillot",
-                "homepage": "http://fredericguillot.com"
-            }
-        ],
-        "description": "The most easy to use validator library for PHP :)",
-        "homepage": "https://github.com/fguillot/simpleValidator"
-    },
-    {
         "name": "fguillot/picodb",
         "version": "v0.0.2",
         "version_normalized": "0.0.2.0",
@@ -117,24 +78,63 @@
         "homepage": "https://github.com/fguillot/picoFarad"
     },
     {
+        "name": "fguillot/simple-validator",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fguillot/simpleValidator.git",
+            "reference": "5ebdb6df4c5f3aa2539b633eb4ae94c9e8c4ada7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fguillot/simpleValidator/zipball/5ebdb6df4c5f3aa2539b633eb4ae94c9e8c4ada7",
+            "reference": "5ebdb6df4c5f3aa2539b633eb4ae94c9e8c4ada7",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2015-02-14 21:04:14",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "SimpleValidator": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frédéric Guillot",
+                "homepage": "http://fredericguillot.com"
+            }
+        ],
+        "description": "The most easy to use validator library for PHP :)",
+        "homepage": "https://github.com/fguillot/simpleValidator"
+    },
+    {
         "name": "fguillot/json-rpc",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/JsonRPC.git",
-            "reference": "514695af758060b2c89fd67c59a04ac5da91481a"
+            "reference": "d64090706507dccab53e35ad5fcf00ae2502c647"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/JsonRPC/zipball/514695af758060b2c89fd67c59a04ac5da91481a",
-            "reference": "514695af758060b2c89fd67c59a04ac5da91481a",
+            "url": "https://api.github.com/repos/fguillot/JsonRPC/zipball/d64090706507dccab53e35ad5fcf00ae2502c647",
+            "reference": "d64090706507dccab53e35ad5fcf00ae2502c647",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2015-02-02 22:12:09",
+        "time": "2015-02-13 03:20:58",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -162,12 +162,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "c6f0742ccda390c81782f788e289cd5d8b555c3a"
+            "reference": "beac91bf7cda7057d470c495b6616ced44ef1936"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/c6f0742ccda390c81782f788e289cd5d8b555c3a",
-            "reference": "c6f0742ccda390c81782f788e289cd5d8b555c3a",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/beac91bf7cda7057d470c495b6616ced44ef1936",
+            "reference": "beac91bf7cda7057d470c495b6616ced44ef1936",
             "shasum": ""
         },
         "require": {
@@ -178,7 +178,7 @@
             "ext-xml": "*",
             "php": ">=5.3.0"
         },
-        "time": "2015-02-06 02:06:33",
+        "time": "2015-03-01 18:36:28",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

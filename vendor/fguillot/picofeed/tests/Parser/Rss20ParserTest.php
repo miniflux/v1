@@ -1,8 +1,9 @@
 <?php
+
 namespace PicoFeed\Parser;
 
 use PHPUnit_Framework_TestCase;
-
+use DateTime;
 
 class Rss20ParserTest extends PHPUnit_Framework_TestCase
 {
@@ -89,11 +90,11 @@ class Rss20ParserTest extends PHPUnit_Framework_TestCase
     {
         $parser = new Rss20(file_get_contents('tests/fixtures/rss20.xml'));
         $feed = $parser->execute();
-        $this->assertEquals(1359066183, $feed->getDate());
+        $this->assertEquals(1359066183, $feed->getDate()->getTimestamp());
 
         $parser = new Rss20(file_get_contents('tests/fixtures/fulltextrss.xml'));
         $feed = $parser->execute();
-        $this->assertEquals(time(), $feed->getDate(), '', 1);
+        $this->assertEquals(new DateTime, $feed->getDate());
     }
 
     public function testFeedLanguage()
@@ -171,12 +172,12 @@ class Rss20ParserTest extends PHPUnit_Framework_TestCase
         $parser = new Rss20(file_get_contents('tests/fixtures/rss20.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
-        $this->assertEquals(1357006940, $feed->items[1]->getDate());
+        $this->assertEquals(1357006940, $feed->items[1]->getDate()->getTimestamp());
 
         $parser = new Rss20(file_get_contents('tests/fixtures/fulltextrss.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
-        $this->assertEquals(1365781095, $feed->items[0]->getDate());
+        $this->assertEquals(1365781095, $feed->items[0]->getDate()->getTimestamp());
     }
 
     public function testItemLanguage()
@@ -202,6 +203,14 @@ class Rss20ParserTest extends PHPUnit_Framework_TestCase
 
     public function testItemContent()
     {
+        $parser = new Rss20(file_get_contents('tests/fixtures/allgemeine-zeitung.xml'));
+        $feed = $parser->execute();
+        $this->assertNotEmpty($feed->items);
+        $this->assertEquals(
+            '<p>OBER-FLÖRSHEIM - (red). Sein erheblich beschädigtes Fahrzeug hat ein Fahrer in der Nacht von Donnerstag auf Freitag mitten auf der Ober-Flörsheimer Hauptstraße stehen lassen. Beim Verlassen des Autos in Richtung ...</p>',
+            $feed->items[2]->getContent()
+        );
+
         $parser = new Rss20(file_get_contents('tests/fixtures/rss20.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);

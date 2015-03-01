@@ -477,7 +477,7 @@ function update_all($feed_id, array $items)
                     'id' => $item->getId(),
                     'title' => $item->getTitle(),
                     'url' => $item->getUrl(),
-                    'updated' => $item->getDate(),
+                    'updated' => $item->getDate()->getTimestamp(),
                     'author' => $item->getAuthor(),
                     'content' => $nocontent ? '' : $item->getContent(),
                     'status' => 'unread',

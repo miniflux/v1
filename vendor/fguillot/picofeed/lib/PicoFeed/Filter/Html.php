@@ -2,8 +2,8 @@
 
 namespace PicoFeed\Filter;
 
-use \PicoFeed\Client\Url;
-use \PicoFeed\Parser\XmlParser;
+use PicoFeed\Client\Url;
+use PicoFeed\Parser\XmlParser;
 
 /**
  * HTML Filter class
@@ -121,6 +121,8 @@ class Html
      */
     public function execute()
     {
+        $this->preFilter();
+
         $parser = xml_parser_create();
 
         xml_set_object($parser, $this);
@@ -133,6 +135,16 @@ class Html
         $this->postFilter();
 
         return $this->output;
+    }
+
+    /**
+     * Called before XML parsing
+     *
+     * @access public
+     */
+    public function preFilter()
+    {
+        $this->input = $this->tag->removeBlacklistedTags($this->input);
     }
 
     /**
