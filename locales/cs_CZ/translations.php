@@ -151,7 +151,7 @@ return array(
     '%d hour ago' => array('před hodinou', 'před %d hodinami', 'před %d hodinami'),
     '%d day ago' => array('včera', 'před %d dny', 'před %d dny'),
     '%d week ago' => array('minulý týden', 'před %d týdny', 'před %d týdny'),
-    '%d month ago' => array('před měsícem', 'před %d měsíci', 'před %d měsíci'),,
+    '%d month ago' => array('před měsícem', 'před %d měsíci', 'před %d měsíci'),
     'Timezone' => 'Časová zóna',
     'Update all subscriptions' => 'Aktualizovat všechny odběry',
     'Auto-Update URL' => 'URL automatické aktualizace',
