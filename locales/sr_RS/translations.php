@@ -146,7 +146,7 @@ return array(
     'Passwords don\'t match' => 'Лозинке нису исте',
     'Do you really want to remove these items from your history?' => 'Да ли стварно желите да уклоните ове ставке из ваше историје ?',
     'Do you really want to remove this subscription: "%s"?' => 'Да ли стварно желите да уклоните ову претплату : « %s » ?',
-    'Nothing to read, do you want to %supdate your subscriptions%s?' => 'Нема ничег за читање, желите ли да %sажурирате ваше претплате?%s ?',
+    'Nothing to read, do you want to %supdate your subscriptions%s?' => 'Нема ничег за читање, желите ли да %sажурирате ваше претплате%s?',
     'Show help' => 'Покажи помоћ',
     'Close help' => 'Затвори помоћ',
     '%d second ago' => array('Пре %d секунду', 'Пре %d секунде', 'Пре %d секунди'),
