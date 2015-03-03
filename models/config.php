@@ -89,6 +89,7 @@ function get_languages()
         'pt_BR' => 'Português',
         'zh_CN' => '简体中国',
 	'sr_RS' => 'српски',
+	'sr_RS@latin' => 'srpski',
     );
 }
 
