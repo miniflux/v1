@@ -195,7 +195,7 @@ return array(
     'Json-RPC API' => 'API Json-RPC',
     'Fever API' => 'Fever',
     'Translations' => 'Prevodi',
-    'Run Miniflux with Docker' => 'Koristi Miniflus kroz Docker',
+    'Run Miniflux with Docker' => 'Koristi Minifluks kroz Docker',
     'FAQ' => 'ČPP (Često postavljana pitanja)',
     'settings' => 'opcije',
     'help' => 'pomoć',
