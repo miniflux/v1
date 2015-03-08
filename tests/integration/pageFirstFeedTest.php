@@ -394,26 +394,50 @@ class pageFirstFeedTest extends minifluxTestCase
 
     public function testMarkFeedReadHeaderLink()
     {
+        // load different fixture and reload the page
+        $backupDataTester = static::$databaseTester;
+
+        static::$databaseTester = NULL;
+
+        $dataset = $this->getDataSet('fixture_feed1_extra_long', 'fixture_feed2');
+        $this->getDatabaseTester($dataset)->onSetUp();
+
+        static::$databaseTester = $backupDataTester;
+        $this->refresh();
+
+        // start the "real" test
         $link = $this->getLinkFeedMarkReadHeader();
         $link->click();
 
         $read = $this->waitForArticlesMarkRead();
         $this->assertTrue($read, 'there are still unread articles');
 
-        $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterPage = 120;
         $this->expectedCounterUnread = 2;
         $this->expectedDataSet = $this->getDataSet('expected_MarkFeedRead', 'fixture_feed2');
     }
 
     public function testMarkFeedReadBottomLink()
     {
+        // load different fixture and reload the page
+        $backupDataTester = static::$databaseTester;
+
+        static::$databaseTester = NULL;
+
+        $dataset = $this->getDataSet('fixture_feed1_extra_long', 'fixture_feed2');
+        $this->getDatabaseTester($dataset)->onSetUp();
+
+        static::$databaseTester = $backupDataTester;
+        $this->refresh();
+
+        // start the "real" test
         $link = $this->getLinkFeedMarkReadBottom();
         $link->click();
 
         $read = $this->waitForArticlesMarkRead();
         $this->assertTrue($read, 'there are still unread articles');
 
-        $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE;
+        $this->expectedCounterPage = 120;
         $this->expectedCounterUnread = 2;
         $this->expectedDataSet = $this->getDataSet('expected_MarkFeedRead', 'fixture_feed2');
     }
