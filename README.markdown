@@ -14,7 +14,7 @@ Features
 - Open external links inside a new tab with a `rel="noreferrer"` attribute
 - Use secure HTTP headers (only external images and Youtube/Vimeo/Dailymotion videos are allowed)
 - Article content is filtered before being displayed
-- Translated in English, French, German, Italian, Czech, Spanish, Portuguese and Simplified Chinese
+- Translated in English, French, German, Italian, Czech, Spanish, Portuguese, Serbian and Simplified Chinese
 - RTL languages support
 - Keyboard shortcuts
 - Full article download for feeds that display only a summary
@@ -111,6 +111,7 @@ People who sent a pull-request, report a bug, make a new theme or share a super 
 - [Mathias Kresin](https://github.com/mkresin)
 - [Maxime](https://github.com/EpocDotFr)
 - [Meradoou](https://github.com/meradoou)
+- [Miloš Jovanović](https://github.com/mrjovanovic)
 - [MonsieurPaulLeBoulanger](https://github.com/MonsieurPaulLeBoulanger)
 - [Necku](https://github.com/Necku)
 - [Nicolas Dewaele](http://adminrezo.fr/)
