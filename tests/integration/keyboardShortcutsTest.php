@@ -5,6 +5,15 @@ class keyboardShortcutTest extends minifluxTestCase
     const DEFAULT_COUNTER_PAGE = 8;
     const DEFAULT_COUNTER_UNREAD = 6;
 
+    protected function setUp()
+    {
+        if ($this->getBrowser() === "firefox") {
+            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
+        }
+
+        parent::setUp();
+    }
+
     public function setUpPage()
     {
         $url = $this->getURLPageFirstFeed();
@@ -31,6 +40,10 @@ class keyboardShortcutTest extends minifluxTestCase
 
     public function testNextItemShortcutA()
     {
+        if ($this->getBrowser() === "firefox") {
+            $this->markTestSkipped('The key property isn\'t properly set with selenium');
+        }
+
         $articles = $this->getArticles();
 
         $this->setArticleAsCurrentArticle($articles[0]);

@@ -168,15 +168,23 @@ Router\get_action('mark-as-read', function() {
 // Mark all unread items as read for a specific feed
 Router\get_action('mark-feed-as-read', function() {
 
-    Model\Item\mark_feed_as_read(Request\int_param('feed_id'));
-    Response\redirect('?action=feeds');
+    $feed_id = Request\int_param('feed_id');
+
+    Model\Item\mark_feed_as_read($feed_id);
+
+    Response\redirect('?action=feed-items&feed_id='.$feed_id);
 });
 
-// Mark all unread items as read for a specific feed (Ajax request)
+// Mark all unread items as read for a specific feed (Ajax request) and return
+// the number of unread items. It's not possible to get the number of items
+// that where marked read from the frontend, since the number of unread items
+// on page 2+ is unknown.
 Router\post_action('mark-feed-as-read', function() {
 
     Model\Item\mark_feed_as_read(Request\int_param('feed_id'));
-    Response\json(array('OK'));
+    $nb_items = Model\Item\count_by_status('unread');
+
+    Response\raw($nb_items);
 });
 
 // Mark sent items id as read (Ajax request)

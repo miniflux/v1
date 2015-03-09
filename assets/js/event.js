@@ -104,30 +104,35 @@ Miniflux.Event = (function() {
 
                 Miniflux.Event.lastEventType = "keyboard";
 
-                queue.push(e.keyCode || e.which);
+                queue.push(e.key || e.which);
 
-                if (queue[0] === 103) { // g
+                if (queue[0] === 'g' || queue[0] === 103) {
 
                     switch (queue[1]) {
                         case undefined:
                             break;
-                        case 117: // u
+                        case 'u':
+                        case 117:
                             window.location.href = "?action=unread";
                             queue = [];
                             break;
-                        case 98: // b
+                        case 'b':
+                        case 98:
                             window.location.href = "?action=bookmarks";
                             queue = [];
                             break;
-                        case 104: // h
+                        case 'h':
+                        case 104:
                             window.location.href = "?action=history";
                             queue = [];
                             break;
-                        case 115: // s
+                        case 's':
+                        case 115:
                             window.location.href = "?action=feeds";
                             queue = [];
                             break;
-                        case 112: // p
+                        case 'p':
+                        case 112:
                             window.location.href = "?action=config";
                             queue = [];
                             break;
@@ -144,43 +149,57 @@ Miniflux.Event = (function() {
                         return document.getElementById("current-item");
                     }();
 
-                    switch (e.keyCode || e.which) {
-                        case 100: // d
+                    switch (e.key || e.which) {
+                        case 'd':
+                        case 100:
                             currentItem && Miniflux.Item.DownloadContent(currentItem);
                             break;
-                        case 112: // p
-                        case 107: // k
+                        case 'p':
+                        case 112:
+                        case 'k':
+                        case 107:
                             Miniflux.Nav.SelectPreviousItem();
                             break;
-                        case 110: // n
-                        case 106: // j
+                        case 'n':
+                        case 110:
+                        case 'j':
+                        case 106:
                             Miniflux.Nav.SelectNextItem();
                             break;
-                        case 118: // v
+                        case 'v':
+                        case 118:
                             currentItem && Miniflux.Item.OpenOriginal(currentItem);
                             break;
-                        case 111: // o
+                        case 'o':
+                        case 111:
                             currentItem && Miniflux.Item.Show(currentItem);
                             break;
-                        case 109: // m
+                        case 'm':
+                        case 109:
                             currentItem && Miniflux.Item.SwitchStatus(currentItem);
                             break;
-                        case 102: // f
+                        case 'f':
+                        case 102:
                             currentItem && Miniflux.Item.SwitchBookmark(currentItem);
                             break;
-                        case 104: // h
+                        case 'h':
+                        case 104:
                             Miniflux.Nav.OpenPreviousPage();
                             break
-                        case 108: // l
+                        case 'l':
+                        case 108:
                             Miniflux.Nav.OpenNextPage();
                             break;
-                        case 114: // r
+                        case 'r':
+                        case 114:
                             Miniflux.Feed.UpdateAll();
                             break;
-                        case 63: // ?
+                        case '?':
+                        case 63:
                             Miniflux.Nav.ShowHelp();
                             break;
-                        case 122: // z
+                        case 'z':
+                        case 122:
                             Miniflux.Item.ToggleRTLMode();
                             break;
                     }
@@ -195,11 +214,15 @@ Miniflux.Event = (function() {
 
                 Miniflux.Event.lastEventType = "keyboard";
 
-                switch (e.keyCode || e.which) {
-                    case 37: // left arrow
+                switch (e.key || e.which) {
+                    case "ArrowLeft":
+                    case "Left":
+                    case 37:
                         Miniflux.Nav.SelectPreviousItem();
                         break;
-                    case 39: // right arrow
+                    case "ArrowRight":
+                    case "Right":
+                    case 39:
                         Miniflux.Nav.SelectNextItem();
                         break;
                 }

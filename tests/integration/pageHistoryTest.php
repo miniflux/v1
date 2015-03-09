@@ -66,6 +66,10 @@ class pageHistoryTest extends minifluxTestCase
 
     public function testMarkUnreadNotBookmarkedArticleKeyboard()
     {
+        if ($this->getBrowser() === "firefox") {
+            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
+        }
+
         $article = $this->getArticleReadNotBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -96,6 +100,10 @@ class pageHistoryTest extends minifluxTestCase
 
     public function testMarkUnreadBookmarkedArticleKeyboard()
     {
+        if ($this->getBrowser() === "firefox") {
+            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
+        }
+
         $article = $this->getArticleReadBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -126,6 +134,10 @@ class pageHistoryTest extends minifluxTestCase
 
     public function testBookmarkReadArticleKeyboard()
     {
+        if ($this->getBrowser() === "firefox") {
+            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
+        }
+
         $article = $this->getArticleReadNotBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -156,6 +168,10 @@ class pageHistoryTest extends minifluxTestCase
 
     public function testUnbookmarkReadArticleKeyboard()
     {
+        if ($this->getBrowser() === "firefox") {
+            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
+        }
+
         $article = $this->getArticleReadBookmarked();
 
         $this->setArticleAsCurrentArticle($article);

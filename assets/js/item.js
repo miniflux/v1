@@ -66,6 +66,10 @@ Miniflux.Item = (function() {
 
     function showItemAsRead(item)
     {
+        if (item.getAttribute("data-item-status") === 'read') {
+            return;
+        }
+
         if (item.getAttribute("data-hide")) {
             hideItem(item);
         }
@@ -79,11 +83,14 @@ Miniflux.Item = (function() {
         }
 
         nbUnreadItems--;
-        updateCounters();
     }
 
     function showItemAsUnread(item)
     {
+        if (item.getAttribute("data-item-status") === 'unread') {
+            return;
+        }
+
         if (item.getAttribute("data-hide")) {
             hideItem(item);
         }
@@ -97,7 +104,6 @@ Miniflux.Item = (function() {
         }
 
         nbUnreadItems++;
-        updateCounters();
     }
 
     function hideItem(item)
@@ -168,7 +174,10 @@ Miniflux.Item = (function() {
         var request = new XMLHttpRequest();
 
         request.onload = function() {
-            if (Miniflux.Nav.IsListing()) showItemAsRead(item);
+            if (Miniflux.Nav.IsListing()) {
+                showItemAsRead(item);
+                updateCounters();
+            }
         };
         request.open("POST", "?action=mark-item-read&id=" + item_id, true);
         request.send();
@@ -180,7 +189,10 @@ Miniflux.Item = (function() {
         var request = new XMLHttpRequest();
 
         request.onload = function() {
-            if (Miniflux.Nav.IsListing()) showItemAsUnread(item);
+            if (Miniflux.Nav.IsListing()) {
+                showItemAsUnread(item);
+                updateCounters();
+            }
         };
         request.open("POST", "?action=mark-item-unread&id=" + item_id, true);
         request.send();
@@ -204,10 +216,7 @@ Miniflux.Item = (function() {
     }
 
     return {
-        MarkAsRead: function(item) {
-            var status = item.getAttribute("data-item-status");
-            if (status !== "read") markAsRead(item);
-        },
+        MarkAsRead: markAsRead,
         MarkAsUnread: markAsUnread,
         MarkAsRemoved: markAsRemoved,
         SwitchBookmark: function(item) {
@@ -310,7 +319,14 @@ Miniflux.Item = (function() {
             var request = new XMLHttpRequest();
 
             request.onload = function() {
-                window.location.href = '?action=feeds';
+                var articles = document.getElementsByTagName("article");
+
+                for (var i = 0, ilen = articles.length; i < ilen; i++) {
+                    showItemAsRead(articles[i]);
+                }
+
+                nbUnreadItems = this.responseText;
+                updateCounters();
             };
 
             request.open("POST", "?action=mark-feed-as-read&feed_id=" + feed_id, true);
