@@ -229,5 +229,5 @@ return array(
     'Nothing to show. Enable the debug mode to see log messages.' => 'Rien à montrer. Activez le mode debug pour voir les messages de log.',
     'Enable debug mode' => 'Activer le mode debug',
     'Original link marks article as read' => 'Marquer les articles comme lu lors d\'un clic sur le lien original',
-    'Cloak the image referrer' => 'Cloak the image referrer',
+    'Cloak the image referrer' => 'Falsifier le référent pour les images',
 );
