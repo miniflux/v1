@@ -624,6 +624,7 @@ nav .active a {
     width: 50%;
     display: block;
     float: left;
+    text-align: left;
 }
 
 .nav-right {
@@ -631,6 +632,14 @@ nav .active a {
     margin-left: 50%;
     width: 50%;
     display: block;
+}
+
+.nav-left:before {
+    content: "« ";
+}
+
+.nav-right:after {
+    content: " »";
 }
 
 ul.item-menu,
@@ -771,6 +780,19 @@ iframe {
 .options {
     border-left: 3px dotted #eee;
     padding-left: 20px;
+}
+
+html[dir="rtl"] form,
+html[dir="rtl"] .options,
+html[dir="rtl"] ul.item-infos li {
+    border: none;
+}
+
+html[dir="rtl"] .nav-right:after,
+html[dir="rtl"] .nav-left:before,
+html[dir="rtl"] span.items-count:after,
+html[dir="rtl"] span.items-count:before {
+    content: "";
 }
 
 /* desktop design */

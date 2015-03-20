@@ -81,23 +81,14 @@ namespace Translator {
     }
 
 
-    function get($identifier, $default = '', $values = array())
+    function get($identifier, $default = '', array $values = array())
     {
         $locales = container();
         $translation = $default;
-        $plural = 0;
 
         if (isset($locales[$identifier])) {
             if (is_array($locales[$identifier])) {
-                foreach ($values as $value) {
-                    if (is_numeric($value)) {
-                        $value = abs($value);
-                        $plural = (int)$locales['plural']($value);
-                        break;
-                    }
-                }
-
-                $translation = $locales[$identifier][$plural];
+                $translation = plural($identifier, $default, $values);
             }
             else {
                 $translation = $locales[$identifier];
@@ -107,6 +98,28 @@ namespace Translator {
         return $translation;
     }
 
+
+    function plural($identifier, $default, array $values)
+    {
+        $locales = container();
+        $plural = 0;
+
+        foreach ($values as $value) {
+            if (is_numeric($value)) {
+                $value = abs($value);
+                $plural = (int) $locales['plural']($value);
+                break;
+            }
+        }
+
+        for ($i = $plural; $i >= 0; $i--) {
+            if (isset($locales[$identifier][$i])) {
+                return $locales[$identifier][$i];
+            }
+        }
+
+        return $default;
+    }
 
     function load($language)
     {
@@ -120,9 +133,7 @@ namespace Translator {
             $dir = new \DirectoryIterator($path);
 
             foreach ($dir as $fileinfo) {
-
                 if (strpos($fileinfo->getFilename(), '.php') !== false) {
-
                     $locales = array_merge($locales, include $fileinfo->getPathname());
                 }
             }
@@ -137,7 +148,6 @@ namespace Translator {
         static $values = array();
 
         if ($locales !== null) {
-
             $values = $locales;
         }
 

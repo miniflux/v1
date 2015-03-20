@@ -76,10 +76,21 @@ function get_timezones()
     return array_combine(array_values($timezones), $timezones);
 }
 
+// Returns true if the language is RTL
+function is_language_rtl()
+{
+    $languages = array(
+        'ar_AR'
+    );
+
+    return in_array(get('language'), $languages);
+}
+
 // Get all supported languages
 function get_languages()
 {
     return array(
+        'ar_AR' => 'عربي',
         'cs_CZ' => 'Čeština',
         'de_DE' => 'Deutsch',
         'en_US' => 'English',
@@ -88,8 +99,8 @@ function get_languages()
         'it_IT' => 'Italiano',
         'pt_BR' => 'Português',
         'zh_CN' => '简体中国',
-	'sr_RS' => 'српски',
-	'sr_RS@latin' => 'srpski',
+        'sr_RS' => 'српски',
+        'sr_RS@latin' => 'srpski',
     );
 }
 

@@ -6,7 +6,7 @@
     data-item-bookmark="<?= $item['bookmark'] ?>"
     <?= $hide ? 'data-hide="true"' : '' ?>
     >
-    <h2 <?= Helper\isRTL($item) ? 'dir="rtl"' : '' ?>>
+    <h2 <?= Helper\isRTL($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
         <span class="bookmark-icon"></span>
         <span class="read-icon"></span>
         <?= Helper\favicon($favicons, $item['feed_id']) ?>
@@ -16,11 +16,11 @@
         ><?= Helper\escape($item['title']) ?></a>
     </h2>
     <?php if ($display_mode === 'full'): ?>
-        <div class="preview" <?= Helper\isRTL($item) ? 'dir="rtl"' : '' ?>>
+        <div class="preview" <?= Helper\isRTL($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
             <?= $item['content'] ?>
         </div>
     <?php else: ?>
-        <p class="preview" <?= Helper\isRTL($item) ? 'dir="rtl"' : '' ?>>
+        <p class="preview" <?= Helper\isRTL($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
             <?= Helper\escape(Helper\summary(strip_tags($item['content']), 50, 300)) ?>
         </p>
     <?php endif ?>

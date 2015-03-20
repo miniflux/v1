@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html
+    <?php if (Model\Config\is_language_rtl()): ?>
+        dir="rtl"
+    <?php endif ?>
+>
     <head>
         <meta charset="utf-8">
         <title><?= isset($title) ? Helper\escape($title) : t('Miniflux') ?></title>
