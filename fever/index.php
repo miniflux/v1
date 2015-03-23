@@ -137,7 +137,6 @@ route('items', function() {
 
         $query = Database::get('db')
                         ->table('items')
-                        ->limit(50)
                         ->columns(
                             'rowid',
                             'feed_id',
@@ -148,7 +147,9 @@ route('items', function() {
                             'updated',
                             'status',
                             'bookmark'
-                        );
+                        )
+                        ->limit(50)
+                        ->neq('status', 'removed');
 
         if (isset($_GET['since_id']) && is_numeric($_GET['since_id'])) {
 
