@@ -60,7 +60,7 @@ function authenticate()
             // Update the sequence
             write_cookie(
                 $record['token'],
-                update($record['token'], $record['sequence']),
+                update($record['token']),
                 $record['expiration']
             );
 
@@ -92,7 +92,7 @@ function refresh()
             // Update the sequence
             write_cookie(
                 $record['token'],
-                update($record['token'], $record['sequence']),
+                update($record['token']),
                 $record['expiration']
             );
         }
@@ -191,17 +191,15 @@ function cleanup()
  *
  * @access public
  * @param  string   $token        Session token
- * @param  string   $sequence     Sequence token
  * @return string
  */
-function update($token, $sequence)
+function update($token)
 {
     $new_sequence = Config\generate_token();
 
     Database::get('db')
          ->table(TABLE)
          ->eq('token', $token)
-         ->eq('sequence', $sequence)
          ->update(array('sequence' => $new_sequence));
 
     return $new_sequence;
@@ -268,7 +266,7 @@ function write_cookie($token, $sequence, $expiration)
         $expiration,
         BASE_URL_DIRECTORY,
         null,
-        ! empty($_SERVER['HTTPS']),
+        \Helper\isSecureConnection(),
         true
     );
 }
@@ -301,7 +299,7 @@ function delete_cookie()
         time() - 3600,
         BASE_URL_DIRECTORY,
         null,
-        ! empty($_SERVER['HTTPS']),
+        \Helper\isSecureConnection(),
         true
     );
 }

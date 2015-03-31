@@ -133,8 +133,12 @@ class Server
      * @param  mixed    $class        Class name or instance
      * @param  string   $method       Procedure name
      */
-    public function bind($procedure, $class, $method)
+    public function bind($procedure, $class, $method = '')
     {
+        if ($method === '') {
+            $method = $procedure;
+        }
+
         $this->classes[$procedure] = array($class, $method);
     }
 

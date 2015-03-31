@@ -123,18 +123,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/JsonRPC.git",
-            "reference": "d64090706507dccab53e35ad5fcf00ae2502c647"
+            "reference": "d0feab084422fa937da10e3551196b1c6fdf6918"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/JsonRPC/zipball/d64090706507dccab53e35ad5fcf00ae2502c647",
-            "reference": "d64090706507dccab53e35ad5fcf00ae2502c647",
+            "url": "https://api.github.com/repos/fguillot/JsonRPC/zipball/d0feab084422fa937da10e3551196b1c6fdf6918",
+            "reference": "d0feab084422fa937da10e3551196b1c6fdf6918",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2015-02-13 03:20:58",
+        "time": "2015-03-25 23:55:18",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -162,12 +162,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "8973f403ff6c16fb5200cfac44a58111c564b60d"
+            "reference": "7c28753d5936ba635435a8e0e941dcabee67b243"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/8973f403ff6c16fb5200cfac44a58111c564b60d",
-            "reference": "8973f403ff6c16fb5200cfac44a58111c564b60d",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/7c28753d5936ba635435a8e0e941dcabee67b243",
+            "reference": "7c28753d5936ba635435a8e0e941dcabee67b243",
             "shasum": ""
         },
         "require": {
@@ -181,7 +181,7 @@
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2015-03-25 18:09:25",
+        "time": "2015-03-30 23:34:59",
         "bin": [
             "picofeed"
         ],
