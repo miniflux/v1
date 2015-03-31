@@ -229,7 +229,7 @@ function decode_cookie($value)
 {
     @list($database, $token, $sequence) = explode('|', $value);
 
-    if (! DatabaseModel\select(base64_decode($database))) {
+    if (ENABLE_MULTIPLE_DB && ! DatabaseModel\select(base64_decode($database))) {
         return false;
     }
 
