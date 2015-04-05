@@ -64,12 +64,11 @@ class pageHistoryTest extends minifluxTestCase
         $this->expectedDataSet = $this->getDataSet('expected_MarkUnreadNotBookmarkedArticle', 'fixture_feed2');
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testMarkUnreadNotBookmarkedArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleReadNotBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -98,12 +97,11 @@ class pageHistoryTest extends minifluxTestCase
         $this->expectedDataSet = $this->getDataSet('expected_MarkUnreadBookmarkedArticle', 'fixture_feed2');
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testMarkUnreadBookmarkedArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleReadBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -132,12 +130,11 @@ class pageHistoryTest extends minifluxTestCase
         $this->expectedDataSet = $this->getDataSet('expected_BookmarkReadArticle', 'fixture_feed2');
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testBookmarkReadArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleReadNotBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -166,12 +163,11 @@ class pageHistoryTest extends minifluxTestCase
         $this->expectedDataSet = $this->getDataSet('expected_UnbookmarkReadArticle', 'fixture_feed2');
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testUnbookmarkReadArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleReadBookmarked();
 
         $this->setArticleAsCurrentArticle($article);

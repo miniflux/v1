@@ -64,12 +64,11 @@ class pageBookmarksTest extends minifluxTestCase
         $this->expectedDataSet = $this->getDataSet('expected_MarkReadBookmarkedArticle', 'fixture_feed2');
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testMarkReadBookmarkedArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleUnreadBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -98,12 +97,11 @@ class pageBookmarksTest extends minifluxTestCase
         $this->expectedDataSet = $this->getDataSet('expected_MarkUnreadBookmarkedArticle', 'fixture_feed2');
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testMarkUnreadBookmarkedArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleReadBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -133,12 +131,11 @@ class pageBookmarksTest extends minifluxTestCase
 
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testUnbookmarkReadArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleReadBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -167,12 +164,11 @@ class pageBookmarksTest extends minifluxTestCase
         $this->expectedDataSet = $this->getDataSet('expected_UnbookmarkUnreadArticle', 'fixture_feed2');
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testUnbookmarkUnreadArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleUnreadBookmarked();
 
         $this->setArticleAsCurrentArticle($article);

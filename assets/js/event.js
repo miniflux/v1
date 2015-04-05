@@ -85,7 +85,7 @@ Miniflux.Event = (function() {
                             currentItem && Miniflux.Item.DownloadContent(currentItem);
                             break;
                         case 'mark-all-read':
-                            Miniflux.Item.MarkListingAsRead("?action=unread");
+                            Miniflux.Item.MarkAllAsRead('?action=unread');
                             break;
                         case 'mark-feed-read':
                             Miniflux.Item.MarkFeedAsRead(e.target.getAttribute("data-feed-id"));

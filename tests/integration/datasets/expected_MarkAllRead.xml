@@ -50,7 +50,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -66,7 +66,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -98,7 +98,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.6&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##94</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -121,7 +121,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -137,7 +137,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -153,7 +153,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.7&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##95</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -169,7 +169,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.htm#v1.0.8&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##96</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -185,7 +185,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -201,7 +201,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -217,7 +217,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.3&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##93</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -233,7 +233,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.6&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##94</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -256,7 +256,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -272,7 +272,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -288,7 +288,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.7&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##95</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -304,7 +304,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.htm#v1.0.8&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##96</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -320,7 +320,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -336,7 +336,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -352,7 +352,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.3&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##93</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -368,7 +368,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.6&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##94</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -391,7 +391,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -407,7 +407,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -423,7 +423,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.7&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##95</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -439,7 +439,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.htm#v1.0.8&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##96</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -455,7 +455,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -471,7 +471,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -487,7 +487,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.3&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##93</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -503,7 +503,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.6&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##94</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -526,7 +526,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -542,7 +542,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -558,7 +558,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.7&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##95</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -574,7 +574,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.htm#v1.0.8&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##96</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -590,7 +590,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -606,7 +606,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -622,7 +622,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.3&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##93</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -638,7 +638,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.6&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##94</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -661,7 +661,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -677,7 +677,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -693,7 +693,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.7&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##95</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -709,7 +709,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.htm#v1.0.8&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##96</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -725,7 +725,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -741,7 +741,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -757,7 +757,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.3&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##93</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -773,7 +773,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.6&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##94</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -796,7 +796,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -812,7 +812,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -828,7 +828,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.7&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##95</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -844,7 +844,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.htm#v1.0.8&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##96</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -860,7 +860,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -876,7 +876,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -892,7 +892,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.3&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##93</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -908,7 +908,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.6&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##94</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -931,7 +931,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -947,7 +947,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -963,7 +963,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.7&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##95</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -979,7 +979,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.htm#v1.0.8&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##96</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -995,7 +995,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1011,7 +1011,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1027,7 +1027,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.3&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##93</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1043,7 +1043,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.6&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##94</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1066,7 +1066,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1082,7 +1082,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1098,7 +1098,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.7&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##95</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1114,7 +1114,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.htm#v1.0.8&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##96</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1130,7 +1130,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1146,7 +1146,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1162,7 +1162,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.3&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##93</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1201,7 +1201,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1217,7 +1217,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1265,7 +1265,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1281,7 +1281,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1336,7 +1336,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1352,7 +1352,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1400,7 +1400,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1416,7 +1416,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1471,7 +1471,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1487,7 +1487,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1535,7 +1535,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1551,7 +1551,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1606,7 +1606,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1622,7 +1622,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1670,7 +1670,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1686,7 +1686,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1741,7 +1741,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1757,7 +1757,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1805,7 +1805,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1821,7 +1821,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1837,7 +1837,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.3&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##93</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1853,7 +1853,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.6&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##94</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1876,7 +1876,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1892,7 +1892,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1908,7 +1908,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.7&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##95</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1924,7 +1924,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.htm#v1.0.8&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##96</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1940,7 +1940,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.2&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##92</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1956,7 +1956,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.10&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##97</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -1972,7 +1972,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.3&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##93</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -1988,7 +1988,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.6&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##94</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -2011,7 +2011,7 @@
         &lt;li&gt;Bug fixes&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##99</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -2027,7 +2027,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.11&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##98</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>1</value>
 			<value></value>
@@ -2043,7 +2043,7 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.html#v1.0.7&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##95</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
 			<value>0</value>
 			<value></value>
@@ -2059,8 +2059,64 @@
         &lt;li&gt;&lt;a href=&quot;http://miniflux.net/changes.htm#v1.0.8&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; &gt;ChangeLog&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;</value>
 			<value>##TIMESTAMP##96</value>
-			<value>unread</value>
+			<value>read</value>
 			<value>1</value>
+			<value>1</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>1f4670bf</value>
+			<value>https://github.com/fguillot/miniflux/commit/e1b22f2d3592d653d4c22ce5f137bb1e0ae5dd3f</value>
+			<value>Redirect to the feed page after adding a subscription</value>
+			<value>fguillot</value>
+			<value>&lt;pre&gt;Redirect to the feed page after adding a subscription&lt;/pre&gt;</value>
+			<value>##TIMESTAMP##89</value>
+			<value>read</value>
+			<value>2</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>2063e830</value>
+			<value>https://github.com/fguillot/miniflux/commit/e732e80deed05ea46667957835b2499bb895ebe9</value>
+			<value>Update the Json-RPC library and improve make-archive.sh</value>
+			<value>fguillot</value>
+			<value>&lt;pre&gt;Update the Json-RPC library and improve make-archive.sh&lt;/pre&gt;</value>
+			<value>##TIMESTAMP##88</value>
+			<value>read</value>
+			<value>2</value>
+			<value>0</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>208ee9dd</value>
+			<value>https://github.com/fguillot/miniflux/commit/871f1d1d6410403599c774ad9aa20e55c77162fc</value>
+			<value>Update PicoDb and improve schema migration error handling</value>
+			<value>fguillot</value>
+			<value>&lt;pre&gt;Update PicoDb and improve schema migration error handling&lt;/pre&gt;</value>
+			<value>##TIMESTAMP##87</value>
+			<value>read</value>
+			<value>2</value>
+			<value>1</value>
+			<value></value>
+			<value></value>
+			<value>en-US</value>
+		</row>
+		<row>
+			<value>3530d7cd</value>
+			<value>https://github.com/fguillot/miniflux/commit/d7e5cd0ad424859912fc209651494fad5c52cd34</value>
+			<value>New theme: 'Hello' created by Meradoou</value>
+			<value>fguillot</value>
+			<value>&lt;pre&gt;New theme: &amp;#039;Hello&amp;#039; created by Meradoou&lt;/pre&gt;</value>
+			<value>##TIMESTAMP##86</value>
+			<value>read</value>
+			<value>2</value>
 			<value>1</value>
 			<value></value>
 			<value></value>

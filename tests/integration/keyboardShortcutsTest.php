@@ -7,10 +7,6 @@ class keyboardShortcutTest extends minifluxTestCase
 
     protected function setUp()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         parent::setUp();
     }
 
@@ -38,12 +34,11 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testNextItemShortcutA()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium');
-        }
-
         $articles = $this->getArticles();
 
         $this->setArticleAsCurrentArticle($articles[0]);
@@ -60,6 +55,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testNextItemShortcutB()
     {
         $articles = $this->getArticles();
@@ -78,6 +76,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testNextItemShortcutC()
     {
         $articles = $this->getArticles();
@@ -96,6 +97,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testPreviousItemA()
     {
         $articles = $this->getArticles();
@@ -114,6 +118,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testPreviousItemB()
     {
         $articles = $this->getArticles();
@@ -132,6 +139,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testPreviousItemC()
     {
         $articles = $this->getArticles();
@@ -150,6 +160,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testNextStopsAtLastArticle()
     {
         $articles = $this->getArticles();
@@ -169,6 +182,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testPreviousStopsAtFirstArticle()
     {
         $articles = $this->getArticles();
@@ -188,12 +204,12 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group ie_unsupported
+     * @group moz_unsupported
+     */
     public function testSHIFTModifierIsDisabled()
     {
-        if ($this->getBrowser() === "iexplore") {
-            $this->markTestSkipped('Modifier key test is not supported with Internet Explorer [Selenium issue #4973].');
-        }
-
         $articles = $this->getArticles();
 
         $this->setArticleAsCurrentArticle($articles[0]);
@@ -209,12 +225,12 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group ie_unsupported
+     * @group moz_unsupported
+     */
     public function testALTModifierIsDisabled()
     {
-        if ($this->getBrowser() === "iexplore") {
-            $this->markTestSkipped('Modifier key test is not supported with Internet Explorer [Selenium issue #4973].');
-        }
-
         $articles = $this->getArticles();
 
         $this->setArticleAsCurrentArticle($articles[0]);
@@ -230,12 +246,12 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group ie_unsupported
+     * @group moz_unsupported
+     */
     public function testCTRLModifierIsDisabled()
     {
-        if ($this->getBrowser() === "iexplore") {
-            $this->markTestSkipped('Modifier key test is not supported with Internet Explorer [Selenium issue #4973].');
-        }
-
         $articles = $this->getArticles();
 
         $this->setArticleAsCurrentArticle($articles[0]);
@@ -251,6 +267,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testShortcutsOnInputFiledAreDisabled()
     {
         $url = $this->getURLPagePreferences();
@@ -267,6 +286,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->ignorePageTitle = TRUE;
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testGoToBookmarks()
     {
         $this->sendKeysAndWaitForPageLoaded('gb');
@@ -279,6 +301,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->ignorePageTitle = TRUE;
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testGoToHistory()
     {
         $this->sendKeysAndWaitForPageLoaded('gh');
@@ -291,6 +316,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->ignorePageTitle = TRUE;
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testGoToUnread()
     {
         $this->sendKeysAndWaitForPageLoaded($this->getShortcutGoToUnread());
@@ -303,6 +331,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->ignorePageTitle = TRUE;
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testGoToSubscriptions()
     {
         $this->sendKeysAndWaitForPageLoaded('gs');
@@ -314,6 +345,9 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->ignorePageTitle = TRUE;
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testGoToPreferences()
     {
         $this->sendKeysAndWaitForPageLoaded('gp');

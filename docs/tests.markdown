@@ -86,11 +86,15 @@ The following `phpunit.xml` is used to run phpunit on a linux system with apache
 
 ```
 
+Some tests don't run with every browser. You have to exclude those tests by using the ```--exclude-group``` commandline parameter. The following exclude groups exists:
+
+* moz_unsupported (Due to https://github.com/SeleniumHQ/selenium/issues/386)
+* ie_unsupported (Due to https://code.google.com/p/selenium/issues/detail?id=4973)
+
 You can run the tests by executing phpunit within the Miniflux directory:
 
-
 ```bash
-/usr/local/bin/phpunit
+/usr/local/bin/phpunit --exclude-group ie_unsupported
 
 PHPUnit 4.4.0 by Sebastian Bergmann.
 

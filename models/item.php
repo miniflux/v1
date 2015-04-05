@@ -377,18 +377,6 @@ function mark_all_as_removed()
         ->save(array('status' => 'removed', 'content' => ''));
 }
 
-// Mark only specified items as read
-function mark_items_as_read(array $items_id)
-{
-    Database::get('db')->startTransaction();
-
-    foreach ($items_id as $id) {
-        set_read($id);
-    }
-
-    Database::get('db')->closeTransaction();
-}
-
 // Mark all items of a feed as read
 function mark_feed_as_read($feed_id)
 {

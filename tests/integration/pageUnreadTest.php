@@ -64,12 +64,11 @@ class pageUnreadTest extends minifluxTestCase
         $this->expectedDataSet = $this->getDataSet('expected_MarkReadNotBookmarkedArticle', 'fixture_feed2');
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testMarkReadNotBookmarkedArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleUnreadNotBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -98,12 +97,11 @@ class pageUnreadTest extends minifluxTestCase
         $this->expectedDataSet = $this->getDataSet('expected_MarkReadBookmarkedArticle', 'fixture_feed2');
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testMarkReadBookmarkedArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleUnreadBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -132,12 +130,11 @@ class pageUnreadTest extends minifluxTestCase
         $this->expectedDataSet = $this->getDataSet('expected_BookmarkUnreadArticle', 'fixture_feed2');
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testBookmarkUnreadArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleUnreadNotBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -166,12 +163,11 @@ class pageUnreadTest extends minifluxTestCase
         $this->expectedDataSet = $this->getDataSet('expected_UnbookmarkUnreadArticle', 'fixture_feed2');
     }
 
+    /**
+     * @group moz_unsupported
+     */
     public function testUnbookmarkUnreadArticleKeyboard()
     {
-        if ($this->getBrowser() === "firefox") {
-            $this->markTestSkipped('The key property isn\'t properly set with selenium.');
-        }
-
         $article = $this->getArticleUnreadBookmarked();
 
         $this->setArticleAsCurrentArticle($article);
@@ -217,6 +213,18 @@ class pageUnreadTest extends minifluxTestCase
 
     public function testMarkAllReadHeaderLink()
     {
+        // load different fixture and reload the page
+        $backupDataTester = static::$databaseTester;
+
+        static::$databaseTester = NULL;
+
+        $dataset = $this->getDataSet('fixture_feed1_extra_long', 'fixture_feed2');
+        $this->getDatabaseTester($dataset)->onSetUp();
+
+        static::$databaseTester = $backupDataTester;
+        $this->refresh();
+
+        // start the "real" test
         $link = $this->getLinkMarkAllReadHeader();
         $link->click();
 
@@ -226,13 +234,25 @@ class pageUnreadTest extends minifluxTestCase
         $this->expectedCounterPage = NULL;
         $this->expectedCounterUnread = '';
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds&nothing_to_read=1';
-        $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles');
+        $this->expectedDataSet = $this->getDataSet('expected_MarkAllRead');
 
         $this->ignorePageTitle = TRUE;
     }
 
     public function testMarkAllReadBottomLink()
     {
+        // load different fixture and reload the page
+        $backupDataTester = static::$databaseTester;
+
+        static::$databaseTester = NULL;
+
+        $dataset = $this->getDataSet('fixture_feed1_extra_long', 'fixture_feed2');
+        $this->getDatabaseTester($dataset)->onSetUp();
+
+        static::$databaseTester = $backupDataTester;
+        $this->refresh();
+
+        // start the "real" test
         $link = $this->getLinkMarkAllReadBottom();
         $link->click();
 
@@ -242,7 +262,7 @@ class pageUnreadTest extends minifluxTestCase
         $this->expectedCounterPage = NULL;
         $this->expectedCounterUnread = '';
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds&nothing_to_read=1';
-        $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles');
+        $this->expectedDataSet = $this->getDataSet('expected_MarkAllRead');
 
         $this->ignorePageTitle = TRUE;
     }

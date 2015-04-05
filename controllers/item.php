@@ -159,10 +159,17 @@ Router\post_action('mark-item-unread', function() {
 });
 
 // Mark all unread items as read
-Router\get_action('mark-as-read', function() {
+Router\get_action('mark-all-read', function() {
 
     Model\Item\mark_all_as_read();
     Response\redirect('?action=unread');
+});
+
+// Mark all unread items as read (Ajax request)
+Router\post_action('mark-all-read', function(){
+
+    Model\Item\mark_all_as_read();
+    Response\json(array('OK'));
 });
 
 // Mark all unread items as read for a specific feed
@@ -185,13 +192,6 @@ Router\post_action('mark-feed-as-read', function() {
     $nb_items = Model\Item\count_by_status('unread');
 
     Response\raw($nb_items);
-});
-
-// Mark sent items id as read (Ajax request)
-Router\post_action('mark-items-as-read', function(){
-
-    Model\Item\mark_items_as_read(Request\values());
-    Response\json(array('OK'));
 });
 
 // Mark item as read and redirect to the listing page
