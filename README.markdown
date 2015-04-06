@@ -7,14 +7,14 @@ Features
 --------
 
 - Host almost anywhere
-- Readability (CSS optimized for readability, responsive design)
-- Easy setup => copy and paste the source code and you are done!
+- Readability (CSS optimized for readability, responsive design, compatible with mobile and tablet devices)
+- Easy setup => **copy and paste the source code and you are done!**
 - Use a lightweight Sqlite database instead of Mysql or Postgresql
 - Remove Feedburner Ads and analytics trackers (1x1 pixels)
 - Open external links inside a new tab with a `rel="noreferrer"` attribute
 - Use secure HTTP headers (only external images and Youtube/Vimeo/Dailymotion videos are allowed)
 - Article content is filtered before being displayed
-- Translated in English, French, German, Italian, Czech, Spanish, Portuguese, Serbian and Simplified Chinese
+- Translated in Arabic, English, French, German, Italian, Czech, Spanish, Portuguese, Serbian and Simplified Chinese
 - RTL languages support
 - Keyboard shortcuts
 - Full article download for feeds that display only a summary
