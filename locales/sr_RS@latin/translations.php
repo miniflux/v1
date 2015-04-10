@@ -231,4 +231,11 @@ return array(
     'Original link marks article as read' => 'Klik na originalnu vezu obeležava članak pročitanim',
     'Cloak the image referrer' => 'Prikrivaj referatora slika',
     // 'This subscription already exists.' => '',
+    // 'Connection timeout.' => '',
+    // 'Error occured.' => '',
+    // 'Feed is malformed.' => '',
+    // 'Invalid SSL certificate.' => '',
+    // 'Maximum number of HTTP redirections exceeded.' => '',
+    // 'The content size exceeds to maximum allowed size.' => '',
+    // 'Unable to detect the feed format.' => '',
 );

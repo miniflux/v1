@@ -3,6 +3,7 @@
 require __DIR__.'/common.php';
 
 use JsonRPC\Server;
+use PicoFeed\PicoFeedException;
 
 $server = new Server;
 $server->authentication(array(
@@ -24,7 +25,16 @@ $server->register('feed.info', function ($feed_id) {
 // Add a new feed
 $server->register('feed.create', function($url) {
 
-    $result = Model\Feed\create($url);
+    try {
+        $result = Model\Feed\create($url);
+    }
+    catch (PicoFeedException $e) {
+        $result = false;
+    }
+    catch (UnexpectedValueException $e) {
+        $result = false;
+    }
+
     Model\Config\write_debug();
 
     return $result;

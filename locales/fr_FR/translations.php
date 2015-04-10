@@ -231,4 +231,11 @@ return array(
     'Original link marks article as read' => 'Marquer les articles comme lu lors d\'un clic sur le lien original',
     'Cloak the image referrer' => 'Falsifier le référent pour les images',
     'This subscription already exists.' => 'Cet abonnement existe déjà.',
+    'Connection timeout.' => 'Connection timeout.',
+    'Error occured.' => 'Error occured.',
+    'Feed is malformed.' => 'Feed is malformed.',
+    'Invalid SSL certificate.' => 'Invalid SSL certificate.',
+    'Maximum number of HTTP redirections exceeded.' => 'Maximum number of HTTP redirections exceeded.',
+    'The content size exceeds to maximum allowed size.' => 'The content size exceeds to maximum allowed size.',
+    'Unable to detect the feed format.' => 'Unable to detect the feed format.',
 );

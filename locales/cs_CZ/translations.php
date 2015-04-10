@@ -231,4 +231,11 @@ return array(
     'Original link marks article as read' => 'Původní odkaz označí článek za přečtený',
     'Cloak the image referrer' => 'Zamaskovat původce obrázků',
     // 'This subscription already exists.' => '',
+    // 'Connection timeout.' => '',
+    // 'Error occured.' => '',
+    // 'Feed is malformed.' => '',
+    // 'Invalid SSL certificate.' => '',
+    // 'Maximum number of HTTP redirections exceeded.' => '',
+    // 'The content size exceeds to maximum allowed size.' => '',
+    // 'Unable to detect the feed format.' => '',
 );
