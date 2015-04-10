@@ -129,10 +129,10 @@ Router\get_action('feeds', function() {
 // Display form to add one feed
 Router\get_action('add', function() {
 
+    $values = array('download_content' => 0, 'rtl' => 0, 'cloak_referrer' => 0);
+
     Response\html(Template\layout('add', array(
-        'values' => array(
-            'csrf' => Model\Config\generate_csrf(),
-        ),
+        'values' => $values + array('csrf' => Model\Config\generate_csrf()),
         'errors' => array(),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'feeds',
@@ -158,9 +158,8 @@ Router\action('subscribe', function() {
         }
     }
 
-    $values += array('download_content' => 0, 'rtl' => 0, 'cloak_referrer' => 0);
-    $url = trim($url);
-    $feed_id = Model\Feed\create($url, $values['download_content'], $values['rtl'], $values['cloak_referrer']);
+    $values += array('url' => trim($url), 'download_content' => 0, 'rtl' => 0, 'cloak_referrer' => 0);
+    $feed_id = Model\Feed\create($values['url'], $values['download_content'], $values['rtl'], $values['cloak_referrer']);
 
     if ($feed_id) {
         Session\flash(t('Subscription added successfully.'));
@@ -171,10 +170,7 @@ Router\action('subscribe', function() {
     }
 
     Response\html(Template\layout('add', array(
-        'values' => array(
-            'url' => $url,
-            'csrf' => Model\Config\generate_csrf(),
-        ),
+        'values' => $values + array('csrf' => Model\Config\generate_csrf()),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'feeds',
         'title' => t('Subscriptions')
