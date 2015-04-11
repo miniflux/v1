@@ -21,13 +21,13 @@
     <?= Helper\form_label(t('Feed URL'), 'feed_url') ?>
     <?= Helper\form_text('feed_url', $values, $errors, array('required', 'placeholder="http://..."')) ?>
 
-    <?= Helper\form_checkbox('rtl', t('Force RTL mode (Right-to-left language)'), 1, isset($values['rtl']) ? $values['rtl'] : false) ?><br />
+    <?= Helper\form_checkbox('rtl', t('Force RTL mode (Right-to-left language)'), 1, $values['rtl']) ?><br />
 
-    <?= Helper\form_checkbox('download_content', t('Download full content'), 1, isset($values['download_content']) ? $values['download_content'] : false) ?><br />
+    <?= Helper\form_checkbox('download_content', t('Download full content'), 1, $values['download_content']) ?><br />
 
-    <?= Helper\form_checkbox('cloak_referrer', t('Cloak the image referrer'), 1, isset($values['cloak_referrer']) ? $values['cloak_referrer'] : false) ?><br />
+    <?= Helper\form_checkbox('cloak_referrer', t('Cloak the image referrer'), 1, $values['cloak_referrer']) ?><br />
 
-    <?= Helper\form_checkbox('enabled', t('Activated'), 1, isset($values['enabled']) ? $values['enabled'] : false) ?>
+    <?= Helper\form_checkbox('enabled', t('Activated'), 1, $values['enabled']) ?>
 
     <div class="form-actions">
         <button type="submit" class="btn btn-blue"><?= t('Save') ?></button>

@@ -100,10 +100,10 @@ function update(array $values)
                 'title' => $values['title'],
                 'site_url' => $values['site_url'],
                 'feed_url' => $values['feed_url'],
-                'enabled' => empty($values['enabled']) ? 0 : $values['enabled'],
-                'rtl' => empty($values['rtl']) ? 0 : $values['rtl'],
-                'download_content' => empty($values['download_content']) ? 0 : $values['download_content'],
-                'cloak_referrer' => empty($values['cloak_referrer']) ? 0 : $values['cloak_referrer'],
+                'enabled' => $values['enabled'],
+                'rtl' => $values['rtl'],
+                'download_content' => $values['download_content'],
+                'cloak_referrer' => $values['cloak_referrer'],
             ));
 }
 
