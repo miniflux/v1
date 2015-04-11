@@ -2,7 +2,7 @@
 
 namespace Helper;
 
-function isSecureConnection()
+function is_secure_connection()
 {
     return ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
 }
