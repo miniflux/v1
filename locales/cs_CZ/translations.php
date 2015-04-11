@@ -230,4 +230,5 @@ return array(
     'Enable debug mode' => 'Povolit ladící režim',
     'Original link marks article as read' => 'Původní odkaz označí článek za přečtený',
     'Cloak the image referrer' => 'Zamaskovat původce obrázků',
+    // 'This subscription already exists.' => '',
 );

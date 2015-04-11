@@ -5,6 +5,7 @@ return array(
     'attachment' => 'المرفقات',
     'When there is nothing to read, redirect me to this page' => ':عندما تكون كل العناوين قد تمت قرائتها قم بتحويلي مباشرة إلى',
     'There is nothing new to read, enjoy your favorites articles!' => 'ليس هناك شيء جديد للقراءة، ! إستمتع بقراءة مالديك في مفضلاتك',
+    // 'There is nothing new to read, enjoy your previous readings!' => '',
     'Immediately' => 'حالاً',
     '(error occurred during the last check)' => '(هناك خطأ خلال عملية التحديث الأخيره)',
     'The feed id is required' => 'تغذية الخلاصات مطلوب',
@@ -37,8 +38,7 @@ return array(
     'Subscribe with Miniflux' => 'للإشتراك بواسطة ميني فلكس',
     'Drag and drop this link to your bookmarks' => 'سحب وإسقاط هذا الرابط إلى المواقع في مفضلاتك',
     'Download full content' => 'تحميل المحتوى كاملاً',
-    'Downloading full content is slower because Miniflux grab the content from the original website. You should use that for subscriptions that display only a summary. This feature doesn\'t work with all websites.' =>
-    ' يرجى ملاحظة أن عملية تحميل المحتوى كاملاً ستكون بطيئةً ، و ذلك لإن برنامج ميني فلكس يقوم بإستخراج المحتوى من الموقع الأصلي. وعليه، يجب إستخدام هذه الخاصية فقط للمواقع التي لا تقدم خلاصلات بمحتوى كامل  يرجى ملاحظة أن هذه الخاصية قد لا تعمل بشكل جيد مع بعض المواقع الإلكترونية',
+    'Downloading full content is slower because Miniflux grab the content from the original website. You should use that for subscriptions that display only a summary. This feature doesn\'t work with all websites.' => ' يرجى ملاحظة أن عملية تحميل المحتوى كاملاً ستكون بطيئةً ، و ذلك لإن برنامج ميني فلكس يقوم بإستخراج المحتوى من الموقع الأصلي. وعليه، يجب إستخدام هذه الخاصية فقط للمواقع التي لا تقدم خلاصلات بمحتوى كامل  يرجى ملاحظة أن هذه الخاصية قد لا تعمل بشكل جيد مع بعض المواقع الإلكترونية',
     'No message' => 'لا توجد رسائل',
     'flush messages' => 'مسح التنبيهات و رسائل الخطأ',
     'API endpoint:' => 'API endpoint (خاص بالمطورين): ',
@@ -230,4 +230,5 @@ return array(
     'Enable debug mode' => 'تفعيل وضح التصحيح',
     'Original link marks article as read' => 'تحويل العنوان إلى مقروء بمجرد النقر على الرابط الأصلي للعنوان',
     'Cloak the image referrer' => 'Cloak the image referrer',
+    // 'This subscription already exists.' => '',
 );

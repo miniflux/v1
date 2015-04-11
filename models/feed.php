@@ -160,7 +160,7 @@ function create($url, $enable_grabber = false, $force_rtl = false, $cloak_referr
 
         // Feed already there
         if ($db->table('feeds')->eq('feed_url', $resource->getUrl())->count()) {
-            return false;
+            return -2;
         }
 
         // Parse the feed
@@ -204,7 +204,7 @@ function create($url, $enable_grabber = false, $force_rtl = false, $cloak_referr
     catch (PicoFeedException $e) {}
 
     Config\write_debug();
-    return false;
+    return -1;
 }
 
 // Refresh all feeds

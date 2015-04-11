@@ -230,4 +230,5 @@ return array(
     'Enable debug mode' => 'Activer le mode debug',
     'Original link marks article as read' => 'Marquer les articles comme lu lors d\'un clic sur le lien original',
     'Cloak the image referrer' => 'Falsifier le référent pour les images',
+    'This subscription already exists.' => 'Cet abonnement existe déjà.',
 );

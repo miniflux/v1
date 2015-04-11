@@ -161,9 +161,12 @@ Router\action('subscribe', function() {
     $values += array('url' => trim($url), 'download_content' => 0, 'rtl' => 0, 'cloak_referrer' => 0);
     $feed_id = Model\Feed\create($values['url'], $values['download_content'], $values['rtl'], $values['cloak_referrer']);
 
-    if ($feed_id) {
+    if ($feed_id > 0) {
         Session\flash(t('Subscription added successfully.'));
         Response\redirect('?action=feed-items&feed_id='.$feed_id);
+    }
+    else if ($feed_id === -2) {
+        Session\flash_error(t('This subscription already exists.'));
     }
     else {
         Session\flash_error(t('Unable to find a subscription.'));

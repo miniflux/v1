@@ -230,4 +230,5 @@ return array(
     // 'Enable debug mode' => '',
     // 'Original link marks article as read' => '',
     // 'Cloak the image referrer' => '',
+    // 'This subscription already exists.' => '',
 );
