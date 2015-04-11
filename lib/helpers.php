@@ -61,7 +61,7 @@ function css()
 
 function get_current_base_url()
 {
-    $url = isSecureConnection() ? 'https://' : 'http://';
+    $url = is_secure_connection() ? 'https://' : 'http://';
     $url .= $_SERVER['SERVER_NAME'];
     $url .= $_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443 ? '' : ':'.$_SERVER['SERVER_PORT'];
     $url .= dirname($_SERVER['PHP_SELF']) !== '/' ? dirname($_SERVER['PHP_SELF']).'/' : '/';
