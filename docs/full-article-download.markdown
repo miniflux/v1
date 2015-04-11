@@ -10,12 +10,10 @@ How the content grabber works?
 2. Try to find the text content by using common attributes for class and id
 3. Finally, if nothing is found, the feed content is displayed
 
-The content downloader use a fake user agent, actually Google Chrome under Mac Os X.
-
 However the content grabber doesn't work very well with all websites.
+Especially websites that use a lot of Javascript to generate the content.
 
 **The best results are obtained with Xpath rules file.**
-
 
 How to write a grabber rules file?
 ----------------------------------
@@ -48,9 +46,15 @@ return array(
 );
 ```
 
-Actually, only `body`, `strip` and `test_url` are supported.
+Actually, only the keys `body`, `strip` and `test_url` are supported.
 
-Don't forget to send a pull request or a ticket to share your contribution with everybody.
+Miniflux will try first to find the file in the [default bundled rules directory](https://github.com/miniflux/miniflux/tree/master/vendor/fguillot/picofeed/lib/PicoFeed/Rules), then it will try to load your custom rules.
+
+Sharing your custom rules with the community
+--------------------------------------------
+
+If you would like to share your custom rules with everybody, send a pull-request to the project [PicoFeed](https://github.com/fguillot/picofeed).
+That will be merged in the Miniflux code base.
 
 List of content grabber rules
 -----------------------------
