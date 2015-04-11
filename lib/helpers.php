@@ -10,7 +10,7 @@ function isSecureConnection()
 /*
  * get Version number from git archive output
  */
-function parseAppVersion($refnames, $commithash)
+function parse_app_version($refnames, $commithash)
 {
     $version = 'master';
 
@@ -38,7 +38,7 @@ function favicon(array $favicons, $feed_id)
     return '';
 }
 
-function isRTL(array $item)
+function is_rtl(array $item)
 {
     return ! empty($item['rtl']) || \PicoFeed\Parser\Parser::isLanguageRTL($item['language']);
 }

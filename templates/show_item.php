@@ -29,7 +29,7 @@
         </nav>
         <?php endif ?>
 
-        <h1 <?= Helper\isRTL($item + array('rtl' => $feed['rtl'])) ? 'dir="rtl"' : 'dir="ltr"' ?>>
+        <h1 <?= Helper\is_rtl($item + array('rtl' => $feed['rtl'])) ? 'dir="rtl"' : 'dir="ltr"' ?>>
             <a href="<?= $item['url'] ?>" rel="noreferrer" target="_blank" class="original"><?= Helper\escape($item['title']) ?></a>
         </h1>
 
@@ -64,7 +64,7 @@
             </li>
         </ul>
 
-        <div id="item-content" <?= Helper\isRTL($item + array('rtl' => $feed['rtl']))  ? 'dir="rtl"' : 'dir="ltr"' ?>>
+        <div id="item-content" <?= Helper\is_rtl($item + array('rtl' => $feed['rtl']))  ? 'dir="rtl"' : 'dir="ltr"' ?>>
 
             <?php if ($item['enclosure']): ?>
                 <?php if (strpos($item['enclosure_type'], 'audio') !== false): ?>

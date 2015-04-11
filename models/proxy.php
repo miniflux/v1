@@ -11,7 +11,7 @@ use PicoFeed\Logging\Logger;
 
 function addProxyToLink($link)
 {
-    if (Helper\isSecureConnection() && strpos($link, 'http:') === 0) {
+    if (Helper\is_secure_connection() && strpos($link, 'http:') === 0) {
         $link = '?action=proxy&url='.rawurlencode($link);
     }
 
@@ -22,7 +22,7 @@ function addProxyToTags($html, $website, $proxy_images, $cloak_referrer)
 {
     if ($html === '' // no content, no proxy
         || (! $cloak_referrer && ! $proxy_images) // neither cloaking nor proxing enabled
-        || (! $cloak_referrer && $proxy_images && ! Helper\isSecureConnection())) { // only proxy enabled, but not connected via HTTPS
+        || (! $cloak_referrer && $proxy_images && ! Helper\is_secure_connection())) { // only proxy enabled, but not connected via HTTPS
 
         return $html;
     }
@@ -35,7 +35,7 @@ function addProxyToTags($html, $website, $proxy_images, $cloak_referrer)
         // they do not trigger mixed content warnings.
         $config->setFilterImageProxyProtocol('http');
     }
-    elseif (! $proxy_images && $cloak_referrer && Helper\isSecureConnection()) {
+    elseif (! $proxy_images && $cloak_referrer && Helper\is_secure_connection()) {
         // cloaking mode only: if a request from a HTTPS connection to a HTTP
         // connection is made, the referrer will be omitted by the browser.
         // Only the referrer for HTTPS to HTTPs requests needs to be cloaked.
