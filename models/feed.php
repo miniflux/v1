@@ -2,6 +2,7 @@
 
 namespace Model\Feed;
 
+use UnexpectedValueException;
 use Model\Config;
 use Model\Item;
 use SimpleValidator\Validator;
@@ -161,7 +162,7 @@ function create($url, $enable_grabber = false, $force_rtl = false, $cloak_referr
 
     // Feed already there
     if ($db->table('feeds')->eq('feed_url', $resource->getUrl())->count()) {
-        throw new \UnexpectedValueException;
+        throw new UnexpectedValueException;
     }
 
     // Parse the feed
