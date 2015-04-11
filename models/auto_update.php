@@ -17,6 +17,7 @@ function get_files_list($directory)
         'data',
         'scripts',
         'config.php',
+        'rules',
     );
 
     $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory), RecursiveIteratorIterator::SELF_FIRST);

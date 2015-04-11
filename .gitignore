@@ -45,3 +45,4 @@ Thumbs.db
 config.php
 !models/*
 !controllers/*
+rules/*.php

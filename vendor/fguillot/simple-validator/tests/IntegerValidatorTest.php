@@ -1,8 +1,5 @@
 <?php
 
-require_once 'src/SimpleValidator/Base.php';
-require_once 'src/SimpleValidator/Validators/Integer.php';
-
 use SimpleValidator\Validators\Integer;
 
 class IntegerValidatorTest extends PHPUnit_Framework_TestCase

@@ -1,11 +1,5 @@
 <?php
 
-require_once 'src/SimpleValidator/Base.php';
-require_once 'src/SimpleValidator/Validator.php';
-require_once 'src/SimpleValidator/Validators/Integer.php';
-require_once 'src/SimpleValidator/Validators/Numeric.php';
-require_once 'src/SimpleValidator/Validators/Required.php';
-
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 

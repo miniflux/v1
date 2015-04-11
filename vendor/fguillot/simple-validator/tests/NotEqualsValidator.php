@@ -1,8 +1,5 @@
 <?php
 
-require_once 'src/SimpleValidator/Base.php';
-require_once 'src/SimpleValidator/Validators/Email.php';
-
 use SimpleValidator\Validators\NotEquals;
 
 class EmailValidatorTest extends PHPUnit_Framework_TestCase

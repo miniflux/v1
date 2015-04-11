@@ -1,8 +1,5 @@
 <?php
 
-require_once 'src/SimpleValidator/Base.php';
-require_once 'src/SimpleValidator/Validators/Range.php';
-
 use SimpleValidator\Validators\Range;
 
 class RangeValidatorTest extends PHPUnit_Framework_TestCase

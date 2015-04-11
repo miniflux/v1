@@ -1,9 +1,5 @@
 <?php
 
-require_once 'src/SimpleValidator/Base.php';
-require_once 'src/SimpleValidator/Validators/Unique.php';
-require_once 'src/SimpleValidator/Validators/Exists.php';
-
 use SimpleValidator\Validators\Exists;
 
 class ExistsValidatorTest extends PHPUnit_Framework_TestCase

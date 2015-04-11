@@ -1,8 +1,5 @@
 <?php
 
-require_once 'src/SimpleValidator/Base.php';
-require_once 'src/SimpleValidator/Validators/AlphaNumeric.php';
-
 use SimpleValidator\Validators\AlphaNumeric;
 
 class AlphaNumericValidatorTest extends PHPUnit_Framework_TestCase

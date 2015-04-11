@@ -1,8 +1,5 @@
 <?php
 
-require_once 'src/SimpleValidator/Base.php';
-require_once 'src/SimpleValidator/Validators/Required.php';
-
 use SimpleValidator\Validators\Required;
 
 class RequiredValidatorTest extends PHPUnit_Framework_TestCase

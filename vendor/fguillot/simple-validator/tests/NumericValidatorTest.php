@@ -1,8 +1,5 @@
 <?php
 
-require_once 'src/SimpleValidator/Base.php';
-require_once 'src/SimpleValidator/Validators/Numeric.php';
-
 use SimpleValidator\Validators\Numeric;
 
 class NumericValidatorTest extends PHPUnit_Framework_TestCase

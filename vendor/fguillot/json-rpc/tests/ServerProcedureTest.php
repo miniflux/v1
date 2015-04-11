@@ -1,7 +1,5 @@
 <?php
 
-require_once 'src/JsonRPC/Server.php';
-
 use JsonRPC\Server;
 
 class A

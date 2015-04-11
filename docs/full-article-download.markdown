@@ -20,7 +20,7 @@ However the content grabber doesn't work very well with all websites.
 How to write a grabber rules file?
 ----------------------------------
 
-Add a PHP file to the directory `vendor/fguillot/picofeed/lib/PicoFeed/Rules`, the filename must be the domain name:
+Add a PHP file to the directory `rules`, the filename must be the domain name with the suffix `.php`:
 
 Example with the BBC website, `www.bbc.co.uk.php`:
 
@@ -55,6 +55,4 @@ Don't forget to send a pull request or a ticket to share your contribution with 
 List of content grabber rules
 -----------------------------
 
-[List of existing rules on the repository](https://github.com/miniflux/miniflux/tree/master/vendor/fguillot/picofeed/lib/PicoFeed/Rules)
-
-If you want to add new rules, just open a ticket and I will do it.
+[List of rules included by default](https://github.com/miniflux/miniflux/tree/master/vendor/fguillot/picofeed/lib/PicoFeed/Rules).

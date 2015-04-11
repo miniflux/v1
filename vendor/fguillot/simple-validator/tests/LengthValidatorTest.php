@@ -1,8 +1,5 @@
 <?php
 
-require_once 'src/SimpleValidator/Base.php';
-require_once 'src/SimpleValidator/Validators/Length.php';
-
 use SimpleValidator\Validators\Length;
 
 class LengthValidatorTest extends PHPUnit_Framework_TestCase

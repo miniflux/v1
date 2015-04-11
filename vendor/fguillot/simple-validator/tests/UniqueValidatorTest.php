@@ -1,8 +1,5 @@
 <?php
 
-require_once 'src/SimpleValidator/Base.php';
-require_once 'src/SimpleValidator/Validators/Unique.php';
-
 use SimpleValidator\Validators\Unique;
 
 class UniqueValidatorTest extends PHPUnit_Framework_TestCase

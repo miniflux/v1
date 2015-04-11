@@ -1,7 +1,5 @@
 <?php
 
-require_once 'src/JsonRPC/Client.php';
-
 use JsonRPC\Client;
 
 class ClientTest extends PHPUnit_Framework_TestCase
