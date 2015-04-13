@@ -158,6 +158,7 @@ label {
 
 input[type="checkbox"] {
     border: 1px solid #ccc;
+    margin-right: 0.5em;
 }
 
 input[type="email"],
