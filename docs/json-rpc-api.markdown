@@ -109,6 +109,34 @@ Array
 Procedures
 ----------
 
+### app.version
+
+Get the application version.
+
+- **Arguments:** None
+- **Return:** Software version
+
+Request:
+
+```bash
+curl \
+-u "demo:swB3/nSo1CB1X2F" \
+-d '{"jsonrpc": "2.0", "method": "app.version", "id": 1}' \
+https://miniflux.net/demo/jsonrpc.php
+```
+
+Response:
+
+```json
+{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result": {
+    "version":"master"
+  }
+}
+```
+
 ### feed.list
 
 Get the list of subscriptions.

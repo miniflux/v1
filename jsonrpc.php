@@ -10,6 +10,12 @@ $server->authentication(array(
     \Model\Config\get('username') => \Model\Config\get('api_token')
 ));
 
+// Get version
+$server->register('app.version', function () {
+
+    return array('version' => APP_VERSION);
+});
+
 // Get all feeds
 $server->register('feed.list', function () {
 
