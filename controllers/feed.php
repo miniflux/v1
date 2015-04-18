@@ -193,6 +193,8 @@ Router\action('subscribe', function() {
         $error_message = t('Unable to detect the feed format.');
     }
 
+    Model\Config\write_debug();
+
     if (isset($feed_id) && $feed_id !== false) {
         Session\flash(t('Subscription added successfully.'));
         Response\redirect('?action=feed-items&feed_id='.$feed_id);

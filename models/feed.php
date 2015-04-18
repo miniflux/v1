@@ -198,8 +198,6 @@ function create($url, $enable_grabber = false, $force_rtl = false, $cloak_referr
         fetch_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
     }
 
-    Config\write_debug();
-
     return $feed_id;
 }
 
