@@ -298,16 +298,6 @@ Miniflux.Item = (function() {
             request.open("POST", "?action=download-item&id=" + item_id, true);
             request.send();
         },
-        MarkAllAsRead: function(redirect) {
-            var request = new XMLHttpRequest();
-
-            request.onload = function() {
-                window.location.href = redirect;
-            };
-
-            request.open("POST", "?action=mark-all-read", true);
-            request.send();
-        },
         MarkFeedAsRead: function(feed_id) {
             var request = new XMLHttpRequest();
 

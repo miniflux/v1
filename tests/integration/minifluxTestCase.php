@@ -536,13 +536,13 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
     public function getLinkMarkAllReadHeader()
     {
-        $link = $this->element($this->using('css selector')->value('div.page-header a[data-action="mark-all-read"]'));
+        $link = $this->element($this->using('css selector')->value('div.page-header a[href|="?action=mark-all-read"]'));
         return $link;
     }
 
     public function getLinkMarkAllReadBottom()
     {
-        $link = $this->element($this->using('css selector')->value('div#bottom-menu a[data-action="mark-all-read"]'));
+        $link = $this->element($this->using('css selector')->value('div#bottom-menu a[href|="?action=mark-all-read"]'));
         return $link;
     }
 

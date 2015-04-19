@@ -165,13 +165,6 @@ Router\get_action('mark-all-read', function() {
     Response\redirect('?action=unread');
 });
 
-// Mark all unread items as read (Ajax request)
-Router\post_action('mark-all-read', function(){
-
-    Model\Item\mark_all_as_read();
-    Response\json(array('OK'));
-});
-
 // Mark all unread items as read for a specific feed
 Router\get_action('mark-feed-as-read', function() {
 
