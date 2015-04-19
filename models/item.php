@@ -10,7 +10,7 @@ use PicoFeed\Client\Grabber;
 use PicoFeed\Filter\Filter;
 
 // Get all items without filtering
-function get_everything()
+function get_all()
 {
     return Database::get('db')
         ->table('items')
@@ -37,7 +37,7 @@ function get_everything()
 }
 
 // Get everthing since date (timestamp)
-function get_everything_since($timestamp)
+function get_all_since($timestamp)
 {
     return Database::get('db')
         ->table('items')
@@ -90,7 +90,7 @@ function get_all_status()
 }
 
 // Get all items by status
-function get_all($status, $offset = null, $limit = null, $order_column = 'updated', $order_direction = 'desc')
+function get_all_by_status($status, $offset = null, $limit = null, $order_column = 'updated', $order_direction = 'desc')
 {
     return Database::get('db')
         ->table('items')

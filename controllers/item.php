@@ -15,7 +15,7 @@ Router\get_action('unread', function() {
     $order = Request\param('order', 'updated');
     $direction = Request\param('direction', Model\Config\get('items_sorting_direction'));
     $offset = Request\int_param('offset', 0);
-    $items = Model\Item\get_all('unread', $offset, Model\Config\get('items_per_page'), $order, $direction);
+    $items = Model\Item\get_all_by_status('unread', $offset, Model\Config\get('items_per_page'), $order, $direction);
     $nb_items = Model\Item\count_by_status('unread');
 
     if ($nb_items === 0) {
