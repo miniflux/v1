@@ -123,5 +123,6 @@ People who sent a pull-request, report a bug, make a new theme or share a super 
 - [Tobi](https://github.com/tobir)
 - Vincent Ozanam
 - [Ygbillet](https://github.com/ygbillet)
+- [小秦](https://github.com/xqin)
 
 Many people also sent bug reports and feature requests.
