@@ -7,7 +7,6 @@ use Model\Config;
 use PicoDb\Database;
 use PicoFeed\Logging\Logger;
 use PicoFeed\Client\Grabber;
-use PicoFeed\Filter\Filter;
 
 // Get all items without filtering
 function get_all()
@@ -325,37 +324,6 @@ function set_bookmark_value($id, $value)
         ->eq('id', $id)
         ->in('status', array('read', 'unread'))
         ->save(array('bookmark' => $value));
-}
-
-// Swap item status read <-> unread
-function switch_status($id)
-{
-    $item = Database::get('db')
-        ->table('items')
-        ->columns('status')
-        ->eq('id', $id)
-        ->findOne();
-
-    if ($item['status'] == 'unread') {
-
-        Database::get('db')
-            ->table('items')
-            ->eq('id', $id)
-            ->save(array('status' => 'read'));
-
-        return 'read';
-    }
-    else {
-
-        Database::get('db')
-            ->table('items')
-            ->eq('id', $id)
-            ->save(array('status' => 'unread'));
-
-        return 'unread';
-    }
-
-    return '';
 }
 
 // Mark all unread items as read

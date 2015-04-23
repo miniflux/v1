@@ -3,7 +3,6 @@
 use PicoFarad\Router;
 use PicoFarad\Response;
 use PicoFarad\Request;
-use PicoFarad\Session;
 use PicoFarad\Template;
 
 // Logout and destroy session

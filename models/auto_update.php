@@ -4,7 +4,6 @@ namespace Model\AutoUpdate;
 
 use ZipArchive;
 use DirectoryIterator;
-use RecursiveIterator;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use Model\Config;

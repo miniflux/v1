@@ -100,21 +100,6 @@ function refresh()
 }
 
 /**
- * Remove a session record
- *
- * @access public
- * @param  integer  $session_id   Session id
- * @return mixed
- */
-function remove($session_id)
-{
-    return Database::get('db')
-                ->table(TABLE)
-                ->eq('id', $session_id)
-                ->remove();
-}
-
-/**
  * Remove the current RememberMe session and the cookie
  *
  * @access public

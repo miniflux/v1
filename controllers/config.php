@@ -172,6 +172,7 @@ Router\post_action('config', function() {
     )));
 });
 
+// Get configuration parameters (AJAX request)
 Router\post_action('get-config', function() {
     $return = array();
     $options = Request\values();

@@ -3,7 +3,6 @@
 use PicoFarad\Router;
 use PicoFarad\Response;
 use PicoFarad\Request;
-use PicoFarad\Session;
 use PicoFarad\Template;
 
 // Display unread items
@@ -124,17 +123,6 @@ Router\post_action('download-item', function() {
     $download['content'] = Model\Proxy\addProxyToTags($download['content'], $item['url'], Model\Config\get('image_proxy'), $feed['cloak_referrer']);
 
     Response\json($download);
-});
-
-// Ajax call change item status
-Router\post_action('change-item-status', function() {
-
-    $id = Request\param('id');
-
-    Response\json(array(
-        'item_id' => $id,
-        'status' => Model\Item\switch_status($id)
-    ));
 });
 
 // Ajax call to mark item read
