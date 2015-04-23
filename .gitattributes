@@ -6,6 +6,7 @@ common.php export-subst
 # git files
 .gitattributes export-ignore
 .gitignore export-ignore
+.gitkeep export-ignore
 
 # core
 data/*.sqlite export-ignore
@@ -19,12 +20,12 @@ Dockerfile export-ignore
 
 # composer files
 composer.json export-ignore
+composer.lock export-ignore
 vendor/composer/installed.json export-ignore
 
-# theme sources
-**/scss/ export-ignore
-**/less/ export-ignore
-**/*.rb export-ignore
+# binaries
+vendor/bin/ export-ignore
+vendor/fguillot/picofeed/picofeed export-ignore
 
 # unittests
 phpunit.xml export-ignore
