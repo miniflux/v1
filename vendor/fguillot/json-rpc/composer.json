@@ -1,9 +1,9 @@
 {
     "name": "fguillot/json-rpc",
-    "description": "A simple Json-RPC client/server library that just works",
+    "description": "Simple Json-RPC client/server library that just works",
     "homepage": "https://github.com/fguillot/JsonRPC",
     "type": "library",
-    "license": "Unlicense",
+    "license": "MIT",
     "authors": [
         {
             "name": "Frédéric Guillot",

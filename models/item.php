@@ -6,7 +6,7 @@ use Model\Service;
 use Model\Config;
 use PicoDb\Database;
 use PicoFeed\Logging\Logger;
-use PicoFeed\Client\Grabber;
+use PicoFeed\Scraper\Scraper;
 
 // Get all items without filtering
 function get_all()
@@ -520,12 +520,12 @@ function download_content_url($url)
 {
     $content = '';
 
-    $grabber = new Grabber($url);
-    $grabber->setConfig(Config\get_reader_config());
-    $grabber->download();
+    $grabber = new Scraper(Config\get_reader_config());
+    $grabber->setUrl($url);
+    $grabber->execute();
 
-    if ($grabber->parse()) {
-        $content = $grabber->getFilteredcontent();
+    if ($grabber->hasRelevantContent()) {
+        $content = $grabber->getFilteredContent();
     }
 
     return $content;

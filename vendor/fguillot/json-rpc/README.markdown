@@ -11,7 +11,7 @@ Features
 - Authentication and IP based client restrictions
 - Minimalist: there is only 2 files
 - Fully unit tested
-- License: Unlicense http://unlicense.org/
+- License: MIT
 
 Requirements
 ------------

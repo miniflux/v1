@@ -10,7 +10,7 @@ Features
 - No dependency
 - Easy to use, fast and very lightweight
 - Only 4 files: Request, Response, Router and Session
-- License: Do what the fuck you want with that
+- License: MIT
 
 Requirements
 ------------

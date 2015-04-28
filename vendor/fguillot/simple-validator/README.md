@@ -22,13 +22,7 @@ Requirements
 Author
 ------
 
-Frédéric Guillot: [http://fredericguillot.com](http://fredericguillot.com)
-
-
-Source code
------------
-
-On Github: [https://github.com/fguillot/simpleValidator](https://github.com/fguillot/simpleValidator)
+Frédéric Guillot
 
 
 License
@@ -164,10 +158,10 @@ Example:
 
     phpunit --bootstrap vendor/autoload.php tests
     PHPUnit 4.4.2 by Sebastian Bergmann.
-    
+
     ............
-    
+
     Time: 69 ms, Memory: 3.75Mb
-    
+
     OK (12 tests, 149 assertions)
 

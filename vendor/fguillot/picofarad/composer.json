@@ -3,7 +3,7 @@
     "description": "Minimalist micro-framework",
     "homepage": "https://github.com/fguillot/picoFarad",
     "type": "library",
-    "license": "Unlicense",
+    "license": "MIT",
     "authors": [
         {
             "name": "Frédéric Guillot",

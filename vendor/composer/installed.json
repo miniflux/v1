@@ -45,18 +45,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFarad.git",
-            "reference": "1bc48a4367adf359f3439c2e0ae20a7d299d8ccd"
+            "reference": "a5817c49ca3037829ec1509d14724be5f29c35a0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFarad/zipball/1bc48a4367adf359f3439c2e0ae20a7d299d8ccd",
-            "reference": "1bc48a4367adf359f3439c2e0ae20a7d299d8ccd",
+            "url": "https://api.github.com/repos/fguillot/picoFarad/zipball/a5817c49ca3037829ec1509d14724be5f29c35a0",
+            "reference": "a5817c49ca3037829ec1509d14724be5f29c35a0",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2015-02-01 19:40:13",
+        "time": "2015-04-14 01:53:02",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -66,7 +66,7 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "Unlicense"
+            "MIT"
         ],
         "authors": [
             {
@@ -84,18 +84,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/simpleValidator.git",
-            "reference": "41655dc7b9224395f5bb3b5623f6e428fe6d64e8"
+            "reference": "2f30078bb6e688cf123c150d58fda322792a1532"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/simpleValidator/zipball/41655dc7b9224395f5bb3b5623f6e428fe6d64e8",
-            "reference": "41655dc7b9224395f5bb3b5623f6e428fe6d64e8",
+            "url": "https://api.github.com/repos/fguillot/simpleValidator/zipball/2f30078bb6e688cf123c150d58fda322792a1532",
+            "reference": "2f30078bb6e688cf123c150d58fda322792a1532",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2015-04-05 21:44:06",
+        "time": "2015-04-14 02:03:43",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -109,8 +109,7 @@
         ],
         "authors": [
             {
-                "name": "Frédéric Guillot",
-                "homepage": "http://fredericguillot.com"
+                "name": "Frédéric Guillot"
             }
         ],
         "description": "The most easy to use validator library for PHP :)",
@@ -123,18 +122,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/JsonRPC.git",
-            "reference": "29d63a09ecd450d5e29fef74f687aab221055910"
+            "reference": "1a397be7739ddabba87b07f0354655bd91087518"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/JsonRPC/zipball/29d63a09ecd450d5e29fef74f687aab221055910",
-            "reference": "29d63a09ecd450d5e29fef74f687aab221055910",
+            "url": "https://api.github.com/repos/fguillot/JsonRPC/zipball/1a397be7739ddabba87b07f0354655bd91087518",
+            "reference": "1a397be7739ddabba87b07f0354655bd91087518",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2015-04-05 21:49:38",
+        "time": "2015-04-14 01:50:16",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -144,7 +143,7 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "Unlicense"
+            "MIT"
         ],
         "authors": [
             {
@@ -152,7 +151,7 @@
                 "homepage": "http://fredericguillot.com"
             }
         ],
-        "description": "A simple Json-RPC client/server library that just works",
+        "description": "Simple Json-RPC client/server library that just works",
         "homepage": "https://github.com/fguillot/JsonRPC"
     },
     {
@@ -162,12 +161,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "273c344b35b468b6c8053f635332c3a404f8c7b9"
+            "reference": "a6087e8264550891c1b8a6da77eca0cab9328709"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/273c344b35b468b6c8053f635332c3a404f8c7b9",
-            "reference": "273c344b35b468b6c8053f635332c3a404f8c7b9",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/a6087e8264550891c1b8a6da77eca0cab9328709",
+            "reference": "a6087e8264550891c1b8a6da77eca0cab9328709",
             "shasum": ""
         },
         "require": {
@@ -181,7 +180,7 @@
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2015-04-11 12:46:50",
+        "time": "2015-04-27 22:22:06",
         "bin": [
             "picofeed"
         ],
@@ -194,7 +193,7 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "Unlicense"
+            "MIT"
         ],
         "authors": [
             {
