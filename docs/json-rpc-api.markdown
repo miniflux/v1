@@ -25,7 +25,7 @@ Under the web user interface of Miniflux, go to the menu **preferences**, scroll
 
 You must have these information:
 
-- API endpoint: `https://miniflux.net/[username]/jsonrpc.php`
+- API endpoint: `https://username.miniflux.net/jsonrpc.php`
 - API username: `username`
 - API token: `swB3/nSo1CB1X2F` (random token)
 
@@ -47,7 +47,7 @@ Examples
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "feed.create", "params": {"url": "http://images.apple.com/main/rss/hotnews/hotnews.rss"}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Success output:
@@ -70,7 +70,7 @@ Here is an example to fetch all bookmarks.
 ```php
 use JsonRPC\Client;
 
-$client = new Client('https://miniflux.net/demo/jsonrpc.php');
+$client = new Client('https://demo.miniflux.net/jsonrpc.php');
 $client->authentication('demo', 'swB3/nSo1CB1X2F');
 
 $result = $client->execute('item.bookmark.list');
@@ -122,7 +122,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "app.version", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -151,7 +151,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "feed.list", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -212,7 +212,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "feed.info", "params": {"feed_id": 1}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -250,7 +250,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "feed.create", "params": {"url": "http://images.apple.com/main/rss/hotnews/hotnews.rss"}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -273,7 +273,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "feed.delete", "params": {"feed_id": 5}, id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -299,7 +299,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "feed.delete_all", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -325,7 +325,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "feed.update", "params": {"feed_id": 1}, id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -351,7 +351,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.feed.list", "params": {"feed_id": 1}, id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -401,7 +401,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.feed.count", "params": {"feed_id": 1}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -427,7 +427,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.bookmark.list", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -467,7 +467,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.bookmark.count", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -493,7 +493,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.bookmark.create", "params": {"item_id": "1fd17ad3"}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -519,7 +519,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.bookmark.delete", "params": {"item_id": "1fd17ad3"}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -545,7 +545,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.list_unread", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -585,7 +585,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.count_unread", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -611,7 +611,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.list_read", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -650,7 +650,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.count_read", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -675,7 +675,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.info", "params": {"item_id": "bcc94722"}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -711,7 +711,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.delete", "params": {"item_id": "bcc94722"}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -737,7 +737,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.mark_as_read", "params": {"item_id": "1fd17ad3"}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -763,7 +763,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.mark_as_read", "params": {"item_id": "1fd17ad3"}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -788,7 +788,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.flush", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -814,7 +814,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.mark_all_as_read", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -840,7 +840,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.set_list_status", "params": {"status": "unread", "items": ["1fd17ad3", "bcc94722"]}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -865,7 +865,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.get_all", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -905,7 +905,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.get_all_status", "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
@@ -942,7 +942,7 @@ Request:
 curl \
 -u "demo:swB3/nSo1CB1X2F" \
 -d '{"jsonrpc": "2.0", "method": "item.get_all_since", "params": {"timestamp": 1392467820}, "id": 1}' \
-https://miniflux.net/demo/jsonrpc.php
+https://demo.miniflux.net/jsonrpc.php
 ```
 
 Response:
