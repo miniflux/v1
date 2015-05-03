@@ -3,6 +3,7 @@
 require '../common.php';
 
 use Model\Feed;
+use Model\Service;
 use PicoDb\Database;
 
 // Route handler
@@ -262,6 +263,14 @@ route('write_items', function() {
 
         if ($_POST['as'] === 'saved') {
             $query->update(array('bookmark' => 1));
+
+            // Send bookmark to third-party services if enabled
+            $item_id = Database::get('db')
+                            ->table('items')
+                            ->eq('rowid', $_POST['id'])
+                            ->findOneColumn('id');
+
+            Service\push($item_id);
         }
         else if ($_POST['as'] === 'unsaved') {
             $query->update(array('bookmark' => 0));
