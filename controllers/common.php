@@ -50,6 +50,7 @@ Router\before(function($action) {
         'media-src' => '*',
         'img-src' => '*',
         'frame-src' => Model\Config\get_iframe_whitelist(),
+        'referrer' => 'no-referrer',
     ));
 
     Response\xframe();
