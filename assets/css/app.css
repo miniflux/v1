@@ -91,6 +91,8 @@ table {
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
+    /* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=975632 */
+    table-layout: fixed;
 }
 
 table caption {
@@ -466,6 +468,7 @@ nav .active a {
     visibility: hidden;
 }
 
+/* items listing */
 .items article[data-feed-error] .feed-parsing-error {
     visibility: visible;
     color: #000;
@@ -473,7 +476,6 @@ nav .active a {
     font-weight: normal;
 }
 
-/* items listing */
 .items article {
     border: 1px dotted #ddd;
     margin-bottom: 20px;
