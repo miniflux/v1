@@ -16,7 +16,7 @@
         ><?= Helper\escape($item['title']) ?></a>
     </h2>
     <?php if ($display_mode === 'full'): ?>
-        <div class="preview" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
+        <div class="preview-full-content" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
             <?= $item['content'] ?>
         </div>
     <?php else: ?>
