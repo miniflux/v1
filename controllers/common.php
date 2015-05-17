@@ -55,6 +55,10 @@ Router\before(function($action) {
     Response\xframe();
     Response\xss();
     Response\nosniff();
+
+    if (ENABLE_HSTS && Helper\is_secure_connection()) {
+        Response\hsts();
+    }
 });
 
 // Show help

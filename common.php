@@ -33,6 +33,8 @@ defined('AUTO_UPDATE_BACKUP_DIRECTORY') or define('AUTO_UPDATE_BACKUP_DIRECTORY'
 
 defined('RULES_DIRECTORY') or define('RULES_DIRECTORY', ROOT_DIRECTORY.DIRECTORY_SEPARATOR.'rules');
 
+defined('ENABLE_HSTS') or define('ENABLE_HSTS', true);
+
 require __DIR__.'/check_setup.php';
 
 PicoDb\Database::bootstrap('db', function() {
