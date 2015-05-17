@@ -50,14 +50,18 @@ function addProxyToTags($html, $website, $proxy_images, $cloak_referrer)
 
 function download($url)
 {
-    if ((bool) Config\get('debug_mode')) {
-        Logger::enable();
-    }
+    try {
 
-    $client = Client::getInstance();
-    $client->setUserAgent(Config\HTTP_USER_AGENT);
-    $client->enablePassthroughMode();
-    $client->execute($url);
+        if ((bool) Config\get('debug_mode')) {
+            Logger::enable();
+        }
+
+        $client = Client::getInstance();
+        $client->setUserAgent(Config\HTTP_USER_AGENT);
+        $client->enablePassthroughMode();
+        $client->execute($url);
+    }
+    catch (\PicoFeed\Client\ClientException $e) {}
 
     Config\write_debug();
 }
