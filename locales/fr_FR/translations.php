@@ -224,7 +224,7 @@ return array(
     'Avoid mixed content warnings with HTTPS' => 'Évite les alertes du navigateur web en HTTPS',
     'Download favicons' => 'Télécharger les icônes des sites web',
     'general' => 'général',
-    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'Une erreur est survenue pendant la dernière vérification. Actualisez, le flux manuellement and vérifiez les erreurs dans la %sconsole%s !',
+    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'Une erreur est survenue pendant la dernière vérification. Actualisez le flux manuellement et vérifiez les erreurs dans la %sconsole%s !',
     'Refresh interval in minutes for unread counter' => 'Fréquence d\'actualisation en minute du compteur de non lus',
     'Nothing to show. Enable the debug mode to see log messages.' => 'Rien à montrer. Activez le mode debug pour voir les messages de log.',
     'Enable debug mode' => 'Activer le mode debug',
