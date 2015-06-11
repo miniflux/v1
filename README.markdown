@@ -95,6 +95,7 @@ People who sent a pull-request, report a bug, make a new theme or share a super 
 - [Derjus](https://github.com/derjus)
 - [Eauland](https://github.com/eauland)
 - [Félix](https://github.com/dysosmus)
+- [Filimonov Denis](https://github.com/denfil)
 - [Geriel Castro](https://github.com/GerielCastro)
 - [Hika0](https://github.com/hika0)
 - [Horsely](https://github.com/horsley)
