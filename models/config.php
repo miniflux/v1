@@ -103,6 +103,7 @@ function get_languages()
         'zh_CN' => '简体中国',
         'sr_RS' => 'српски',
         'sr_RS@latin' => 'srpski',
+        'ru_RU' => 'Русский',
     );
 }
 
