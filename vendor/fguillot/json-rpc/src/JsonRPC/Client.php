@@ -24,6 +24,15 @@ class Client
     private $url;
 
     /**
+     * If the only argument passed to a function is an array
+     * assume it contains named arguments
+     *
+     * @access public
+     * @var boolean
+     */
+    public $named_arguments = true;
+
+    /**
      * HTTP client timeout
      *
      * @access private
@@ -78,7 +87,6 @@ class Client
      * @var array
      */
     private $headers = array(
-        'Connection: close',
         'Content-Type: application/json',
         'Accept: application/json'
     );
@@ -88,6 +96,13 @@ class Client
      * @var boolean
      */
     public $ssl_verify_peer = true;
+
+    /**
+     * cURL handle
+     *
+     * @access private
+     */
+    private $ch;
 
     /**
      * Constructor
@@ -102,6 +117,17 @@ class Client
         $this->url = $url;
         $this->timeout = $timeout;
         $this->headers = array_merge($this->headers, $headers);
+        $this->ch = curl_init();
+    }
+
+    /**
+     * Destructor
+     *
+     * @access public
+     */
+    public function __destruct()
+    {
+        curl_close($this->ch);
     }
 
     /**
@@ -115,7 +141,7 @@ class Client
     public function __call($method, array $params)
     {
         // Allow to pass an array and use named arguments
-        if (count($params) === 1 && is_array($params[0])) {
+        if ($this->named_arguments && count($params) === 1 && is_array($params[0])) {
             $params = $params[0];
         }
 
@@ -284,25 +310,29 @@ class Client
      */
     public function doRequest($payload)
     {
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $this->url);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'JSON-RPC PHP Client');
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->ssl_verify_peer);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+        curl_setopt_array($this->ch, array(
+            CURLOPT_URL => $this->url,
+            CURLOPT_HEADER => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => $this->timeout,
+            CURLOPT_USERAGENT => 'JSON-RPC PHP Client',
+            CURLOPT_HTTPHEADER => $this->headers,
+            CURLOPT_FOLLOWLOCATION => false,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_SSL_VERIFYPEER => $this->ssl_verify_peer,
+            CURLOPT_POSTFIELDS => json_encode($payload)
+        ));
 
         if ($this->username && $this->password) {
-            curl_setopt($ch, CURLOPT_USERPWD, $this->username.':'.$this->password);
+            curl_setopt($this->ch, CURLOPT_USERPWD, $this->username.':'.$this->password);
         }
 
-        $http_body = curl_exec($ch);
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $http_body = curl_exec($this->ch);
+        $http_code = curl_getinfo($this->ch, CURLINFO_HTTP_CODE);
+
+        if (curl_errno($this->ch)) {
+            throw new RuntimeException(curl_error($this->ch));
+        }
 
         if ($http_code === 401 || $http_code === 403) {
             throw new RuntimeException('Access denied');
@@ -314,8 +344,6 @@ class Client
             error_log('==> Request: '.PHP_EOL.json_encode($payload, JSON_PRETTY_PRINT));
             error_log('==> Response: '.PHP_EOL.json_encode($response, JSON_PRETTY_PRINT));
         }
-
-        curl_close($ch);
 
         return is_array($response) ? $response : array();
     }

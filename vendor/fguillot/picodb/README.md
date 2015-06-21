@@ -12,7 +12,7 @@ Features
 - Requires only PDO
 - Use prepared statements
 - Handle schema versions (migrations)
-- License: [WTFPL](http://www.wtfpl.net)
+- License: MIT
 
 Requirements
 ------------
@@ -124,7 +124,7 @@ or
 $db->table('toto')->desc('column1')->findAll();
 ```
 
-or 
+or
 
 ```php
 #db->table('toto')->orderBy('column1', 'ASC')->findAll();

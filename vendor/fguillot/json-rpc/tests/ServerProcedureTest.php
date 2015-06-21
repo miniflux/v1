@@ -40,7 +40,7 @@ class ServerProcedureTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ReflectionException
+     * @expectedException BadFunctionCallException
      */
     public function testClassNotFound()
     {
@@ -50,7 +50,7 @@ class ServerProcedureTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ReflectionException
+     * @expectedException BadFunctionCallException
      */
     public function testMethodNotFound()
     {

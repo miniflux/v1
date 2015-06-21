@@ -3,7 +3,7 @@
     "description": "Minimalist database query builder",
     "homepage": "https://github.com/fguillot/picoDb",
     "type": "library",
-    "license": "WTFPL",
+    "license": "MIT",
     "authors": [
         {
             "name": "Frédéric Guillot",

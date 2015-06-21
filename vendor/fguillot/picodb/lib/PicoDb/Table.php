@@ -13,16 +13,22 @@ class Table
     protected $table_name = '';
     protected $values = array();
 
+    private $columns = array();
+
     private $sql_limit = '';
     private $sql_offset = '';
     private $sql_order = '';
+
     private $joins = array();
+
+    private $condition = '';
     private $conditions = array();
     private $or_conditions = array();
     private $is_or_condition = false;
-    private $columns = array();
+
     private $distinct = false;
     private $group_by = array();
+
     private $filter_callback = null;
 
     /**
@@ -82,7 +88,7 @@ class Table
             'UPDATE %s SET %s %s',
             $this->db->escapeIdentifier($this->table_name),
             implode(', ', $columns),
-            $this->conditions()
+            $this->buildCondition()
         );
 
         return $this->db->execute($sql, $values) !== false;
@@ -124,7 +130,7 @@ class Table
         $sql = sprintf(
             'DELETE FROM %s %s',
             $this->db->escapeIdentifier($this->table_name),
-            $this->conditions()
+            $this->buildCondition()
         );
 
         $result = $this->db->execute($sql, $this->values);
@@ -155,7 +161,7 @@ class Table
         $rq = $this->db->execute($this->buildSelectQuery(), $this->values);
         $results = $rq->fetchAll(PDO::FETCH_ASSOC);
 
-        if (is_callable($this->filter_callback)) {
+        if (is_callable($this->filter_callback) && ! empty($results)) {
             return call_user_func($this->filter_callback, $results);
         }
 
@@ -227,7 +233,7 @@ class Table
             empty($this->columns) ? '*' : implode(', ', $this->columns),
             $this->db->escapeIdentifier($this->table_name),
             implode(' ', $this->joins),
-            $this->conditions(),
+            $this->buildCondition(),
             empty($this->group_by) ? '' : 'GROUP BY '.implode(', ', $this->group_by),
             $this->sql_order,
             $this->sql_limit,
@@ -244,14 +250,35 @@ class Table
     public function count()
     {
         $sql = sprintf(
-            'SELECT COUNT(*) FROM %s '.implode(' ', $this->joins).$this->conditions().$this->sql_order.$this->sql_limit.$this->sql_offset,
+            'SELECT COUNT(*) FROM %s '.implode(' ', $this->joins).$this->buildCondition().$this->sql_order.$this->sql_limit.$this->sql_offset,
             $this->db->escapeIdentifier($this->table_name)
         );
 
         $rq = $this->db->execute($sql, $this->values);
-
         $result = $rq->fetchColumn();
+
         return $result ? (int) $result : 0;
+    }
+
+    /**
+     * Sum
+     *
+     * @access public
+     * @param  string   $column
+     * @return float
+     */
+    public function sum($column)
+    {
+        $sql = sprintf(
+            'SELECT SUM(%s) FROM %s '.implode(' ', $this->joins).$this->buildCondition().$this->sql_order.$this->sql_limit.$this->sql_offset,
+            $this->db->escapeIdentifier($column),
+            $this->db->escapeIdentifier($this->table_name)
+        );
+
+        $rq = $this->db->execute($sql, $this->values);
+        $result = $rq->fetchColumn();
+
+        return $result ? (float) $result : 0;
     }
 
     /**
@@ -262,14 +289,15 @@ class Table
      * @param  string   $foreign_column     Foreign key on the join table
      * @param  string   $local_column       Local column
      * @param  string   $local_table        Local table
+     * @param  string   $alias              Join table alias
      * @return \PicoDb\Table
      */
-    public function join($table, $foreign_column, $local_column, $local_table = '')
+    public function join($table, $foreign_column, $local_column, $local_table = '', $alias = '')
     {
         $this->joins[] = sprintf(
             'LEFT JOIN %s ON %s=%s',
             $this->db->escapeIdentifier($table),
-            $this->db->escapeIdentifier($table).'.'.$this->db->escapeIdentifier($foreign_column),
+            $this->db->escapeIdentifier($alias ?: $table).'.'.$this->db->escapeIdentifier($foreign_column),
             $this->db->escapeIdentifier($local_table ?: $this->table_name).'.'.$this->db->escapeIdentifier($local_column)
         );
 
@@ -277,13 +305,53 @@ class Table
     }
 
     /**
-     * Build conditions
+     * Left join
      *
      * @access public
+     * @param  string   $table1
+     * @param  string   $alias1
+     * @param  string   $column1
+     * @param  string   $table2
+     * @param  string   $column2
+     * @return \PicoDb\Table
+     */
+    public function left($table1, $alias1, $column1, $table2, $column2)
+    {
+        $this->joins[] = sprintf(
+            'LEFT JOIN %s AS %s ON %s=%s',
+            $this->db->escapeIdentifier($table1),
+            $this->db->escapeIdentifier($alias1),
+            $this->db->escapeIdentifier($alias1).'.'.$this->db->escapeIdentifier($column1),
+            $this->db->escapeIdentifier($table2).'.'.$this->db->escapeIdentifier($column2)
+        );
+
+        return $this;
+    }
+
+    /**
+     * Add custom condition
+     *
+     * @access private
+     * @return Table
+     */
+    private function condition($condition)
+    {
+        $this->condition = $condition;
+        return $this;
+    }
+
+    /**
+     * Build condition
+     *
+     * @access private
      * @return string
      */
-    public function conditions()
+    private function buildCondition()
     {
+        if (! empty($this->condition)) {
+            return 'WHERE '.$this->condition;
+        }
+
         return empty($this->conditions) ? '' : ' WHERE '.implode(' AND ', $this->conditions);
     }
 
@@ -292,6 +360,7 @@ class Table
      *
      * @access public
      * @param  string   $sql
+     * @return Table
      */
     public function addCondition($sql)
     {
@@ -301,6 +370,8 @@ class Table
         else {
             $this->conditions[] = $sql;
         }
+
+        return $this;
     }
 
     /**

@@ -26,6 +26,10 @@ class Postgres extends PDO
 
         $dsn = 'pgsql:host='.$settings['hostname'].';dbname='.$settings['database'];
 
+        if (! empty($settings['port'])) {
+            $dsn .= ';port='.$settings['port'];
+        }
+
         parent::__construct($dsn, $settings['username'], $settings['password']);
 
         if (isset($settings['schema_table'])) {
@@ -66,7 +70,7 @@ class Postgres extends PDO
 
     public function escapeIdentifier($value)
     {
-        return $value;
+        return '"'.$value.'"';
     }
 
     public function operatorLikeCaseSensitive()

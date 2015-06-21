@@ -3,10 +3,10 @@
         "preferred-install": "dist"
     },
     "require": {
-        "fguillot/simple-validator": "dev-master",
-        "fguillot/json-rpc": "dev-master",
-        "fguillot/picodb": "0.0.2",
-        "fguillot/picofeed": "dev-master",
+        "fguillot/simple-validator": "v0.0.3",
+        "fguillot/json-rpc": "v0.0.3",
+        "fguillot/picodb": "v0.0.3",
+        "fguillot/picofeed": "v0.1.4",
         "fguillot/picofarad": "dev-master"
     },
     "autoload": {

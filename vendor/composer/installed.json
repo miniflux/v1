@@ -1,44 +1,5 @@
 [
     {
-        "name": "fguillot/picodb",
-        "version": "v0.0.2",
-        "version_normalized": "0.0.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fguillot/picoDb.git",
-            "reference": "b3ef5f79e7e5e33729fdbf9c02c8a252a3d76b6b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoDb/zipball/b3ef5f79e7e5e33729fdbf9c02c8a252a3d76b6b",
-            "reference": "b3ef5f79e7e5e33729fdbf9c02c8a252a3d76b6b",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2015-01-25 16:20:14",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "PicoDb": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "WTFPL"
-        ],
-        "authors": [
-            {
-                "name": "Frédéric Guillot",
-                "homepage": "http://fredericguillot.com"
-            }
-        ],
-        "description": "Minimalist database query builder",
-        "homepage": "https://github.com/fguillot/picoDb"
-    },
-    {
         "name": "fguillot/picofarad",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -79,8 +40,8 @@
     },
     {
         "name": "fguillot/simple-validator",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v0.0.3",
+        "version_normalized": "0.0.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/simpleValidator.git",
@@ -117,23 +78,23 @@
     },
     {
         "name": "fguillot/json-rpc",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v0.0.3",
+        "version_normalized": "0.0.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/JsonRPC.git",
-            "reference": "1a397be7739ddabba87b07f0354655bd91087518"
+            "reference": "ef2f1aa1c07f0e3e8878c53b3a5fc81daedbebb8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/JsonRPC/zipball/1a397be7739ddabba87b07f0354655bd91087518",
-            "reference": "1a397be7739ddabba87b07f0354655bd91087518",
+            "url": "https://api.github.com/repos/fguillot/JsonRPC/zipball/ef2f1aa1c07f0e3e8878c53b3a5fc81daedbebb8",
+            "reference": "ef2f1aa1c07f0e3e8878c53b3a5fc81daedbebb8",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2015-04-14 01:50:16",
+        "time": "2015-05-20 15:08:40",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -155,18 +116,57 @@
         "homepage": "https://github.com/fguillot/JsonRPC"
     },
     {
-        "name": "fguillot/picofeed",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "name": "fguillot/picodb",
+        "version": "v0.0.3",
+        "version_normalized": "0.0.3.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "a6087e8264550891c1b8a6da77eca0cab9328709"
+            "url": "https://github.com/fguillot/picoDb.git",
+            "reference": "f65d11cb52de34e0fd236a34184ca1a310da244a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/a6087e8264550891c1b8a6da77eca0cab9328709",
-            "reference": "a6087e8264550891c1b8a6da77eca0cab9328709",
+            "url": "https://api.github.com/repos/fguillot/picoDb/zipball/f65d11cb52de34e0fd236a34184ca1a310da244a",
+            "reference": "f65d11cb52de34e0fd236a34184ca1a310da244a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2015-05-17 23:57:05",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PicoDb": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frédéric Guillot",
+                "homepage": "http://fredericguillot.com"
+            }
+        ],
+        "description": "Minimalist database query builder",
+        "homepage": "https://github.com/fguillot/picoDb"
+    },
+    {
+        "name": "fguillot/picofeed",
+        "version": "v0.1.4",
+        "version_normalized": "0.1.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fguillot/picoFeed.git",
+            "reference": "efa4a3ff139d147ac294070d8b60005abefa19ad"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/efa4a3ff139d147ac294070d8b60005abefa19ad",
+            "reference": "efa4a3ff139d147ac294070d8b60005abefa19ad",
             "shasum": ""
         },
         "require": {
@@ -180,7 +180,7 @@
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2015-04-27 22:22:06",
+        "time": "2015-06-21 13:45:50",
         "bin": [
             "picofeed"
         ],

@@ -57,6 +57,8 @@ $server->register('random', function ($start, $end) {
 
 // Return the response to the client
 echo $server->execute();
+
+?>
 ```
 
 Class/Method binding:
@@ -85,8 +87,56 @@ $server->bind('mySecondProcedure', new Api, 'doSomething');
 // The procedure and the method are the same
 $server->bind('doSomething', 'Api');
 
+// Attach the class, client will be able to call directly Api::doSomething()
+$server->attach(new Api);
+
 echo $server->execute();
+
+?>
 ```
+
+Before callback:
+
+Before each procedure execution, a custom method can be called.
+
+This method receive the following arguments: `$username, $password, $class, $method`.
+
+```php
+<?php
+
+use JsonRPC\Server;
+use JsonRPC\AuthenticationFailure;
+
+class Api
+{
+    public function beforeProcedure($username, $password, $class, $method)
+    {
+        if ($login_condition_failed) {
+            throw new AuthenticationFailure('Wrong credentials!');
+        }
+    }
+
+    public function addition($a, $b)
+    {
+        return $a + $b;
+    }
+}
+
+$server = new Server;
+$server->authentication(['myuser' => 'mypassword']);
+
+// Register the before callback
+$server->before('beforeProcedure');
+
+$server->attach(new Api);
+
+echo $server->execute();
+
+?>
+```
+
+You can use this method to implements a custom authentication system or anything else.
+If you would like to reject the authentication, you can throw the exception `JsonRPC\AuthenticationFailure`.
 
 ### Client
 
@@ -107,8 +157,6 @@ Example with named arguments:
 
 ```php
 <?php
-
-require 'JsonRPC/Client.php';
 
 use JsonRPC\Client;
 
@@ -166,7 +214,7 @@ All results are stored at the same position of the call.
 
 - `BadFunctionCallException`: Procedure not found on the server
 - `InvalidArgumentException`: Wrong procedure arguments
-- `RuntimeException`: Protocol error
+- `RuntimeException`: Protocol error, authentication failure or connection failure, the message describe the exact error
 
 ### Enable client debugging
 
@@ -240,7 +288,7 @@ use JsonRPC\Server;
 $server = new Server;
 
 // List of users to allow
-$server->authentication(['jsonrpc' => 'toto']);
+$server->authentication(['user1' => 'password1', 'user2' => 'password2']);
 
 // Procedures registration
 
@@ -258,7 +306,57 @@ On the client, set credentials like that:
 use JsonRPC\Client;
 
 $client = new Client('http://localhost/server.php');
-$client->authentication('jsonrpc', 'toto');
+$client->authentication('user1', 'password1');
 ```
 
 If the authentication failed, the client throw a RuntimeException.
+
+Using an alternative authentication header:
+
+```php
+
+use JsonRPC\Server;
+
+$server = new Server;
+$server->setAuthenticationHeader('X-Authentication');
+$server->authentication(['myusername' => 'mypassword']);
+```
+
+The example above will use the HTTP header `X-Authentication` instead of the standard `Authorization: Basic [BASE64_CREDENTIALS]`.
+The username/password values need be encoded in base64: `base64_encode('username:password')`.
+
+### Exceptions
+
+If you want to send an error to the client you can throw an exception.
+You should configure which exceptions should be relayed to the client first:
+
+```php
+<?php
+
+use JsonRPC\Server;
+class MyException extends RuntimeException {};
+
+$server = new Server;
+
+// Exceptions that should be relayed to the client, if they occur
+$server->attachException('MyException');
+
+// Procedures registration
+
+[...]
+
+// Return the response to the client
+echo $server->execute();
+```
+
+Then you can throw that exception inside your procedure:
+
+```
+throw new MyException("An error occured", 123);
+```
+
+To relay all exceptions regardless of type, leave out the exception class name:
+
+```
+$server->attachException();
+```

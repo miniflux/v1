@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'JsonRPC\\AuthenticationFailure' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Server.php',
     'JsonRPC\\Client' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Client.php',
     'JsonRPC\\InvalidJsonFormat' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Server.php',
     'JsonRPC\\InvalidJsonRpcFormat' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Server.php',
