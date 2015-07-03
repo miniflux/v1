@@ -156,17 +156,17 @@
     },
     {
         "name": "fguillot/picofeed",
-        "version": "v0.1.4",
-        "version_normalized": "0.1.4.0",
+        "version": "v0.1.5",
+        "version_normalized": "0.1.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "efa4a3ff139d147ac294070d8b60005abefa19ad"
+            "reference": "40dfb81ff0d578d1c1fc800a389933da47aa3dd7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/efa4a3ff139d147ac294070d8b60005abefa19ad",
-            "reference": "efa4a3ff139d147ac294070d8b60005abefa19ad",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/40dfb81ff0d578d1c1fc800a389933da47aa3dd7",
+            "reference": "40dfb81ff0d578d1c1fc800a389933da47aa3dd7",
             "shasum": ""
         },
         "require": {
@@ -180,7 +180,7 @@
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2015-06-21 13:45:50",
+        "time": "2015-07-03 00:57:06",
         "bin": [
             "picofeed"
         ],
@@ -197,11 +197,10 @@
         ],
         "authors": [
             {
-                "name": "Frédéric Guillot",
-                "homepage": "http://fredericguillot.com"
+                "name": "Frédéric Guillot"
             }
         ],
-        "description": "Modern library to write or read feeds (RSS/Atom)",
-        "homepage": "http://fguillot.github.io/picoFeed"
+        "description": "Modern library to handle RSS/Atom feeds",
+        "homepage": "https://github.com/fguillot/picoFeed"
     }
 ]
