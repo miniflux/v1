@@ -1,41 +1,20 @@
-FROM debian:jessie
+FROM ubuntu:14.04
+MAINTAINER Frederic Guillot <fred@miniflux.net>
 
-ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get install -y apache2 php5 php5-sqlite git curl && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN cd /var/www && git clone --depth 1 https://github.com/miniflux/miniflux.git
+RUN rm -rf /var/www/html && mv /var/www/kanboard /var/www/html
+RUN chown -R www-data:www-data /var/www/html/data
 
-RUN \
-  apt-get update && \
-  apt-get -y upgrade && \
-  apt-get -y install \
-    lighttpd \
-    php5-common \
-    php5-cgi \
-    php5-sqlite \
-    php-xml-parser \
-    php5 \
-    unzip \
-    wget
-
-RUN \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/*
-
-RUN \
-  cd /root && \
-  wget https://github.com/miniflux/miniflux/archive/master.zip -O miniflux.zip && \
-  unzip miniflux.zip -d /var/www && \
-  mv /var/www/miniflux-master/* /var/www/ && \
-  rm miniflux.zip && \
-  rm -r /var/www/html && \
-  rm -r /var/www/miniflux-master && \
-  chmod +x /var/www/data
-
-RUN \
-  chown -R www-data:www-data /var/www && \
-  rm /etc/lighttpd/lighttpd.conf
-
-ADD \
-  scripts/docker/lighttpd.conf /etc/lighttpd/lighttpd.conf
+VOLUME /var/www/html/data
 
 EXPOSE 80
 
-CMD ["/usr/sbin/lighttpd", "-D", "-f", "/etc/lighttpd/lighttpd.conf"]
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_LOCK_DIR /var/lock/apache2
+ENV APACHE_PID_FILE /var/run/apache2.pid
+
+CMD /usr/sbin/apache2ctl -D FOREGROUND

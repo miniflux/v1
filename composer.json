@@ -6,7 +6,7 @@
         "fguillot/simple-validator": "v0.0.3",
         "fguillot/json-rpc": "v0.0.3",
         "fguillot/picodb": "v0.0.3",
-        "fguillot/picofeed": "v0.1.5",
+        "fguillot/picofeed": "v0.1.6",
         "fguillot/picofarad": "dev-master"
     },
     "autoload": {
