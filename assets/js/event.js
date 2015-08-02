@@ -64,7 +64,7 @@ Miniflux.Event = (function() {
 
                     switch (action) {
                         case 'refresh-all':
-                            Miniflux.Feed.UpdateAll();
+                            Miniflux.Feed.UpdateAll(e.target.getAttribute("data-concurrent-requests"));
                             break;
                         case 'refresh-feed':
                             currentItem && Miniflux.Feed.Update(currentItem);

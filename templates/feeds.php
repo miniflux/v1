@@ -6,7 +6,7 @@
             <li class="active"><a href="?action=feeds"><?= t('feeds') ?></a></li>
             <li><a href="?action=import"><?= t('import') ?></a></li>
             <li><a href="?action=export"><?= t('export') ?></a></li>
-            <li><a href="?action=refresh-all" data-action="refresh-all"><?= t('refresh all') ?></a></li>
+            <li><a href="?action=refresh-all" data-action="refresh-all" data-concurrent-requests="<?=$frontend_concurrent_requests?>"><?= t('refresh all') ?></a></li>
         </ul>
     </nav>
 </div>

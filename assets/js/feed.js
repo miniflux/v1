@@ -45,8 +45,13 @@ Miniflux.Feed = (function() {
             request.open("POST", "?action=refresh-feed&feed_id=" + feed_id, true);
             request.send();
         },
-        UpdateAll: function() {
+        UpdateAll: function(num) {
             var feeds = Array.prototype.slice.call(document.querySelectorAll("article:not([data-feed-disabled])"));
+
+            //Check if a custom ammount of concurrent requests was defined
+            if(num){
+                queue_length = num;
+            }
 
             var interval = setInterval(function() {
                 while (feeds.length > 0 && queue.length < queue_length) {

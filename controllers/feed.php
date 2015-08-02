@@ -122,7 +122,8 @@ Router\get_action('feeds', function() {
         'nb_unread_items' => $nb_unread_items,
         'nb_failed_feeds' => Model\Feed\count_failed_feeds(),
         'menu' => 'feeds',
-        'title' => t('Subscriptions')
+        'title' => t('Subscriptions'),
+        'frontend_concurrent_requests' => Model\Config\get('frontend_concurrent_requests')
     )));
 });
 
