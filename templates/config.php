@@ -75,9 +75,7 @@
         <?= Helper\form_checkbox('original_marks_read', t('Original link marks article as read'), 1, isset($values['original_marks_read']) && $values['original_marks_read'] == 1) ?><br/>
         <?= Helper\form_checkbox('nocontent', t('Do not fetch the content of articles'), 1, isset($values['nocontent']) && $values['nocontent'] == 1) ?><br/>
         <?= Helper\form_checkbox('favicons', t('Download favicons'), 1, isset($values['favicons']) && $values['favicons'] == 1) ?><br/>
-
-        <?= Helper\form_label(t('Number of feeds to update at once on the subscription page'), 'frontend_concurrent_requests') ?>
-        <?= Helper\form_number('frontend_concurrent_requests', $values, $errors, array('min="1"')) ?><br/>
+>
     </div>
 
     <div class="form-actions">

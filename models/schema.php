@@ -5,12 +5,7 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
-const VERSION = 41;
-
-function version_41($pdo)
-{
-    $pdo->exec('INSERT INTO settings ("key", "value") VALUES ("frontend_concurrent_requests", 5)');
-}
+const VERSION = 40;
 
 function version_40($pdo)
 {

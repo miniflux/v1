@@ -303,7 +303,6 @@ function validate_modification(array $values)
         new Validators\Integer('nocontent', t('Must be an integer')),
         new Validators\Integer('favicons', t('Must be an integer')),
         new Validators\Integer('original_marks_read', t('Must be an integer')),
-        new Validators\Integer('frontend_concurrent_requests', t('Must be an integer')),
     );
 
     if (ENABLE_AUTO_UPDATE) {
