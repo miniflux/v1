@@ -36,5 +36,6 @@ define('PROXY_PASSWORD', '');
 // ENABLE_AUTO_UPDATE => default is true (enable Miniflux update from the user interface)
 define('ENABLE_AUTO_UPDATE', true);
 
-// SUBSCRIPTION_CONCURRENT_REQUESTS => number of concurrent feeds to refresh at once - reduce this number on systems with limited processing power
+// SUBSCRIPTION_CONCURRENT_REQUESTS => number of concurrent feeds to refresh at once
+// Reduce this number on systems with limited processing power
 define('SUBSCRIPTION_CONCURRENT_REQUESTS', 5);
