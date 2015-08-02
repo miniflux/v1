@@ -109,7 +109,14 @@ Miniflux.Item = (function() {
     function hideItem(item)
     {
         if (Miniflux.Event.lastEventType !== "mouse") {
-            Miniflux.Nav.SelectNextItem();
+            var items = document.getElementsByTagName("article");
+
+            if (items[items.length-1].id === "current-item") {
+                Miniflux.Nav.SelectPreviousItem();
+            }
+            else {
+                Miniflux.Nav.SelectNextItem();
+            }
         }
 
         item.parentNode.removeChild(item);

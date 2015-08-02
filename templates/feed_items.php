@@ -14,7 +14,7 @@
                 <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>&amp;order=updated&amp;direction=<?= $direction == 'asc' ? 'desc' : 'asc' ?>"><?= tne('sort by date %s(%s)%s', '<span class="hide-mobile">', $direction == 'desc' ? t('older first') : t('most recent first'), '</span>') ?></a>
             </li>
             <li>
-                <a href="?action=mark-feed-as-read&amp;feed_id=<?= $feed['id'] ?>" data-action="mark-feed-read" data-feed-id="<?= $feed['id'] ?>"><?= t('mark all as read') ?></a>
+                <a href="?action=mark-feed-as-read&amp;feed_id=<?= $feed['id'] ?>" data-action="mark-feed-read"><?= t('mark all as read') ?></a>
             </li>
         </ul>
     </div>
@@ -25,7 +25,7 @@
         </p>
     <?php endif; ?>
 
-    <section class="items" id="listing">
+    <section class="items" id="listing" data-feed-id="<?= $feed['id'] ?>">
         <?php foreach ($items as $item): ?>
             <?= \PicoFarad\Template\load('item', array(
                 'feed' => $feed,
@@ -40,7 +40,7 @@
         <?php endforeach ?>
 
         <div id="bottom-menu">
-            <a href="?action=mark-feed-as-read&amp;feed_id=<?= $feed['id'] ?>" data-action="mark-feed-read" data-feed-id="<?= $feed['id'] ?>"><?= t('mark all as read') ?></a>
+            <a href="?action=mark-feed-as-read&amp;feed_id=<?= $feed['id'] ?>" data-action="mark-feed-read"><?= t('mark all as read') ?></a>
         </div>
 
         <?= \PicoFarad\Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'feed_id' => $feed['id'])) ?>

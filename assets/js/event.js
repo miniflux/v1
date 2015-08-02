@@ -85,7 +85,9 @@ Miniflux.Event = (function() {
                             currentItem && Miniflux.Item.DownloadContent(currentItem);
                             break;
                         case 'mark-feed-read':
-                            Miniflux.Item.MarkFeedAsRead(e.target.getAttribute("data-feed-id"));
+                            var feed_id = document.getElementById('listing').getAttribute('data-feed-id');
+
+                            Miniflux.Item.MarkFeedAsRead(feed_id);
                             break;
                     }
                 }
