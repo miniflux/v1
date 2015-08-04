@@ -11,7 +11,7 @@
                 "sessionStrategy": "shared"
               },
               {
-                "browserName": "iexplore",
+                "browserName": "internet explorer",
                 "host": "localhost",
                 "port": 4444,
                 "sessionStrategy": "shared"
