@@ -21,6 +21,7 @@ function get_reader_config()
     // Client
     $config->setClientTimeout(HTTP_TIMEOUT);
     $config->setClientUserAgent(HTTP_USER_AGENT);
+    $config->setMaxBodySize(HTTP_MAX_RESPONSE_SIZE);
 
     // Grabber
     $config->setGrabberRulesFolder(RULES_DIRECTORY);
