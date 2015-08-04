@@ -18,4 +18,5 @@ return array(
     $baseDir . '/models/auto_update.php',
     $baseDir . '/models/database.php',
     $baseDir . '/models/remember_me.php',
+    $baseDir . '/models/group.php',
 );

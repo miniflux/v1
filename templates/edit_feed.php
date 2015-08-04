@@ -27,7 +27,16 @@
 
     <?= Helper\form_checkbox('cloak_referrer', t('Cloak the image referrer'), 1, $values['cloak_referrer']) ?><br />
 
-    <?= Helper\form_checkbox('enabled', t('Activated'), 1, $values['enabled']) ?>
+    <?= Helper\form_checkbox('enabled', t('Activated'), 1, $values['enabled']) ?><br />
+
+    <?= Helper\form_label(t('Groups'), 'groups'); ?>
+
+    <div id="grouplist">
+        <?php foreach ($groups as $group): ?>
+            <?= Helper\form_checkbox('feed_group_ids[]', $group['title'], $group['id'], in_array($group['id'], $values['feed_group_ids']), 'hide') ?>
+        <?php endforeach ?>
+        <?= Helper\form_text('create_group', $values, array(), array('placeholder="'.t('add a new group').'"')) ?>
+    </div>
 
     <div class="form-actions">
         <button type="submit" class="btn btn-blue"><?= t('Save') ?></button>

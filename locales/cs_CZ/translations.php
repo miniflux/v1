@@ -238,4 +238,6 @@ return array(
     // 'Maximum number of HTTP redirections exceeded.' => '',
     // 'The content size exceeds to maximum allowed size.' => '',
     // 'Unable to detect the feed format.' => '',
+    // 'add a new group' => '',
+    // 'Groups' => '',
 );

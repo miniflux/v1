@@ -5,6 +5,7 @@ namespace Model\Feed;
 use UnexpectedValueException;
 use Model\Config;
 use Model\Item;
+use Model\Group;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 use PicoDb\Database;
@@ -93,7 +94,9 @@ function get_all_favicons()
 // Update feed information
 function update(array $values)
 {
-    return Database::get('db')
+    Database::get('db')->startTransaction();
+
+    $result = Database::get('db')
             ->table('feeds')
             ->eq('id', $values['id'])
             ->save(array(
@@ -105,6 +108,17 @@ function update(array $values)
                 'download_content' => $values['download_content'],
                 'cloak_referrer' => $values['cloak_referrer'],
             ));
+
+    if ($result) {
+        if (! Group\update_feed_groups($values['id'], $values['feed_group_ids'], $values['create_group'])) {
+            Database::get('db')->cancelTransaction();
+            $result = false;
+        }
+    }
+
+    Database::get('db')->closeTransaction();
+
+    return $result;
 }
 
 // Export all feeds
@@ -150,7 +164,7 @@ function import_opml($content)
 }
 
 // Add a new feed from an URL
-function create($url, $enable_grabber = false, $force_rtl = false, $cloak_referrer = false)
+function create($url, $enable_grabber = false, $force_rtl = false, $cloak_referrer = false, $group_ids = array(), $create_group = '')
 {
     $feed_id = false;
 
@@ -194,6 +208,7 @@ function create($url, $enable_grabber = false, $force_rtl = false, $cloak_referr
     if ($result) {
         $feed_id = $db->getConnection()->getLastId();
 
+        Group\update_feed_groups($feed_id, $group_ids, $create_group);
         Item\update_all($feed_id, $feed->getItems());
         fetch_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
     }

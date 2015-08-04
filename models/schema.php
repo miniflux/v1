@@ -5,7 +5,27 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
-const VERSION = 40;
+const VERSION = 41;
+
+function version_41($pdo)
+{
+    $pdo->exec('
+        CREATE TABLE "groups" (
+            id INTEGER PRIMARY KEY,
+            title TEXT
+        )
+    ');
+
+    $pdo->exec('
+        CREATE TABLE "feeds_groups" (
+            feed_id INTEGER  NOT NULL,
+            group_id INTEGER NOT NULL,
+            PRIMARY KEY(feed_id, group_id)
+            FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE CASCADE
+            FOREIGN KEY(feed_id) REFERENCES feeds(id) ON DELETE CASCADE
+        )
+    ');
+}
 
 function version_40($pdo)
 {

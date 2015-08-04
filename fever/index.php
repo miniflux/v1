@@ -3,6 +3,7 @@
 require '../common.php';
 
 use Model\Feed;
+use Model\Group;
 use Model\Service;
 use PicoDb\Database;
 
@@ -59,8 +60,16 @@ route('groups', function() {
 
     if ($response['auth']) {
 
-        $response['groups'] = array();
+        $response['groups'] = Group\get_all();
         $response['feeds_groups'] = array();
+        $group_map = Group\get_map();
+
+        foreach ($group_map as $group_id => $feed_ids) {
+            $response['feeds_groups'][] = array(
+                'group_id' => $group_id,
+                'feed_ids' => implode(',', $feed_ids)
+            );
+        }
     }
 
     response($response);
@@ -87,6 +96,14 @@ route('feeds', function() {
                 'site_url' => $feed['site_url'],
                 'is_spark' => 0,
                 'last_updated_on_time' => $feed['last_checked'] ?: time(),
+            );
+        }
+
+        $group_map = Group\get_map();
+        foreach ($group_map as $group_id => $feed_ids) {
+            $response['feeds_groups'][] = array(
+                'group_id' => $group_id,
+                'feed_ids' => implode(',', $feed_ids)
             );
         }
     }
@@ -286,11 +303,15 @@ route('write_groups', function() {
     $response = auth();
 
     if ($response['auth']) {
+        $db = Database::get('db')
+                ->table('items')
+                ->lte('updated', $_POST['before']);
 
-        Database::get('db')
-            ->table('items')
-            ->lte('updated', $_POST['before'])
-            ->update(array('status' => 'read'));
+        if ($_POST['id'] > 0) {
+            $db->in('feed_id', Model\Group\get_feeds_by_group($_POST['id']));
+        }
+
+        $db->update(array('status' => 'read'));
     }
 
     response($response);

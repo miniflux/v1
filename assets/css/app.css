@@ -247,6 +247,38 @@ textarea.form-error {
     display: none;
 }
 
+/* Feed group buttons */
+#grouplist span {
+    float: left;
+    opacity: 0.4;
+    min-width: 4em;
+    margin-right: 6px;
+    overflow: auto;
+    text-align: center;
+}
+
+#grouplist input[type="text"] {
+    width: 150px;
+}
+
+#grouplist input[type="checkbox"] + span, #grouplist input[type="text"] {
+    padding: 4px;
+    margin-top: 6px;
+    margin-bottom: 0px;
+}
+
+#grouplist input[type="checkbox"]:checked + span {
+    opacity: 1;
+}
+
+ul#grouplist {
+    float: left;
+}
+
+ul#grouplist li {
+    margin-left: 0px;
+}
+
 /* alerts */
 .alert, .panel {
     padding: 8px 35px 8px 14px;
@@ -287,7 +319,7 @@ textarea.form-error {
 }
 
 /* buttons */
-.btn {
+.btn, #grouplist span {
     -webkit-appearance: none;
     appearance: none;
     display: inline-block;

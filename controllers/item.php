@@ -14,11 +14,26 @@ Router\get_action('unread', function() {
     $order = Request\param('order', 'updated');
     $direction = Request\param('direction', Model\Config\get('items_sorting_direction'));
     $offset = Request\int_param('offset', 0);
-    $items = Model\Item\get_all_by_status('unread', $offset, Model\Config\get('items_per_page'), $order, $direction);
-    $nb_items = Model\Item\count_by_status('unread');
+    $group_id = Request\int_param('group_id', null);
+    $feed_ids = null;
 
-    if ($nb_items === 0) {
+    if (!is_null($group_id)) {
+        $feed_ids = Model\Group\get_feeds_by_group($group_id);
+    }
 
+    $items = Model\Item\get_all_by_status(
+        'unread',
+        $feed_ids,
+        $offset,
+        Model\Config\get('items_per_page'),
+        $order,
+        $direction
+    );
+
+    $nb_items = Model\Item\count_by_status('unread', $feed_ids);
+    $nb_unread_items = Model\Item\count_by_status('unread');
+
+    if ($nb_unread_items === 0) {
         $action = Model\Config\get('redirect_nothing_to_read');
         Response\redirect('?action='.$action.'&nothing_to_read=1');
     }
@@ -29,13 +44,15 @@ Router\get_action('unread', function() {
         'order' => $order,
         'direction' => $direction,
         'display_mode' => Model\Config\get('items_display_mode'),
+        'group_id' => $group_id,
         'items' => $items,
         'nb_items' => $nb_items,
-        'nb_unread_items' => $nb_items,
+        'nb_unread_items' => $nb_unread_items,
         'offset' => $offset,
         'items_per_page' => Model\Config\get('items_per_page'),
         'title' => 'Miniflux ('.$nb_items.')',
-        'menu' => 'unread'
+        'menu' => 'unread',
+        'groups' => Model\Group\get_all()
     )));
 });
 
@@ -146,10 +163,18 @@ Router\post_action('mark-item-unread', function() {
     Response\json(array('Ok'));
 });
 
-// Mark all unread items as read
+// Mark unread items as read
 Router\get_action('mark-all-read', function() {
 
-    Model\Item\mark_all_as_read();
+    $group_id = Request\int_param('group_id', null);
+
+    if (!is_null($group_id)) {
+        Model\Item\mark_group_as_read($group_id);
+    }
+    else {
+        Model\Item\mark_all_as_read();
+    }
+
     Response\redirect('?action=unread');
 });
 

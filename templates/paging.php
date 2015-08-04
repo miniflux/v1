@@ -4,6 +4,6 @@
 <?php endif ?>
 &nbsp;
 <?php if (($nb_items - $offset) > $items_per_page): ?>
-    <a id="next-page" href="?action=<?= $menu ?>&amp;offset=<?= ($offset + $items_per_page) ?>&amp;order=<?= $order ?>&amp;direction=<?= $direction ?><?= isset($feed_id) ? '&amp;feed_id='.$feed_id : '' ?>"><?= t('Next page') ?> »</a>
+    <a id="next-page" href="?action=<?= $menu ?>&amp;offset=<?= ($offset + $items_per_page) ?>&amp;order=<?= $order ?>&amp;direction=<?= $direction ?><?= isset($feed_id) ? '&amp;feed_id='.$feed_id : '' ?><?= isset($group_id) ? '&amp;group_id='.$group_id : '' ?>"><?= t('Next page') ?> »</a>
 <?php endif ?>
 </div>
