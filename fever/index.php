@@ -59,23 +59,8 @@ route('groups', function() {
 
     if ($response['auth']) {
 
-        $feed_ids = Database::get('db')
-                        ->table('feeds')
-                        ->findAllByColumn('id');
-
-        $response['groups'] = array(
-            array(
-                'id' => 1,
-                'title' => t('All'),
-            )
-        );
-
-        $response['feeds_groups'] = array(
-            array(
-                'group_id' => 1,
-                'feed_ids' => implode(',', $feed_ids),
-            )
-        );
+        $response['groups'] = array();
+        $response['feeds_groups'] = array();
     }
 
     response($response);
@@ -89,8 +74,9 @@ route('feeds', function() {
     if ($response['auth']) {
 
         $response['feeds'] = array();
+        $response['feeds_groups'] = array();
+
         $feeds = Feed\get_all();
-        $feed_ids = array();
 
         foreach ($feeds as $feed) {
             $response['feeds'][] = array(
@@ -102,16 +88,7 @@ route('feeds', function() {
                 'is_spark' => 0,
                 'last_updated_on_time' => $feed['last_checked'] ?: time(),
             );
-
-            $feed_ids[] = $feed['id'];
         }
-
-        $response['feeds_groups'] = array(
-            array(
-                'group_id' => 1,
-                'feed_ids' => implode(',', $feed_ids),
-            )
-        );
     }
 
     response($response);
@@ -297,7 +274,7 @@ route('write_feeds', function() {
             ->table('items')
             ->eq('feed_id', $_POST['id'])
             ->lte('updated', $_POST['before'])
-            ->update(array('status' => $_POST['as'] === 'read' ? 'read' : 'unread'));
+            ->update(array('status' => 'read'));
     }
 
     response($response);
@@ -313,7 +290,7 @@ route('write_groups', function() {
         Database::get('db')
             ->table('items')
             ->lte('updated', $_POST['before'])
-            ->update(array('status' => $_POST['as'] === 'read' ? 'read' : 'unread'));
+            ->update(array('status' => 'read'));
     }
 
     response($response);
