@@ -246,8 +246,6 @@ class pageHistoryTest extends minifluxTestCase
         $link = $this->getLinkReadStatusToogle($article);
         $link->click();
 
-        $this->waitForIconMarkReadInvisible($article);
-
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE + static::DEFAULT_COUNTER_UNREAD - 1;
         $this->expectedCounterUnread = 1;
         $this->expectedDataSet = $this->getDataSet('fixture_OneUnreadArticle');

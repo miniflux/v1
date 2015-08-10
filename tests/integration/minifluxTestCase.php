@@ -64,8 +64,8 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
     protected function assertPostConditions()
     {
         // counter exists on every page
-        $this->assertEquals($this->expectedCounterPage, $this->getCounterPage(), 'page-counter differ from expectation');
-        $this->assertEquals($this->expectedCounterUnread, $this->getCounterUnread(), 'unread counter differ from expectation');
+        $this->assertTrue($this->waitForElementByIdText('page-counter', $this->expectedCounterPage), 'page-counter differ from expected');
+        $this->assertTrue($this->waitForElementByIdText('nav-counter', $this->expectedCounterUnread), 'unread counter differ from expectation');
 
         // url has not been changed (its likely that everything was done via javascript then)
         $this->assertEquals($this->expectedPageUrl, $this->url(), 'URL has been changed.');
@@ -157,25 +157,6 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         return static::$databaseTester;
     }
 
-    private function getCounterUnread()
-    {
-        $value = $this->element($this->using('id')->value('nav-counter'))->text();
-        return $value;
-    }
-
-    private function getCounterPage()
-    {
-        $value = NULL;
-
-        $elements = $this->elements($this->using('id')->value('page-counter'));
-
-        if (count($elements) === 1) {
-            $value = $elements[0]->text();
-        }
-
-        return $value;
-    }
-
     // public to be accessible within an closure
     public function isElementVisible($element)
     {
@@ -244,6 +225,45 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
                 if (count($elements) === $elementCount) {
                     return TRUE;
+                }
+            }, $this->waitTimeout);
+        }
+        catch(PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+            if ($e->getCode() === PHPUnit_Extensions_Selenium2TestCase_WebDriverException::Timeout) {
+                return FALSE;
+            } else {
+                throw $e;
+            }
+        }
+
+        return $value;
+    }
+
+   private function waitForElementByIdText($id, $text)
+    {
+        // return false in case of timeout
+        try {
+            // Workaround for PHP < 5.4
+            $CI = $this;
+
+            $value = $this->waitUntil(function() use($CI, $id, $text) {
+                try {
+                    $elements = $this->elements($this->using('id')->value($id));
+
+                    if (count($elements) === 1 && $elements[0]->text() == $text
+                        || count($elements) === 0 && is_null($text)) {
+                        return TRUE;
+                    }
+                }
+                catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+                    $noSuchElement = ($e->getCode() === PHPUnit_Extensions_Selenium2TestCase_WebDriverException::NoSuchElement
+                                   || $e->getCode() === PHPUnit_Extensions_Selenium2TestCase_WebDriverException::StaleElementReference);
+
+                    // everything else than "No such Element" or
+                    // "Stale Element Reference" is unexpected
+                    if (! $noSuchElement) {
+                        throw $e;
+                    }
                 }
             }, $this->waitTimeout);
         }

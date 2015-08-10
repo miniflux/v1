@@ -62,7 +62,7 @@ The following `phpunit.xml` is used to run phpunit on a linux system with apache
         <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BROWSERS" value='
             [
               {
-                "browserName": "iexplore",
+                "browserName": "internet explorer",
                 "host": "windows.example.org",
                 "port": 4444,
                 "sessionStrategy": "shared"
