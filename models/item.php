@@ -4,6 +4,7 @@ namespace Model\Item;
 
 use Model\Service;
 use Model\Config;
+use Model\Group;
 use PicoDb\Database;
 use PicoFeed\Logging\Logger;
 use PicoFeed\Scraper\Scraper;
@@ -89,7 +90,7 @@ function get_all_status()
 }
 
 // Get all items by status
-function get_all_by_status($status, $offset = null, $limit = null, $order_column = 'updated', $order_direction = 'desc')
+function get_all_by_status($status, $feed_ids = null, $offset = null, $limit = null, $order_column = 'updated', $order_direction = 'desc')
 {
     return Database::get('db')
         ->table('items')
@@ -111,6 +112,7 @@ function get_all_by_status($status, $offset = null, $limit = null, $order_column
         )
         ->join('feeds', 'id', 'feed_id')
         ->eq('status', $status)
+        ->in('feed_id', $feed_ids)
         ->orderBy($order_column, $order_direction)
         ->offset($offset)
         ->limit($limit)
@@ -118,11 +120,12 @@ function get_all_by_status($status, $offset = null, $limit = null, $order_column
 }
 
 // Get the number of items per status
-function count_by_status($status)
+function count_by_status($status, $feed_ids = null)
 {
     return Database::get('db')
         ->table('items')
         ->eq('status', $status)
+        ->in('feed_id', $feed_ids)
         ->count();
 }
 
@@ -352,6 +355,19 @@ function mark_feed_as_read($feed_id)
         ->table('items')
         ->eq('status', 'unread')
         ->eq('feed_id', $feed_id)
+        ->update(array('status' => 'read'));
+}
+
+// Mark all items of a group as read
+function mark_group_as_read($group_id)
+{
+    // workaround for missing update with join
+    $feed_ids = Group\get_feeds_by_group($group_id);
+
+    return Database::get('db')
+        ->table('items')
+        ->eq('status', 'unread')
+        ->in('feed_id', $feed_ids)
         ->update(array('status' => 'read'));
 }
 

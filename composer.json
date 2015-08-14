@@ -22,7 +22,8 @@
             "models/schema.php",
             "models/auto_update.php",
             "models/database.php",
-            "models/remember_me.php"
+            "models/remember_me.php",
+            "models/group.php"
         ],
         "classmap": [
             "vendor/fguillot/json-rpc/src/",
