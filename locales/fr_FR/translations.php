@@ -238,6 +238,6 @@ return array(
     'Maximum number of HTTP redirections exceeded.' => 'Nombre maximal de redirections HTTP dépassé.',
     'The content size exceeds to maximum allowed size.' => 'La taille du contenu dépasse la taille maximale autorisée.',
     'Unable to detect the feed format.' => 'Impossible de détecter le format du flux.',
-    'add a new group' => 'add a new group',
-    'Groups' => 'Groups',
+    'add a new group' => 'ajouter un nouveau libellé',
+    'Groups' => 'Libellés',
 );
