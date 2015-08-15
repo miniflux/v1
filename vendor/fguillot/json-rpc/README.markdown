@@ -3,6 +3,10 @@ JsonRPC PHP Client and Server
 
 A simple Json-RPC client/server that just works.
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/fguillot/JsonRPC/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/fguillot/JsonRPC/?branch=master)
+
+[![Build Status](https://travis-ci.org/fguillot/JsonRPC.svg?branch=master)](https://travis-ci.org/fguillot/JsonRPC)
+
 Features
 --------
 
@@ -11,24 +15,19 @@ Features
 - Authentication and IP based client restrictions
 - Minimalist: there is only 2 files
 - Fully unit tested
+- Requirements: PHP >= 5.3.4
 - License: MIT
-
-Requirements
-------------
-
-- The only dependency is the cURL extension
-- PHP >= 5.3
 
 Author
 ------
 
-[Frédéric Guillot](http://fredericguillot.com)
+Frédéric Guillot
 
 Installation with Composer
 --------------------------
 
 ```bash
-composer require fguillot/json-rpc dev-master
+composer require fguillot/json-rpc @stable
 ```
 
 Examples
@@ -214,7 +213,10 @@ All results are stored at the same position of the call.
 
 - `BadFunctionCallException`: Procedure not found on the server
 - `InvalidArgumentException`: Wrong procedure arguments
-- `RuntimeException`: Protocol error, authentication failure or connection failure, the message describe the exact error
+- `JsonRPC\AccessDeniedException`: Access denied
+- `JsonRPC\ConnectionFailureException`: Connection failure
+- `JsonRPC\ServerErrorException`: Internal server error
+- `RuntimeException`: Protocol error
 
 ### Enable client debugging
 

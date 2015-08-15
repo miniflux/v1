@@ -255,14 +255,14 @@ function new_tokens()
         'fever_token' => substr(generate_token(), 0, 8),
     );
 
-    return Database::get('db')->hashtable('settings')->put($values);
+    return Database::getInstance('db')->hashtable('settings')->put($values);
 }
 
 // Get a config value from the DB or from the session
 function get($name)
 {
     if (! isset($_SESSION)) {
-        return current(Database::get('db')->hashtable('settings')->get($name));
+        return current(Database::getInstance('db')->hashtable('settings')->get($name));
     }
     else {
 
@@ -281,10 +281,8 @@ function get($name)
 // Get all config parameters
 function get_all()
 {
-    $config = Database::get('db')->hashtable('settings')->get();
-
+    $config = Database::getInstance('db')->hashtable('settings')->get();
     unset($config['password']);
-
     return $config;
 }
 
@@ -339,10 +337,10 @@ function save(array $values)
 
     // If the user does not want content of feeds, remove it in previous ones
     if (isset($values['nocontent']) && (bool) $values['nocontent']) {
-        Database::get('db')->table('items')->update(array('content' => ''));
+        Database::getInstance('db')->table('items')->update(array('content' => ''));
     }
 
-    if (Database::get('db')->hashtable('settings')->put($values)) {
+    if (Database::getInstance('db')->hashtable('settings')->put($values)) {
         reload();
         return true;
     }

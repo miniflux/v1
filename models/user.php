@@ -26,7 +26,7 @@ function logout()
 // Get the credentials from the current selected database
 function getCredentials()
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->hashtable('settings')
         ->get('username', 'password');
 }

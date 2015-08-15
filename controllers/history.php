@@ -12,7 +12,7 @@ Router\get_action('history', function() {
     $nb_items = Model\Item\count_by_status('read');
     $items = Model\Item\get_all_by_status(
         'read',
-        null,
+        array(),
         $offset,
         Model\Config\get('items_per_page'),
         'updated',

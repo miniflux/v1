@@ -11,7 +11,7 @@ use PicoDb\Database;
  */
 function get_all()
 {
-    return Database::get('db')
+    return Database::getInstance('db')
             ->table('groups')
             ->orderBy('title')
             ->findAll();
@@ -24,7 +24,7 @@ function get_all()
  */
 function get_map()
 {
-    $result = Database::get('db')
+    $result = Database::getInstance('db')
             ->table('feeds_groups')
             ->findAll();
 
@@ -55,7 +55,7 @@ function get_map()
  */
 function get_feed_group_ids($feed_id)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
             ->table('groups')
             ->join('feeds_groups', 'group_id', 'id')
             ->eq('feed_id', $feed_id)
@@ -70,7 +70,7 @@ function get_feed_group_ids($feed_id)
  */
 function get_group_id($title)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
             ->table('groups')
             ->eq('title', $title)
             ->findOneColumn('id');
@@ -84,7 +84,7 @@ function get_group_id($title)
  */
 function get_feeds_by_group($group_id)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
             ->table('feeds_groups')
             ->eq('group_id', $group_id)
             ->findAllByColumn('feed_id');
@@ -108,7 +108,7 @@ function create($title)
 
     // create group if missing
     if ($group_id === false) {
-       Database::get('db')
+       Database::getInstance('db')
                 ->table('groups')
                 ->insert($data);
 
@@ -130,7 +130,7 @@ function add($feed_id, $group_ids)
     foreach ($group_ids as $group_id){
         $data = array('feed_id' => $feed_id, 'group_id' => $group_id);
 
-        $result = Database::get('db')
+        $result = Database::getInstance('db')
                 ->table('feeds_groups')
                 ->insert($data);
 
@@ -151,7 +151,7 @@ function add($feed_id, $group_ids)
  */
 function remove($feed_id, $group_ids)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
             ->table('feeds_groups')
             ->eq('feed_id', $feed_id)
             ->in('group_id', $group_ids)
@@ -163,14 +163,14 @@ function remove($feed_id, $group_ids)
  */
 function purge_groups()
 {
-    $groups = Database::get('db')
+    $groups = Database::getInstance('db')
                 ->table('groups')
                 ->join('feeds_groups', 'group_id', 'id')
                 ->isnull('feed_id')
                 ->findAllByColumn('id');
 
     if (! empty($groups)) {
-        Database::get('db')
+        Database::getInstance('db')
             ->table('groups')
             ->in('id', $groups)
             ->remove();

@@ -2,16 +2,19 @@
 
 namespace JsonRPC;
 
+use Exception;
 use RuntimeException;
 use BadFunctionCallException;
 use InvalidArgumentException;
+
+class ConnectionFailureException extends Exception {};
+class ServerErrorException extends Exception {};
 
 /**
  * JsonRPC client class
  *
  * @package JsonRPC
- * @author Frederic Guillot
- * @license Unlicense http://unlicense.org/
+ * @author  Frederic Guillot
  */
 class Client
 {
@@ -87,47 +90,33 @@ class Client
      * @var array
      */
     private $headers = array(
+        'User-Agent: JSON-RPC PHP Client <https://github.com/fguillot/JsonRPC>',
         'Content-Type: application/json',
-        'Accept: application/json'
+        'Accept: application/json',
+        'Connection: close',
     );
+
     /**
      * SSL certificates verification
+     *
      * @access public
      * @var boolean
      */
     public $ssl_verify_peer = true;
 
     /**
-     * cURL handle
-     *
-     * @access private
-     */
-    private $ch;
-
-    /**
      * Constructor
      *
      * @access public
      * @param  string    $url         Server URL
-     * @param  integer   $timeout     Server URL
+     * @param  integer   $timeout     HTTP timeout
      * @param  array     $headers     Custom HTTP headers
      */
-    public function __construct($url, $timeout = 5, $headers = array())
+    public function __construct($url, $timeout = 3, $headers = array())
     {
         $this->url = $url;
         $this->timeout = $timeout;
         $this->headers = array_merge($this->headers, $headers);
-        $this->ch = curl_init();
-    }
-
-    /**
-     * Destructor
-     *
-     * @access public
-     */
-    public function __destruct()
-    {
-        curl_close($this->ch);
     }
 
     /**
@@ -154,11 +143,14 @@ class Client
      * @access public
      * @param  string   $username   Username
      * @param  string   $password   Password
+     * @return Client
      */
     public function authentication($username, $password)
     {
         $this->username = $username;
         $this->password = $password;
+
+        return $this;
     }
 
     /**
@@ -243,7 +235,6 @@ class Client
     public function parseResponse(array $payload)
     {
         if ($this->isBatchResponse($payload)) {
-
             $results = array();
 
             foreach ($payload as $response) {
@@ -254,6 +245,113 @@ class Client
         }
 
         return $this->getResult($payload);
+    }
+
+    /**
+     * Throw an exception according the RPC error
+     *
+     * @access public
+     * @param  array   $error
+     * @throws BadFunctionCallException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
+     */
+    public function handleRpcErrors(array $error)
+    {
+        switch ($error['code']) {
+            case -32601:
+                throw new BadFunctionCallException('Procedure not found: '. $error['message']);
+            case -32602:
+                throw new InvalidArgumentException('Invalid arguments: '. $error['message']);
+            default:
+                throw new RuntimeException('Invalid request/response: '. $error['message'], $error['code']);
+        }
+    }
+
+    /**
+     * Throw an exception according the HTTP response
+     *
+     * @access public
+     * @param  array   $headers
+     * @throws AccessDeniedException
+     * @throws ServerErrorException
+     */
+    public function handleHttpErrors(array $headers)
+    {
+        $exceptions = array(
+            '401' => 'JsonRPC\AccessDeniedException',
+            '403' => 'JsonRPC\AccessDeniedException',
+            '404' => 'JsonRPC\ConnectionFailureException',
+            '500' => 'JsonRPC\ServerErrorException',
+        );
+
+        foreach ($headers as $header) {
+            foreach ($exceptions as $code => $exception) {
+                if (strpos($header, 'HTTP/1.0 '.$code) !== false || strpos($header, 'HTTP/1.1 '.$code) !== false) {
+                    throw new $exception('Response: '.$header);
+                }
+            }
+        }
+    }
+
+    /**
+     * Do the HTTP request
+     *
+     * @access private
+     * @param  array   $payload
+     * @return array
+     */
+    private function doRequest(array $payload)
+    {
+        $stream = @fopen(trim($this->url), 'r', false, $this->getContext($payload));
+
+        if (! is_resource($stream)) {
+            throw new ConnectionFailureException('Unable to establish a connection');
+        }
+
+        $metadata = stream_get_meta_data($stream);
+        $this->handleHttpErrors($metadata['wrapper_data']);
+
+        $response = json_decode(stream_get_contents($stream), true);
+
+        if ($this->debug) {
+            error_log('==> Request: '.PHP_EOL.json_encode($payload, JSON_PRETTY_PRINT));
+            error_log('==> Response: '.PHP_EOL.json_encode($response, JSON_PRETTY_PRINT));
+        }
+
+        return is_array($response) ? $response : array();
+    }
+
+    /**
+     * Prepare stream context
+     *
+     * @access private
+     * @param  array   $payload
+     * @return resource
+     */
+    private function getContext(array $payload)
+    {
+        $headers = $this->headers;
+
+        if (! empty($this->username) && ! empty($this->password)) {
+            $headers[] = 'Authorization: Basic '.base64_encode($this->username.':'.$this->password);
+        }
+
+        return stream_context_create(array(
+            'http' => array(
+                'method' => 'POST',
+                'protocol_version' => 1.1,
+                'timeout' => $this->timeout,
+                'max_redirects' => 2,
+                'header' => implode("\r\n", $headers),
+                'content' => json_encode($payload),
+                'ignore_errors' => true,
+            ),
+            "ssl" => array(
+                "verify_peer" => $this->ssl_verify_peer,
+                "verify_peer_name" => $this->ssl_verify_peer,
+            )
+        ));
     }
 
     /**
@@ -271,80 +369,16 @@ class Client
     /**
      * Get a RPC call result
      *
-     * @access public
+     * @access private
      * @param  array    $payload
      * @return mixed
      */
-    public function getResult(array $payload)
+    private function getResult(array $payload)
     {
         if (isset($payload['error']['code'])) {
             $this->handleRpcErrors($payload['error']);
         }
 
         return isset($payload['result']) ? $payload['result'] : null;
-    }
-
-    /**
-     * Throw an exception according the RPC error
-     *
-     * @access public
-     * @param  integer    $code
-     */
-    public function handleRpcErrors($error)
-    {
-        switch ($error['code']) {
-            case -32601:
-                throw new BadFunctionCallException('Procedure not found: '. $error['message']);
-            case -32602:
-                throw new InvalidArgumentException('Invalid arguments: '. $error['message']);
-            default:
-                throw new RuntimeException('Invalid request/response: '. $error['message'], $error['code']);
-        }
-    }
-
-    /**
-     * Do the HTTP request
-     *
-     * @access public
-     * @param  string   $payload   Data to send
-     */
-    public function doRequest($payload)
-    {
-        curl_setopt_array($this->ch, array(
-            CURLOPT_URL => $this->url,
-            CURLOPT_HEADER => false,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CONNECTTIMEOUT => $this->timeout,
-            CURLOPT_USERAGENT => 'JSON-RPC PHP Client',
-            CURLOPT_HTTPHEADER => $this->headers,
-            CURLOPT_FOLLOWLOCATION => false,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_SSL_VERIFYPEER => $this->ssl_verify_peer,
-            CURLOPT_POSTFIELDS => json_encode($payload)
-        ));
-
-        if ($this->username && $this->password) {
-            curl_setopt($this->ch, CURLOPT_USERPWD, $this->username.':'.$this->password);
-        }
-
-        $http_body = curl_exec($this->ch);
-        $http_code = curl_getinfo($this->ch, CURLINFO_HTTP_CODE);
-
-        if (curl_errno($this->ch)) {
-            throw new RuntimeException(curl_error($this->ch));
-        }
-
-        if ($http_code === 401 || $http_code === 403) {
-            throw new RuntimeException('Access denied');
-        }
-
-        $response = json_decode($http_body, true);
-
-        if ($this->debug) {
-            error_log('==> Request: '.PHP_EOL.json_encode($payload, JSON_PRETTY_PRINT));
-            error_log('==> Response: '.PHP_EOL.json_encode($response, JSON_PRETTY_PRINT));
-        }
-
-        return is_array($response) ? $response : array();
     }
 }

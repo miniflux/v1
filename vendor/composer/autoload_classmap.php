@@ -6,16 +6,22 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'JsonRPC\\AccessDeniedException' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/AccessDeniedException.php',
     'JsonRPC\\AuthenticationFailure' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Server.php',
     'JsonRPC\\Client' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Client.php',
+    'JsonRPC\\ConnectionFailureException' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Client.php',
     'JsonRPC\\InvalidJsonFormat' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Server.php',
     'JsonRPC\\InvalidJsonRpcFormat' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Server.php',
     'JsonRPC\\Server' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Server.php',
+    'JsonRPC\\ServerErrorException' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Client.php',
+    'PicoDb\\Condition' => $vendorDir . '/fguillot/picodb/lib/PicoDb/Condition.php',
     'PicoDb\\Database' => $vendorDir . '/fguillot/picodb/lib/PicoDb/Database.php',
+    'PicoDb\\Driver\\Base' => $vendorDir . '/fguillot/picodb/lib/PicoDb/Driver/Base.php',
     'PicoDb\\Driver\\Mysql' => $vendorDir . '/fguillot/picodb/lib/PicoDb/Driver/Mysql.php',
     'PicoDb\\Driver\\Postgres' => $vendorDir . '/fguillot/picodb/lib/PicoDb/Driver/Postgres.php',
     'PicoDb\\Driver\\Sqlite' => $vendorDir . '/fguillot/picodb/lib/PicoDb/Driver/Sqlite.php',
     'PicoDb\\Hashtable' => $vendorDir . '/fguillot/picodb/lib/PicoDb/Hashtable.php',
+    'PicoDb\\SQLException' => $vendorDir . '/fguillot/picodb/lib/PicoDb/SQLException.php',
     'PicoDb\\Schema' => $vendorDir . '/fguillot/picodb/lib/PicoDb/Schema.php',
     'PicoDb\\Table' => $vendorDir . '/fguillot/picodb/lib/PicoDb/Table.php',
     'PicoFeed\\Client\\Client' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Client/Client.php',

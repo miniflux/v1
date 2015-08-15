@@ -41,7 +41,7 @@ defined('ENABLE_HSTS') or define('ENABLE_HSTS', true);
 
 require __DIR__.'/check_setup.php';
 
-PicoDb\Database::bootstrap('db', function() {
+PicoDb\Database::setInstance('db', function() {
 
     $db = new PicoDb\Database(array(
         'driver' => 'sqlite',

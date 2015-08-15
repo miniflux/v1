@@ -41,7 +41,7 @@ function auth()
         }
     }
 
-    $credentials = Database::get('db')->hashtable('settings')->get('username', 'fever_token');
+    $credentials = Database::getInstance('db')->hashtable('settings')->get('username', 'fever_token');
     $api_key = md5($credentials['username'].':'.$credentials['fever_token']);
 
     $response = array(
@@ -118,7 +118,7 @@ route('favicons', function() {
 
     if ($response['auth']) {
 
-        $favicons = Database::get('db')
+        $favicons = Database::getInstance('db')
             ->table('favicons')
             ->columns(
                 'feed_id',
@@ -145,7 +145,7 @@ route('items', function() {
 
     if ($response['auth']) {
 
-        $query = Database::get('db')
+        $query = Database::getInstance('db')
                         ->table('items')
                         ->columns(
                             'rowid',
@@ -187,7 +187,7 @@ route('items', function() {
             );
         }
 
-        $response['total_items'] = Database::get('db')
+        $response['total_items'] = Database::getInstance('db')
                                         ->table('items')
                                         ->neq('status', 'removed')
                                         ->count();
@@ -215,7 +215,7 @@ route('unread_item_ids', function() {
 
     if ($response['auth']) {
 
-        $item_ids = Database::get('db')
+        $item_ids = Database::getInstance('db')
                     ->table('items')
                     ->eq('status', 'unread')
                     ->findAllByColumn('rowid');
@@ -233,7 +233,7 @@ route('saved_item_ids', function() {
 
     if ($response['auth']) {
 
-        $item_ids = Database::get('db')
+        $item_ids = Database::getInstance('db')
                     ->table('items')
                     ->eq('bookmark', 1)
                     ->findAllByColumn('rowid');
@@ -251,7 +251,7 @@ route('write_items', function() {
 
     if ($response['auth']) {
 
-        $query = Database::get('db')
+        $query = Database::getInstance('db')
                     ->table('items')
                     ->eq('rowid', $_POST['id']);
 
@@ -259,7 +259,7 @@ route('write_items', function() {
             $query->update(array('bookmark' => 1));
 
             // Send bookmark to third-party services if enabled
-            $item_id = Database::get('db')
+            $item_id = Database::getInstance('db')
                             ->table('items')
                             ->eq('rowid', $_POST['id'])
                             ->findOneColumn('id');
@@ -287,7 +287,7 @@ route('write_feeds', function() {
 
     if ($response['auth']) {
 
-        Database::get('db')
+        Database::getInstance('db')
             ->table('items')
             ->eq('feed_id', $_POST['id'])
             ->lte('updated', $_POST['before'])
@@ -303,7 +303,7 @@ route('write_groups', function() {
     $response = auth();
 
     if ($response['auth']) {
-        $db = Database::get('db')
+        $db = Database::getInstance('db')
                 ->table('items')
                 ->lte('updated', $_POST['before']);
 

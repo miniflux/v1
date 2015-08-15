@@ -6,12 +6,11 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Frédéric Guillot",
-            "homepage": "http://fredericguillot.com"
+            "name": "Frédéric Guillot"
         }
     ],
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.3.4"
     },
     "autoload": {
         "psr-0": {"JsonRPC": "src/"}

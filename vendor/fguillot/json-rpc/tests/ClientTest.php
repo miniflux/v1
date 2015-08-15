@@ -55,6 +55,51 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $client->parseResponse(json_decode('{"jsonrpc": "2.0", "error": {"code": -32700, "message": "Parse error"}, "id": null}', true));
     }
 
+    /**
+     * @expectedException JsonRPC\ServerErrorException
+     */
+    public function testServerError()
+    {
+        $client = new Client('http://localhost/');
+        $client->handleHttpErrors(array('HTTP/1.0 301 Moved Permantenly', 'Connection: close', 'HTTP/1.1 500 Internal Server Error'));
+    }
+
+    /**
+     * @expectedException JsonRPC\ConnectionFailureException
+     */
+    public function testBadUrl()
+    {
+        $client = new Client('http://something_not_found/', 1);
+        $client->execute('plop');
+    }
+
+    /**
+     * @expectedException JsonRPC\ConnectionFailureException
+     */
+    public function test404()
+    {
+        $client = new Client('http://localhost/');
+        $client->handleHttpErrors(array('HTTP/1.1 404 Not Found'));
+    }
+
+    /**
+     * @expectedException JsonRPC\AccessDeniedException
+     */
+    public function testAccessForbiddenError()
+    {
+        $client = new Client('http://localhost/');
+        $client->handleHttpErrors(array('HTTP/1.0 301 Moved Permantenly', 'Connection: close', 'HTTP/1.1 403 Forbidden'));
+    }
+
+    /**
+     * @expectedException JsonRPC\AccessDeniedException
+     */
+    public function testAccessNotAllowedError()
+    {
+        $client = new Client('http://localhost/');
+        $client->handleHttpErrors(array('HTTP/1.0 301 Moved Permantenly', 'Connection: close', 'HTTP/1.0 401 Unauthorized'));
+    }
+
     public function testPrepareRequest()
     {
         $client = new Client('http://localhost/');

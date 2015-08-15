@@ -1,4 +1,4 @@
-<phpunit bootstrap="./vendor/autoload.php">
+<phpunit bootstrap="./vendor/autoload.php" stopOnError="true" stopOnFailure="true" colors="true">
     <testsuites>
         <testsuite name="JsonRPC">
             <directory>tests</directory>

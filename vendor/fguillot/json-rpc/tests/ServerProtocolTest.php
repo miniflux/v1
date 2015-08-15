@@ -2,6 +2,14 @@
 
 use JsonRPC\Server;
 
+class C
+{
+    public function doSomething()
+    {
+        return 'something';
+    }
+}
+
 class ServerProtocolTest extends PHPUnit_Framework_TestCase
 {
     public function testPositionalParameters()
@@ -165,7 +173,9 @@ class ServerProtocolTest extends PHPUnit_Framework_TestCase
             {"jsonrpc": "2.0", "method": "subtract", "params": [42,23], "id": "2"},
             {"foo": "boo"},
             {"jsonrpc": "2.0", "method": "foo.get", "params": {"name": "myself"}, "id": "5"},
-            {"jsonrpc": "2.0", "method": "get_data", "id": "9"}
+            {"jsonrpc": "2.0", "method": "get_data", "id": "9"},
+            {"jsonrpc": "2.0", "method": "doSomething", "id": 10},
+            {"jsonrpc": "2.0", "method": "doStuff", "id": 15}
         ]');
 
         $server->register('sum', function($a, $b, $c) {
@@ -180,6 +190,10 @@ class ServerProtocolTest extends PHPUnit_Framework_TestCase
             return array('hello', 5);
         });
 
+        $server->attach(new C);
+
+        $server->bind('doStuff', 'C', 'doSomething');
+
         $response = $server->execute();
 
         $this->assertEquals(
@@ -188,7 +202,9 @@ class ServerProtocolTest extends PHPUnit_Framework_TestCase
                 {"jsonrpc": "2.0", "result": 19, "id": "2"},
                 {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null},
                 {"jsonrpc": "2.0", "error": {"code": -32601, "message": "Method not found"}, "id": "5"},
-                {"jsonrpc": "2.0", "result": ["hello", 5], "id": "9"}
+                {"jsonrpc": "2.0", "result": ["hello", 5], "id": "9"},
+                {"jsonrpc": "2.0", "result": "something", "id": "10"},
+                {"jsonrpc": "2.0", "result": "something", "id": "15"}
             ]', true),
             json_decode($response, true)
         );

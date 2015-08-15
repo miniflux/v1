@@ -4,10 +4,11 @@ require __DIR__.'/common.php';
 
 use JsonRPC\Server;
 use PicoFeed\PicoFeedException;
+use Model\Config;
 
 $server = new Server;
 $server->authentication(array(
-    \Model\Config\get('username') => \Model\Config\get('api_token')
+    Config\get('username') => Config\get('api_token')
 ));
 
 // Get version
@@ -115,7 +116,7 @@ $server->register('item.bookmark.delete', function ($item_id) {
 // Get all unread items
 $server->register('item.list_unread', function ($offset = null, $limit = null) {
 
-    return Model\Item\get_all_by_status('unread', null, $offset, $limit);
+    return Model\Item\get_all_by_status('unread', array(), $offset, $limit);
 });
 
 // Count all unread items
@@ -127,7 +128,7 @@ $server->register('item.count_unread', function () {
 // Get all read items
 $server->register('item.list_read', function ($offset = null, $limit = null) {
 
-    return Model\Item\get_all_by_status('read', null, $offset, $limit);
+    return Model\Item\get_all_by_status('read', array(), $offset, $limit);
 });
 
 // Count all read items

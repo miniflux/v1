@@ -4,10 +4,15 @@
     },
     "require": {
         "fguillot/simple-validator": "v0.0.3",
-        "fguillot/json-rpc": "v0.0.3",
-        "fguillot/picodb": "v0.0.3",
+        "fguillot/json-rpc": "v1.0.1",
+        "fguillot/picodb": "v1.0.1",
         "fguillot/picofeed": "v0.1.8",
         "fguillot/picofarad": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.8.3",
+        "phpunit/phpunit-selenium": "1.4.2",
+        "phpunit/dbunit": "1.4.1"
     },
     "autoload": {
         "files": [

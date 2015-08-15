@@ -99,7 +99,7 @@ Router\get_action('generate-tokens', function() {
 Router\get_action('optimize-db', function() {
 
     if (Model\Config\check_csrf(Request\param('csrf'))) {
-        Database::get('db')->getConnection()->exec('VACUUM');
+        Database::getInstance('db')->getConnection()->exec('VACUUM');
     }
 
     Response\redirect('?action=database');

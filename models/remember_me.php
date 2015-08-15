@@ -18,7 +18,7 @@ const EXPIRATION = 5184000;
  */
 function find($token, $sequence)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
                 ->table(TABLE)
                 ->eq('token', $token)
                 ->eq('sequence', $sequence)
@@ -34,7 +34,7 @@ function find($token, $sequence)
  */
 function get_all()
 {
-    return Database::get('db')
+    return Database::getInstance('db')
                 ->table(TABLE)
                 ->desc('date_creation')
                 ->columns('id', 'ip', 'user_agent', 'date_creation', 'expiration')
@@ -111,7 +111,7 @@ function destroy()
 
     if ($credentials !== false) {
 
-        Database::get('db')
+        Database::getInstance('db')
              ->table(TABLE)
              ->eq('token', $credentials['token'])
              ->remove();
@@ -138,7 +138,7 @@ function create($dbname, $username, $ip, $user_agent)
 
     cleanup();
 
-    Database::get('db')
+    Database::getInstance('db')
          ->table(TABLE)
          ->insert(array(
             'username' => $username,
@@ -165,7 +165,7 @@ function create($dbname, $username, $ip, $user_agent)
  */
 function cleanup()
 {
-    return Database::get('db')
+    return Database::getInstance('db')
                 ->table(TABLE)
                 ->lt('expiration', time())
                 ->remove();
@@ -182,7 +182,7 @@ function update($token)
 {
     $new_sequence = Config\generate_token();
 
-    Database::get('db')
+    Database::getInstance('db')
          ->table(TABLE)
          ->eq('token', $token)
          ->update(array('sequence' => $new_sequence));

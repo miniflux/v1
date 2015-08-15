@@ -15,7 +15,7 @@ Router\get_action('unread', function() {
     $direction = Request\param('direction', Model\Config\get('items_sorting_direction'));
     $offset = Request\int_param('offset', 0);
     $group_id = Request\int_param('group_id', null);
-    $feed_ids = null;
+    $feed_ids = array();
 
     if (!is_null($group_id)) {
         $feed_ids = Model\Group\get_feeds_by_group($group_id);

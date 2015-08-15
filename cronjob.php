@@ -27,8 +27,7 @@ $update_interval = ! empty($options['update-interval']) && ctype_digit($options[
 $call_interval = ! empty($options['call-interval']) && ctype_digit($options['call-interval']) ? (int) $options['call-interval'] : null;
 
 if ($update_interval !== null && $call_interval !== null && $limit === Model\Feed\LIMIT_ALL && $update_interval >= $call_interval) {
-
-    $feeds_count = PicoDb\Database::get('db')->table('feeds')->count();
+    $feeds_count = PicoDb\Database::getInstance('db')->table('feeds')->count();
     $limit = ceil($feeds_count / ($update_interval / $call_interval));
 }
 

@@ -12,7 +12,7 @@ use PicoFeed\Scraper\Scraper;
 // Get all items without filtering
 function get_all()
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->columns(
             'items.id',
@@ -39,7 +39,7 @@ function get_all()
 // Get everthing since date (timestamp)
 function get_all_since($timestamp)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->columns(
             'items.id',
@@ -66,7 +66,7 @@ function get_all_since($timestamp)
 
 function get_latest_feeds_items()
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('feeds')
         ->columns(
             'feeds.id',
@@ -82,7 +82,7 @@ function get_latest_feeds_items()
 // Get a list of [item_id => status,...]
 function get_all_status()
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->hashtable('items')
         ->in('status', array('read', 'unread'))
         ->orderBy('updated', 'desc')
@@ -90,9 +90,9 @@ function get_all_status()
 }
 
 // Get all items by status
-function get_all_by_status($status, $feed_ids = null, $offset = null, $limit = null, $order_column = 'updated', $order_direction = 'desc')
+function get_all_by_status($status, $feed_ids = array(), $offset = null, $limit = null, $order_column = 'updated', $order_direction = 'desc')
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->columns(
             'items.id',
@@ -120,9 +120,9 @@ function get_all_by_status($status, $feed_ids = null, $offset = null, $limit = n
 }
 
 // Get the number of items per status
-function count_by_status($status, $feed_ids = null)
+function count_by_status($status, $feed_ids = array())
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('status', $status)
         ->in('feed_id', $feed_ids)
@@ -132,7 +132,7 @@ function count_by_status($status, $feed_ids = null)
 // Get the number of bookmarks
 function count_bookmarks()
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('bookmark', 1)
         ->in('status', array('read', 'unread'))
@@ -142,7 +142,7 @@ function count_bookmarks()
 // Get all bookmarks
 function get_bookmarks($offset = null, $limit = null)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->columns(
             'items.id',
@@ -172,7 +172,7 @@ function get_bookmarks($offset = null, $limit = null)
 // Get the number of items per feed
 function count_by_feed($feed_id)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('feed_id', $feed_id)
         ->in('status', array('unread', 'read'))
@@ -182,7 +182,7 @@ function count_by_feed($feed_id)
 // Get all items per feed
 function get_all_by_feed($feed_id, $offset = null, $limit = null, $order_column = 'updated', $order_direction = 'desc')
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->columns(
             'items.id',
@@ -211,7 +211,7 @@ function get_all_by_feed($feed_id, $offset = null, $limit = null, $order_column 
 // Get one item by id
 function get($id)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('id', $id)
         ->findOne();
@@ -220,7 +220,7 @@ function get($id)
 // Get item naviguation (next/prev items)
 function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $feed_id = null)
 {
-    $query = Database::get('db')
+    $query = Database::getInstance('db')
         ->table('items')
         ->columns('id', 'status', 'title', 'bookmark')
         ->neq('status', 'removed')
@@ -280,7 +280,7 @@ function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $fee
 // Change item status to removed and clear content
 function set_removed($id)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('id', $id)
         ->save(array('status' => 'removed', 'content' => ''));
@@ -289,7 +289,7 @@ function set_removed($id)
 // Change item status to read
 function set_read($id)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('id', $id)
         ->save(array('status' => 'read'));
@@ -298,7 +298,7 @@ function set_read($id)
 // Change item status to unread
 function set_unread($id)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('id', $id)
         ->save(array('status' => 'unread'));
@@ -309,7 +309,7 @@ function set_status($status, array $items)
 {
     if (! in_array($status, array('read', 'unread', 'removed'))) return false;
 
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->in('id', $items)
         ->save(array('status' => $status));
@@ -322,7 +322,7 @@ function set_bookmark_value($id, $value)
         Service\push($id);
     }
 
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('id', $id)
         ->in('status', array('read', 'unread'))
@@ -332,7 +332,7 @@ function set_bookmark_value($id, $value)
 // Mark all unread items as read
 function mark_all_as_read()
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('status', 'unread')
         ->save(array('status' => 'read'));
@@ -341,7 +341,7 @@ function mark_all_as_read()
 // Mark all read items to removed
 function mark_all_as_removed()
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('status', 'read')
         ->eq('bookmark', 0)
@@ -351,7 +351,7 @@ function mark_all_as_removed()
 // Mark all items of a feed as read
 function mark_feed_as_read($feed_id)
 {
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('status', 'unread')
         ->eq('feed_id', $feed_id)
@@ -364,7 +364,7 @@ function mark_group_as_read($group_id)
     // workaround for missing update with join
     $feed_ids = Group\get_feeds_by_group($group_id);
 
-    return Database::get('db')
+    return Database::getInstance('db')
         ->table('items')
         ->eq('status', 'unread')
         ->in('feed_id', $feed_ids)
@@ -379,7 +379,7 @@ function autoflush_read()
     if ($autoflush > 0) {
 
         // Mark read items removed after X days
-        Database::get('db')
+        Database::getInstance('db')
             ->table('items')
             ->eq('bookmark', 0)
             ->eq('status', 'read')
@@ -389,7 +389,7 @@ function autoflush_read()
     else if ($autoflush === -1) {
 
         // Mark read items removed immediately
-        Database::get('db')
+        Database::getInstance('db')
             ->table('items')
             ->eq('bookmark', 0)
             ->eq('status', 'read')
@@ -405,7 +405,7 @@ function autoflush_unread()
     if ($autoflush > 0) {
 
         // Mark read items removed after X days
-        Database::get('db')
+        Database::getInstance('db')
             ->table('items')
             ->eq('bookmark', 0)
             ->eq('status', 'unread')
@@ -421,7 +421,7 @@ function update_all($feed_id, array $items)
 
     $items_in_feed = array();
 
-    $db = Database::get('db');
+    $db = Database::getInstance('db');
     $db->startTransaction();
 
     foreach ($items as $item) {
@@ -490,7 +490,7 @@ function cleanup($feed_id, array $items_in_feed)
 {
     if (! empty($items_in_feed)) {
 
-        $db = Database::get('db');
+        $db = Database::getInstance('db');
 
         $removed_items = $db
             ->table('items')
@@ -558,7 +558,7 @@ function download_content_id($item_id)
         if (! Config\get('nocontent')) {
 
             // Save content
-            Database::get('db')
+            Database::getInstance('db')
                 ->table('items')
                 ->eq('id', $item['id'])
                 ->save(array('content' => $content));
