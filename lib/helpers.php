@@ -74,25 +74,13 @@ function escape($value)
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false);
 }
 
-function flash($html)
+function flash($type, $html)
 {
     $data = '';
 
-    if (isset($_SESSION['flash_message'])) {
-        $data = sprintf($html, escape($_SESSION['flash_message']));
-        unset($_SESSION['flash_message']);
-    }
-
-    return $data;
-}
-
-function flash_error($html)
-{
-    $data = '';
-
-    if (isset($_SESSION['flash_error_message'])) {
-        $data = sprintf($html, escape($_SESSION['flash_error_message']));
-        unset($_SESSION['flash_error_message']);
+    if (isset($_SESSION[$type])) {
+        $data = sprintf($html, escape($_SESSION[$type]));
+        unset($_SESSION[$type]);
     }
 
     return $data;

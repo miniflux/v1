@@ -103,7 +103,6 @@ function refresh()
  * Remove the current RememberMe session and the cookie
  *
  * @access public
- * @param  integer  $user_id  User id
  */
 function destroy()
 {

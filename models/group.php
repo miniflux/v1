@@ -79,7 +79,7 @@ function get_group_id($title)
 /**
  * Get all feed ids assigned to a group
  *
- * @param array $group_id
+ * @param integer $group_id
  * @return array
  */
 function get_feeds_by_group($group_id)
