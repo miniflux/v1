@@ -18,7 +18,7 @@ return array(
     'Feed URL' => 'URL zdroje',
     'Website URL' => 'URL stránky',
     'Title' => 'Název',
-    'Edit subscription' => 'Upravid odběr',
+    'Edit subscription' => 'Upravit odběr',
     'Unable to edit your subscription.' => 'Nelze upravit váš odběr.',
     'Your subscription has been updated.' => 'Váš odběr byl aktualizován',
     'Older items first' => 'Nejdřív starší položky',
