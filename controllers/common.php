@@ -48,7 +48,7 @@ Router\before(function($action) {
     // HTTP secure headers
     Response\csp(array(
         'media-src' => '*',
-        'img-src' => '*',
+        'img-src' => '* data:',
         'frame-src' => Model\Config\get_iframe_whitelist(),
         'referrer' => 'no-referrer',
     ));
