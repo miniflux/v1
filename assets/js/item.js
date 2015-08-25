@@ -327,7 +327,8 @@ Miniflux.Item = (function() {
                 "#current-item h1",
                 "#item-content",
                 "#listing #current-item h2",
-                "#listing #current-item .preview"
+                "#listing #current-item .preview",
+                "#listing #current-item .preview-full-content"
             ];
 
             for (var i = 0; i < tags.length; i++) {
