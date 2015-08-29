@@ -6,10 +6,13 @@
 >
     <head>
         <meta charset="utf-8">
-        <title><?= isset($title) ? Helper\escape($title) : t('Miniflux') ?></title>
-
         <meta name="viewport" content="width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
+        <meta name="robots" content="noindex,nofollow">
+        <meta name="referrer" content="no-referrer">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title><?= isset($title) ? Helper\escape($title) : t('Miniflux') ?></title>
 
         <link rel="icon" type="image/png" href="assets/img/favicon.png">
         <link rel="shortcut icon" href="favicon.ico">
