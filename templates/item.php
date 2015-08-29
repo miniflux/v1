@@ -51,7 +51,7 @@
             <?php endif ?>
             </li>
         <?php endif ?>
-        <?= \PicoFarad\Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'source' => '')) ?>
-        <?= \PicoFarad\Template\load('status_links', array('item' => $item, 'redirect' => $menu, 'offset' => $offset)) ?>
+        <?= \Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'source' => '')) ?>
+        <?= \Template\load('status_links', array('item' => $item, 'redirect' => $menu, 'offset' => $offset)) ?>
     </ul>
 </article>

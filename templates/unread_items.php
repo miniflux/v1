@@ -29,7 +29,7 @@
             <p class="alert alert-info"><?= t('Nothing to read') ?></p>
         <?php else: ?>
             <?php foreach ($items as $item): ?>
-                <?= \PicoFarad\Template\load('item', array(
+                <?= \Template\load('item', array(
                     'item' => $item,
                     'menu' => $menu,
                     'offset' => $offset,
@@ -44,6 +44,6 @@
                 <a href="?action=mark-all-read<?= is_null($group_id) ? '' : '&amp;group_id='.$group_id ?>"><?= t('mark all as read') ?></a>
             </div>
 
-            <?= \PicoFarad\Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'group_id' => $group_id)) ?>
+            <?= \Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'group_id' => $group_id)) ?>
         <?php endif ?>
     </section>

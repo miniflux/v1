@@ -1,10 +1,5 @@
 <?php
 
-use PicoFarad\Router;
-use PicoFarad\Response;
-use PicoFarad\Request;
-use PicoFarad\Session;
-use PicoFarad\Template;
 use PicoDb\Database;
 
 // Display a form to add a new database

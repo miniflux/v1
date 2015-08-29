@@ -12,7 +12,7 @@
                 <h2><?= t('Help') ?></h2>
             </div>
             <section>
-                <?= \PicoFarad\Template\load('keyboard_shortcuts') ?>
+                <?= \Template\load('keyboard_shortcuts') ?>
             </section>
         </section>
     </body>

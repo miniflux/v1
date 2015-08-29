@@ -1,9 +1,5 @@
 <?php
 
-use PicoFarad\Router;
-use PicoFarad\Response;
-use PicoFarad\Template;
-
 // Flush console messages
 Router\get_action('flush-console', function() {
 

@@ -1,11 +1,5 @@
 <?php
 
-use PicoFarad\Router;
-use PicoFarad\Response;
-use PicoFarad\Request;
-use PicoFarad\Session;
-use PicoFarad\Template;
-
 // Called before each action
 Router\before(function($action) {
 

@@ -5,7 +5,7 @@ namespace Model\User;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 use PicoDb\Database;
-use PicoFarad\Session;
+use Session;
 use Model\Config;
 use Model\RememberMe;
 use Model\Database as DatabaseModel;

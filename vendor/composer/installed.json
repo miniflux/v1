@@ -1,131 +1,5 @@
 [
     {
-        "name": "fguillot/picofarad",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fguillot/picoFarad.git",
-            "reference": "a5817c49ca3037829ec1509d14724be5f29c35a0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFarad/zipball/a5817c49ca3037829ec1509d14724be5f29c35a0",
-            "reference": "a5817c49ca3037829ec1509d14724be5f29c35a0",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2015-04-14 01:53:02",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "PicoFarad": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Frédéric Guillot",
-                "homepage": "http://fredericguillot.com"
-            }
-        ],
-        "description": "Minimalist micro-framework",
-        "homepage": "https://github.com/fguillot/picoFarad"
-    },
-    {
-        "name": "fguillot/simple-validator",
-        "version": "v0.0.3",
-        "version_normalized": "0.0.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fguillot/simpleValidator.git",
-            "reference": "2f30078bb6e688cf123c150d58fda322792a1532"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/simpleValidator/zipball/2f30078bb6e688cf123c150d58fda322792a1532",
-            "reference": "2f30078bb6e688cf123c150d58fda322792a1532",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2015-04-14 02:03:43",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "SimpleValidator": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Frédéric Guillot"
-            }
-        ],
-        "description": "The most easy to use validator library for PHP :)",
-        "homepage": "https://github.com/fguillot/simpleValidator"
-    },
-    {
-        "name": "fguillot/picofeed",
-        "version": "v0.1.8",
-        "version_normalized": "0.1.8.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "a6d01a62514530dea91b2c8da5e194d680e1d91b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/a6d01a62514530dea91b2c8da5e194d680e1d91b",
-            "reference": "a6d01a62514530dea91b2c8da5e194d680e1d91b",
-            "shasum": ""
-        },
-        "require": {
-            "ext-dom": "*",
-            "ext-iconv": "*",
-            "ext-libxml": "*",
-            "ext-simplexml": "*",
-            "ext-xml": "*",
-            "php": ">=5.3.0"
-        },
-        "suggest": {
-            "ext-curl": "PicoFeed will use cURL if present"
-        },
-        "time": "2015-08-13 23:56:50",
-        "bin": [
-            "picofeed"
-        ],
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "PicoFeed": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Frédéric Guillot"
-            }
-        ],
-        "description": "Modern library to handle RSS/Atom feeds",
-        "homepage": "https://github.com/fguillot/picoFeed"
-    },
-    {
         "name": "fguillot/json-rpc",
         "version": "v1.0.1",
         "version_normalized": "1.0.1.0",
@@ -201,5 +75,92 @@
         ],
         "description": "Minimalist database query builder",
         "homepage": "https://github.com/fguillot/picoDb"
+    },
+    {
+        "name": "fguillot/simple-validator",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fguillot/simpleValidator.git",
+            "reference": "9579993f3dd0f03053b28fec1e7b9990edc3947b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fguillot/simpleValidator/zipball/9579993f3dd0f03053b28fec1e7b9990edc3947b",
+            "reference": "9579993f3dd0f03053b28fec1e7b9990edc3947b",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2015-08-29 00:44:37",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "SimpleValidator": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frédéric Guillot"
+            }
+        ],
+        "description": "Simple validator library",
+        "homepage": "https://github.com/fguillot/simpleValidator"
+    },
+    {
+        "name": "fguillot/picofeed",
+        "version": "v0.1.9",
+        "version_normalized": "0.1.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fguillot/picoFeed.git",
+            "reference": "b1dc17e00215c6ffb6ff2fbc6d193d6403c8bb71"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/b1dc17e00215c6ffb6ff2fbc6d193d6403c8bb71",
+            "reference": "b1dc17e00215c6ffb6ff2fbc6d193d6403c8bb71",
+            "shasum": ""
+        },
+        "require": {
+            "ext-dom": "*",
+            "ext-iconv": "*",
+            "ext-libxml": "*",
+            "ext-simplexml": "*",
+            "ext-xml": "*",
+            "php": ">=5.3.0"
+        },
+        "suggest": {
+            "ext-curl": "PicoFeed will use cURL if present"
+        },
+        "time": "2015-08-27 23:26:39",
+        "bin": [
+            "picofeed"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PicoFeed": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frédéric Guillot"
+            }
+        ],
+        "description": "Modern library to handle RSS/Atom feeds",
+        "homepage": "https://github.com/fguillot/picoFeed"
     }
 ]

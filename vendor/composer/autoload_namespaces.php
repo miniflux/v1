@@ -8,7 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'SimpleValidator' => array($vendorDir . '/fguillot/simple-validator/src'),
     'PicoFeed' => array($vendorDir . '/fguillot/picofeed/lib'),
-    'PicoFarad' => array($vendorDir . '/fguillot/picofarad/lib'),
     'PicoDb' => array($vendorDir . '/fguillot/picodb/lib'),
     'JsonRPC' => array($vendorDir . '/fguillot/json-rpc/src'),
 );

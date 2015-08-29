@@ -1,9 +1,5 @@
 <?php
 
-use PicoFarad\Router;
-use PicoFarad\Response;
-use PicoFarad\Request;
-use PicoFarad\Template;
 use PicoFeed\Syndication\Atom;
 
 // Ajax call to add or remove a bookmark

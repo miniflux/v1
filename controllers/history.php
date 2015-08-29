@@ -1,10 +1,5 @@
 <?php
 
-use PicoFarad\Router;
-use PicoFarad\Response;
-use PicoFarad\Request;
-use PicoFarad\Template;
-
 // Display history page
 Router\get_action('history', function() {
 

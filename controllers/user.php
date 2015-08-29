@@ -1,10 +1,5 @@
 <?php
 
-use PicoFarad\Router;
-use PicoFarad\Response;
-use PicoFarad\Request;
-use PicoFarad\Template;
-
 // Logout and destroy session
 Router\get_action('logout', function() {
 

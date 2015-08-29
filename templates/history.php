@@ -15,7 +15,7 @@
 
     <section class="items" id="listing">
         <?php foreach ($items as $item): ?>
-            <?= \PicoFarad\Template\load('item', array(
+            <?= \Template\load('item', array(
                 'item' => $item,
                 'menu' => $menu,
                 'offset' => $offset,
@@ -26,7 +26,7 @@
             )) ?>
         <?php endforeach ?>
 
-        <?= \PicoFarad\Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction)) ?>
+        <?= \Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction)) ?>
     </section>
 
 <?php endif ?>

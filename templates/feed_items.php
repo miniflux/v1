@@ -27,7 +27,7 @@
 
     <section class="items" id="listing" data-feed-id="<?= $feed['id'] ?>">
         <?php foreach ($items as $item): ?>
-            <?= \PicoFarad\Template\load('item', array(
+            <?= \Template\load('item', array(
                 'feed' => $feed,
                 'item' => $item,
                 'menu' => $menu,
@@ -43,7 +43,7 @@
             <a href="?action=mark-feed-as-read&amp;feed_id=<?= $feed['id'] ?>" data-action="mark-feed-read"><?= t('mark all as read') ?></a>
         </div>
 
-        <?= \PicoFarad\Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'feed_id' => $feed['id'])) ?>
+        <?= \Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'feed_id' => $feed['id'])) ?>
     </section>
 
 <?php endif ?>

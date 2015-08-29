@@ -3,11 +3,10 @@
         "preferred-install": "dist"
     },
     "require": {
-        "fguillot/simple-validator": "v0.0.3",
+        "fguillot/simple-validator": "v1.0.0",
         "fguillot/json-rpc": "v1.0.1",
         "fguillot/picodb": "v1.0.1",
-        "fguillot/picofeed": "v0.1.8",
-        "fguillot/picofarad": "dev-master"
+        "fguillot/picofeed": "v0.1.9"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8.3",
@@ -18,6 +17,11 @@
         "files": [
             "lib/helpers.php",
             "lib/Translator.php",
+            "lib/Request.php",
+            "lib/Response.php",
+            "lib/Router.php",
+            "lib/Session.php",
+            "lib/Template.php",
             "models/config.php",
             "models/service.php",
             "models/user.php",

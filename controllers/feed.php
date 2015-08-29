@@ -1,11 +1,5 @@
 <?php
 
-use PicoFarad\Router;
-use PicoFarad\Response;
-use PicoFarad\Request;
-use PicoFarad\Session;
-use PicoFarad\Template;
-
 // Refresh all feeds, used when Javascript is disabled
 Router\get_action('refresh-all', function() {
 

@@ -8,6 +8,11 @@ $baseDir = dirname($vendorDir);
 return array(
     $baseDir . '/lib/helpers.php',
     $baseDir . '/lib/Translator.php',
+    $baseDir . '/lib/Request.php',
+    $baseDir . '/lib/Response.php',
+    $baseDir . '/lib/Router.php',
+    $baseDir . '/lib/Session.php',
+    $baseDir . '/lib/Template.php',
     $baseDir . '/models/config.php',
     $baseDir . '/models/service.php',
     $baseDir . '/models/user.php',

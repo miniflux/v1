@@ -12,7 +12,7 @@
     </nav>
 </div>
 <section>
-    <?= \PicoFarad\Template\load('keyboard_shortcuts') ?>
+    <?= \Template\load('keyboard_shortcuts') ?>
 </section>
 <div class="page-section">
     <h2><?= t('Documentation') ?></h2>
