@@ -12,6 +12,7 @@ return array(
     'JsonRPC\\ConnectionFailureException' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Client.php',
     'JsonRPC\\InvalidJsonFormat' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Server.php',
     'JsonRPC\\InvalidJsonRpcFormat' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Server.php',
+    'JsonRPC\\ResponseException' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/ResponseException.php',
     'JsonRPC\\Server' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Server.php',
     'JsonRPC\\ServerErrorException' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Client.php',
     'PicoDb\\Condition' => $vendorDir . '/fguillot/picodb/lib/PicoDb/Condition.php',

@@ -262,7 +262,12 @@ class Client
             case -32601:
                 throw new BadFunctionCallException('Procedure not found: '. $error['message']);
             case -32602:
-                throw new InvalidArgumentException('Invalid arguments: '. $error['message']);
+                throw new ResponseException(
+                    'Invalid arguments: '. $error['message'],
+                    $error['code'],
+                    null,
+                    isset($error['data']) ? $error['data'] : null
+                );
             default:
                 throw new RuntimeException('Invalid request/response: '. $error['message'], $error['code']);
         }
