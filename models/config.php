@@ -10,7 +10,7 @@ use PicoDb\Database;
 use PicoFeed\Config\Config as ReaderConfig;
 use PicoFeed\Logging\Logger;
 
-const HTTP_USER_AGENT = 'Miniflux (http://miniflux.net)';
+const HTTP_USER_AGENT = 'Miniflux (https://miniflux.net)';
 
 // Get PicoFeed config
 function get_reader_config()

@@ -29,7 +29,7 @@
         <h3><?= t('About') ?></h3>
         <ul>
             <li><?= t('Miniflux version:') ?> <strong><?= APP_VERSION ?></strong></li>
-            <li><?= t('Official website:') ?> <a href="http://miniflux.net" rel="noreferrer" target="_blank">http://miniflux.net</a></li>
+            <li><?= t('Official website:') ?> <a href="https://miniflux.net" rel="noreferrer" target="_blank">https://miniflux.net</a></li>
             <li><a href="?action=console"><?= t('Console') ?></a></li>
         </ul>
     </div>
