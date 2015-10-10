@@ -4,10 +4,13 @@ Fever API
 Miniflux support the [Fever API](http://feedafever.com/api).
 That means you can use mobile applications compatible with Fever.
 
-This feature have been tested with the following apps:
+This feature has been tested with the following apps:
 
 - [Press for Android](http://twentyfivesquares.com/press/)
-- [Reeder 2](http://reederapp.com/) (iOS and OSX)
+- [Reeder 2](http://reederapp.com/) (iOS and OS X)
+- [Reeder 3](http://reederapp.com/) (OS X)
+- [ReadKit](http://readkitapp.com/) (OS X)
+
 
 Configuration
 -------------
@@ -24,11 +27,10 @@ Multiple databases/users
 
 Multiple databases can be used with the Fever API if you have Apache and the `mod_rewrite` enabled.
 
-The Fever URL becomes `http:///your_miniflux_url/myuser.sqlite/`.
+The Fever URL becomes `http://your_miniflux_url/myuser.sqlite/`.
 
 Notes
 -----
 
-- Links, sparks, kindling and groups are not supported.
-- All feeds will be under a category "All" because Miniflux doesn't support categories.
+- Links, sparks and kindlings are not supported.
 - Only JSON responses are handled.
