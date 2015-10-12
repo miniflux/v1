@@ -38,55 +38,6 @@
         "homepage": "https://github.com/fguillot/simpleValidator"
     },
     {
-        "name": "fguillot/picofeed",
-        "version": "v0.1.10",
-        "version_normalized": "0.1.10.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "a2cc36244278afbfb9578037b1700ca3cd5a87d7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/a2cc36244278afbfb9578037b1700ca3cd5a87d7",
-            "reference": "a2cc36244278afbfb9578037b1700ca3cd5a87d7",
-            "shasum": ""
-        },
-        "require": {
-            "ext-dom": "*",
-            "ext-iconv": "*",
-            "ext-libxml": "*",
-            "ext-simplexml": "*",
-            "ext-xml": "*",
-            "php": ">=5.3.0"
-        },
-        "suggest": {
-            "ext-curl": "PicoFeed will use cURL if present"
-        },
-        "time": "2015-09-12 11:05:28",
-        "bin": [
-            "picofeed"
-        ],
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "PicoFeed": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Frédéric Guillot"
-            }
-        ],
-        "description": "Modern library to handle RSS/Atom feeds",
-        "homepage": "https://github.com/fguillot/picoFeed"
-    },
-    {
         "name": "fguillot/json-rpc",
         "version": "v1.0.2",
         "version_normalized": "1.0.2.0",
@@ -162,5 +113,54 @@
         ],
         "description": "Minimalist database query builder",
         "homepage": "https://github.com/fguillot/picoDb"
+    },
+    {
+        "name": "fguillot/picofeed",
+        "version": "v0.1.11",
+        "version_normalized": "0.1.11.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fguillot/picoFeed.git",
+            "reference": "14080ad7eef9f88744629d67a62da7c7b43d4e2c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/14080ad7eef9f88744629d67a62da7c7b43d4e2c",
+            "reference": "14080ad7eef9f88744629d67a62da7c7b43d4e2c",
+            "shasum": ""
+        },
+        "require": {
+            "ext-dom": "*",
+            "ext-iconv": "*",
+            "ext-libxml": "*",
+            "ext-simplexml": "*",
+            "ext-xml": "*",
+            "php": ">=5.3.0"
+        },
+        "suggest": {
+            "ext-curl": "PicoFeed will use cURL if present"
+        },
+        "time": "2015-10-12 18:20:52",
+        "bin": [
+            "picofeed"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PicoFeed": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frédéric Guillot"
+            }
+        ],
+        "description": "Modern library to handle RSS/Atom feeds",
+        "homepage": "https://github.com/fguillot/picoFeed"
     }
 ]
