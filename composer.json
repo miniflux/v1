@@ -1,4 +1,12 @@
 {
+    "name": "miniflux/miniflux",
+    "description": "Minimalist RSS reader",
+    "license": "AGPLv3",
+    "authors": [
+        {
+            "name": "Frédéric Guillot"
+        }
+    ],
     "config": {
         "preferred-install": "dist"
     },

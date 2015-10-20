@@ -219,7 +219,7 @@ function create($url, $enable_grabber = false, $force_rtl = false, $cloak_referr
 // Refresh all feeds
 function refresh_all($limit = LIMIT_ALL)
 {
-    foreach (@get_ids($limit) as $feed_id) {
+    foreach (get_ids($limit) as $feed_id) {
         refresh($feed_id);
     }
 
@@ -282,9 +282,6 @@ function refresh($feed_id)
         Config\write_debug();
 
         return true;
-    }
-    catch (InvalidUrlException $e) {
-        // disable($feed_id);
     }
     catch (PicoFeedException $e) {
     }

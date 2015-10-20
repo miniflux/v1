@@ -87,7 +87,7 @@ Router\get_action('show', function() {
     }
 
     Response\html(Template\layout('show_item', array(
-        'nb_unread_items' => $nb_unread_items = Model\Item\count_by_status('unread'),
+        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'item' => $item,
         'feed' => $feed,
         'item_nav' => isset($nav) ? $nav : null,

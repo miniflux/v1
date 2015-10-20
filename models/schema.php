@@ -7,7 +7,7 @@ use Model\Config;
 
 const VERSION = 41;
 
-function version_41($pdo)
+function version_41(PDO $pdo)
 {
     $pdo->exec('
         CREATE TABLE "groups" (
@@ -27,32 +27,32 @@ function version_41($pdo)
     ');
 }
 
-function version_40($pdo)
+function version_40(PDO $pdo)
 {
     $pdo->exec('UPDATE settings SET "value"="https://github.com/miniflux/miniflux/archive/master.zip" WHERE "key"="auto_update_url"');
 }
 
-function version_39($pdo)
+function version_39(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN cloak_referrer INTEGER DEFAULT 0');
 }
 
-function version_38($pdo)
+function version_38(PDO $pdo)
 {
     $pdo->exec('INSERT INTO settings ("key", "value") VALUES ("original_marks_read", 1)');
 }
 
-function version_37($pdo)
+function version_37(PDO $pdo)
 {
     $pdo->exec('INSERT INTO settings ("key", "value") VALUES ("debug_mode", 0)');
 }
 
-function version_36($pdo)
+function version_36(PDO $pdo)
 {
     $pdo->exec('INSERT INTO settings ("key", "value") VALUES ("frontend_updatecheck_interval", 10)');
 }
 
-function version_35($pdo)
+function version_35(PDO $pdo)
 {
     $pdo->exec('DELETE FROM favicons WHERE icon = ""');
 
@@ -96,7 +96,7 @@ function version_35($pdo)
     $pdo->exec('DROP TABLE config');
 }
 
-function version_34($pdo)
+function version_34(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN favicons INTEGER DEFAULT 0');
 
@@ -110,51 +110,51 @@ function version_34($pdo)
     );
 }
 
-function version_33($pdo)
+function version_33(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN image_proxy INTEGER DEFAULT 0');
 }
 
-function version_32($pdo)
+function version_32(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN instapaper_enabled INTEGER DEFAULT 0');
     $pdo->exec('ALTER TABLE config ADD COLUMN instapaper_username TEXT');
     $pdo->exec('ALTER TABLE config ADD COLUMN instapaper_password TEXT');
 }
 
-function version_31($pdo)
+function version_31(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN pinboard_enabled INTEGER DEFAULT 0');
     $pdo->exec('ALTER TABLE config ADD COLUMN pinboard_token TEXT');
     $pdo->exec('ALTER TABLE config ADD COLUMN pinboard_tags TEXT DEFAULT "miniflux"');
 }
 
-function version_30($pdo)
+function version_30(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN autoflush_unread INTEGER DEFAULT 45');
 }
 
-function version_29($pdo)
+function version_29(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN fever_token INTEGER DEFAULT "'.substr(Config\generate_token(), 0, 8).'"');
 }
 
-function version_28($pdo)
+function version_28(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN rtl INTEGER DEFAULT 0');
 }
 
-function version_27($pdo)
+function version_27(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN items_display_mode TEXT DEFAULT "summaries"');
 }
 
-function version_26($pdo)
+function version_26(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN bookmarklet_token TEXT DEFAULT "'.Config\generate_token().'"');
 }
 
-function version_25($pdo)
+function version_25(PDO $pdo)
 {
     $pdo->exec(
         'CREATE TABLE remember_me (
@@ -170,33 +170,33 @@ function version_25($pdo)
     );
 }
 
-function version_24($pdo)
+function version_24(PDO $pdo)
 {
     $pdo->exec("ALTER TABLE config ADD COLUMN auto_update_url TEXT DEFAULT 'https://github.com/fguillot/miniflux/archive/master.zip'");
 }
 
-function version_23($pdo)
+function version_23(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE items ADD COLUMN language TEXT');
 }
 
-function version_22($pdo)
+function version_22(PDO $pdo)
 {
     $pdo->exec("ALTER TABLE config ADD COLUMN timezone TEXT DEFAULT 'UTC'");
 }
 
-function version_21($pdo)
+function version_21(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE items ADD COLUMN enclosure TEXT');
     $pdo->exec('ALTER TABLE items ADD COLUMN enclosure_type TEXT');
 }
 
-function version_20($pdo)
+function version_20(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN redirect_nothing_to_read TEXT DEFAULT "feeds"');
 }
 
-function version_19($pdo)
+function version_19(PDO $pdo)
 {
     $rq = $pdo->prepare('SELECT autoflush FROM config');
     $rq->execute();
@@ -209,43 +209,43 @@ function version_19($pdo)
     }
 }
 
-function version_18($pdo)
+function version_18(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN parsing_error INTEGER DEFAULT 0');
 }
 
-function version_17($pdo)
+function version_17(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN items_sorting_direction TEXT DEFAULT "desc"');
 }
 
-function version_16($pdo)
+function version_16(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN auth_google_token TEXT DEFAULT ""');
     $pdo->exec('ALTER TABLE config ADD COLUMN auth_mozilla_token TEXT DEFAULT ""');
 }
 
-function version_15($pdo)
+function version_15(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN download_content INTEGER DEFAULT 0');
 }
 
-function version_14($pdo)
+function version_14(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN feed_token TEXT DEFAULT "'.Config\generate_token().'"');
 }
 
-function version_13($pdo)
+function version_13(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN enabled INTEGER DEFAULT 1');
 }
 
-function version_12($pdo)
+function version_12(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN api_token TEXT DEFAULT "'.Config\generate_token().'"');
 }
 
-function version_11($pdo)
+function version_11(PDO $pdo)
 {
     $rq = $pdo->prepare('
         SELECT
@@ -274,53 +274,53 @@ function version_11($pdo)
     }
 }
 
-function version_10($pdo)
+function version_10(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN theme TEXT DEFAULT "original"');
 }
 
-function version_9($pdo)
+function version_9(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN items_per_page INTEGER DEFAULT 100');
 }
 
-function version_8($pdo)
+function version_8(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE items ADD COLUMN bookmark INTEGER DEFAULT 0');
 }
 
-function version_7($pdo)
+function version_7(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN nocontent INTEGER DEFAULT 0');
 }
 
-function version_6($pdo)
+function version_6(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE config ADD COLUMN autoflush INTEGER DEFAULT 0');
 }
 
-function version_5($pdo)
+function version_5(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN last_checked INTEGER');
 }
 
-function version_4($pdo)
+function version_4(PDO $pdo)
 {
     $pdo->exec('CREATE INDEX idx_status ON items(status)');
 }
 
-function version_3($pdo)
+function version_3(PDO $pdo)
 {
     $pdo->exec("ALTER TABLE config ADD COLUMN language TEXT DEFAULT 'en_US'");
 }
 
-function version_2($pdo)
+function version_2(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE feeds ADD COLUMN last_modified TEXT');
     $pdo->exec('ALTER TABLE feeds ADD COLUMN etag TEXT');
 }
 
-function version_1($pdo)
+function version_1(PDO $pdo)
 {
     $pdo->exec("
         CREATE TABLE config (
