@@ -116,17 +116,17 @@
     },
     {
         "name": "fguillot/picofeed",
-        "version": "v0.1.12",
-        "version_normalized": "0.1.12.0",
+        "version": "v0.1.13",
+        "version_normalized": "0.1.13.0",
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "f7f5e792baf09e6e795f4dd9bb56d7d588d67735"
+            "reference": "84d9ee64df8596153ba080bd2436b333507aadba"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/f7f5e792baf09e6e795f4dd9bb56d7d588d67735",
-            "reference": "f7f5e792baf09e6e795f4dd9bb56d7d588d67735",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/84d9ee64df8596153ba080bd2436b333507aadba",
+            "reference": "84d9ee64df8596153ba080bd2436b333507aadba",
             "shasum": ""
         },
         "require": {
@@ -140,7 +140,7 @@
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2015-10-18 21:22:40",
+        "time": "2015-10-20 01:48:56",
         "bin": [
             "picofeed"
         ],
