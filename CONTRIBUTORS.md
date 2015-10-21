@@ -1,7 +1,7 @@
 Contributors
 ============
 
-Original author: Frédéric Guillot
+Original author: [Frédéric Guillot](https://github.com/fguillot)
 
 List of contributors:
 
