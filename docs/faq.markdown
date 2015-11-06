@@ -38,3 +38,9 @@ OVH shared web-hosting can use different PHP versions.
 To have Miniflux working properly you have to use a custom `.htaccess`.
 
 There is example in the Miniflux root folder. Just rename the file `.htaccess_ovh` to `.htaccess`.
+
+I want to send bookmarks to Pinboard. How do I find my Pinboard API token?
+--------------------------------------------------------------------------
+You can find your API token by going to [https://api.pinboard.in/v1/user/api_token/](https://api.pinboard.in/v1/user/api_token/).
+
+Miniflux requires you add your Pinboard username before this, followed by a colon (eg. bobsmith:12FC235692DF53DD1). 
