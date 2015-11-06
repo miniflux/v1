@@ -12,12 +12,10 @@ I have 600 subscriptions, can Miniflux handle that?
 
 Probably, but your life is cluttered.
 
-Why are there no categories? Why is feature X missing?
+Why is feature X missing?
 ------------------------------------------------------
 
 Miniflux is a minimalist software. _Less is more_.
-
-Sorry, I don't plan to have categories or tags.
 
 I found a bug, what next?
 -------------------------
