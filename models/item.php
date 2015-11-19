@@ -218,7 +218,7 @@ function get($id)
 }
 
 // Get item naviguation (next/prev items)
-function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $feed_id = null)
+function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $feed_id = null, $group_id = null)
 {
     $query = Database::getInstance('db')
         ->table('items')
@@ -227,6 +227,8 @@ function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $fee
         ->orderBy('updated', Config\get('items_sorting_direction'));
 
     if ($feed_id) $query->eq('feed_id', $feed_id);
+
+    if ($group_id) $query->in('feed_id', Group\get_feeds_by_group($group_id));
 
     $items = $query->findAll();
 

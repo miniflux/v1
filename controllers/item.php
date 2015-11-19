@@ -58,13 +58,14 @@ Router\get_action('show', function() {
     $menu = Request\param('menu');
     $item = Model\Item\get($id);
     $feed = Model\Feed\get($item['feed_id']);
+    $group_id = Request\int_param('group_id', null);
 
     Model\Item\set_read($id);
     $item['status'] = 'read';
 
     switch ($menu) {
         case 'unread':
-            $nav = Model\Item\get_nav($item);
+            $nav = Model\Item\get_nav($item, array('unread'), array(1, 0), null, $group_id);
             break;
         case 'history':
             $nav = Model\Item\get_nav($item, array('read'));
@@ -93,6 +94,7 @@ Router\get_action('show', function() {
         'item_nav' => isset($nav) ? $nav : null,
         'menu' => $menu,
         'title' => $item['title'],
+        'group_id' => $group_id,
     )));
 });
 
