@@ -46,7 +46,7 @@ function auth()
 
     $response = array(
         'api_version' => 3,
-        'auth' => (int) (@$_POST['api_key'] === $api_key),
+        'auth' => (int) (isset($_POST['api_key']) && (strcasecmp($_POST['api_key'],  $api_key) === 0 )),
         'last_refreshed_on_time' => time(),
     );
 
