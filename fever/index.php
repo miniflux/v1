@@ -122,7 +122,8 @@ route('favicons', function() {
             ->table('favicons')
             ->columns(
                 'feed_id',
-                'icon'
+                'file',
+                'type'
             )
             ->findAll();
 
@@ -130,7 +131,7 @@ route('favicons', function() {
         foreach ($favicons as $favicon) {
             $response['favicons'][] = array(
                 'id' => (int) $favicon['feed_id'],
-                'data' => $favicon['icon']
+                'data' => 'data:'.$favicon['type'].';base64,'.base64_encode(file_get_contents(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$favicon['file']))
             );
         }
     }

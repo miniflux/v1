@@ -62,6 +62,11 @@ if (! is_writable(DATA_DIRECTORY)) {
     die('The data directory must be writeable by your web server user');
 }
 
+// Check if favicon directory is writeable
+if (! is_writable(FAVICON_DIRECTORY)) {
+    die('The favicon directory must be writeable by your web server user');
+}
+
 // Include password_compat for PHP < 5.5
 if (version_compare(PHP_VERSION, '5.5.0', '<')) {
     require __DIR__.'/lib/password.php';

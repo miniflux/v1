@@ -9,6 +9,12 @@ define('HTTP_MAX_RESPONSE_SIZE', 2097152);
 // DATA_DIRECTORY => default is data (writable directory)
 define('DATA_DIRECTORY', __DIR__.'/data');
 
+// FAVICON_DIRECTORY => default is favicons (writable directory)
+define('FAVICON_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'favicons');
+
+// FAVICON_PUBLIC_DIRECTORY => default is data/favicons/
+define('FAVICON_PUBLIC_DIRECTORY', 'data'.DIRECTORY_SEPARATOR.'favicons');
+
 // DB_FILENAME => default value is db.sqlite (default database filename)
 define('DB_FILENAME', 'db.sqlite');
 

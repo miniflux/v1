@@ -5,7 +5,22 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
-const VERSION = 41;
+const VERSION = 42;
+
+function version_42(PDO $pdo)
+{
+    $pdo->exec('DROP TABLE favicons');
+
+    $pdo->exec(
+        'CREATE TABLE favicons (
+            feed_id INTEGER UNIQUE,
+            link TEXT,
+            file TEXT,
+            type TEXT,
+            FOREIGN KEY(feed_id) REFERENCES feeds(id) ON DELETE CASCADE
+        )'
+    );
+}
 
 function version_41(PDO $pdo)
 {

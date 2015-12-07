@@ -29,10 +29,30 @@ function parse_app_version($refnames, $commithash)
     return $version;
 }
 
+/*
+ * get Image extension from mime type
+ */
+function favicon_extension($type)
+{
+    $types = array(
+        'image/png' => '.png',
+        'image/gif' => '.gif',
+        'image/x-icon' => '.ico',
+        'image/jpeg' => '.jpg',
+        'image/jpg' => '.jpg'
+    );
+
+    if (in_array($type, $types)) {
+        return $types[$type];
+    } else {
+        return '.ico';
+    }
+}
+
 function favicon(array $favicons, $feed_id)
 {
     if (! empty($favicons[$feed_id])) {
-        return '<img src="'.$favicons[$feed_id].'" class="favicon"/>';
+        return '<img src="'.FAVICON_PUBLIC_DIRECTORY.DIRECTORY_SEPARATOR.$favicons[$feed_id].'" class="favicon"/>';
     }
 
     return '';

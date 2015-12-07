@@ -6,6 +6,7 @@ use UnexpectedValueException;
 use Model\Config;
 use Model\Item;
 use Model\Group;
+use Helper;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 use PicoDb\Database;
@@ -19,15 +20,38 @@ use PicoFeed\Client\InvalidUrlException;
 const LIMIT_ALL = -1;
 
 // Store the favicon
-function store_favicon($feed_id, $link, $icon)
+function store_favicon($feed_id, $link, $type, $icon)
 {
+    $file = $feed_id.Helper\favicon_extension($type);
+
+    if (file_put_contents(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$file, $icon) === false) {
+        return false;
+    }
+
     return Database::getInstance('db')
             ->table('favicons')
             ->save(array(
                 'feed_id' => $feed_id,
                 'link' => $link,
-                'icon' => $icon,
+                'file' => $file,
+                'type' => $type
             ));
+}
+
+// Delete the favicon
+function delete_favicon($feed_id)
+{
+    foreach (get_favicons(array ($feed_id)) as $favicon) {
+        unlink(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$favicon);
+    }
+}
+
+// Delete all the favicons
+function delete_all_favicons()
+{
+    foreach (get_all_favicons() as $favicon) {
+        unlink(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$favicon);
+    }
 }
 
 // Download favicon
@@ -37,10 +61,11 @@ function fetch_favicon($feed_id, $site_url, $icon_link)
         $favicon = new Favicon;
 
         $link = $favicon->find($site_url, $icon_link);
-        $icon = $favicon->getDataUri();
+        $icon = $favicon->getContent();
+        $type = $favicon->getType();
 
         if ($icon !== '') {
-            store_favicon($feed_id, $link, $icon);
+            store_favicon($feed_id, $link, $type, $icon);
         }
     }
 }
@@ -61,7 +86,7 @@ function get_favicons(array $feed_ids)
     $db = Database::getInstance('db')
             ->hashtable('favicons')
             ->columnKey('feed_id')
-            ->columnValue('icon');
+            ->columnValue('file');
 
     // pass $feeds_ids as argument list to hashtable::get(), use ... operator with php 5.6+
     return call_user_func_array(array($db, 'get'), $feed_ids);
@@ -88,7 +113,7 @@ function get_all_favicons()
 
     return Database::getInstance('db')
             ->hashtable('favicons')
-            ->getAll('feed_id', 'icon');
+            ->getAll('feed_id', 'file');
 }
 
 // Update feed information
@@ -409,6 +434,7 @@ function update_cache($feed_id, $last_modified, $etag)
 // Remove one feed
 function remove($feed_id)
 {
+    delete_favicon($feed_id);
     // Items are removed by a sql constraint
     return Database::getInstance('db')->table('feeds')->eq('id', $feed_id)->remove();
 }
@@ -416,6 +442,7 @@ function remove($feed_id)
 // Remove all feeds
 function remove_all()
 {
+    delete_all_favicons();
     return Database::getInstance('db')->table('feeds')->remove();
 }
 
