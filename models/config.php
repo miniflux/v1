@@ -235,8 +235,11 @@ function check_csrf($token)
 // Generate a token from /dev/urandom or with uniqid() if open_basedir is enabled
 function generate_token()
 {
-    if (function_exists('openssl_random_pseudo_bytes')) {
-        return bin2hex(openssl_random_pseudo_bytes(25));
+    if (function_exists('random_bytes')) {
+        return bin2hex(random_bytes(30));
+    }
+    else if (function_exists('openssl_random_pseudo_bytes')) {
+        return bin2hex(openssl_random_pseudo_bytes(30));
     }
     else if (ini_get('open_basedir') === '' && strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
         return hash('sha256', file_get_contents('/dev/urandom', false, null, 0, 30));
