@@ -46,3 +46,4 @@ config.php
 !models/*
 !controllers/*
 rules/*.php
+data/favicons/*.*
