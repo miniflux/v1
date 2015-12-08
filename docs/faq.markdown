@@ -43,4 +43,4 @@ I want to send bookmarks to Pinboard. How do I find my Pinboard API token?
 --------------------------------------------------------------------------
 You can find your API token by going to [https://api.pinboard.in/v1/user/api_token/](https://api.pinboard.in/v1/user/api_token/).
 
-Miniflux requires you add your Pinboard username before this, followed by a colon (eg. bobsmith:12FC235692DF53DD1). 
+Miniflux requires you to add your Pinboard username before this, followed by a colon (eg. bobsmith:12FC235692DF53DD1).

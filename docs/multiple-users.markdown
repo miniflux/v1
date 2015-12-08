@@ -1,9 +1,9 @@
 Multiple users
 ==============
 
-Since the begining, Miniflux was a single user software.
+Since the beginning, Miniflux was a single user software.
 However, it is now possible to create multiple databases.
-Each user have his own Sqlite database and people can choose which database they want to use before the authentication.
+Each user has his own Sqlite database and people can choose which database they want to use before the authentication.
 
 To create a new database:
 

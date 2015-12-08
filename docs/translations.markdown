@@ -5,21 +5,21 @@ How to translate Miniflux to a new language?
 --------------------------------------------
 
 - Translations are stored inside the directory `locales`
-- There is a sub-directory for each language, by example for the French we have `fr_FR`, Italian `it_IT` etc...
+- There is a sub-directory for each language, for example in French we have `fr_FR`, Italian `it_IT` etc...
 - A translation is a PHP file that return an Array with a key-value pairs
-- The key is the original text in english and the value is the translation for the corresponding language
+- The key is the original text in English and the value is the translation of the corresponding language
 - **French translations are always up to date**
 - Always use the last version (branch master)
 
 ### Plurals
 
-Each translation file has a plural formula defined. This formula is used to determine wether a plural for the current number is needed. For languages with multiple plurals, the formula determine which plural form is the right one.
+Each translation file has a plural formula defined. This formula is used to determine whether a plural for the current number is needed. For languages with multiple plurals, the formula determine which plural form is the right one.
 
 You can get the formula for your language from https://localization-guide.readthedocs.org/en/latest/l10n/pluralforms.html.
 
-The formula need to be adjusted to be valid php code. Do not hesitate to ask for an adjusted formula in the bugtracker.
+The formula need to be adjusted to be valid php code. Do not hesitate to ask for an adjusted formula in the bug tracker.
 
-You need to create a list of strings for terms that have a plural. For example the plural for the English translation looks like the following:
+You need to create a list of strings for terms that have a plural. For example, the plural of the English translation looks like the following:
 
 ```
     'plural' => function($n) { return ($n != 1); },
@@ -51,7 +51,7 @@ Translations are displayed with the following functions in the source code:
 - `tne()`: displayed with no escaping
 - `dt()`: date using `strftime()` formats
 
-Always use the english version in the source code.
+Always use the English version in the source code.
 
 How to find missing translations in the applications?
 -----------------------------------------------------
@@ -62,7 +62,7 @@ From a Unix shell run:
 ./scripts/find-strings.sh
 ```
 
-All missing translations are displayed on the screen. Put that in the french locale and sync other locales (see below).
+All missing translations are displayed on the screen. Put that in the French locale and sync other locales (see below).
 
 How to synchronize translation files?
 -------------------------------------
@@ -73,4 +73,4 @@ From a Unix shell run this command:
 ./scripts/sync-locales.php
 ```
 
-The french translation is used a reference for other locales.
+The French translation is used a reference to other locales.

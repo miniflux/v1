@@ -31,7 +31,7 @@ PHPUnit 4.4.0 by Sebastian Bergmann.
 Install the latest version of Selenium Server
 ---------------------------------------------
 
-Download the distribution archive of [Selenium Server](http://www.seleniumhq.org/download/) and the platform and browser specific driver. The following browser driver exist:
+Download the distribution archive of [Selenium Server](http://www.seleniumhq.org/download/) and the platform and browser specific driver. The following browser driver exists:
 
 - Firefox webdriver is default included
 - [Chrome webdriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
@@ -86,7 +86,7 @@ The following `phpunit.xml` is used to run phpunit on a linux system with apache
 
 ```
 
-Some tests don't run with every browser. You have to exclude those tests by using the ```--exclude-group``` commandline parameter. The following exclude groups exists:
+Some tests don't run with every browser. You have to exclude those tests by using the ```--exclude-group``` command line parameter. The following exclude groups exist:
 
 * moz_unsupported (Due to https://github.com/SeleniumHQ/selenium/issues/386)
 * ie_unsupported (Due to https://code.google.com/p/selenium/issues/detail?id=4973)
