@@ -201,6 +201,7 @@ Router\get_action('about', function() {
     Response\html(Template\layout('about', array(
         'csrf' => Model\Config\generate_csrf(),
         'config' => Model\Config\get_all(),
+        'db_name' => Model\Database\select(),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
         'title' => t('Preferences')

@@ -60,6 +60,12 @@ Router\get_action('bookmarks', function() {
 // Display bookmark feeds
 Router\get_action('bookmark-feed', function() {
 
+    // Select database if the parameter is set
+    $database = Request\param('database');
+    if (!empty($database)) {
+        Model\Database\select($database);
+    }
+
     // Check token
     $feed_token = Model\Config\get('feed_token');
     $request_token = Request\param('token');
