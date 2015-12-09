@@ -62,6 +62,11 @@
                     <a href="#" data-action="download-item"><?= t('download content') ?></a>
                 </span>
             </li>
+            <?php if ($group_id): ?>
+            <li>
+                <a href="?action=unread&amp;group_id=<?= $group_id ?>"><?= t("Back") ?></a>
+            </li>
+            <?php endif; ?>
         </ul>
 
         <div id="item-content" <?= Helper\is_rtl($item + array('rtl' => $feed['rtl']))  ? 'dir="rtl"' : 'dir="ltr"' ?>>
