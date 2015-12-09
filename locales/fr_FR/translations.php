@@ -240,4 +240,5 @@ return array(
     'Unable to detect the feed format.' => 'Impossible de détecter le format du flux.',
     'add a new group' => 'ajouter un nouveau libellé',
     'Groups' => 'Libellés',
+    'Back to the group' => 'Revenir sur le groupe'
 );

@@ -64,7 +64,7 @@
             </li>
             <?php if ($group_id): ?>
             <li>
-                <a href="?action=unread&amp;group_id=<?= $group_id ?>"><?= t('Back') ?></a>
+                <a href="?action=unread&amp;group_id=<?= $group_id ?>"><?= t('Back to the group') ?></a>
             </li>
             <?php endif; ?>
         </ul>
