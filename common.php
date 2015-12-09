@@ -16,7 +16,7 @@ defined('ROOT_DIRECTORY') or define('ROOT_DIRECTORY', __DIR__);
 defined('DATA_DIRECTORY') or define('DATA_DIRECTORY', ROOT_DIRECTORY.DIRECTORY_SEPARATOR.'data');
 
 defined('FAVICON_DIRECTORY') or define('FAVICON_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'favicons');
-defined('FAVICON_PUBLIC_DIRECTORY') or define('FAVICON_PUBLIC_DIRECTORY', 'data'.DIRECTORY_SEPARATOR.'favicons');
+defined('FAVICON_URL_PATH') or define('FAVICON_URL_PATH', 'data/favicons');
 
 defined('ENABLE_MULTIPLE_DB') or define('ENABLE_MULTIPLE_DB', true);
 defined('DB_FILENAME') or define('DB_FILENAME', 'db.sqlite');
