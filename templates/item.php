@@ -22,15 +22,6 @@
             ><?= Helper\escape($item['title']) ?></a>
         <?php endif ?>
     </h2>
-    <?php if ($display_mode === 'full'): ?>
-        <div class="preview-full-content" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
-            <?= $item['content'] ?>
-        </div>
-    <?php else: ?>
-        <p class="preview" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
-            <?= Helper\escape(Helper\summary(strip_tags($item['content']), 50, 300)) ?>
-        </p>
-    <?php endif ?>
     <ul class="item-menu">
          <?php if ($menu !== 'feed-items'): ?>
         <li>
@@ -77,4 +68,11 @@
         <?= \Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'source' => '')) ?>
         <?= \Template\load('status_links', array('item' => $item, 'redirect' => $menu, 'offset' => $offset)) ?>
     </ul>
+    <?php if ($display_mode === 'full'): ?>
+        <div class="preview-full-content" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
+            <?= $item['content'] ?>
+        </div>
+    <?php else: ?>
+        <p class="preview" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>><?= Helper\escape(Helper\summary(strip_tags($item['content']), 50, 300)) ?></p>
+    <?php endif ?>
 </article>
