@@ -41,6 +41,11 @@
             <?php endif ?>
         </li>
         <?php endif ?>
+        <?php if (!empty($item['author'])): ?>
+            <li>
+                <?= Helper\escape($item['author']) ?>
+            </li>
+        <?php endif ?>
         <li class="hide-mobile">
             <span title="<?= dt('%e %B %Y %k:%M', $item['updated']) ?>"><?= Helper\relative_time($item['updated']) ?></span>
         </li>
