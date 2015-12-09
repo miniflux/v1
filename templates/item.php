@@ -32,6 +32,7 @@
         </p>
     <?php endif ?>
     <ul class="item-menu">
+         <?php if ($menu !== 'feed-items'): ?>
         <li>
             <?php if (! isset($item['feed_title'])): ?>
                 <?= Helper\get_host_from_url($item['url']) ?>
@@ -39,6 +40,7 @@
                 <a href="?action=feed-items&amp;feed_id=<?= $item['feed_id'] ?>" title="<?= t('Show only this subscription') ?>"><?= Helper\escape($item['feed_title']) ?></a>
             <?php endif ?>
         </li>
+        <?php endif ?>
         <li class="hide-mobile">
             <span title="<?= dt('%e %B %Y %k:%M', $item['updated']) ?>"><?= Helper\relative_time($item['updated']) ?></span>
         </li>
