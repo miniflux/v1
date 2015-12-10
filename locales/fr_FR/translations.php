@@ -241,4 +241,5 @@ return array(
     'add a new group' => 'ajouter un nouveau libellé',
     'Groups' => 'Libellés',
     'Back to the group' => 'Revenir sur le groupe'
+    'view' => 'view',
 );

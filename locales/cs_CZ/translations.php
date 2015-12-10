@@ -241,4 +241,5 @@ return array(
     'add a new group' => 'přidat novou skupinu',
     'Groups' => 'Skupiny',
     // 'Back to the group' => '',
+    // 'view' => '',
 );

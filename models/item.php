@@ -106,6 +106,7 @@ function get_all_by_status($status, $feed_ids = array(), $offset = null, $limit 
             'items.status',
             'items.content',
             'items.language',
+            'items.author',
             'feeds.site_url',
             'feeds.title AS feed_title',
             'feeds.rtl'
@@ -156,6 +157,7 @@ function get_bookmarks($offset = null, $limit = null)
             'items.content',
             'items.feed_id',
             'items.language',
+            'items.author',
             'feeds.site_url',
             'feeds.title AS feed_title',
             'feeds.rtl'
@@ -196,6 +198,7 @@ function get_all_by_feed($feed_id, $offset = null, $limit = null, $order_column 
             'items.content',
             'items.bookmark',
             'items.language',
+            'items.author',
             'feeds.site_url',
             'feeds.rtl'
         )

@@ -10,21 +10,20 @@
         <span class="bookmark-icon"></span>
         <span class="read-icon"></span>
         <?= Helper\favicon($favicons, $item['feed_id']) ?>
-        <a
-            href="?action=show&amp;menu=<?= $menu ?><?= isset($group_id) ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item['id'] ?>"
-            class="show"
-        ><?= Helper\escape($item['title']) ?></a>
+        <?php if ($display_mode === 'full'): ?>
+            <a class="original" rel="noreferrer" target="_blank"
+               href="<?= $item['url'] ?>"
+               <?= ($original_marks_read) ? 'data-action="mark-read"' : '' ?>
+            ><?= Helper\escape($item['title']) ?></a>
+        <?php else: ?>
+            <a
+                href="?action=show&amp;menu=<?= $menu ?><?= isset($group_id) ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item['id'] ?>"
+                class="show"
+            ><?= Helper\escape($item['title']) ?></a>
+        <?php endif ?>
     </h2>
-    <?php if ($display_mode === 'full'): ?>
-        <div class="preview-full-content" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
-            <?= $item['content'] ?>
-        </div>
-    <?php else: ?>
-        <p class="preview" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
-            <?= Helper\escape(Helper\summary(strip_tags($item['content']), 50, 300)) ?>
-        </p>
-    <?php endif ?>
     <ul class="item-menu">
+         <?php if ($menu !== 'feed-items'): ?>
         <li>
             <?php if (! isset($item['feed_title'])): ?>
                 <?= Helper\get_host_from_url($item['url']) ?>
@@ -32,12 +31,27 @@
                 <a href="?action=feed-items&amp;feed_id=<?= $item['feed_id'] ?>" title="<?= t('Show only this subscription') ?>"><?= Helper\escape($item['feed_title']) ?></a>
             <?php endif ?>
         </li>
+        <?php endif ?>
+        <?php if (!empty($item['author'])): ?>
+            <li>
+                <?= Helper\escape($item['author']) ?>
+            </li>
+        <?php endif ?>
         <li class="hide-mobile">
             <span title="<?= dt('%e %B %Y %k:%M', $item['updated']) ?>"><?= Helper\relative_time($item['updated']) ?></span>
         </li>
-        <li class="hide-mobile">
-            <a href="<?= $item['url'] ?>" class="original" rel="noreferrer" target="_blank" <?= ($original_marks_read) ? 'data-action="mark-read"' : '' ?>><?= t('original link') ?></a>
-        </li>
+        <?php if ($display_mode === 'full'): ?>
+            <li>
+                <a
+                    href="?action=show&amp;menu=<?= $menu ?><?= isset($group_id) ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item['id'] ?>"
+                    class="show"
+                ><?= t('view') ?></a>
+            </li>
+        <?php else: ?>
+            <li class="hide-mobile">
+                <a href="<?= $item['url'] ?>" class="original" rel="noreferrer" target="_blank" <?= ($original_marks_read) ? 'data-action="mark-read"' : '' ?>><?= t('original link') ?></a>
+            </li>
+        <?php endif ?>
         <?php if ($item['enclosure']): ?>
             <li>
             <?php if (strpos($item['enclosure_type'], 'video/') === 0): ?>
@@ -54,4 +68,11 @@
         <?= \Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'source' => '')) ?>
         <?= \Template\load('status_links', array('item' => $item, 'redirect' => $menu, 'offset' => $offset)) ?>
     </ul>
+    <?php if ($display_mode === 'full'): ?>
+        <div class="preview-full-content" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
+            <?= $item['content'] ?>
+        </div>
+    <?php else: ?>
+        <p class="preview" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>><?= Helper\escape(Helper\summary(strip_tags($item['content']), 50, 300)) ?></p>
+    <?php endif ?>
 </article>
