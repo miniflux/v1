@@ -857,6 +857,12 @@ html[dir="rtl"] span.items-count:before {
     .hide-desktop {
         display: none;
     }
+
+    .items h2 {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
 }
 
 /* mobile design */
