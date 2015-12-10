@@ -578,7 +578,7 @@ nav .active a {
     color: #666;
 }
 
-.preview-full-content p, p.preview:not(:empty) {
+.preview-full-content:not(:empty), p.preview:not(:empty) {
     margin-top: 15px;
 }
 
