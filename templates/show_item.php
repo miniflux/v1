@@ -98,7 +98,7 @@
         <nav class="bottom">
             <span class="nav-left">
                 <?php if ($item_nav['previous']): ?>
-                    <a href="?action=show&amp;menu=<?= $menu ?>&amp;id=<?= $item_nav['previous']['id'] ?>" id="previous-item" title="<?= Helper\escape($item_nav['previous']['title']) ?>"><?= t('Previous') ?></a>
+                    <a href="?action=show&amp;menu=<?= $menu ?><?= $group_id ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item_nav['previous']['id'] ?>" id="previous-item" title="<?= Helper\escape($item_nav['previous']['title']) ?>"><?= t('Previous') ?></a>
                 <?php else: ?>
                     <?= t('Previous') ?>
                 <?php endif ?>
@@ -106,7 +106,7 @@
 
             <span class="nav-right">
                 <?php if ($item_nav['next']): ?>
-                    <a href="?action=show&amp;menu=<?= $menu ?>&amp;id=<?= $item_nav['next']['id'] ?>" id="next-item" title="<?= Helper\escape($item_nav['next']['title']) ?>"><?= t('Next') ?></a>
+                    <a href="?action=show&amp;menu=<?= $menu ?><?= $group_id ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item_nav['next']['id'] ?>" id="next-item" title="<?= Helper\escape($item_nav['next']['title']) ?>"><?= t('Next') ?></a>
                 <?php else: ?>
                     <?= t('Next') ?>
                 <?php endif ?>

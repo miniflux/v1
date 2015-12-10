@@ -25,9 +25,9 @@ All information are available from the page **preferences > api**.
 Multiple databases/users
 ------------------------
 
-Multiple databases can be used with the Fever API if you have Apache and the `mod_rewrite` enabled.
+Multiple databases can be used with the Fever API if you have Apache and `mod_rewrite` enabled.
 
-The Fever URL becomes `http://your_miniflux_url/myuser.sqlite/`.
+The Fever URL becomes `http://your_miniflux_url/fever/mydatabase.sqlite/`.
 
 Notes
 -----

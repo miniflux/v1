@@ -52,7 +52,7 @@ function favicon_extension($type)
 function favicon(array $favicons, $feed_id)
 {
     if (! empty($favicons[$feed_id])) {
-        return '<img src="'.FAVICON_PUBLIC_DIRECTORY.DIRECTORY_SEPARATOR.$favicons[$feed_id].'" class="favicon"/>';
+        return '<img src="'.FAVICON_URL_PATH.'/'.$favicons[$feed_id].'" class="favicon"/>';
     }
 
     return '';
