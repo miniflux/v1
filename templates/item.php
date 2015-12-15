@@ -14,11 +14,13 @@
             <a class="original" rel="noreferrer" target="_blank"
                href="<?= $item['url'] ?>"
                <?= ($original_marks_read) ? 'data-action="mark-read"' : '' ?>
+               title="<?= Helper\escape($item['title']) ?>"
             ><?= Helper\escape($item['title']) ?></a>
         <?php else: ?>
             <a
                 href="?action=show&amp;menu=<?= $menu ?><?= isset($group_id) ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item['id'] ?>"
                 class="show"
+                title="<?= Helper\escape($item['title']) ?>"
             ><?= Helper\escape($item['title']) ?></a>
         <?php endif ?>
     </h2>
