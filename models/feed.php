@@ -435,6 +435,8 @@ function update_cache($feed_id, $last_modified, $etag)
 function remove($feed_id)
 {
     delete_favicon($feed_id);
+    Group\remove_all($feed_id);
+
     // Items are removed by a sql constraint
     return Database::getInstance('db')->table('feeds')->eq('id', $feed_id)->remove();
 }

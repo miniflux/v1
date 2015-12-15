@@ -151,11 +151,39 @@ function add($feed_id, $group_ids)
  */
 function remove($feed_id, $group_ids)
 {
-    return Database::getInstance('db')
+    $result = Database::getInstance('db')
             ->table('feeds_groups')
             ->eq('feed_id', $feed_id)
             ->in('group_id', $group_ids)
             ->remove();
+
+    // remove empty groups
+    if ($result) {
+        purge_groups();
+    }
+
+    return $result;
+}
+
+/**
+ * Remove all groups from feed
+ *
+ * @param integer $feed_id id of the feed
+ * @return boolean true on success, false on error
+ */
+function remove_all($feed_id)
+{
+    $result = Database::getInstance('db')
+            ->table('feeds_groups')
+            ->eq('feed_id', $feed_id)
+            ->remove();
+
+    // remove empty groups
+    if ($result) {
+        purge_groups();
+    }
+
+    return $result;
 }
 
 /**
@@ -212,9 +240,6 @@ function update_feed_groups($feed_id, $group_ids, $create_group = '')
     if (! empty($missing) && ! add($feed_id, $missing)) {
         return false;
     }
-
-    // cleanup
-    purge_groups();
 
     return true;
 }
