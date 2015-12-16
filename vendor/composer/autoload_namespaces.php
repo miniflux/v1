@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'ZendXml\\' => array($vendorDir . '/zendframework/zendxml/library'),
     'SimpleValidator' => array($vendorDir . '/fguillot/simple-validator/src'),
     'PicoFeed' => array($vendorDir . '/fguillot/picofeed/lib'),
     'PicoDb' => array($vendorDir . '/fguillot/picodb/lib'),

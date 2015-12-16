@@ -54,6 +54,7 @@ return array(
     'PicoFeed\\Parser\\Rss20' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/Rss20.php',
     'PicoFeed\\Parser\\Rss91' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/Rss91.php',
     'PicoFeed\\Parser\\Rss92' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/Rss92.php',
+    'PicoFeed\\Parser\\XmlEntityException' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/XmlEntityException.php',
     'PicoFeed\\Parser\\XmlParser' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/XmlParser.php',
     'PicoFeed\\PicoFeedException' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/PicoFeedException.php',
     'PicoFeed\\Reader\\Favicon' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Reader/Favicon.php',

@@ -115,18 +115,65 @@
         "homepage": "https://github.com/fguillot/picoDb"
     },
     {
-        "name": "fguillot/picofeed",
-        "version": "v0.1.15",
-        "version_normalized": "0.1.15.0",
+        "name": "zendframework/zendxml",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "ee91bcfd4be93d38ae5f870723c652a9d795c75f"
+            "url": "https://github.com/zendframework/ZendXml.git",
+            "reference": "54edb3875aba5b45f02824f65f311c9fb2743a38"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/ee91bcfd4be93d38ae5f870723c652a9d795c75f",
-            "reference": "ee91bcfd4be93d38ae5f870723c652a9d795c75f",
+            "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/54edb3875aba5b45f02824f65f311c9fb2743a38",
+            "reference": "54edb3875aba5b45f02824f65f311c9fb2743a38",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~3.7",
+            "squizlabs/php_codesniffer": "~1.5"
+        },
+        "time": "2015-08-03 14:50:10",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "ZendXml\\": "library/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": "Utility library for XML usage, best practices, and security in PHP",
+        "homepage": "http://packages.zendframework.com/",
+        "keywords": [
+            "security",
+            "xml",
+            "zf2"
+        ]
+    },
+    {
+        "name": "fguillot/picofeed",
+        "version": "v0.1.16",
+        "version_normalized": "0.1.16.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fguillot/picoFeed.git",
+            "reference": "4162314ea083f0957079d6b1a63b2c24b1f6de73"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/4162314ea083f0957079d6b1a63b2c24b1f6de73",
+            "reference": "4162314ea083f0957079d6b1a63b2c24b1f6de73",
             "shasum": ""
         },
         "require": {
@@ -135,12 +182,13 @@
             "ext-libxml": "*",
             "ext-simplexml": "*",
             "ext-xml": "*",
-            "php": ">=5.3.0"
+            "php": ">=5.3.0",
+            "zendframework/zendxml": "^1.0"
         },
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2015-10-23 21:59:31",
+        "time": "2015-12-15 17:01:33",
         "bin": [
             "picofeed"
         ],
