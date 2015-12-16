@@ -132,6 +132,7 @@ function update(array $values)
                 'rtl' => $values['rtl'],
                 'download_content' => $values['download_content'],
                 'cloak_referrer' => $values['cloak_referrer'],
+                'parsing_error' => 0,
             ));
 
     if ($result) {
