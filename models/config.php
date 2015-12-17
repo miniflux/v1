@@ -177,6 +177,9 @@ function get_autoflush_unread_options()
 function get_paging_options()
 {
     return array(
+        10 => 10,
+        20 => 20,
+        30 => 30,
         50 => 50,
         100 => 100,
         150 => 150,
