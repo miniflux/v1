@@ -342,18 +342,10 @@ function count_failed_feeds()
 // Get all feeds
 function get_all()
 {
-    $result = Database::getInstance('db')
+    return Database::getInstance('db')
         ->table('feeds')
         ->asc('title')
         ->findAll();
-    $groups = Group\get_all_grouped_by_feeds();
-    foreach ($result as &$feed) {
-        $feed['groups'] = isset($groups[$feed['id']])
-            ? $groups[$feed['id']]
-            : array();
-    }
-
-    return $result;
 }
 
 // Get all feeds with the number unread/total items in the order failed, working, disabled
@@ -405,19 +397,10 @@ function count_items($feed_id)
 // Get one feed
 function get($feed_id)
 {
-    $result = Database::getInstance('db')
+    return Database::getInstance('db')
         ->table('feeds')
         ->eq('id', $feed_id)
         ->findOne();
-    if (!$result) {
-        return $result;
-    }
-    $groups = Group\get_all_grouped_by_feeds();
-    $result['groups'] = isset($groups[$result['id']])
-        ? $groups[$result['id']]
-        : array();
-
-    return $result;
 }
 
 // Update parsing error column

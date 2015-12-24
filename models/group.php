@@ -18,32 +18,6 @@ function get_all()
 }
 
 /**
- * Get all groups grouped by feed_id
- *
- * @return array
- */
-function get_all_grouped_by_feeds()
-{
-    $groups = Database::getInstance('db')
-            ->table('groups')
-            ->join('feeds_groups', 'group_id', 'id')
-            ->columns('feed_id', 'group_id', 'title')
-            ->findAll();
-    if (!$groups) {
-        return array();
-    }
-    $result = array();
-    foreach ($groups as $group) {
-        $result[$group['feed_id']][] = [
-            'group_id' => $group['group_id'],
-            'title' => $group['title']
-        ];
-    }
-
-    return $result;
-}
-
-/**
  * Get assoc array of group ids with assigned feeds ids
  *
  * @return array
@@ -68,6 +42,24 @@ function get_map()
         else {
             $map[$group_id] = array($feed_id);
         }
+    }
+
+    return $map;
+}
+
+/**
+ * Get assoc array of feeds ids with assigned groups ids
+ *
+ * @return array
+ */
+function get_feeds_map()
+{
+    $result = Database::getInstance('db')
+            ->table('feeds_groups')
+            ->findAll();
+    $map = array();
+    foreach ($result as $row) {
+        $map[$row['feed_id']][] = $row['group_id'];
     }
 
     return $map;
