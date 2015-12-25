@@ -169,7 +169,11 @@ Response:
         "last_modified" : null,
         "parsing_error" : "0",
         "site_url" : "http://www.lemonde.fr/rss/une.xml",
-        "title" : "Le Monde.fr - Actualité à la Une"
+        "title" : "Le Monde.fr - Actualité à la Une",
+        "feed_group_ids" : [
+          "1",
+          "2"
+        ]
       },
       { "download_content" : "1",
         "enabled" : "1",
@@ -180,7 +184,10 @@ Response:
         "last_modified" : null,
         "parsing_error" : "0",
         "site_url" : "http://www.futura-sciences.com",
-        "title" : "Les dernières actualités de Futura-Sciences"
+        "title" : "Les dernières actualités de Futura-Sciences",
+        "feed_group_ids" : [
+          "3"
+        ]
       },
       { "download_content" : "0",
         "enabled" : "1",
@@ -191,7 +198,8 @@ Response:
         "last_modified" : null,
         "parsing_error" : "0",
         "site_url" : "http://www.mac4ever.com/actu",
-        "title" : "Mac4Ever.com - Actualité"
+        "title" : "Mac4Ever.com - Actualité",
+        "feed_group_ids" : []
       },
       ...
     ]
@@ -230,7 +238,11 @@ Response:
       "last_modified" : null,
       "parsing_error" : "0",
       "site_url" : "http://www.lemonde.fr/rss/une.xml",
-      "title" : "Le Monde.fr - Actualité à la Une"
+      "title" : "Le Monde.fr - Actualité à la Une",
+      "feed_group_ids" : [
+        "1",
+        "2"
+      ]
     }
   ]
 }
@@ -334,6 +346,43 @@ Response:
 { "id" : 1,
   "jsonrpc" : "2.0",
   "result" : true
+}
+```
+
+### group.list
+
+Get the list of groups.
+
+- **Arguments:** None
+- **Return on success:** List of groups
+- **Return on failure:** false
+
+Request:
+
+```bash
+curl \
+-u "demo:swB3/nSo1CB1X2F" \
+-d '{"jsonrpc": "2.0", "method": "group.list", "id": 1}' \
+https://demo.miniflux.net/jsonrpc.php
+```
+
+Response:
+
+```json
+{ "id" : 1,
+  "jsonrpc" : "2.0",
+  "result" : [
+      { "id" : "1",
+        "title" : "Tech"
+      },
+      { "id" : "2",
+        "title" : "Hardware"
+      },
+      { "id" : "3",
+        "title" : "Software"
+      },
+      ...
+    ]
 }
 ```
 
