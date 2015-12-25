@@ -26,9 +26,11 @@ $server->register('feed.list', function () {
     }
     $groups = Model\Group\get_feeds_map();
     foreach ($feeds as &$feed) {
-        $feed['feed_group_ids'] = isset($groups[$feed['id']])
-            ? $groups[$feed['id']]
-            : array();
+        $feed_id = $feed['id'];
+        $feed['feed_group_ids'] = array();
+        if (isset($groups[$feed_id])) {
+            $feed['feed_group_ids'] = $groups[$feed_id];
+        }
     }
 
     return $feeds;
