@@ -14,6 +14,7 @@ List of contributors:
 - [Chase Arnold](https://github.com/chase4926)
 - [Chris Lemonier](https://github.com/chrislemonier)
 - [Delehef](https://github.com/delehef)
+- [Denis Filimonov](https://github.com/denfil)
 - [Derjus](https://github.com/derjus)
 - [Eauland](https://github.com/eauland)
 - [Félix](https://github.com/dysosmus)
