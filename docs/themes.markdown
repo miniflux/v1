@@ -42,5 +42,6 @@ You can download them from [the official Miniflux repositories](https://github.c
 - [Midnight by Luca Marra](https://github.com/miniflux/theme-midnight)
 - [NoStyle by Frederic Guillot](https://github.com/miniflux/theme-nostyle)
 - [Still by Franklin Delehelle](https://github.com/miniflux/theme-still)
+- [Sun by Alexander Mangel](https://github.com/cygnusfear/miniflux-theme-sun)
 
 **PS: Those themes are maintained and tested by their respective authors.**
