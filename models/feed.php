@@ -6,6 +6,7 @@ use UnexpectedValueException;
 use Model\Config;
 use Model\Item;
 use Model\Group;
+use Model\Favicon;
 use Helper;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
@@ -13,108 +14,10 @@ use PicoDb\Database;
 use PicoFeed\Serialization\Export;
 use PicoFeed\Serialization\Import;
 use PicoFeed\Reader\Reader;
-use PicoFeed\Reader\Favicon;
 use PicoFeed\PicoFeedException;
 use PicoFeed\Client\InvalidUrlException;
 
 const LIMIT_ALL = -1;
-
-// Store the favicon
-function store_favicon($feed_id, $link, $type, $icon)
-{
-    $file = $feed_id.Helper\favicon_extension($type);
-
-    if (file_put_contents(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$file, $icon) === false) {
-        return false;
-    }
-
-    return Database::getInstance('db')
-            ->table('favicons')
-            ->save(array(
-                'feed_id' => $feed_id,
-                'link' => $link,
-                'file' => $file,
-                'type' => $type
-            ));
-}
-
-// Delete the favicon
-function delete_favicon($feed_id)
-{
-    foreach (get_favicons(array ($feed_id)) as $favicon) {
-        unlink(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$favicon);
-    }
-}
-
-// Delete all the favicons
-function delete_all_favicons()
-{
-    foreach (get_all_favicons() as $favicon) {
-        unlink(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$favicon);
-    }
-}
-
-// Download favicon
-function fetch_favicon($feed_id, $site_url, $icon_link)
-{
-    if (Config\get('favicons') == 1 && ! has_favicon($feed_id)) {
-        $favicon = new Favicon;
-
-        $link = $favicon->find($site_url, $icon_link);
-        $icon = $favicon->getContent();
-        $type = $favicon->getType();
-
-        if ($icon !== '') {
-            store_favicon($feed_id, $link, $type, $icon);
-        }
-    }
-}
-
-// Return true if the feed have a favicon
-function has_favicon($feed_id)
-{
-    return Database::getInstance('db')->table('favicons')->eq('feed_id', $feed_id)->count() === 1;
-}
-
-// Get favicons for those feeds
-function get_favicons(array $feed_ids)
-{
-    if (Config\get('favicons') == 0) {
-        return array();
-    }
-
-    $db = Database::getInstance('db')
-            ->hashtable('favicons')
-            ->columnKey('feed_id')
-            ->columnValue('file');
-
-    // pass $feeds_ids as argument list to hashtable::get(), use ... operator with php 5.6+
-    return call_user_func_array(array($db, 'get'), $feed_ids);
-}
-
-// Get all favicons for a list of items
-function get_item_favicons(array $items)
-{
-    $feed_ids = array();
-
-    foreach ($items as $item) {
-        $feed_ids[$item['feed_id']] = $item['feed_id'];
-    }
-
-    return get_favicons($feed_ids);
-}
-
-// Get all favicons
-function get_all_favicons()
-{
-    if (Config\get('favicons') == 0) {
-        return array();
-    }
-
-    return Database::getInstance('db')
-            ->hashtable('favicons')
-            ->getAll('feed_id', 'file');
-}
 
 // Update feed information
 function update(array $values)
@@ -236,7 +139,7 @@ function create($url, $enable_grabber = false, $force_rtl = false, $cloak_referr
 
         Group\update_feed_groups($feed_id, $group_ids, $create_group);
         Item\update_all($feed_id, $feed->getItems());
-        fetch_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
+        Favicon\create_feed_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
     }
 
     return $feed_id;
@@ -301,7 +204,7 @@ function refresh($feed_id)
             update_cache($feed_id, $resource->getLastModified(), $resource->getEtag());
 
             Item\update_all($feed_id, $feed->getItems());
-            fetch_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
+            Favicon\create_feed_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
         }
 
         update_parsing_error($feed_id, 0);
@@ -435,18 +338,20 @@ function update_cache($feed_id, $last_modified, $etag)
 // Remove one feed
 function remove($feed_id)
 {
-    delete_favicon($feed_id);
     Group\remove_all($feed_id);
-
+    
     // Items are removed by a sql constraint
-    return Database::getInstance('db')->table('feeds')->eq('id', $feed_id)->remove();
+    $result = Database::getInstance('db')->table('feeds')->eq('id', $feed_id)->remove();
+    Favicon\purge_favicons();
+    return $result;
 }
 
 // Remove all feeds
 function remove_all()
 {
-    delete_all_favicons();
-    return Database::getInstance('db')->table('feeds')->remove();
+    $result = Database::getInstance('db')->table('feeds')->remove();
+    Favicon\purge_favicons();
+    return $result;
 }
 
 // Enable a feed (activate refresh)

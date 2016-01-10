@@ -41,7 +41,7 @@ Router\get_action('bookmarks', function() {
     $items = Model\Item\get_bookmarks($offset, Model\Config\get('items_per_page'));
 
     Response\html(Template\layout('bookmarks', array(
-        'favicons' => Model\Feed\get_item_favicons($items),
+        'favicons' => Model\Favicon\get_item_favicons($items),
         'original_marks_read' => Model\Config\get('original_marks_read'),
         'order' => '',
         'direction' => '',

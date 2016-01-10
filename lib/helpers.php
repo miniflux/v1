@@ -42,7 +42,7 @@ function favicon_extension($type)
         'image/jpg' => '.jpg'
     );
 
-    if (in_array($type, $types)) {
+    if (array_key_exists($type, $types)) {
         return $types[$type];
     } else {
         return '.ico';
@@ -52,7 +52,7 @@ function favicon_extension($type)
 function favicon(array $favicons, $feed_id)
 {
     if (! empty($favicons[$feed_id])) {
-        return '<img src="'.FAVICON_URL_PATH.'/'.$favicons[$feed_id].'" class="favicon"/>';
+        return '<img src="'.FAVICON_URL_PATH.'/'.$favicons[$feed_id]['hash'].favicon_extension($favicons[$feed_id]['type']).'" class="favicon"/>';
     }
 
     return '';

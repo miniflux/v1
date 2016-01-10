@@ -124,7 +124,7 @@ Router\get_action('feeds', function() {
     }
 
     Response\html(Template\layout('feeds', array(
-        'favicons' => Model\Feed\get_all_favicons(),
+        'favicons' => Model\Favicon\get_all_favicons(),
         'feeds' => Model\Feed\get_all_item_counts(),
         'nothing_to_read' => $nothing_to_read,
         'nb_unread_items' => $nb_unread_items,

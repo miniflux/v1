@@ -5,7 +5,30 @@ namespace Schema;
 use PDO;
 use Model\Config;
 
-const VERSION = 42;
+const VERSION = 43;
+
+function version_43(PDO $pdo)
+{
+    $pdo->exec('DROP TABLE favicons');
+
+    $pdo->exec(
+        'CREATE TABLE favicons (
+            id INTEGER PRIMARY KEY,
+            hash TEXT UNIQUE,
+            type TEXT
+        )'
+    );
+
+    $pdo->exec('
+        CREATE TABLE "favicons_feeds" (
+            feed_id INTEGER NOT NULL,
+            favicon_id INTEGER NOT NULL,
+            PRIMARY KEY(feed_id, favicon_id)
+            FOREIGN KEY(favicon_id) REFERENCES favicons(id) ON DELETE CASCADE
+            FOREIGN KEY(feed_id) REFERENCES feeds(id) ON DELETE CASCADE
+        )
+    ');
+}
 
 function version_42(PDO $pdo)
 {

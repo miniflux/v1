@@ -24,4 +24,5 @@ return array(
     $baseDir . '/models/database.php',
     $baseDir . '/models/remember_me.php',
     $baseDir . '/models/group.php',
+    $baseDir . '/models/favicon.php',
 );

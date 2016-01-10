@@ -34,7 +34,7 @@ Router\get_action('unread', function() {
     }
 
     Response\html(Template\layout('unread_items', array(
-        'favicons' => Model\Feed\get_item_favicons($items),
+        'favicons' => Model\Favicon\get_item_favicons($items),
         'original_marks_read' => Model\Config\get('original_marks_read'),
         'order' => $order,
         'direction' => $direction,
