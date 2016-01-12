@@ -2,22 +2,11 @@
 
 namespace Model\Favicon;
 
-use UnexpectedValueException;
 use Model\Config;
-use Model\Item;
 use Model\Group;
 use Helper;
-use SimpleValidator\Validator;
-use SimpleValidator\Validators;
 use PicoDb\Database;
-use PicoFeed\Serialization\Export;
-use PicoFeed\Serialization\Import;
-use PicoFeed\Reader\Reader;
 use PicoFeed\Reader\Favicon;
-use PicoFeed\PicoFeedException;
-use PicoFeed\Client\InvalidUrlException;
-
-const LIMIT_ALL = -1;
 
 // Create a favicons
 function create_feed_favicon($feed_id, $site_url, $icon_link) {
@@ -60,7 +49,7 @@ function fetch($feed_id, $site_url, $icon_link)
 // Store the favicon (only if it does not exist yet)
 function store($type, $icon)
 {
-    if ($icon == "") {
+    if ($icon === '') {
         return false;
     }
 
@@ -120,7 +109,7 @@ function purge_favicons()
                     'favicons_feeds.feed_id'
                 )
                 ->join('favicons_feeds', 'favicon_id', 'id')
-                ->isnull('favicons_feeds.feed_id')
+                ->isNull('favicons_feeds.feed_id')
                 ->findAll();
 
       foreach ($favicons as $favicon) {
@@ -186,11 +175,11 @@ function get_all_favicons()
             )
             ->join('favicons_feeds', 'favicon_id', 'id')
             ->findAll();
-    
+
     $map = array();
 
     foreach ($result as $row) {
-      $map[$row['feed_id']] = array (
+      $map[$row['feed_id']] = array(
         "type" => $row['type'],
         "hash" => $row['hash']
       );
@@ -198,5 +187,3 @@ function get_all_favicons()
 
     return $map;
 }
-
-

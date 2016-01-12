@@ -110,7 +110,7 @@ Router\get_action('feed-items', function() {
     $items = Model\Item\get_all_by_feed($feed_id, $offset, Model\Config\get('items_per_page'), $order, $direction);
 
     Response\html(Template\layout('feed_items', array(
-        'favicons' => Model\Feed\get_favicons(array($feed['id'])),
+        'favicons' => Model\Favicon\get_favicons(array($feed['id'])),
         'original_marks_read' => Model\Config\get('original_marks_read'),
         'order' => $order,
         'direction' => $direction,
