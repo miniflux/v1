@@ -105,6 +105,7 @@ function get_languages()
         'sr_RS' => 'српски',
         'sr_RS@latin' => 'srpski',
         'ru_RU' => 'Русский',
+        'tr_TR' => 'Türkçe',
     );
 }
 
