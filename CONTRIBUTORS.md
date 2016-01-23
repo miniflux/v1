@@ -40,6 +40,7 @@ List of contributors:
 - [MonsieurPaulLeBoulanger](https://github.com/MonsieurPaulLeBoulanger)
 - [Necku](https://github.com/Necku)
 - [Nicolas Dewaele](http://adminrezo.fr/)
+- [Ogün Karakuş](https://github.com/ogunkarakus)
 - [Pcwalden](https://github.com/pcwalden)
 - [Pitel](https://github.com/Pitel)
 - [Silvus](https://github.com/Silvus)
