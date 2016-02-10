@@ -3,10 +3,11 @@
 return array(
     'grabber' => array(
         '%.*%' => array(
-            'test_url' => 'http://blog.the-ebook-reader.com/2015/09/25/kobo-glo-hd-and-kobo-touch-2-0-covers-and-cases-roundup/',
             'body' => array(
+                '//div[@id="comic-1"]',
                 '//div[@class="entry"]',
             ),
+            'test_url' => 'http://gerbilwithajetpack.com/passing-the-digital-buck/',
         ),
     ),
 );

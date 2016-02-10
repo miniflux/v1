@@ -3,10 +3,10 @@
 return array(
     'grabber' => array(
         '%.*%' => array(
-            'test_url' => 'http://www.securityfocus.com/news/11569?ref=rss',
             'body' => array(
-                '//div[@class="expanded"]',
+                '//img[@class="img-responsive img-comic"]',
             ),
+            'test_url' => 'http://dilbert.com/strip/2016-01-28',
         ),
     ),
 );
