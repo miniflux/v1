@@ -1,11 +1,16 @@
 FROM ubuntu:14.04
 MAINTAINER Frederic Guillot <fred@miniflux.net>
 
-RUN apt-get update && apt-get install -y apache2 php5 php5-sqlite git && apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-COPY . /var/www/miniflux
-RUN rm -rf /var/www/html && mv /var/www/miniflux /var/www/html
-RUN chown -R www-data:www-data /var/www/html/data
+RUN apt-get update && \
+    apt-get install -y apache2 php5 php5-sqlite php5-curl && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+COPY . /var/www/html
+
+RUN rm -rf /var/www/html/index.html /var/www/html/data/* && \
+    mkdir /var/www/html/data/favicons && \
+    chown -R www-data:www-data /var/www/html/data
 
 VOLUME /var/www/html/data
 
