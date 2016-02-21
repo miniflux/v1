@@ -93,4 +93,8 @@ return array(
     'SimpleValidator\\Validators\\Range' => $vendorDir . '/fguillot/simple-validator/src/SimpleValidator/Validators/Range.php',
     'SimpleValidator\\Validators\\Required' => $vendorDir . '/fguillot/simple-validator/src/SimpleValidator/Validators/Required.php',
     'SimpleValidator\\Validators\\Unique' => $vendorDir . '/fguillot/simple-validator/src/SimpleValidator/Validators/Unique.php',
+    'ZendXml\\Exception\\ExceptionInterface' => $vendorDir . '/zendframework/zendxml/library/ZendXml/Exception/ExceptionInterface.php',
+    'ZendXml\\Exception\\InvalidArgumentException' => $vendorDir . '/zendframework/zendxml/library/ZendXml/Exception/InvalidArgumentException.php',
+    'ZendXml\\Exception\\RuntimeException' => $vendorDir . '/zendframework/zendxml/library/ZendXml/Exception/RuntimeException.php',
+    'ZendXml\\Security' => $vendorDir . '/zendframework/zendxml/library/ZendXml/Security.php',
 );
