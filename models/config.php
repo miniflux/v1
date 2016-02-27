@@ -149,6 +149,15 @@ function get_display_mode()
 	);
 }
 
+// Item title links to original or full contents
+function get_item_title_link()
+{
+	return array(
+		'original' => t('Original'),
+		'full' => t('Full contents')
+	);
+}
+
 // Autoflush choices for read items
 function get_autoflush_read_options()
 {

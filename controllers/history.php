@@ -21,6 +21,7 @@ Router\get_action('history', function() {
         'order' => '',
         'direction' => '',
         'display_mode' => Model\Config\get('items_display_mode'),
+        'item_title_link' => Model\Config\get('item_title_link'),
         'nb_items' => $nb_items,
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'offset' => $offset,

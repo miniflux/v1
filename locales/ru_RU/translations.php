@@ -242,4 +242,6 @@ return array(
     'Groups' => 'Группы',
     'Back to the group' => 'Назад в группу',
     'view' => 'смотреть',
+    'Item title links to' => 'Заголовок статьи ведет на',
+    'Original' => 'Оригинал'
 );

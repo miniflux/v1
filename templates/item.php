@@ -10,7 +10,7 @@
         <span class="bookmark-icon"></span>
         <span class="read-icon"></span>
         <?= Helper\favicon($favicons, $item['feed_id']) ?>
-        <?php if ($display_mode === 'full'): ?>
+        <?php if ($display_mode === 'full' || $item_title_link == 'original'): ?>
             <a class="original" rel="noreferrer" target="_blank"
                href="<?= $item['url'] ?>"
                <?= ($original_marks_read) ? 'data-action="mark-read"' : '' ?>
@@ -42,7 +42,7 @@
         <li class="hide-mobile">
             <span title="<?= dt('%e %B %Y %k:%M', $item['updated']) ?>"><?= Helper\relative_time($item['updated']) ?></span>
         </li>
-        <?php if ($display_mode === 'full'): ?>
+        <?php if ($display_mode === 'full' || $item_title_link == 'original'): ?>
             <li>
                 <a
                     href="?action=show&amp;menu=<?= $menu ?><?= isset($group_id) ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item['id'] ?>"

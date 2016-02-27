@@ -39,6 +39,7 @@ Router\get_action('unread', function() {
         'order' => $order,
         'direction' => $direction,
         'display_mode' => Model\Config\get('items_display_mode'),
+        'item_title_link' => Model\Config\get('item_title_link'),
         'group_id' => $group_id,
         'items' => $items,
         'nb_items' => $nb_items,

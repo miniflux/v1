@@ -66,6 +66,9 @@
         <?= Helper\form_label(t('Display items on lists'), 'items_display_mode') ?>
         <?= Helper\form_select('items_display_mode', $display_mode, $values, $errors) ?><br/>
 
+        <?= Helper\form_label(t('Item title links to'), 'item_title_link') ?>
+        <?= Helper\form_select('item_title_link', $item_title_link, $values, $errors) ?><br/>
+
         <?= Helper\form_label(t('When there is nothing to read, redirect me to this page'), 'redirect_nothing_to_read') ?>
         <?= Helper\form_select('redirect_nothing_to_read', $redirect_nothing_to_read_options, $values, $errors) ?><br/>
 

@@ -123,6 +123,7 @@ Router\get_action('config', function() {
         'theme_options' => Model\Config\get_themes(),
         'sorting_options' => Model\Config\get_sorting_directions(),
         'display_mode' => Model\Config\get_display_mode(),
+        'item_title_link' => Model\Config\get_item_title_link(),
         'redirect_nothing_to_read_options' => Model\Config\get_nothing_to_read_redirections(),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
@@ -161,6 +162,7 @@ Router\post_action('config', function() {
         'sorting_options' => Model\Config\get_sorting_directions(),
         'redirect_nothing_to_read_options' => Model\Config\get_nothing_to_read_redirections(),
         'display_mode' => Model\Config\get_display_mode(),
+        'item_title_link' => Model\Config\get_item_title_link(),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
         'title' => t('Preferences')

@@ -18,6 +18,7 @@
                 'offset' => $offset,
                 'hide' => false,
                 'display_mode' => $display_mode,
+                'item_title_link' => $item_title_link,
                 'favicons' => $favicons,
                 'original_marks_read' => $original_marks_read,
             )) ?>
