@@ -37,8 +37,17 @@ Router\get_action('bookmark', function() {
 Router\get_action('bookmarks', function() {
 
     $offset = Request\int_param('offset', 0);
-    $nb_items = Model\Item\count_bookmarks();
-    $items = Model\Item\get_bookmarks($offset, Model\Config\get('items_per_page'));
+    $group_id = Request\int_param('group_id', null);
+    $feed_ids = array();
+    if (! is_null($group_id)) {
+        $feed_ids = Model\Group\get_feeds_by_group($group_id);
+    }
+    $nb_items = Model\Item\count_bookmarks($feed_ids);
+    $items = Model\Item\get_bookmarks(
+        $offset,
+        Model\Config\get('items_per_page'),
+        $feed_ids
+    );
 
     Response\html(Template\layout('bookmarks', array(
         'favicons' => Model\Favicon\get_item_favicons($items),
@@ -46,6 +55,7 @@ Router\get_action('bookmarks', function() {
         'order' => '',
         'direction' => '',
         'display_mode' => Model\Config\get('items_display_mode'),
+        'group_id' => $group_id,
         'items' => $items,
         'nb_items' => $nb_items,
         'offset' => $offset,
@@ -53,6 +63,7 @@ Router\get_action('bookmarks', function() {
         'nothing_to_read' => Request\int_param('nothing_to_read'),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'bookmarks',
+        'groups' => Model\Group\get_all(),
         'title' => t('Bookmarks').' ('.$nb_items.')'
     )));
 });
