@@ -36,6 +36,7 @@
                 'display_mode' => $display_mode,
                 'favicons' => $favicons,
                 'original_marks_read' => $original_marks_read,
+                'item_title_link' => $item_title_link,
             )) ?>
         <?php endforeach ?>
 
