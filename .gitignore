@@ -40,6 +40,17 @@ Thumbs.db
 *.lock
 *.out
 
+# IDE generated files #
+######################
+.idea
+.buildpath
+.project
+.settings
+*.sublime-project
+*.sublime-workspace
+.nbproject
+nbproject
+
 # App specific #
 ################
 config.php
@@ -47,3 +58,4 @@ config.php
 !controllers/*
 rules/*.php
 data/favicons/*.*
+/nbproject/private/
