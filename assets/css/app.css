@@ -365,17 +365,30 @@ a.btn-red:hover,
 }
 
 /* icons */
-article[data-item-status="read"] .read-icon:before {
+article .read-icon,
+article .bookmark-icon {
+    display: inline-block;
+    color: #ccc;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    margin: 0 1px;
+    cursor: pointer;
+}
+
+article .read-icon:before {
     content: "✔";
 }
 
-article[data-item-bookmark="1"] .bookmark-icon:before {
+article .bookmark-icon:before {
     content: "★";
 }
 
-/* not bookmarked icon only in article view */
-article[data-item-bookmark="0"] .item-infos .bookmark-icon:before {
-    content: "☆";
+article[data-item-status="read"] .read-icon,
+article[data-item-bookmark="1"] .bookmark-icon {
+    color: #444;
 }
 
 /* counter brackets */

@@ -1,24 +1,17 @@
-<li class="hide-mobile">
-    <a
-        href="?action=mark-item-removed&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;redirect=<?= $redirect ?>&amp;feed_id=<?= $item['feed_id'] ?>"
-        data-action="mark-removed"
-        class="delete"
-    ><?= t('remove') ?></a>
-</li>
-<li>
 <?php if ($item['status'] == 'unread'): ?>
-    <a
-        class="mark"
+    <span
+        class="read-icon"
         href="?action=mark-item-read&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;redirect=<?= $redirect ?>&amp;feed_id=<?= $item['feed_id'] ?>"
         data-action="mark-read"
         data-reverse-label="<?= t('mark as unread') ?>"
-    ><?= t('mark as read') ?></a>
+        title="<?= t('mark as read') ?>"
+    ></span>
 <?php else: ?>
-    <a
-        class="mark"
+    <span
+        class="read-icon"
         href="?action=mark-item-unread&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;redirect=<?= $redirect ?>&amp;feed_id=<?= $item['feed_id'] ?>"
         data-action="mark-unread"
         data-reverse-label="<?= t('mark as read') ?>"
-    ><?= t('mark as unread') ?></a>
+        title="<?= t('mark as unread') ?>"
+    ></span>
 <?php endif ?>
-</li>

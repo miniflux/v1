@@ -7,8 +7,8 @@
     <?= $hide ? 'data-hide="true"' : '' ?>
     >
     <h2 <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
-        <span class="bookmark-icon"></span>
-        <span class="read-icon"></span>
+        <?= \Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'source' => '')) ?>
+        <?= \Template\load('status_links', array('item' => $item, 'redirect' => $menu, 'offset' => $offset)) ?>
         <?= Helper\favicon($favicons, $item['feed_id']) ?>
         <?php if ($display_mode === 'full' || $item_title_link == 'original'): ?>
             <a class="original" rel="noreferrer" target="_blank"
@@ -67,8 +67,13 @@
             <?php endif ?>
             </li>
         <?php endif ?>
-        <?= \Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'source' => '')) ?>
-        <?= \Template\load('status_links', array('item' => $item, 'redirect' => $menu, 'offset' => $offset)) ?>
+        <li class="hide-mobile">
+            <a
+                href="?action=mark-item-removed&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;redirect=<?= $redirect ?>&amp;feed_id=<?= $item['feed_id'] ?>"
+                data-action="mark-removed"
+                class="delete"
+            ><?= t('remove') ?></a>
+        </li>
     </ul>
     <?php if ($display_mode === 'full'): ?>
         <div class="preview-full-content" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>><?= $item['content'] ?></div>
