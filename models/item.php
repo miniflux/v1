@@ -376,6 +376,19 @@ function mark_group_as_read($group_id)
         ->update(array('status' => 'read'));
 }
 
+// Mark all items of a group as removed
+function mark_group_as_removed($group_id)
+{
+    $feed_ids = Group\get_feeds_by_group($group_id);
+
+    return Database::getInstance('db')
+        ->table('items')
+        ->eq('status', 'read')
+        ->eq('bookmark', 0)
+        ->in('feed_id', $feed_ids)
+        ->save(array('status' => 'removed', 'content' => ''));
+}
+
 // Mark all read items to removed after X days
 function autoflush_read()
 {
