@@ -4,15 +4,22 @@
 Router\get_action('history', function() {
 
     $offset = Request\int_param('offset', 0);
-    $nb_items = Model\Item\count_by_status('read');
+    $group_id = Request\int_param('group_id', null);
+    $feed_ids = array();
+    if (! is_null($group_id)) {
+        $feed_ids = Model\Group\get_feeds_by_group($group_id);
+    }
+
     $items = Model\Item\get_all_by_status(
         'read',
-        array(),
+        $feed_ids,
         $offset,
         Model\Config\get('items_per_page'),
         'updated',
         Model\Config\get('items_sorting_direction')
     );
+
+    $nb_items = Model\Item\count_by_status('read', $feed_ids);
 
     Response\html(Template\layout('history', array(
         'favicons' => Model\Favicon\get_item_favicons($items),
@@ -22,20 +29,23 @@ Router\get_action('history', function() {
         'direction' => '',
         'display_mode' => Model\Config\get('items_display_mode'),
         'item_title_link' => Model\Config\get('item_title_link'),
+        'group_id' => $group_id,
         'nb_items' => $nb_items,
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'offset' => $offset,
         'items_per_page' => Model\Config\get('items_per_page'),
         'nothing_to_read' => Request\int_param('nothing_to_read'),
         'menu' => 'history',
+        'groups' => Model\Group\get_all(),
         'title' => t('History').' ('.$nb_items.')'
     )));
 });
 
 // Confirmation box to flush history
 Router\get_action('confirm-flush-history', function() {
-
+    $group_id = Request\int_param('group_id', null);
     Response\html(Template\layout('confirm_flush_items', array(
+        'group_id' => $group_id,
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'history',
         'title' => t('Confirmation')
@@ -44,7 +54,11 @@ Router\get_action('confirm-flush-history', function() {
 
 // Flush history
 Router\get_action('flush-history', function() {
-
-    Model\Item\mark_all_as_removed();
+    $group_id = Request\int_param('group_id', null);
+    if (!is_null($group_id)) {
+        Model\Item\mark_group_as_removed($group_id);
+    } else {
+        Model\Item\mark_all_as_removed();
+    }
     Response\redirect('?action=history');
 });

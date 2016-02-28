@@ -131,17 +131,18 @@ function count_by_status($status, $feed_ids = array())
 }
 
 // Get the number of bookmarks
-function count_bookmarks()
+function count_bookmarks($feed_ids = array())
 {
     return Database::getInstance('db')
         ->table('items')
         ->eq('bookmark', 1)
+        ->in('feed_id', $feed_ids)
         ->in('status', array('read', 'unread'))
         ->count();
 }
 
 // Get all bookmarks
-function get_bookmarks($offset = null, $limit = null)
+function get_bookmarks($offset = null, $limit = null, $feed_ids = array())
 {
     return Database::getInstance('db')
         ->table('items')
@@ -163,6 +164,7 @@ function get_bookmarks($offset = null, $limit = null)
             'feeds.rtl'
         )
         ->join('feeds', 'id', 'feed_id')
+        ->in('feed_id', $feed_ids)
         ->in('status', array('read', 'unread'))
         ->eq('bookmark', 1)
         ->orderBy('updated', Config\get('items_sorting_direction'))
@@ -374,6 +376,19 @@ function mark_group_as_read($group_id)
         ->eq('status', 'unread')
         ->in('feed_id', $feed_ids)
         ->update(array('status' => 'read'));
+}
+
+// Mark all items of a group as removed
+function mark_group_as_removed($group_id)
+{
+    $feed_ids = Group\get_feeds_by_group($group_id);
+
+    return Database::getInstance('db')
+        ->table('items')
+        ->eq('status', 'read')
+        ->eq('bookmark', 0)
+        ->in('feed_id', $feed_ids)
+        ->save(array('status' => 'removed', 'content' => ''));
 }
 
 // Mark all read items to removed after X days
