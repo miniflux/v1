@@ -757,16 +757,6 @@ ul.item-infos {
     text-align: center;
 }
 
-a.icon {
-    color: #333;
-    text-decoration: none;
-}
-
-a.icon:focus,
-a.icon:hover {
-    color: #000;
-}
-
 #item-content-enclosure {
     border-bottom: 1px dashed #ccc;
     margin-bottom: 20px;

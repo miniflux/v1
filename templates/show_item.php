@@ -35,13 +35,13 @@
 
         <ul class="item-infos">
             <li>
-                <a
-                    class="bookmark-icon icon"
+                <span
+                    class="bookmark-icon"
                     href="?action=bookmark&amp;value=<?= (int)!$item['bookmark'] ?>&amp;id=<?= $item['id'] ?>&amp;source=show&amp;menu=<?= $menu ?>"
                     title="<?= ($item['bookmark']) ? t('remove bookmark') : t('bookmark') ?>"
                     data-reverse-title="<?= ($item['bookmark']) ? t('bookmark') :t('remove bookmark') ?>"
                     data-action="bookmark"
-                ></a>
+                ></span>
             </li>
             <li>
                 <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>"><?= Helper\escape($feed['title']) ?></a>

@@ -45,22 +45,22 @@ Miniflux.Item = (function() {
 
     function changeLabel(link)
     {
-        if (link && link.hasAttribute("data-reverse-label")) {
-            var content = link.innerHTML;
-            link.innerHTML = link.getAttribute("data-reverse-label");
-            link.setAttribute("data-reverse-label", content);
+        if (link && link.hasAttribute("data-reverse-title") && link.hasAttribute("title")) {
+            var title = link.getAttribute("title");
+            link.setAttribute("title", link.getAttribute("data-reverse-title"));
+            link.setAttribute("data-reverse-title", title);
         }
     }
 
     function changeBookmarkLabel(item)
     {
-        var link = item.querySelector("a.bookmark");
+        var link = item.querySelector(".bookmark-icon");
         changeLabel(link);
     }
 
     function changeStatusLabel(item)
     {
-        var link = item.querySelector("a.mark");
+        var link = item.querySelector(".read-icon");
         changeLabel(link);
     }
 
@@ -78,7 +78,7 @@ Miniflux.Item = (function() {
             changeStatusLabel(item);
 
             // Change action
-            var link = item.querySelector("a.mark");
+            var link = item.querySelector(".read-icon");
             if (link) link.setAttribute("data-action", "mark-unread");
         }
 
@@ -99,7 +99,7 @@ Miniflux.Item = (function() {
             changeStatusLabel(item);
 
             // Change action
-            var link = item.querySelector("a.mark");
+            var link = item.querySelector(".read-icon");
             if (link) link.setAttribute("data-action", "mark-read");
         }
 
@@ -237,22 +237,9 @@ Miniflux.Item = (function() {
                 if (Miniflux.Nav.IsListing() && sectionElement.getAttribute("data-item-page") === "bookmarks") {
                     hideItem(item);
                     updateCounters();
-                }
-                else {
+                } else {
                     item.setAttribute("data-item-bookmark", value);
-
-                    if (Miniflux.Nav.IsListing()) {
-                        changeBookmarkLabel(item);
-                    }
-                    else {
-                        var link = item.querySelector("a.bookmark-icon");
-                        if (link && link.hasAttribute("data-reverse-title")) {
-                            var title = link.getAttribute("title");
-
-                            link.setAttribute("title", link.getAttribute("data-reverse-title"));
-                            link.setAttribute("data-reverse-title", title);
-                        }
-                    }
+                    changeBookmarkLabel(item);
                 }
             };
 
