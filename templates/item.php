@@ -69,7 +69,7 @@
         <?php endif ?>
         <li class="hide-mobile">
             <a
-                href="?action=mark-item-removed&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;redirect=<?= $redirect ?>&amp;feed_id=<?= $item['feed_id'] ?>"
+                href="?action=mark-item-removed&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;redirect=<?= $menu ?>&amp;feed_id=<?= $item['feed_id'] ?>"
                 data-action="mark-removed"
                 class="delete"
             ><?= t('remove') ?></a>
