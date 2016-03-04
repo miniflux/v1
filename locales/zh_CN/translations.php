@@ -242,4 +242,6 @@ return array(
     'Groups' => '分组',
     'Back to the group' => '返回分组',
     'view' => '查看',
+    // 'Item title links to' => '',
+    // 'Original' => '',
 );

@@ -242,4 +242,6 @@ return array(
     // 'Groups' => '',
     // 'Back to the group' => '',
     // 'view' => '',
+    // 'Item title links to' => '',
+    // 'Original' => '',
 );

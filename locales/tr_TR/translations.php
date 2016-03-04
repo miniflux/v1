@@ -242,4 +242,6 @@ return array(
     'Groups' => 'Gruplar',
     'Back to the group' => 'Gruba geri dön',
     'view' => 'görüntüle',
+    // 'Item title links to' => '',
+    // 'Original' => '',
 );

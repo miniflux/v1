@@ -242,4 +242,6 @@ return array(
     'Groups' => 'Skupiny',
     'Back to the group' => 'Zpět do skupiny',
     'view' => 'zobrazit',
+    // 'Item title links to' => '',
+    // 'Original' => '',
 );
