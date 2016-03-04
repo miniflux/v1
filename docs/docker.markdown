@@ -28,4 +28,4 @@ Run container from the image:
 docker run -p 80:80 --name miniflux <yourname/imagename>
 ```
 
-You can also mount the volume `/var/www/html/data` to save the data on the host machine.
+You can also mount the volume `/var/www/html/data` to save the data on the host machine (this folder must have write access from the container web server user).

@@ -62,6 +62,11 @@ if (! is_writable(DATA_DIRECTORY)) {
     die('The data directory must be writeable by your web server user');
 }
 
+// Create favicon folder if missing
+if (! is_dir(FAVICON_DIRECTORY)) {
+    mkdir(FAVICON_DIRECTORY);
+}
+
 // Check if favicon directory is writeable
 if (! is_writable(FAVICON_DIRECTORY)) {
     die('The favicon directory must be writeable by your web server user');
