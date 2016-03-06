@@ -791,6 +791,36 @@ iframe {
     color: #333;
 }
 
+#help-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    overflow: auto;
+    background: #f0f0f0;
+    box-shadow: 2px 0px 5px 0 #ccc;
+}
+
+#help-layer .panel {
+    border: 0;
+}
+
+.btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font: 28px/1 sans-serif;
+    color: #ccc;
+    padding:0 .2em;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.btn-close:hover {
+    color: #999;
+}
+
 #login {
     width: 350px;
     margin: 0 auto;
