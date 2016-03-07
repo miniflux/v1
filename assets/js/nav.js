@@ -101,7 +101,12 @@ Miniflux.Nav = (function() {
             }
         },
         ShowHelp: function() {
-            open("?action=show-help", "Help", "width=320,height=450,location=no,scrollbars=no,status=no,toolbar=no");
+            var help_layer = document.getElementById("help-layer");
+            help_layer.removeAttribute("class");
+        },
+        CloseHelp: function() {
+            var help_layer = document.getElementById("help-layer");
+            help_layer.setAttribute("class", "hide");
         },
         IsListing: isListing
     };

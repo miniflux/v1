@@ -86,8 +86,10 @@ Miniflux.Event = (function() {
                             break;
                         case 'mark-feed-read':
                             var feed_id = document.getElementById('listing').getAttribute('data-feed-id');
-
                             Miniflux.Item.MarkFeedAsRead(feed_id);
+                            break;
+                        case 'close-help':
+                            Miniflux.Nav.CloseHelp();
                             break;
                     }
                 }
@@ -196,6 +198,12 @@ Miniflux.Event = (function() {
                         case '?':
                         case 63:
                             Miniflux.Nav.ShowHelp();
+                            break;
+                        case 'Q':
+                        case 81:  // Q
+                        case 'q':
+                        case 113: // q
+                            Miniflux.Nav.CloseHelp();
                             break;
                         case 'z':
                         case 122:

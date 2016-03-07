@@ -57,6 +57,7 @@
             <?= Helper\flash('flash_message', '<div class="alert alert-success">%s</div>') ?>
             <?= Helper\flash('flash_error_message', '<div class="alert alert-error">%s</div>') ?>
             <?= $content_for_layout ?>
-         </section>
+        </section>
+        <?= \Template\load('help_layer') ?>
     </body>
 </html>
