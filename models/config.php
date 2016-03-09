@@ -100,6 +100,7 @@ function get_languages()
         'es_ES' => 'Español',
         'fr_FR' => 'Français',
         'it_IT' => 'Italiano',
+        'ja_JP' => '日本語',
         'pt_BR' => 'Português',
         'zh_CN' => '简体中国',
         'sr_RS' => 'српски',
