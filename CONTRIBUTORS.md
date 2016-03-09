@@ -17,6 +17,7 @@ List of contributors:
 - [Denis Filimonov](https://github.com/denfil)
 - [Derjus](https://github.com/derjus)
 - [Eauland](https://github.com/eauland)
+- [Eshin Kunishima](https://github.com/mikoim)
 - [Félix](https://github.com/dysosmus)
 - [Filimonov Denis](https://github.com/denfil)
 - [Geriel Castro](https://github.com/GerielCastro)
