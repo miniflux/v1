@@ -14,7 +14,7 @@ Features
 - Open external links inside a new tab with a `rel="noreferrer"` attribute
 - Use secure HTTP headers (only external images and Youtube/Vimeo/Dailymotion videos are allowed)
 - Article content is filtered before being displayed
-- Translated in Arabic, English, French, German, Italian, Czech, Spanish, Turkish, Portuguese, Russian, Serbian and Simplified Chinese
+- Translated in Arabic, English, French, German, Italian, Japanese, Czech, Spanish, Turkish, Portuguese, Russian, Serbian and Simplified Chinese
 - RTL languages support
 - Keyboard shortcuts
 - Full article download for feeds that display only a summary
