@@ -23,7 +23,6 @@ List of contributors:
 - [Geriel Castro](https://github.com/GerielCastro)
 - [Hika0](https://github.com/hika0)
 - [Horsely](https://github.com/horsley)
-- [Ing. Jan Kaláb](https://github.com/Pitel)
 - [Itoine](https://github.com/itoine)
 - [Kordian Bruck](https://github.com/kordianbruck)
 - [James Scott-Brown](https://github.com/jamesscottbrown)
