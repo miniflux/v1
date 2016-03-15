@@ -28,6 +28,9 @@
     <div class="panel panel-default">
         <h3><?= t('About') ?></h3>
         <ul>
+            <?php if (! empty($config['last_login'])): ?>
+                <li><?= t('Last login:') ?> <strong><?= date('Y-m-d H:i', $config['last_login']) ?></strong></li>
+            <?php endif ?>
             <li><?= t('Miniflux version:') ?> <strong><?= APP_VERSION ?></strong></li>
             <li><?= t('Official website:') ?> <a href="https://miniflux.net" rel="noreferrer" target="_blank">https://miniflux.net</a></li>
             <li><a href="?action=console"><?= t('Console') ?></a></li>

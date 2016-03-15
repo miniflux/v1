@@ -244,4 +244,5 @@ return array(
     'view' => '查看',
     // 'Item title links to' => '',
     // 'Original' => '',
+    // 'Last login:' => '',
 );

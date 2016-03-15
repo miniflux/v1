@@ -244,4 +244,5 @@ return array(
     'view' => 'görüntüle',
     // 'Item title links to' => '',
     // 'Original' => '',
+    // 'Last login:' => '',
 );

@@ -245,5 +245,6 @@ return array(
     'Back to the group' => 'グループへ戻る',
     'view' => '表示',
     'Item title links to' => 'アイテムのタイトルのリンク先',
-    'Original' => '元のページ'
+    'Original' => '元のページ',
+    // 'Last login:' => '',
 );

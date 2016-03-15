@@ -243,5 +243,6 @@ return array(
     'Back to the group' => 'Revenir sur le groupe',
     'view' => 'voir',
     'Item title links to' => 'Le titre des articles redirige vers',
-    'Original' => 'Original'
+    'Original' => 'Original',
+    'Last login:' => 'Dernière connexion :',
 );

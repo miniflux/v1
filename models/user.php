@@ -24,11 +24,19 @@ function logout()
 }
 
 // Get the credentials from the current selected database
-function getCredentials()
+function get_credentials()
 {
     return Database::getInstance('db')
         ->hashtable('settings')
         ->get('username', 'password');
+}
+
+// Set last login date
+function set_last_login()
+{
+    return Database::getInstance('db')
+        ->hashtable('settings')
+        ->put(array('last_login' => time()));
 }
 
 // Validate authentication
@@ -45,10 +53,10 @@ function validate_login(array $values)
 
     if ($result) {
 
-        $credentials = getCredentials();
+        $credentials = get_credentials();
 
         if ($credentials && $credentials['username'] === $values['username'] && password_verify($values['password'], $credentials['password'])) {
-
+            set_last_login();
             $_SESSION['loggedin'] = true;
             $_SESSION['config'] = Config\get_all();
 

@@ -54,7 +54,7 @@ Router\post_action('new-db', function() {
     Response\redirect('?action=database');
 });
 
-// Comfirmation box before auto-update
+// Confirmation box before auto-update
 Router\get_action('confirm-auto-update', function() {
 
     Response\html(Template\layout('confirm_auto_update', array(

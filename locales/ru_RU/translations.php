@@ -243,5 +243,6 @@ return array(
     'Back to the group' => 'Назад в группу',
     'view' => 'смотреть',
     'Item title links to' => 'Заголовок статьи ведет на',
-    'Original' => 'Оригинал'
+    'Original' => 'Оригинал',
+    // 'Last login:' => '',
 );

@@ -244,4 +244,5 @@ return array(
     'view' => 'zobrazit',
     'Item title links to' => 'Titulek článku odkazuje na',
     'Original' => 'Originál',
+    // 'Last login:' => '',
 );
