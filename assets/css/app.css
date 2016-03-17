@@ -380,11 +380,11 @@ article[data-item-bookmark="1"] .bookmark-icon:before {
 }
 
 article[data-item-status="read"] .read-icon:before {
-    content: "✔";
+    content: "✘";
 }
 
 article[data-item-status="unread"] .read-icon:before {
-    content: "✘";
+    content: "✔";
 }
 
 /* counter brackets */
