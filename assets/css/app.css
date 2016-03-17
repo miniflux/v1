@@ -367,28 +367,24 @@ a.btn-red:hover,
 /* icons */
 article .read-icon,
 article .bookmark-icon {
-    display: inline-block;
-    color: #ccc;
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    text-align: center;
-    margin: 0 1px;
     cursor: pointer;
+    color: #aaa;
 }
 
-article .read-icon:before {
-    content: "✔";
+article[data-item-bookmark="0"] .bookmark-icon:before {
+    content: "☆";
 }
 
-article .bookmark-icon:before {
+article[data-item-bookmark="1"] .bookmark-icon:before {
     content: "★";
 }
 
-article[data-item-status="read"] .read-icon,
-article[data-item-bookmark="1"] .bookmark-icon {
-    color: #444;
+article[data-item-status="read"] .read-icon:before {
+    content: "✔";
+}
+
+article[data-item-status="unread"] .read-icon:before {
+    content: "✘";
 }
 
 /* counter brackets */
