@@ -7,8 +7,11 @@
     <?= $hide ? 'data-hide="true"' : '' ?>
     >
     <h2 <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
-        <?= \Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'source' => '')) ?>
-        <?= \Template\load('status_links', array('item' => $item, 'redirect' => $menu, 'offset' => $offset)) ?>
+        <span class="item-icons">
+            <?= \Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'source' => '')) ?>
+            <?= \Template\load('status_links', array('item' => $item, 'redirect' => $menu, 'offset' => $offset)) ?>
+        </span>
+        <span class="item-title">
         <?= Helper\favicon($favicons, $item['feed_id']) ?>
         <?php if ($display_mode === 'full' || $item_title_link == 'original'): ?>
             <a class="original" rel="noreferrer" target="_blank"
@@ -23,6 +26,7 @@
                 title="<?= Helper\escape($item['title']) ?>"
             ><?= Helper\escape($item['title']) ?></a>
         <?php endif ?>
+        </span>
     </h2>
     <ul class="item-menu">
          <?php if ($menu !== 'feed-items'): ?>

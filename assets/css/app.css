@@ -369,6 +369,7 @@ article .read-icon,
 article .bookmark-icon {
     cursor: pointer;
     color: #aaa;
+    font-weight: 200;
 }
 
 article[data-item-bookmark="0"] .bookmark-icon:before {
@@ -954,5 +955,24 @@ html[dir="rtl"] span.items-count:before {
 
     section li {
         font-size: 0.85em;
+    }
+
+    .item-icons {
+        display: block;
+        float: right;
+    }
+
+    .item-title {
+        display: block;
+    }
+
+    .item-icons .read-icon,
+    .item-icons .bookmark-icon {
+        font-size: 1.7em;
+        margin-left: 15px;
+    }
+
+    .item-infos .bookmark-icon {
+        font-size: 2.0em;
     }
 }
