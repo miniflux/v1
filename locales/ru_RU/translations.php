@@ -244,5 +244,5 @@ return array(
     'view' => 'смотреть',
     'Item title links to' => 'Заголовок статьи ведет на',
     'Original' => 'Оригинал',
-    // 'Last login:' => '',
+    'Last login:' => 'Последний вход:',
 );
