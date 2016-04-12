@@ -242,7 +242,7 @@ return array(
     'Groups' => 'Gruplar',
     'Back to the group' => 'Gruba geri dön',
     'view' => 'görüntüle',
-    // 'Item title links to' => '',
-    // 'Original' => '',
-    // 'Last login:' => '',
+    'Item title links to' => 'Öğe başlığıyla ilişkili bağlantılar',
+    'Original' => 'Orijinal',
+    'Last login:' => 'En son sisteme giriş zamanı:',
 );
