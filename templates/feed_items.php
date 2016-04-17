@@ -11,6 +11,9 @@
                 <a href="?action=refresh-feed&amp;feed_id=<?= $feed['id'] ?>&amp;redirect=feed-items"><?= t('refresh') ?></a>
             </li>
             <li>
+                <a href="?action=edit-feed&amp;feed_id=<?= $feed['id'] ?>"><?= t('edit') ?></a>
+            </li>
+            <li>
                 <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>&amp;order=updated&amp;direction=<?= $direction == 'asc' ? 'desc' : 'asc' ?>"><?= tne('sort by date %s(%s)%s', '<span class="hide-mobile">', $direction == 'desc' ? t('older first') : t('most recent first'), '</span>') ?></a>
             </li>
             <li>
