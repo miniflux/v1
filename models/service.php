@@ -73,8 +73,7 @@ function api_call($url)
         $client->setUserAgent(Config\HTTP_USER_AGENT);
         $client->execute($url);
         return $client;
-    }
-    catch (ClientException $e) {
+    } catch (ClientException $e) {
         return false;
     }
 }

@@ -20,8 +20,7 @@ function before($value = null)
 
     if (is_callable($value)) {
         $before_callback = $value;
-    }
-    else if (is_callable($before_callback)) {
+    } elseif (is_callable($before_callback)) {
         $before_callback($value);
     }
 }
@@ -33,8 +32,7 @@ function before_action($name, $value = null)
 
     if (is_callable($value)) {
         $callbacks[$name] = $value;
-    }
-    else if (isset($callbacks[$name]) && is_callable($callbacks[$name])) {
+    } elseif (isset($callbacks[$name]) && is_callable($callbacks[$name])) {
         $callbacks[$name]($value);
     }
 }
@@ -103,18 +101,15 @@ function delete($url, \Closure $callback)
 function find_route($method, $route, \Closure $callback)
 {
     if ($_SERVER['REQUEST_METHOD'] === $method) {
-
         if (! empty($_SERVER['QUERY_STRING'])) {
             $url = substr($_SERVER['REQUEST_URI'], 0, -(strlen($_SERVER['QUERY_STRING']) + 1));
-        }
-        else {
+        } else {
             $url = $_SERVER['REQUEST_URI'];
         }
 
         $params = array();
 
         if (url_match($route, $url, $params)) {
-
             before($route);
             \call_user_func_array($callback, $params);
             exit;
@@ -125,8 +120,12 @@ function find_route($method, $route, \Closure $callback)
 // Parse url and find matches
 function url_match($route_uri, $request_uri, array &$params)
 {
-    if ($request_uri === $route_uri) return true;
-    if ($route_uri === '/' || $request_uri === '/') return false;
+    if ($request_uri === $route_uri) {
+        return true;
+    }
+    if ($route_uri === '/' || $request_uri === '/') {
+        return false;
+    }
 
     $route_uri = trim($route_uri, '/');
     $request_uri = trim($request_uri, '/');
@@ -136,15 +135,10 @@ function url_match($route_uri, $request_uri, array &$params)
     $nb_route_items = count($route_items);
 
     if ($nb_route_items === count($request_items)) {
-
         for ($i = 0; $i < $nb_route_items; ++$i) {
-
             if ($route_items[$i][0] === ':') {
-
                 $params[substr($route_items[$i], 1)] = $request_items[$i];
-            }
-            else if ($route_items[$i] !== $request_items[$i]) {
-
+            } elseif ($route_items[$i] !== $request_items[$i]) {
                 $params = array();
                 return false;
             }

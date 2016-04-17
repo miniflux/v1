@@ -38,8 +38,7 @@ function get_map()
 
         if (isset($map[$group_id])) {
             $map[$group_id][] = $feed_id;
-        }
-        else {
+        } else {
             $map[$group_id] = array($feed_id);
         }
     }
@@ -136,7 +135,7 @@ function create($title)
 
     // create group if missing
     if ($group_id === false) {
-       Database::getInstance('db')
+        Database::getInstance('db')
                 ->table('groups')
                 ->insert($data);
 
@@ -155,7 +154,7 @@ function create($title)
  */
 function add($feed_id, array $group_ids)
 {
-    foreach ($group_ids as $group_id){
+    foreach ($group_ids as $group_id) {
         $data = array('feed_id' => $feed_id, 'group_id' => $group_id);
 
         $result = Database::getInstance('db')

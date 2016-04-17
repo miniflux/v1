@@ -118,11 +118,9 @@ function get_themes()
     );
 
     if (file_exists(THEME_DIRECTORY)) {
-
         $dir = new DirectoryIterator(THEME_DIRECTORY);
 
         foreach ($dir as $fileinfo) {
-
             if (! $fileinfo->isDot() && $fileinfo->isDir()) {
                 $themes[$dir->getFilename()] = ucfirst($dir->getFilename());
             }
@@ -144,19 +142,19 @@ function get_sorting_directions()
 // Display summaries or full contents on lists
 function get_display_mode()
 {
-	return array(
-		'summaries' => t('Summaries'),
-		'full' => t('Full contents')
-	);
+    return array(
+        'summaries' => t('Summaries'),
+        'full' => t('Full contents')
+    );
 }
 
 // Item title links to original or full contents
 function get_item_title_link()
 {
-	return array(
-		'original' => t('Original'),
-		'full' => t('Full contents')
-	);
+    return array(
+        'original' => t('Original'),
+        'full' => t('Full contents')
+    );
 }
 
 // Autoflush choices for read items
@@ -227,9 +225,7 @@ function check_csrf_values(array &$values)
 {
     if (empty($values['csrf']) || ! isset($_SESSION['csrf'][$values['csrf']])) {
         $values = array();
-    }
-    else {
-
+    } else {
         unset($_SESSION['csrf'][$values['csrf']]);
         unset($values['csrf']);
     }
@@ -251,11 +247,9 @@ function generate_token()
 {
     if (function_exists('random_bytes')) {
         return bin2hex(random_bytes(30));
-    }
-    else if (function_exists('openssl_random_pseudo_bytes')) {
+    } elseif (function_exists('openssl_random_pseudo_bytes')) {
         return bin2hex(openssl_random_pseudo_bytes(30));
-    }
-    else if (ini_get('open_basedir') === '' && strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
+    } elseif (ini_get('open_basedir') === '' && strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
         return hash('sha256', file_get_contents('/dev/urandom', false, null, 0, 30));
     }
 
@@ -280,9 +274,7 @@ function get($name)
 {
     if (! isset($_SESSION)) {
         return current(Database::getInstance('db')->hashtable('settings')->get($name));
-    }
-    else {
-
+    } else {
         if (! isset($_SESSION['config'][$name])) {
             $_SESSION['config'] = get_all();
         }
@@ -392,11 +384,8 @@ function get_ip_address($only_public = false)
     );
 
     foreach ($keys as $key) {
-
         if (isset($_SERVER[$key])) {
-
             foreach (explode(',', $_SERVER[$key]) as $ip_address) {
-
                 $ip_address = trim($ip_address);
 
                 if ($only_public) {
@@ -405,9 +394,7 @@ function get_ip_address($only_public = false)
                     if (filter_var($ip_address, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
                         return $ip_address;
                     }
-                }
-                else {
-
+                } else {
                     return $ip_address;
                 }
             }

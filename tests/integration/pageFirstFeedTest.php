@@ -34,7 +34,7 @@ class pageFirstFeedTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_feed1_parsing_error', 'fixture_feed2');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -389,7 +389,7 @@ class pageFirstFeedTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_feed1_extra_long', 'fixture_feed2');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -414,7 +414,7 @@ class pageFirstFeedTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_feed1_extra_long', 'fixture_feed2');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -439,7 +439,7 @@ class pageFirstFeedTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_OnlyReadArticles');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -466,7 +466,7 @@ class pageFirstFeedTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_OneUnreadArticle');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -492,7 +492,7 @@ class pageFirstFeedTest extends minifluxTestCase
         $articles = $this->getArticles();
         $this->assertGreaterThanOrEqual(1, count($articles), 'no articles found');
 
-        foreach($articles as $article) {
+        foreach ($articles as $article) {
             $link = $this->getLinkRemove($article);
             $link->click();
 
@@ -502,11 +502,10 @@ class pageFirstFeedTest extends minifluxTestCase
         $visible = $this->waitForAlert();
         $this->assertTrue($visible, 'alert box did not appear');
 
-        $this->expectedCounterPage = NULL;
+        $this->expectedCounterPage = null;
         $this->expectedCounterUnread = 2;
         $this->expectedDataSet = $this->getDataSet('expected_FirstFeedAllRemoved', 'fixture_feed2');
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 }
-?>

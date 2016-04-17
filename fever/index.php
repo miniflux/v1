@@ -14,8 +14,7 @@ function route($name, Closure $callback = null)
 
     if ($callback !== null) {
         $routes[$name] = $callback;
-    }
-    else if (isset($routes[$name])) {
+    } elseif (isset($routes[$name])) {
         $routes[$name]();
     }
 }
@@ -46,7 +45,7 @@ function auth()
 
     $response = array(
         'api_version' => 3,
-        'auth' => (int) (isset($_POST['api_key']) && (strcasecmp($_POST['api_key'],  $api_key) === 0 )),
+        'auth' => (int) (isset($_POST['api_key']) && (strcasecmp($_POST['api_key'],  $api_key) === 0)),
         'last_refreshed_on_time' => time(),
     );
 
@@ -54,12 +53,11 @@ function auth()
 }
 
 // Call: ?api&groups
-route('groups', function() {
+route('groups', function () {
 
     $response = auth();
 
     if ($response['auth']) {
-
         $response['groups'] = Group\get_all();
         $response['feeds_groups'] = array();
         $group_map = Group\get_map();
@@ -76,12 +74,11 @@ route('groups', function() {
 });
 
 // Call: ?api&feeds
-route('feeds', function() {
+route('feeds', function () {
 
     $response = auth();
 
     if ($response['auth']) {
-
         $response['feeds'] = array();
         $response['feeds_groups'] = array();
 
@@ -112,12 +109,11 @@ route('feeds', function() {
 });
 
 // Call: ?api&favicons
-route('favicons', function() {
+route('favicons', function () {
 
     $response = auth();
 
     if ($response['auth']) {
-
         $favicons = Database::getInstance('db')
             ->table('favicons')
             ->columns(
@@ -140,12 +136,11 @@ route('favicons', function() {
 });
 
 // Call: ?api&items
-route('items', function() {
+route('items', function () {
 
     $response = auth();
 
     if ($response['auth']) {
-
         $query = Database::getInstance('db')
                         ->table('items')
                         ->columns(
@@ -163,11 +158,9 @@ route('items', function() {
                         ->neq('status', 'removed');
 
         if (isset($_GET['since_id']) && is_numeric($_GET['since_id'])) {
-
             $items = $query->gt('rowid', $_GET['since_id'])
                            ->asc('rowid');
-        }
-        else if (! empty($_GET['with_ids'])) {
+        } elseif (! empty($_GET['with_ids'])) {
             $query->in('rowid', explode(',', $_GET['with_ids']));
         }
 
@@ -198,7 +191,7 @@ route('items', function() {
 });
 
 // Call: ?api&links
-route('links', function() {
+route('links', function () {
 
     $response = auth();
 
@@ -210,12 +203,11 @@ route('links', function() {
 });
 
 // Call: ?api&unread_item_ids
-route('unread_item_ids', function() {
+route('unread_item_ids', function () {
 
     $response = auth();
 
     if ($response['auth']) {
-
         $item_ids = Database::getInstance('db')
                     ->table('items')
                     ->eq('status', 'unread')
@@ -228,12 +220,11 @@ route('unread_item_ids', function() {
 });
 
 // Call: ?api&saved_item_ids
-route('saved_item_ids', function() {
+route('saved_item_ids', function () {
 
     $response = auth();
 
     if ($response['auth']) {
-
         $item_ids = Database::getInstance('db')
                     ->table('items')
                     ->eq('bookmark', 1)
@@ -246,12 +237,11 @@ route('saved_item_ids', function() {
 });
 
 // handle write items
-route('write_items', function() {
+route('write_items', function () {
 
     $response = auth();
 
     if ($response['auth']) {
-
         $query = Database::getInstance('db')
                     ->table('items')
                     ->eq('rowid', $_POST['id']);
@@ -266,14 +256,11 @@ route('write_items', function() {
                             ->findOneColumn('id');
 
             Service\push($item_id);
-        }
-        else if ($_POST['as'] === 'unsaved') {
+        } elseif ($_POST['as'] === 'unsaved') {
             $query->update(array('bookmark' => 0));
-        }
-        else if ($_POST['as'] === 'read') {
+        } elseif ($_POST['as'] === 'read') {
             $query->update(array('status' => 'read'));
-        }
-        else if ($_POST['as'] === 'unread') {
+        } elseif ($_POST['as'] === 'unread') {
             $query->update(array('status' => 'unread'));
         }
     }
@@ -282,12 +269,11 @@ route('write_items', function() {
 });
 
 // handle write feeds
-route('write_feeds', function() {
+route('write_feeds', function () {
 
     $response = auth();
 
     if ($response['auth']) {
-
         Database::getInstance('db')
             ->table('items')
             ->eq('feed_id', $_POST['id'])
@@ -299,7 +285,7 @@ route('write_feeds', function() {
 });
 
 // handle write groups
-route('write_groups', function() {
+route('write_groups', function () {
 
     $response = auth();
 
@@ -323,15 +309,12 @@ foreach (array_keys($_GET) as $action) {
 }
 
 if (! empty($_POST['mark']) && ! empty($_POST['as'])
-    && ! is_null(filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, array('options' => array('default' => NULL,'min_range' => -1)))) ){
-
+    && ! is_null(filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, array('options' => array('default' => null, 'min_range' => -1))))) {
     if ($_POST['mark'] === 'item') {
         route('write_items');
-    }
-    else if ($_POST['mark'] === 'feed' && ! empty($_POST['before'])) {
+    } elseif ($_POST['mark'] === 'feed' && ! empty($_POST['before'])) {
         route('write_feeds');
-    }
-    else if ($_POST['mark'] === 'group' && ! empty($_POST['before'])) {
+    } elseif ($_POST['mark'] === 'group' && ! empty($_POST['before'])) {
         route('write_groups');
     }
 }

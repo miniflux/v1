@@ -181,7 +181,6 @@ function refresh_all($limit = LIMIT_ALL)
 function refresh($feed_id)
 {
     try {
-
         $feed = get($feed_id);
 
         if (empty($feed)) {
@@ -201,7 +200,6 @@ function refresh($feed_id)
 
         // Feed modified
         if ($resource->isModified()) {
-
             $parser = $reader->getParser(
                 $resource->getUrl(),
                 $resource->getContent(),
@@ -209,7 +207,6 @@ function refresh($feed_id)
             );
 
             if ($feed['download_content']) {
-
                 $parser->enableContentGrabber();
 
                 // Don't fetch previous items, only new one
@@ -230,8 +227,7 @@ function refresh($feed_id)
         Config\write_debug();
 
         return true;
-    }
-    catch (PicoFeedException $e) {
+    } catch (PicoFeedException $e) {
     }
 
     update_parsing_error($feed_id, 1);
@@ -305,7 +301,6 @@ function count_items($feed_id)
     );
 
     foreach ($counts as &$count) {
-
         if ($count['status'] === 'unread') {
             $result['items_unread'] = (int) $count['item_count'];
         }

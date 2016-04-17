@@ -2,7 +2,6 @@
 
 namespace Request;
 
-
 function param($name, $default_value = null)
 {
     return isset($_GET[$name]) ? $_GET[$name] : $default_value;
@@ -25,7 +24,6 @@ function value($name)
 function values()
 {
     if (! empty($_POST)) {
-
         return $_POST;
     }
 

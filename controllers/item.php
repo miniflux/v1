@@ -1,7 +1,7 @@
 <?php
 
 // Display unread items
-Router\get_action('unread', function() {
+Router\get_action('unread', function () {
     Model\Item\autoflush_read();
     Model\Item\autoflush_unread();
 
@@ -52,7 +52,7 @@ Router\get_action('unread', function() {
 });
 
 // Show item
-Router\get_action('show', function() {
+Router\get_action('show', function () {
     $id = Request\param('id');
     $menu = Request\param('menu');
     $item = Model\Item\get($id);
@@ -98,7 +98,7 @@ Router\get_action('show', function() {
 });
 
 // Display feed items page
-Router\get_action('feed-items', function() {
+Router\get_action('feed-items', function () {
     $feed_id = Request\int_param('feed_id', 0);
     $offset = Request\int_param('offset', 0);
     $nb_items = Model\Item\count_by_feed($feed_id);
@@ -126,7 +126,7 @@ Router\get_action('feed-items', function() {
 });
 
 // Ajax call to download an item (fetch the full content from the original website)
-Router\post_action('download-item', function() {
+Router\post_action('download-item', function () {
     $id = Request\param('id');
 
     $item = Model\Item\get($id);
@@ -139,31 +139,30 @@ Router\post_action('download-item', function() {
 });
 
 // Ajax call to mark item read
-Router\post_action('mark-item-read', function() {
+Router\post_action('mark-item-read', function () {
     Model\Item\set_read(Request\param('id'));
     Response\json(array('Ok'));
 });
 
 // Ajax call to mark item as removed
-Router\post_action('mark-item-removed', function() {
+Router\post_action('mark-item-removed', function () {
     Model\Item\set_removed(Request\param('id'));
     Response\json(array('Ok'));
 });
 
 // Ajax call to mark item unread
-Router\post_action('mark-item-unread', function() {
+Router\post_action('mark-item-unread', function () {
     Model\Item\set_unread(Request\param('id'));
     Response\json(array('Ok'));
 });
 
 // Mark unread items as read
-Router\get_action('mark-all-read', function() {
+Router\get_action('mark-all-read', function () {
     $group_id = Request\int_param('group_id', null);
 
     if (!is_null($group_id)) {
         Model\Item\mark_group_as_read($group_id);
-    }
-    else {
+    } else {
         Model\Item\mark_all_as_read();
     }
 
@@ -171,7 +170,7 @@ Router\get_action('mark-all-read', function() {
 });
 
 // Mark all unread items as read for a specific feed
-Router\get_action('mark-feed-as-read', function() {
+Router\get_action('mark-feed-as-read', function () {
     $feed_id = Request\int_param('feed_id');
 
     Model\Item\mark_feed_as_read($feed_id);
@@ -182,7 +181,7 @@ Router\get_action('mark-feed-as-read', function() {
 // the number of unread items. It's not possible to get the number of items
 // that where marked read from the frontend, since the number of unread items
 // on page 2+ is unknown.
-Router\post_action('mark-feed-as-read', function() {
+Router\post_action('mark-feed-as-read', function () {
     Model\Item\mark_feed_as_read(Request\int_param('feed_id'));
     $nb_items = Model\Item\count_by_status('unread');
 
@@ -190,7 +189,7 @@ Router\post_action('mark-feed-as-read', function() {
 });
 
 // Mark item as read and redirect to the listing page
-Router\get_action('mark-item-read', function() {
+Router\get_action('mark-item-read', function () {
     $id = Request\param('id');
     $redirect = Request\param('redirect', 'unread');
     $offset = Request\int_param('offset', 0);
@@ -201,7 +200,7 @@ Router\get_action('mark-item-read', function() {
 });
 
 // Mark item as unread and redirect to the listing page
-Router\get_action('mark-item-unread', function() {
+Router\get_action('mark-item-unread', function () {
     $id = Request\param('id');
     $redirect = Request\param('redirect', 'history');
     $offset = Request\int_param('offset', 0);
@@ -212,7 +211,7 @@ Router\get_action('mark-item-unread', function() {
 });
 
 // Mark item as removed and redirect to the listing page
-Router\get_action('mark-item-removed', function() {
+Router\get_action('mark-item-removed', function () {
     $id = Request\param('id');
     $redirect = Request\param('redirect', 'history');
     $offset = Request\int_param('offset', 0);
@@ -222,7 +221,7 @@ Router\get_action('mark-item-removed', function() {
     Response\redirect('?action='.$redirect.'&offset='.$offset.'&feed_id='.$feed_id);
 });
 
-Router\post_action('latest-feeds-items', function() {
+Router\post_action('latest-feeds-items', function () {
     $items = Model\Item\get_latest_feeds_items();
     $nb_unread_items = Model\Item\count_by_status('unread');
 

@@ -231,9 +231,13 @@ function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $fee
         ->neq('status', 'removed')
         ->orderBy('updated', Config\get('items_sorting_direction'));
 
-    if ($feed_id) $query->eq('feed_id', $feed_id);
+    if ($feed_id) {
+        $query->eq('feed_id', $feed_id);
+    }
 
-    if ($group_id) $query->in('feed_id', Group\get_feeds_by_group($group_id));
+    if ($group_id) {
+        $query->in('feed_id', Group\get_feeds_by_group($group_id));
+    }
 
     $items = $query->findAll();
 
@@ -241,15 +245,11 @@ function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $fee
     $previous_item = null;
 
     for ($i = 0, $ilen = count($items); $i < $ilen; $i++) {
-
         if ($items[$i]['id'] == $item['id']) {
-
             if ($i > 0) {
-
                 $j = $i - 1;
 
                 while ($j >= 0) {
-
                     if (in_array($items[$j]['status'], $status) && in_array($items[$j]['bookmark'], $bookmark)) {
                         $previous_item = $items[$j];
                         break;
@@ -260,11 +260,9 @@ function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $fee
             }
 
             if ($i < ($ilen - 1)) {
-
                 $j = $i + 1;
 
                 while ($j < $ilen) {
-
                     if (in_array($items[$j]['status'], $status) && in_array($items[$j]['bookmark'], $bookmark)) {
                         $next_item = $items[$j];
                         break;
@@ -314,7 +312,9 @@ function set_unread($id)
 // Change item status to "read", "unread" or "removed"
 function set_status($status, array $items)
 {
-    if (! in_array($status, array('read', 'unread', 'removed'))) return false;
+    if (! in_array($status, array('read', 'unread', 'removed'))) {
+        return false;
+    }
 
     return Database::getInstance('db')
         ->table('items')
@@ -405,8 +405,7 @@ function autoflush_read()
             ->eq('status', 'read')
             ->lt('updated', strtotime('-'.$autoflush.'day'))
             ->save(array('status' => 'removed', 'content' => ''));
-    }
-    else if ($autoflush === -1) {
+    } elseif ($autoflush === -1) {
 
         // Mark read items removed immediately
         Database::getInstance('db')
@@ -445,12 +444,10 @@ function update_all($feed_id, array $items)
     $db->startTransaction();
 
     foreach ($items as $item) {
-
         Logger::setMessage('Item => '.$item->getId().' '.$item->getUrl());
 
         // Item parsed correctly?
         if ($item->getId() && $item->getUrl()) {
-
             Logger::setMessage('Item parsed correctly');
 
             // Get item record in database, if any
@@ -462,7 +459,6 @@ function update_all($feed_id, array $items)
 
             // Insert a new item
             if ($itemrec === null) {
-
                 Logger::setMessage('Item added to the database');
 
                 $db->table('items')->save(array(
@@ -478,9 +474,7 @@ function update_all($feed_id, array $items)
                     'enclosure_type' => $item->getEnclosureType(),
                     'language' => $item->getLanguage(),
                 ));
-            }
-            else if (! $itemrec['enclosure'] && $item->getEnclosureUrl()) {
-
+            } elseif (! $itemrec['enclosure'] && $item->getEnclosureUrl()) {
                 Logger::setMessage('Update item enclosure');
 
                 $db->table('items')->eq('id', $item->getId())->save(array(
@@ -488,8 +482,7 @@ function update_all($feed_id, array $items)
                     'enclosure' => $item->getEnclosureUrl(),
                     'enclosure_type' => $item->getEnclosureType(),
                 ));
-            }
-            else {
+            } else {
                 Logger::setMessage('Item already in the database');
             }
 
@@ -509,7 +502,6 @@ function update_all($feed_id, array $items)
 function cleanup($feed_id, array $items_in_feed)
 {
     if (! empty($items_in_feed)) {
-
         $db = Database::getInstance('db');
 
         $removed_items = $db
@@ -524,11 +516,9 @@ function cleanup($feed_id, array $items_in_feed)
         // Keep a buffer of 2 items
         // It's workaround for buggy feeds (cache issue with some Wordpress plugins)
         if (is_array($removed_items)) {
-
             $items_to_remove = array_slice($removed_items, 2);
 
             if (! empty($items_to_remove)) {
-
                 $nb_items = count($items_to_remove);
                 Logger::setMessage('There is '.$nb_items.' items to remove');
 
@@ -539,7 +529,6 @@ function cleanup($feed_id, array $items_in_feed)
                 $chunks = array_chunk($items_to_remove, 500);
 
                 foreach ($chunks as $chunk) {
-
                     $db->table('items')
                         ->in('id', $chunk)
                         ->eq('status', 'removed')
@@ -574,7 +563,6 @@ function download_content_id($item_id)
     $content = download_content_url($item['url']);
 
     if (! empty($content)) {
-
         if (! Config\get('nocontent')) {
 
             // Save content

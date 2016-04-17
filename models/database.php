@@ -14,7 +14,6 @@ function create($filename, $username, $password)
     $filename = DATA_DIRECTORY.DIRECTORY_SEPARATOR.$filename;
 
     if (ENABLE_MULTIPLE_DB && ! file_exists($filename)) {
-
         $db = new \PicoDb\Database(array(
             'driver' => 'sqlite',
             'filename' => $filename,
@@ -55,8 +54,7 @@ function select($filename = '')
                 $_SESSION['database'] = $filename;
                 $_SESSION['config'] = Config\get_all();
             }
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -92,11 +90,9 @@ function get_list()
     $listing = array();
 
     foreach (get_all() as $filename) {
-
         if ($filename === DB_FILENAME) {
             $label = t('Default database');
-        }
-        else {
+        } else {
             $label = ucfirst(substr($filename, 0, -7));
         }
 

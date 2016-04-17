@@ -52,7 +52,6 @@ function validate_login(array $values)
     $errors = $v->getErrors();
 
     if ($result) {
-
         $credentials = get_credentials();
 
         if ($credentials && $credentials['username'] === $values['username'] && password_verify($values['password'], $credentials['password'])) {
@@ -65,9 +64,7 @@ function validate_login(array $values)
                 $cookie = RememberMe\create(DatabaseModel\select(), $values['username'], Config\get_ip_address(), Config\get_user_agent());
                 RememberMe\write_cookie($cookie['token'], $cookie['sequence'], $cookie['expiration']);
             }
-        }
-        else {
-
+        } else {
             $result = false;
             $errors['login'] = t('Bad username or password');
         }

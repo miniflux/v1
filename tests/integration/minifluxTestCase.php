@@ -4,16 +4,16 @@ use PHPUnit_Extensions_Selenium2TestCase_Keys as Keys;
 
 abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 {
-    protected $basePageHeading = NULL;
-    protected $expectedPageUrl = NULL;
-    protected $expectedDataSet = NULL;
-    protected $expectedCounterPage = NULL;
+    protected $basePageHeading = null;
+    protected $expectedPageUrl = null;
+    protected $expectedDataSet = null;
+    protected $expectedCounterPage = null;
     protected $expectedCounterUnread = '';
 
-    protected $ignorePageTitle = FALSE;
+    protected $ignorePageTitle = false;
 
-    protected static $databaseConnection = NULL;
-    protected static $databaseTester = NULL;
+    protected static $databaseConnection = null;
+    protected static $databaseTester = null;
 
     private $waitTimeout = 5000;
 
@@ -57,8 +57,8 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
     public static function tearDownAfterClass()
     {
-        static::$databaseConnection = NULL;
-        static::$databaseTester = NULL;
+        static::$databaseConnection = null;
+        static::$databaseTester = null;
     }
 
     protected function assertPostConditions()
@@ -72,7 +72,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
         // some tests switch to a page where no counter exists and the expected
         // pagetitle doesn't match to definition.
-        if ($this->ignorePageTitle === FALSE) {
+        if ($this->ignorePageTitle === false) {
             //remove LEFT-TO-RIGHT MARK char from string as the webdriver does it when using text() on the page <h[1|2|3]>
             $pagetitle = preg_replace('/\x{200E}/u', '', $this->title());
             $this->assertEquals($this->getExpectedPageTitle(), $pagetitle, 'page title differ from expectation');
@@ -170,7 +170,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
     {
         $displaySize = $element->size();
 
-        return ($element->displayed() === FALSE || $displaySize['height']=0 || $displaySize['width']=0);
+        return ($element->displayed() === false || $displaySize['height']=0 || $displaySize['width']=0);
     }
 
     private function waitForElementVisibility($element, $visible)
@@ -180,31 +180,28 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
             // Workaround for PHP < 5.4
             $CI = $this;
 
-            $value = $this->waitUntil(function() use($CI, $element, $visible) {
+            $value = $this->waitUntil(function () use ($CI, $element,$visible) {
                 // a "No such Element" or "Stale Element Reference" exception is
                 // valid if an object should disappear
                 try {
                     if (($visible && $CI->isElementVisible($element))
                          || (! $visible && $CI->isElementInvisible($element))) {
-                        return TRUE;
+                        return true;
                     }
-                }
-                catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
-
+                } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
                     $noSuchElement = ($e->getCode() === PHPUnit_Extensions_Selenium2TestCase_WebDriverException::NoSuchElement
                                    || $e->getCode() === PHPUnit_Extensions_Selenium2TestCase_WebDriverException::StaleElementReference);
 
-                    if (($visible === FALSE) && ($noSuchElement)) {
-                        return TRUE;
+                    if (($visible === false) && ($noSuchElement)) {
+                        return true;
                     } else {
                         throw $e;
                     }
                 }
             }, $this->waitTimeout);
-        }
-        catch(PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+        } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
             if ($e->getCode() === PHPUnit_Extensions_Selenium2TestCase_WebDriverException::Timeout) {
-                return FALSE;
+                return false;
             } else {
                 throw $e;
             }
@@ -220,17 +217,16 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
             // Workaround for PHP < 5.4
             $CI = $this;
 
-            $value = $this->waitUntil(function() use($cssSelector, $elementCount, $CI) {
+            $value = $this->waitUntil(function () use ($cssSelector, $elementCount,$CI) {
                 $elements = $CI->elements($CI->using('css selector')->value($cssSelector));
 
                 if (count($elements) === $elementCount) {
-                    return TRUE;
+                    return true;
                 }
             }, $this->waitTimeout);
-        }
-        catch(PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+        } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
             if ($e->getCode() === PHPUnit_Extensions_Selenium2TestCase_WebDriverException::Timeout) {
-                return FALSE;
+                return false;
             } else {
                 throw $e;
             }
@@ -239,23 +235,22 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         return $value;
     }
 
-   private function waitForElementByIdText($id, $text)
+    private function waitForElementByIdText($id, $text)
     {
         // return false in case of timeout
         try {
             // Workaround for PHP < 5.4
             $CI = $this;
 
-            $value = $this->waitUntil(function() use($CI, $id, $text) {
+            $value = $this->waitUntil(function () use ($CI, $id,$text) {
                 try {
                     $elements = $this->elements($this->using('id')->value($id));
 
                     if (count($elements) === 1 && $elements[0]->text() == $text
                         || count($elements) === 0 && is_null($text)) {
-                        return TRUE;
+                        return true;
                     }
-                }
-                catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+                } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
                     $noSuchElement = ($e->getCode() === PHPUnit_Extensions_Selenium2TestCase_WebDriverException::NoSuchElement
                                    || $e->getCode() === PHPUnit_Extensions_Selenium2TestCase_WebDriverException::StaleElementReference);
 
@@ -266,10 +261,9 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
                     }
                 }
             }, $this->waitTimeout);
-        }
-        catch(PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+        } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
             if ($e->getCode() === PHPUnit_Extensions_Selenium2TestCase_WebDriverException::Timeout) {
-                return FALSE;
+                return false;
             } else {
                 throw $e;
             }
@@ -278,21 +272,20 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         return $value;
     }
 
-    private function waitForElementAttributeHasValue($element, $attribute, $attributeValue, $invertMatch = FALSE)
+    private function waitForElementAttributeHasValue($element, $attribute, $attributeValue, $invertMatch = false)
     {
         // return false in case of timeout
         try {
-            $value = $this->waitUntil(function() use($element, $attribute, $attributeValue, $invertMatch) {
+            $value = $this->waitUntil(function () use ($element, $attribute, $attributeValue,$invertMatch) {
                 $attributeHasValue = ($element->attribute($attribute) === $attributeValue);
 
                 if (($attributeHasValue && !$invertMatch) || (!$attributeHasValue && $invertMatch)) {
-                    return TRUE;
+                    return true;
                 }
             }, $this->waitTimeout);
-        }
-        catch(PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
+        } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
             if ($e->getCode() === PHPUnit_Extensions_Selenium2TestCase_WebDriverException::Timeout) {
-                return FALSE;
+                return false;
             } else {
                 throw $e;
             }
@@ -331,8 +324,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         // Some PageHeadings have a counter included
         $innerHeadingElements = $this->elements($this->using('css selector')->value('div.page-header > h2:first-child *'));
 
-        if (count($innerHeadingElements) > 0)
-        {
+        if (count($innerHeadingElements) > 0) {
             $innerHeading = $innerHeadingElements[0]->text();
             $pageHeading = substr($pageHeading, 0, (strlen($innerHeading) * -1));
         }
@@ -477,8 +469,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
         if (func_num_args() === 0) {
             $feed = $this;
-        }
-        else {
+        } else {
             $feed = func_get_arg(0);
         }
 
@@ -487,7 +478,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         // Workaround for PHP < 5.4
         $CI = $this;
 
-        return array_filter($feeds, function($feed) use($CI) {
+        return array_filter($feeds, function ($feed) use ($CI) {
              return $CI->isElementVisible($feed);
         });
     }
@@ -514,7 +505,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
         $article = $this->element($this->using('css selector')->value($cssSelector));
         return $article;
-     }
+    }
 
     public function getArticleReadBookmarked()
     {
@@ -594,37 +585,37 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
     public function waitForArticleIsNotCurrentArticle($article)
     {
-        $isCurrent = $this->waitForElementAttributeHasValue($article, 'id', 'current-item', TRUE);
+        $isCurrent = $this->waitForElementAttributeHasValue($article, 'id', 'current-item', true);
         return $isCurrent;
     }
 
     public function waitForIconMarkReadVisible($article)
     {
-        $visible = $this->waitForIconMarkRead($article, TRUE);
+        $visible = $this->waitForIconMarkRead($article, true);
         return $visible;
     }
 
     public function waitForIconMarkReadInvisible($article)
     {
-        $invisible = $this->waitForIconMarkRead($article, FALSE);
+        $invisible = $this->waitForIconMarkRead($article, false);
         return $invisible;
     }
 
     public function waitForIconBookmarkVisible($article)
     {
-        $visible = $this->waitForIconBookmark($article, TRUE);
+        $visible = $this->waitForIconBookmark($article, true);
         return $visible;
     }
 
     public function waitForIconBookmarkInvisible($article)
     {
-        $invisible = $this->waitForIconBookmark($article, FALSE);
+        $invisible = $this->waitForIconBookmark($article, false);
         return $invisible;
     }
 
     public function waitForArticleInvisible($article)
     {
-        $invisible = $this->waitForElementVisibility($article, FALSE);
+        $invisible = $this->waitForElementVisibility($article, false);
         return $invisible;
     }
 
@@ -651,14 +642,14 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         // Workaround for PHP < 5.4
         $CI = $this;
 
-        $this->waitUntil(function() use($CI) {
+        $this->waitUntil(function () use ($CI) {
             $readyState = $CI->execute(array(
                 'script' => 'return document.readyState;',
                 'args'   => array()
             ));
 
             if ($readyState === 'complete') {
-                return TRUE;
+                return true;
             }
         }, $this->waitTimeout);
     }
@@ -674,9 +665,8 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
         ));
 
         $result = $this->waitForArticleIsCurrentArticle($article);
-        if ($result === FALSE) {
+        if ($result === false) {
             throw new Exception('the article could not be set as current article.');
         }
     }
 }
-?>

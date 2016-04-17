@@ -52,7 +52,6 @@ function authenticate()
     $credentials = read_cookie();
 
     if ($credentials !== false) {
-
         $record = find($credentials['token'], $credentials['sequence']);
 
         if ($record) {
@@ -84,7 +83,6 @@ function refresh()
     $credentials = read_cookie();
 
     if ($credentials !== false) {
-
         $record = find($credentials['token'], $credentials['sequence']);
 
         if ($record) {
@@ -109,7 +107,6 @@ function destroy()
     $credentials = read_cookie();
 
     if ($credentials !== false) {
-
         Database::getInstance('db')
              ->table(TABLE)
              ->eq('token', $credentials['token'])

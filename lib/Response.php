@@ -2,7 +2,6 @@
 
 namespace Response;
 
-
 function force_download($filename)
 {
     header('Content-Disposition: attachment; filename="'.$filename.'"');
@@ -21,8 +20,7 @@ function status($status_code)
 
     if (strpos($sapi_name, 'apache') !== false || $sapi_name === 'cli-server') {
         header('HTTP/1.0 '.$status_code);
-    }
-    else {
+    } else {
         header('Status: '.$status_code);
     }
 }
@@ -116,20 +114,15 @@ function csp(array $policies = array())
     $values = '';
 
     foreach ($policies as $policy => $hosts) {
-
         if (is_array($hosts)) {
-
             $acl = '';
 
             foreach ($hosts as &$host) {
-
                 if ($host === '*' || $host === "'self'" || strpos($host, 'http') === 0) {
                     $acl .= $host.' ';
                 }
             }
-        }
-        else {
-
+        } else {
             $acl = $hosts;
         }
 

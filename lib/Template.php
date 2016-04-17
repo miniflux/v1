@@ -16,7 +16,6 @@ function load()
     }
 
     if (func_num_args() === 2) {
-
         if (! is_array(func_get_arg(1))) {
             die('Template variables must be an array');
         }

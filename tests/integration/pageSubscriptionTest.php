@@ -34,7 +34,7 @@ class pageSubscriptionTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_feed1', 'fixture_feed2');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -55,7 +55,7 @@ class pageSubscriptionTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_feed1', 'fixture_feed2');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -127,4 +127,3 @@ class pageSubscriptionTest extends minifluxTestCase
         $this->expectedDataSet = static::$databaseTester->getDataSet();
     }
 }
-?>

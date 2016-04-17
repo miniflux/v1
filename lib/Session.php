@@ -7,7 +7,9 @@ const SESSION_LIFETIME = 2678400;
 
 function open($base_path = '/', $save_path = '', $session_lifetime = SESSION_LIFETIME)
 {
-    if ($save_path !== '') session_save_path($save_path);
+    if ($save_path !== '') {
+        session_save_path($save_path);
+    }
 
     // HttpOnly and secure flags for session cookie
     session_set_cookie_params(

@@ -1,7 +1,7 @@
 <?php
 
 // Called before each action
-Router\before(function($action) {
+Router\before(function ($action) {
     Session\open(BASE_URL_DIRECTORY, SESSION_SAVE_PATH, 0);
 
     // Select the requested database either from post param database or from the
@@ -10,8 +10,7 @@ Router\before(function($action) {
     if (! is_null(Request\value('database')) && ! Model\Database\select(Request\value('database'))) {
         Model\User\logout();
         Response\redirect('?action=login');
-    }
-    elseif (! empty($_SESSION['database'])) {
+    } elseif (! empty($_SESSION['database'])) {
         if (! Model\Database\select($_SESSION['database'])) {
             Model\User\logout();
             Response\redirect('?action=login');
@@ -26,8 +25,7 @@ Router\before(function($action) {
             Model\User\logout();
             Response\redirect('?action=login');
         }
-    }
-    elseif (Model\RememberMe\has_cookie()) {
+    } elseif (Model\RememberMe\has_cookie()) {
         Model\RememberMe\refresh();
     }
 
@@ -56,17 +54,17 @@ Router\before(function($action) {
 });
 
 // Show help
-Router\get_action('show-help', function() {
+Router\get_action('show-help', function () {
     Response\html(Template\load('show_help'));
 });
 
 // Show the menu for the mobile view
-Router\get_action('more', function() {
+Router\get_action('more', function () {
     Response\html(Template\layout('show_more', array('menu' => 'more')));
 });
 
 // Image proxy (avoid SSL mixed content warnings)
-Router\get_action('proxy', function() {
+Router\get_action('proxy', function () {
     Model\Proxy\download(rawurldecode(Request\param('url')));
     exit;
 });

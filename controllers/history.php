@@ -1,7 +1,7 @@
 <?php
 
 // Display history page
-Router\get_action('history', function() {
+Router\get_action('history', function () {
     $offset = Request\int_param('offset', 0);
     $group_id = Request\int_param('group_id', null);
     $feed_ids = array();
@@ -42,7 +42,7 @@ Router\get_action('history', function() {
 });
 
 // Confirmation box to flush history
-Router\get_action('confirm-flush-history', function() {
+Router\get_action('confirm-flush-history', function () {
     $group_id = Request\int_param('group_id', null);
     
     Response\html(Template\layout('confirm_flush_items', array(
@@ -54,7 +54,7 @@ Router\get_action('confirm-flush-history', function() {
 });
 
 // Flush history
-Router\get_action('flush-history', function() {
+Router\get_action('flush-history', function () {
     $group_id = Request\int_param('group_id', null);
     
     if (!is_null($group_id)) {

@@ -8,7 +8,8 @@ class pageHistoryTest extends minifluxTestCase
     public function setUpPage()
     {
         $url = $this->getURLPageHistory();
-        $this->doLoginIfRequired($url);;
+        $this->doLoginIfRequired($url);
+        ;
 
         $this->basePageHeading = $this->getBasePageHeading();
         $this->expectedPageUrl = $url;
@@ -223,7 +224,7 @@ class pageHistoryTest extends minifluxTestCase
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('expected_NoReadNotBookmarkedArticles');
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 
     public function testUnreadCounterFromNothingToValue()
@@ -231,7 +232,7 @@ class pageHistoryTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_OnlyReadArticles');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -256,7 +257,7 @@ class pageHistoryTest extends minifluxTestCase
         $articles = $this->getArticles();
         $this->assertGreaterThanOrEqual(1, count($articles), 'no articles found');
 
-        foreach($articles as $article) {
+        foreach ($articles as $article) {
             $link = $this->getLinkReadStatusToogle($article);
             $link->click();
 
@@ -266,11 +267,10 @@ class pageHistoryTest extends minifluxTestCase
         $visible = $this->waitForAlert();
         $this->assertTrue($visible, 'alert box did not appear');
 
-        $this->expectedCounterPage = NULL;
+        $this->expectedCounterPage = null;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD + static::DEFAULT_COUNTER_PAGE;
         $this->expectedDataSet = $this->getDataSet('expected_NoReadArticles');
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 }
-?>

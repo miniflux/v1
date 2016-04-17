@@ -283,7 +283,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedPageUrl = $url;
         $this->expectedDataSet = static::$databaseTester->getDataSet();
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 
     /**
@@ -298,7 +298,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedPageUrl = $this->getURLPageBookmarks();
         $this->expectedDataSet = static::$databaseTester->getDataSet();
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 
     /**
@@ -313,7 +313,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedPageUrl = $this->getURLPageHistory();
         $this->expectedDataSet = static::$databaseTester->getDataSet();
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 
     /**
@@ -328,7 +328,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedPageUrl = $this->getURLPageUnread();
         $this->expectedDataSet = static::$databaseTester->getDataSet();
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 
     /**
@@ -342,7 +342,7 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds';
         $this->expectedDataSet = static::$databaseTester->getDataSet();
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 
     /**
@@ -356,7 +356,6 @@ class keyboardShortcutTest extends minifluxTestCase
         $this->expectedPageUrl = $this->getURLPagePreferences();
         $this->expectedDataSet = static::$databaseTester->getDataSet();
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 }
-?>

@@ -303,13 +303,9 @@ function version_11(PDO $pdo)
     $items = $rq->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($items as $item) {
-
         if ($item['id'] !== $item['item_url']) {
-
             $id = hash('crc32b', $item['id'].$item['site_url']);
-        }
-        else {
-
+        } else {
             $id = hash('crc32b', $item['item_url'].$item['site_url']);
         }
 

@@ -68,7 +68,6 @@ function css()
     $theme = \Model\Config\get('theme');
 
     if ($theme !== 'original') {
-
         $css_file = THEME_DIRECTORY.'/'.$theme.'/css/app.css';
 
         if (file_exists($css_file)) {
@@ -129,8 +128,7 @@ function summary($value, $min_length = 5, $max_length = 120, $end = '[...]')
             $max = $max_length;
         }
         return substr($value, 0, $max).' '.$end;
-    }
-    else if ($length < $min_length) {
+    } elseif ($length < $min_length) {
         return '';
     }
 
@@ -150,24 +148,38 @@ function relative_time($timestamp, $fallback_date_format = '%e %B %Y %k:%M')
 {
     $diff = time() - $timestamp;
 
-    if ($diff < 0) return \dt($fallback_date_format, $timestamp);
+    if ($diff < 0) {
+        return \dt($fallback_date_format, $timestamp);
+    }
 
-    if ($diff < 60) return \t('%d second ago', $diff);
+    if ($diff < 60) {
+        return \t('%d second ago', $diff);
+    }
 
     $diff = floor($diff / 60);
-    if ($diff < 60) return \t('%d minute ago', $diff);
+    if ($diff < 60) {
+        return \t('%d minute ago', $diff);
+    }
 
     $diff = floor($diff / 60);
-    if ($diff < 24) return \t('%d hour ago', $diff);
+    if ($diff < 24) {
+        return \t('%d hour ago', $diff);
+    }
 
     $diff = floor($diff / 24);
-    if ($diff < 7) return \t('%d day ago', $diff);
+    if ($diff < 7) {
+        return \t('%d day ago', $diff);
+    }
 
     $diff = floor($diff / 7);
-    if ($diff < 4) return \t('%d week ago', $diff);
+    if ($diff < 4) {
+        return \t('%d week ago', $diff);
+    }
 
     $diff = floor($diff / 4);
-    if ($diff < 12) return \t('%d month ago', $diff);
+    if ($diff < 12) {
+        return \t('%d month ago', $diff);
+    }
 
     return \dt($fallback_date_format, $timestamp);
 }
@@ -182,7 +194,6 @@ function error_list(array $errors, $name)
     $html = '';
 
     if (isset($errors[$name])) {
-
         $html .= '<ul class="form-errors">';
 
         foreach ($errors[$name] as $error) {
@@ -220,11 +231,14 @@ function form_select($name, array $options, $values = array(), array $errors = a
     $html = '<select name="'.$name.'" id="form-'.$name.'" class="'.$class.'">';
 
     foreach ($options as $id => $value) {
-
         $html .= '<option value="'.escape($id).'"';
 
-        if (isset($values->$name) && $id == $values->$name) $html .= ' selected="selected"';
-        if (isset($values[$name]) && $id == $values[$name]) $html .= ' selected="selected"';
+        if (isset($values->$name) && $id == $values->$name) {
+            $html .= ' selected="selected"';
+        }
+        if (isset($values[$name]) && $id == $values[$name]) {
+            $html .= ' selected="selected"';
+        }
 
         $html .= '>'.escape($value).'</option>';
     }

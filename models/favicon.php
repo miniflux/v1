@@ -9,7 +9,8 @@ use PicoDb\Database;
 use PicoFeed\Reader\Favicon;
 
 // Create a favicons
-function create_feed_favicon($feed_id, $site_url, $icon_link) {
+function create_feed_favicon($feed_id, $site_url, $icon_link)
+{
     if (has_favicon($feed_id)) {
         return true;
     }
@@ -81,7 +82,8 @@ function store($type, $icon)
     return get_favicon_id($hash);
 }
 
-function get_favicon_id($hash) {
+function get_favicon_id($hash)
+{
     return Database::getInstance('db')
           ->table('favicons')
           ->eq('hash', $hash)
@@ -112,9 +114,9 @@ function purge_favicons()
                 ->isNull('favicons_feeds.feed_id')
                 ->findAll();
 
-      foreach ($favicons as $favicon) {
-         delete_favicon($favicon);
-      }
+    foreach ($favicons as $favicon) {
+        delete_favicon($favicon);
+    }
 }
 
 // Return true if the feed has a favicon
@@ -179,7 +181,7 @@ function get_all_favicons()
     $map = array();
 
     foreach ($result as $row) {
-      $map[$row['feed_id']] = array(
+        $map[$row['feed_id']] = array(
         "type" => $row['type'],
         "hash" => $row['hash']
       );

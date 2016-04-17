@@ -128,7 +128,6 @@ class pageBookmarksTest extends minifluxTestCase
         $this->expectedCounterPage = static::DEFAULT_COUNTER_PAGE - 1;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('expected_UnbookmarkReadArticle', 'fixture_feed2');
-
     }
 
     /**
@@ -217,7 +216,7 @@ class pageBookmarksTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_OnlyReadArticles');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -244,7 +243,7 @@ class pageBookmarksTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_OneUnreadArticle');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -269,7 +268,7 @@ class pageBookmarksTest extends minifluxTestCase
     {
         $articles = $this->getArticles();
 
-        foreach($articles as $article) {
+        foreach ($articles as $article) {
             $link = $this->getLinkBookmarkStatusToogle($article);
             $link->click();
 
@@ -279,11 +278,10 @@ class pageBookmarksTest extends minifluxTestCase
         $visible = $this->waitForAlert();
         $this->assertTrue($visible, 'alert box did not appear');
 
-        $this->expectedCounterPage = NULL;
+        $this->expectedCounterPage = null;
         $this->expectedCounterUnread = static::DEFAULT_COUNTER_UNREAD;
         $this->expectedDataSet = $this->getDataSet('expected_NoBookmarkedArticles');
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 }
-?>

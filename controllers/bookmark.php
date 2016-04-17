@@ -4,7 +4,7 @@ use PicoFeed\Syndication\AtomFeedBuilder;
 use PicoFeed\Syndication\AtomItemBuilder;
 
 // Ajax call to add or remove a bookmark
-Router\post_action('bookmark', function() {
+Router\post_action('bookmark', function () {
     $id = Request\param('id');
     $value = Request\int_param('value');
 
@@ -16,7 +16,7 @@ Router\post_action('bookmark', function() {
 });
 
 // Add new bookmark
-Router\get_action('bookmark', function() {
+Router\get_action('bookmark', function () {
     $id = Request\param('id');
     $menu = Request\param('menu', 'unread');
     $source = Request\param('source', 'unread');
@@ -33,7 +33,7 @@ Router\get_action('bookmark', function() {
 });
 
 // Display bookmarks page
-Router\get_action('bookmarks', function() {
+Router\get_action('bookmarks', function () {
     $offset = Request\int_param('offset', 0);
     $group_id = Request\int_param('group_id', null);
     $feed_ids = array();
@@ -70,7 +70,7 @@ Router\get_action('bookmarks', function() {
 });
 
 // Display bookmark feeds
-Router\get_action('bookmark-feed', function() {
+Router\get_action('bookmark-feed', function () {
     // Select database if the parameter is set
     $database = Request\param('database');
 

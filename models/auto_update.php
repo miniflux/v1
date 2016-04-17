@@ -23,7 +23,6 @@ function get_files_list($directory)
     $files = array();
 
     while ($it->valid()) {
-
         if ($it->isFile() && ! is_excluded_path($it->getSubPathname(), $exclude_list)) {
             $files[] = $it->getSubPathname();
         }
@@ -38,7 +37,6 @@ function get_files_list($directory)
 function is_excluded_path($path, array $exclude_list)
 {
     foreach ($exclude_list as $excluded_path) {
-
         if (strpos($path, $excluded_path) === 0) {
             return true;
         }
@@ -59,9 +57,7 @@ function synchronize($source_directory, $destination_directory)
     $remove_files = array_diff($dst_files, $src_files);
 
     foreach ($remove_files as $file) {
-
         if ($file !== '.htaccess') {
-
             $destination_file = $destination_directory.DIRECTORY_SEPARATOR.$file;
             Config\debug('[REMOVE] '.$destination_file);
 
@@ -73,11 +69,9 @@ function synchronize($source_directory, $destination_directory)
 
     // Overwrite all files
     foreach ($src_files as $file) {
-
         $directory = $destination_directory.DIRECTORY_SEPARATOR.dirname($file);
 
         if (! is_dir($directory)) {
-
             Config\debug('[MKDIR] '.$directory);
 
             if (! @mkdir($directory, 0755, true)) {
@@ -135,16 +129,13 @@ function cleanup_directory($directory)
     $dir = new DirectoryIterator($directory);
 
     foreach ($dir as $fileinfo) {
-
         if (! $fileinfo->isDot()) {
-
             $filename = $fileinfo->getRealPath();
 
             if ($fileinfo->isFile()) {
                 \Model\Config\debug('[REMOVE] '.$filename);
                 @unlink($filename);
-            }
-            else {
+            } else {
                 cleanup_directory($filename);
                 @rmdir($filename);
             }
@@ -187,18 +178,36 @@ function find_archive_root($base_directory = AUTO_UPDATE_ARCHIVE_DIRECTORY)
 // Check if everything is setup correctly
 function check_setup()
 {
-    if (! class_exists('ZipArchive')) die('To use this feature, your PHP installation must be able to uncompress zip files!');
+    if (! class_exists('ZipArchive')) {
+        die('To use this feature, your PHP installation must be able to uncompress zip files!');
+    }
 
-    if (AUTO_UPDATE_DOWNLOAD_DIRECTORY === '') die('The constant AUTO_UPDATE_DOWNLOAD_DIRECTORY is not set!');
-    if (AUTO_UPDATE_ARCHIVE_DIRECTORY === '') die('The constant AUTO_UPDATE_ARCHIVE_DIRECTORY is not set!');
-    if (AUTO_UPDATE_DOWNLOAD_DIRECTORY === '') die('The constant AUTO_UPDATE_DOWNLOAD_DIRECTORY is not set!');
+    if (AUTO_UPDATE_DOWNLOAD_DIRECTORY === '') {
+        die('The constant AUTO_UPDATE_DOWNLOAD_DIRECTORY is not set!');
+    }
+    if (AUTO_UPDATE_ARCHIVE_DIRECTORY === '') {
+        die('The constant AUTO_UPDATE_ARCHIVE_DIRECTORY is not set!');
+    }
+    if (AUTO_UPDATE_DOWNLOAD_DIRECTORY === '') {
+        die('The constant AUTO_UPDATE_DOWNLOAD_DIRECTORY is not set!');
+    }
 
-    if (! is_dir(AUTO_UPDATE_DOWNLOAD_DIRECTORY)) @mkdir(AUTO_UPDATE_DOWNLOAD_DIRECTORY, 0755);
-    if (! is_dir(AUTO_UPDATE_ARCHIVE_DIRECTORY)) @mkdir(AUTO_UPDATE_ARCHIVE_DIRECTORY, 0755);
-    if (! is_dir(AUTO_UPDATE_BACKUP_DIRECTORY)) @mkdir(AUTO_UPDATE_BACKUP_DIRECTORY, 0755);
+    if (! is_dir(AUTO_UPDATE_DOWNLOAD_DIRECTORY)) {
+        @mkdir(AUTO_UPDATE_DOWNLOAD_DIRECTORY, 0755);
+    }
+    if (! is_dir(AUTO_UPDATE_ARCHIVE_DIRECTORY)) {
+        @mkdir(AUTO_UPDATE_ARCHIVE_DIRECTORY, 0755);
+    }
+    if (! is_dir(AUTO_UPDATE_BACKUP_DIRECTORY)) {
+        @mkdir(AUTO_UPDATE_BACKUP_DIRECTORY, 0755);
+    }
 
-    if (! is_writable(AUTO_UPDATE_DOWNLOAD_DIRECTORY)) die('Update directories must be writable by your web server user!');
-    if (! is_writable(__DIR__)) die('Source files must be writable by your web server user!');
+    if (! is_writable(AUTO_UPDATE_DOWNLOAD_DIRECTORY)) {
+        die('Update directories must be writable by your web server user!');
+    }
+    if (! is_writable(__DIR__)) {
+        die('Source files must be writable by your web server user!');
+    }
 }
 
 // Update the source code
@@ -208,7 +217,6 @@ function execute($url)
     cleanup_directories();
 
     if (uncompress_archive($url)) {
-
         $update_directory = find_archive_root();
 
         if ($update_directory) {
@@ -220,8 +228,7 @@ function execute($url)
                 if (synchronize($update_directory, ROOT_DIRECTORY)) {
                     cleanup_directories();
                     return true;
-                }
-                else {
+                } else {
                     // If update failed, rollback
                     synchronize(AUTO_UPDATE_BACKUP_DIRECTORY, ROOT_DIRECTORY);
                 }

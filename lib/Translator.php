@@ -55,14 +55,12 @@ namespace Translator {
         $str = '';
 
         if ($position === 'before') {
-
             $str .= $symbol;
         }
 
         $str .= number($amount);
 
         if ($position === 'after') {
-
             $str .= ' '.$symbol;
         }
 
@@ -89,8 +87,7 @@ namespace Translator {
         if (isset($locales[$identifier])) {
             if (is_array($locales[$identifier])) {
                 $translation = plural($identifier, $default, $values);
-            }
-            else {
+            } else {
                 $translation = $locales[$identifier];
             }
         }
@@ -129,7 +126,6 @@ namespace Translator {
         $locales = array();
 
         if (is_dir($path)) {
-
             $dir = new \DirectoryIterator($path);
 
             foreach ($dir as $fileinfo) {
@@ -157,23 +153,28 @@ namespace Translator {
 
 namespace {
 
-    function tne() {
+    function tne()
+    {
         return call_user_func_array('\Translator\translate_no_escaping', func_get_args());
     }
 
-    function t() {
+    function t()
+    {
         return call_user_func_array('\Translator\translate', func_get_args());
     }
 
-    function c() {
+    function c()
+    {
         return call_user_func_array('\Translator\currency', func_get_args());
     }
 
-    function n() {
+    function n()
+    {
         return call_user_func_array('\Translator\number', func_get_args());
     }
 
-    function dt() {
+    function dt()
+    {
         return call_user_func_array('\Translator\datetime', func_get_args());
     }
 }

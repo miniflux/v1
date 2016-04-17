@@ -216,7 +216,7 @@ class pageUnreadTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_feed1_extra_long', 'fixture_feed2');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -231,12 +231,12 @@ class pageUnreadTest extends minifluxTestCase
         $read = $this->waitForArticlesMarkRead();
         $this->assertTrue($read, 'there are still unread articles');
 
-        $this->expectedCounterPage = NULL;
+        $this->expectedCounterPage = null;
         $this->expectedCounterUnread = '';
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds&nothing_to_read=1';
         $this->expectedDataSet = $this->getDataSet('expected_MarkAllRead');
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 
     public function testMarkAllReadBottomLink()
@@ -244,7 +244,7 @@ class pageUnreadTest extends minifluxTestCase
         // load different fixture and reload the page
         $backupDataTester = static::$databaseTester;
 
-        static::$databaseTester = NULL;
+        static::$databaseTester = null;
 
         $dataset = $this->getDataSet('fixture_feed1_extra_long', 'fixture_feed2');
         $this->getDatabaseTester($dataset)->onSetUp();
@@ -259,12 +259,12 @@ class pageUnreadTest extends minifluxTestCase
         $read = $this->waitForArticlesMarkRead();
         $this->assertTrue($read, 'there are still unread articles');
 
-        $this->expectedCounterPage = NULL;
+        $this->expectedCounterPage = null;
         $this->expectedCounterUnread = '';
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds&nothing_to_read=1';
         $this->expectedDataSet = $this->getDataSet('expected_MarkAllRead');
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 
     public function testRedirectWithZeroArticles()
@@ -272,7 +272,7 @@ class pageUnreadTest extends minifluxTestCase
         $articles = $this->getArticles();
         $this->assertGreaterThanOrEqual(1, count($articles), 'no articles found');
 
-        foreach($articles as $article) {
+        foreach ($articles as $article) {
             $link = $this->getLinkReadStatusToogle($article);
             $link->click();
 
@@ -282,12 +282,11 @@ class pageUnreadTest extends minifluxTestCase
         $visible = $this->waitForAlert();
         $this->assertTrue($visible, 'alert box did not appear');
 
-        $this->expectedCounterPage = NULL;
+        $this->expectedCounterPage = null;
         $this->expectedCounterUnread = '';
         $this->expectedPageUrl = PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL.'?action=feeds&nothing_to_read=1';
         $this->expectedDataSet = $this->getDataSet('fixture_OnlyReadArticles');
 
-        $this->ignorePageTitle = TRUE;
+        $this->ignorePageTitle = true;
     }
 }
-?>
