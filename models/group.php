@@ -80,6 +80,16 @@ function get_feed_group_ids($feed_id)
             ->findAllByColumn('id');
 }
 
+function get_feed_groups($feed_id)
+{
+    return Database::getInstance('db')
+        ->table('groups')
+        ->columns('groups.id', 'groups.title')
+        ->join('feeds_groups', 'group_id', 'id')
+        ->eq('feed_id', $feed_id)
+        ->findAll();
+}
+
 /**
  * Get the id of a group
  *
@@ -143,7 +153,7 @@ function create($title)
  * @param array $group_ids array of group ids
  * @return boolean true on success, false on error
  */
-function add($feed_id, $group_ids)
+function add($feed_id, array $group_ids)
 {
     foreach ($group_ids as $group_id){
         $data = array('feed_id' => $feed_id, 'group_id' => $group_id);
@@ -167,7 +177,7 @@ function add($feed_id, $group_ids)
  * @param array $group_ids array of group ids
  * @return boolean true on success, false on error
  */
-function remove($feed_id, $group_ids)
+function remove($feed_id, array $group_ids)
 {
     $result = Database::getInstance('db')
             ->table('feeds_groups')
@@ -212,7 +222,7 @@ function purge_groups()
     $groups = Database::getInstance('db')
                 ->table('groups')
                 ->join('feeds_groups', 'group_id', 'id')
-                ->isnull('feed_id')
+                ->isNull('feed_id')
                 ->findAllByColumn('id');
 
     if (! empty($groups)) {
@@ -231,7 +241,7 @@ function purge_groups()
  * @param string $create_group group to create and assign to feed
  * @return boolean
  */
-function update_feed_groups($feed_id, $group_ids, $create_group = '')
+function update_feed_groups($feed_id, array $group_ids, $create_group = '')
 {
     if ($create_group !== '') {
         $id = create($create_group);

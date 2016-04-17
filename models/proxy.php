@@ -4,6 +4,7 @@ namespace Model\Proxy;
 
 use Helper;
 use Model\Config;
+use PicoFeed\Client\ClientException;
 use PicoFeed\Config\Config as PicoFeedConfig;
 use PicoFeed\Filter\Filter;
 use PicoFeed\Client\Client;
@@ -51,7 +52,6 @@ function rewrite_html($html, $website, $proxy_images, $cloak_referrer)
 function download($url)
 {
     try {
-
         if ((bool) Config\get('debug_mode')) {
             Logger::enable();
         }
@@ -61,7 +61,7 @@ function download($url)
         $client->enablePassthroughMode();
         $client->execute($url);
     }
-    catch (\PicoFeed\Client\ClientException $e) {}
+    catch (ClientException $e) {}
 
     Config\write_debug();
 }

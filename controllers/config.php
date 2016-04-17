@@ -4,9 +4,7 @@ use PicoDb\Database;
 
 // Display a form to add a new database
 Router\get_action('new-db', function() {
-
     if (ENABLE_MULTIPLE_DB) {
-
         Response\html(Template\layout('new_db', array(
             'errors' => array(),
             'values' => array(
@@ -23,9 +21,7 @@ Router\get_action('new-db', function() {
 
 // Create a new database
 Router\post_action('new-db', function() {
-
     if (ENABLE_MULTIPLE_DB) {
-
         $values = Request\values();
         Model\Config\check_csrf_values($values);
         list($valid, $errors) = Model\Database\validate($values);
@@ -56,7 +52,6 @@ Router\post_action('new-db', function() {
 
 // Confirmation box before auto-update
 Router\get_action('confirm-auto-update', function() {
-
     Response\html(Template\layout('confirm_auto_update', array(
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
@@ -66,13 +61,10 @@ Router\get_action('confirm-auto-update', function() {
 
 // Auto-update
 Router\get_action('auto-update', function() {
-
     if (ENABLE_AUTO_UPDATE) {
-
         if (Model\AutoUpdate\execute(Model\Config\get('auto_update_url'))) {
             Session\flash(t('Miniflux is updated!'));
-        }
-        else {
+        } else {
             Session\flash_error(t('Unable to update Miniflux, check the console for errors.'));
         }
     }
@@ -82,7 +74,6 @@ Router\get_action('auto-update', function() {
 
 // Re-generate tokens
 Router\get_action('generate-tokens', function() {
-
     if (Model\Config\check_csrf(Request\param('csrf'))) {
         Model\Config\new_tokens();
     }
@@ -92,7 +83,6 @@ Router\get_action('generate-tokens', function() {
 
 // Optimize the database manually
 Router\get_action('optimize-db', function() {
-
     if (Model\Config\check_csrf(Request\param('csrf'))) {
         Database::getInstance('db')->getConnection()->exec('VACUUM');
     }
@@ -102,7 +92,6 @@ Router\get_action('optimize-db', function() {
 
 // Download the compressed database
 Router\get_action('download-db', function() {
-
     if (Model\Config\check_csrf(Request\param('csrf'))) {
         Response\force_download('db.sqlite.gz');
         Response\binary(gzencode(file_get_contents(Model\Database\get_path())));
@@ -111,7 +100,6 @@ Router\get_action('download-db', function() {
 
 // Display preferences page
 Router\get_action('config', function() {
-
     Response\html(Template\layout('config', array(
         'errors' => array(),
         'values' => Model\Config\get_all() + array('csrf' => Model\Config\generate_csrf()),
@@ -133,7 +121,6 @@ Router\get_action('config', function() {
 
 // Update preferences
 Router\post_action('config', function() {
-
     $values = Request\values() + array('nocontent' => 0, 'image_proxy' => 0, 'favicons' => 0, 'debug_mode' => 0, 'original_marks_read' => 0);
     Model\Config\check_csrf_values($values);
     list($valid, $errors) = Model\Config\validate_modification($values);
@@ -188,7 +175,6 @@ Router\post_action('get-config', function() {
 
 // Display help page
 Router\get_action('help', function() {
-
     Response\html(Template\layout('help', array(
         'config' => Model\Config\get_all(),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
@@ -199,7 +185,6 @@ Router\get_action('help', function() {
 
 // Display about page
 Router\get_action('about', function() {
-
     Response\html(Template\layout('about', array(
         'csrf' => Model\Config\generate_csrf(),
         'config' => Model\Config\get_all(),
@@ -212,7 +197,6 @@ Router\get_action('about', function() {
 
 // Display database page
 Router\get_action('database', function() {
-
     Response\html(Template\layout('database', array(
         'csrf' => Model\Config\generate_csrf(),
         'config' => Model\Config\get_all(),
@@ -225,7 +209,6 @@ Router\get_action('database', function() {
 
 // Display API page
 Router\get_action('api', function() {
-
     Response\html(Template\layout('api', array(
         'config' => Model\Config\get_all(),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
@@ -236,7 +219,6 @@ Router\get_action('api', function() {
 
 // Display bookmark services page
 Router\get_action('services', function() {
-
     Response\html(Template\layout('services', array(
         'errors' => array(),
         'values' => Model\Config\get_all() + array('csrf' => Model\Config\generate_csrf()),
@@ -247,7 +229,6 @@ Router\get_action('services', function() {
 
 // Update bookmark services
 Router\post_action('services', function() {
-
     $values = Request\values() + array('pinboard_enabled' => 0, 'instapaper_enabled' => 0);
     Model\Config\check_csrf_values($values);
 

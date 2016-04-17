@@ -1,10 +1,10 @@
 <?php
 
-use PicoFeed\Syndication\Atom;
+use PicoFeed\Syndication\AtomFeedBuilder;
+use PicoFeed\Syndication\AtomItemBuilder;
 
 // Ajax call to add or remove a bookmark
 Router\post_action('bookmark', function() {
-
     $id = Request\param('id');
     $value = Request\int_param('value');
 
@@ -17,7 +17,6 @@ Router\post_action('bookmark', function() {
 
 // Add new bookmark
 Router\get_action('bookmark', function() {
-
     $id = Request\param('id');
     $menu = Request\param('menu', 'unread');
     $source = Request\param('source', 'unread');
@@ -27,21 +26,22 @@ Router\get_action('bookmark', function() {
     Model\Item\set_bookmark_value($id, Request\int_param('value'));
 
     if ($source === 'show') {
-        Response\Redirect('?action=show&menu='.$menu.'&id='.$id);
+        Response\redirect('?action=show&menu='.$menu.'&id='.$id);
     }
 
-    Response\Redirect('?action='.$menu.'&offset='.$offset.'&feed_id='.$feed_id.'#item-'.$id);
+    Response\redirect('?action='.$menu.'&offset='.$offset.'&feed_id='.$feed_id.'#item-'.$id);
 });
 
 // Display bookmarks page
 Router\get_action('bookmarks', function() {
-
     $offset = Request\int_param('offset', 0);
     $group_id = Request\int_param('group_id', null);
     $feed_ids = array();
+
     if (! is_null($group_id)) {
         $feed_ids = Model\Group\get_feeds_by_group($group_id);
     }
+
     $nb_items = Model\Item\count_bookmarks($feed_ids);
     $items = Model\Item\get_bookmarks(
         $offset,
@@ -71,9 +71,9 @@ Router\get_action('bookmarks', function() {
 
 // Display bookmark feeds
 Router\get_action('bookmark-feed', function() {
-
     // Select database if the parameter is set
     $database = Request\param('database');
+
     if (!empty($database)) {
         Model\Database\select($database);
     }
@@ -87,25 +87,30 @@ Router\get_action('bookmark-feed', function() {
     }
 
     // Build Feed
-    $writer = new Atom;
-    $writer->title = t('Bookmarks').' - Miniflux';
-    $writer->site_url = Helper\get_current_base_url();
-    $writer->feed_url = $writer->site_url.'?action=bookmark-feed&token='.urlencode($feed_token);
-
     $bookmarks = Model\Item\get_bookmarks();
 
+    $feedBuilder = AtomFeedBuilder::create()
+        ->withTitle(t('Bookmarks').' - Miniflux')
+        ->withFeedUrl(Helper\get_current_base_url().'?action=bookmark-feed&token='.urlencode($feed_token))
+        ->withSiteUrl(Helper\get_current_base_url())
+        ->withDate(new DateTime())
+    ;
+
     foreach ($bookmarks as $bookmark) {
-
         $article = Model\Item\get($bookmark['id']);
+        $articleDate = new DateTime();
+        $articleDate->setTimestamp($article['updated']);
 
-        $writer->items[] = array(
-            'id' => $article['id'],
-            'title' => $article['title'],
-            'updated' => $article['updated'],
-            'url' => $article['url'],
-            'content' => $article['content'],
-        );
+        $feedBuilder
+            ->withItem(AtomItemBuilder::create($feedBuilder)
+                ->withId($article['id'])
+                ->withTitle($article['title'])
+                ->withUrl($article['url'])
+                ->withUpdatedDate($articleDate)
+                ->withPublishedDate($articleDate)
+                ->withContent($article['content'])
+            );
     }
 
-    Response\xml($writer->execute());
+    Response\xml($feedBuilder->build());
 });

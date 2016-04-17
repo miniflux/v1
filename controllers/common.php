@@ -2,7 +2,6 @@
 
 // Called before each action
 Router\before(function($action) {
-
     Session\open(BASE_URL_DIRECTORY, SESSION_SAVE_PATH, 0);
 
     // Select the requested database either from post param database or from the
@@ -58,13 +57,11 @@ Router\before(function($action) {
 
 // Show help
 Router\get_action('show-help', function() {
-
     Response\html(Template\load('show_help'));
 });
 
 // Show the menu for the mobile view
 Router\get_action('more', function() {
-
     Response\html(Template\layout('show_more', array('menu' => 'more')));
 });
 

@@ -15,7 +15,7 @@
         "fguillot/simple-validator": "v1.0.0",
         "fguillot/json-rpc": "v1.0.2",
         "fguillot/picodb": "v1.0.2",
-        "fguillot/picofeed": "v0.1.21"
+        "fguillot/picofeed": "v0.1.23"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8.3",

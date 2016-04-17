@@ -1,8 +1,9 @@
 <?php
 
+use PicoFeed\Parser\MalformedXmlException;
+
 // Refresh all feeds, used when Javascript is disabled
 Router\get_action('refresh-all', function() {
-
     Model\Feed\refresh_all();
     Session\flash(t('Your subscriptions are updated'));
     Response\redirect('?action=unread');
@@ -10,7 +11,6 @@ Router\get_action('refresh-all', function() {
 
 // Edit feed form
 Router\get_action('edit-feed', function() {
-
     $id = Request\int_param('feed_id');
 
     $values = Model\Feed\get($id);
@@ -30,7 +30,6 @@ Router\get_action('edit-feed', function() {
 
 // Submit edit feed form
 Router\post_action('edit-feed', function() {
-
     $values = Request\values();
     $values += array(
         'enabled' => 0,
@@ -65,7 +64,6 @@ Router\post_action('edit-feed', function() {
 
 // Confirmation box to remove a feed
 Router\get_action('confirm-remove-feed', function() {
-
     $id = Request\int_param('feed_id');
 
     Response\html(Template\layout('confirm_remove_feed', array(
@@ -78,7 +76,6 @@ Router\get_action('confirm-remove-feed', function() {
 
 // Remove a feed
 Router\get_action('remove-feed', function() {
-
     $id = Request\int_param('feed_id');
 
     if ($id && Model\Feed\remove($id)) {
@@ -93,7 +90,6 @@ Router\get_action('remove-feed', function() {
 
 // Refresh one feed and redirect to unread items
 Router\get_action('refresh-feed', function() {
-
     $feed_id = Request\int_param('feed_id');
     $redirect = Request\param('redirect', 'unread');
 
@@ -103,7 +99,6 @@ Router\get_action('refresh-feed', function() {
 
 // Ajax call to refresh one feed
 Router\post_action('refresh-feed', function() {
-
     $feed_id = Request\int_param('feed_id', 0);
 
     Response\json(array(
@@ -136,7 +131,6 @@ Router\get_action('feeds', function() {
 
 // Display form to add one feed
 Router\get_action('add', function() {
-
     $values = array(
         'download_content' => 0,
         'rtl' => 0,
@@ -157,13 +151,11 @@ Router\get_action('add', function() {
 
 // Add a feed with the form or directly from the url, it can be used by a bookmarklet by example
 Router\action('subscribe', function() {
-
     if (Request\is_post()) {
         $values = Request\values();
         Model\Config\check_csrf_values($values);
         $url = isset($values['url']) ? $values['url'] : '';
-    }
-    else {
+    } else {
         $values = array();
         $url = Request\param('url');
         $token = Request\param('token');
@@ -247,14 +239,12 @@ Router\action('subscribe', function() {
 
 // OPML export
 Router\get_action('export', function() {
-
     Response\force_download('feeds.opml');
     Response\xml(Model\Feed\export_opml());
 });
 
 // OPML import form
 Router\get_action('import', function() {
-
     Response\html(Template\layout('import', array(
         'errors' => array(),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
@@ -265,15 +255,12 @@ Router\get_action('import', function() {
 
 // OPML importation
 Router\post_action('import', function() {
-
-    if (Model\Feed\import_opml(Request\file_content('file'))) {
-
+    try {
+        Model\Feed\import_opml(Request\file_content('file'));
         Session\flash(t('Your feeds have been imported.'));
         Response\redirect('?action=feeds');
-    }
-    else {
-
-        Session\flash_error(t('Unable to import your OPML file.'));
+    } catch (MalformedXmlException $e) {
+        Session\flash_error(t('Unable to import your OPML file.').' ('.$e->getMessage().')');
         Response\redirect('?action=import');
     }
 });
