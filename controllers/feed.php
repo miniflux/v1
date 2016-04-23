@@ -186,8 +186,6 @@ Router\action('subscribe', function () {
     } catch (PicoFeed\Client\InvalidCertificateException $e) {
         $error_message = t('Invalid SSL certificate.');
     } catch (PicoFeed\Client\InvalidUrlException $e) {
-        // picoFeed uses this exception for multiple reasons, but doesn't
-        // provide an exception code to distinguish what exactly happend here
         $error_message = $e->getMessage();
     } catch (PicoFeed\Client\MaxRedirectException $e) {
         $error_message = t('Maximum number of HTTP redirections exceeded.');
