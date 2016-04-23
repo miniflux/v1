@@ -47,6 +47,7 @@ List of contributors:
 - [Skasi7](https://github.com/skasi7)
 - [Thiriot Christophe](https://github.com/doubleface)
 - [Tobi](https://github.com/tobir)
+- [Thomas Jost](https://github.com/Schnouki)
 - Vincent Ozanam
 - [Vojtěch Sysel](https://github.com/sysel)
 - [Ygbillet](https://github.com/ygbillet)
