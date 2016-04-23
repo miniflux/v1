@@ -2,6 +2,8 @@
 
 // Display history page
 Router\get_action('history', function () {
+    $order = Request\param('order', 'updated');
+    $direction = Request\param('direction', Model\Config\get('items_sorting_direction'));
     $offset = Request\int_param('offset', 0);
     $group_id = Request\int_param('group_id', null);
     $feed_ids = array();
@@ -15,8 +17,8 @@ Router\get_action('history', function () {
         $feed_ids,
         $offset,
         Model\Config\get('items_per_page'),
-        'updated',
-        Model\Config\get('items_sorting_direction')
+        $order,
+        $direction
     );
 
     $nb_items = Model\Item\count_by_status('read', $feed_ids);
@@ -25,8 +27,8 @@ Router\get_action('history', function () {
         'favicons' => Model\Favicon\get_item_favicons($items),
         'original_marks_read' => Model\Config\get('original_marks_read'),
         'items' => $items,
-        'order' => '',
-        'direction' => '',
+        'order' => $order,
+        'direction' => $direction,
         'display_mode' => Model\Config\get('items_display_mode'),
         'item_title_link' => Model\Config\get('item_title_link'),
         'group_id' => $group_id,
