@@ -4,6 +4,10 @@ use Pheanstalk\Pheanstalk;
 
 require __DIR__.'/common.php';
 
+if (php_sapi_name() !== 'cli') {
+    die('This script can run only from the command line.'.PHP_EOL);
+}
+
 $connection = new Pheanstalk(BEANSTALKD_HOST);
 
 while ($job = $connection->reserveFromTube(BEANSTALKD_QUEUE)) {
