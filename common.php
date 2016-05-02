@@ -42,6 +42,10 @@ defined('RULES_DIRECTORY') or define('RULES_DIRECTORY', ROOT_DIRECTORY.DIRECTORY
 
 defined('ENABLE_HSTS') or define('ENABLE_HSTS', true);
 
+defined('BEANSTALKD_HOST') or define('BEANSTALKD_HOST', '127.0.0.1');
+defined('BEANSTALKD_QUEUE') or define('BEANSTALKD_QUEUE', 'feeds');
+defined('BEANSTALKD_TTL') or define('BEANSTALKD_TTL', 120);
+
 require __DIR__.'/check_setup.php';
 
 PicoDb\Database::setInstance('db', function() {

@@ -3,7 +3,6 @@
 require __DIR__.'/common.php';
 
 if (php_sapi_name() === 'cli') {
-
     $options = getopt('', array(
         'limit::',
         'call-interval::',
@@ -12,7 +11,6 @@ if (php_sapi_name() === 'cli') {
     ));
 }
 else {
-
     $options = $_GET;
 }
 
