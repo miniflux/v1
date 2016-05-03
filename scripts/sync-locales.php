@@ -49,7 +49,7 @@ foreach (new DirectoryIterator('locales') as $fileInfo) {
 
         $filename = 'locales/'.$fileInfo->getFilename().'/translations.php';
 
-        echo $fileInfo->getFilename().' ('.$filename.')'.PHP_EOL;
+        echo $fileInfo->getFilename(), ' (', $filename, ')', PHP_EOL;
 
         file_put_contents($filename, update_missing_locales($reference, $filename));
     }

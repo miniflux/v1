@@ -16,7 +16,7 @@
         <h3><?= t('Bookmarks') ?></h3>
         <ul>
             <li>
-                <a href="<?= Helper\get_current_base_url().'?action=bookmark-feed&amp;database='.urlencode($db_name).'&amp;token='.urlencode($config['feed_token']) ?>" target="_blank"><?= t('Bookmark RSS Feed') ?></a>
+                <a href="<?= Helper\get_current_base_url(), '?action=bookmark-feed&amp;database=', urlencode($db_name), '&amp;token=', urlencode($config['feed_token']) ?>" target="_blank"><?= t('Bookmark RSS Feed') ?></a>
             </li>
         </ul>
     </div>

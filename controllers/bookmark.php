@@ -38,7 +38,7 @@ Router\get_action('bookmarks', function () {
     $group_id = Request\int_param('group_id', null);
     $feed_ids = array();
 
-    if (! is_null($group_id)) {
+    if ($group_id !== null) {
         $feed_ids = Model\Group\get_feeds_by_group($group_id);
     }
 

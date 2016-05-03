@@ -16,10 +16,10 @@
 
         <ul>
             <li>
-                <a href="?action=unread<?= is_null($group_id) ? '' : '&amp;group_id='.$group_id ?>&amp;order=updated&amp;direction=<?= $direction == 'asc' ? 'desc' : 'asc' ?>"><?= tne('sort by date %s(%s)%s', '<span class="hide-mobile">',$direction == 'desc' ? t('older first') : t('most recent first'), '</span>') ?></a>
+                <a href="?action=unread<?= $group_id === null ? '' : '&amp;group_id='.$group_id ?>&amp;order=updated&amp;direction=<?= $direction == 'asc' ? 'desc' : 'asc' ?>"><?= tne('sort by date %s(%s)%s', '<span class="hide-mobile">',$direction == 'desc' ? t('older first') : t('most recent first'), '</span>') ?></a>
             </li>
             <li>
-                <a href="?action=mark-all-read<?= is_null($group_id) ? '' : '&amp;group_id='.$group_id ?>"><?= t('mark all as read') ?></a>
+                <a href="?action=mark-all-read<?= $group_id === null ? '' : '&amp;group_id='.$group_id ?>"><?= t('mark all as read') ?></a>
             </li>
         </ul>
     </div>
@@ -43,7 +43,7 @@
             <?php endforeach ?>
 
             <div id="bottom-menu">
-                <a href="?action=mark-all-read<?= is_null($group_id) ? '' : '&amp;group_id='.$group_id ?>"><?= t('mark all as read') ?></a>
+                <a href="?action=mark-all-read<?= $group_id === null ? '' : '&amp;group_id='.$group_id ?>"><?= t('mark all as read') ?></a>
             </div>
 
             <?= \Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'group_id' => $group_id)) ?>

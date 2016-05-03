@@ -108,7 +108,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
     protected function getConnection()
     {
-        if (is_null(static::$databaseConnection)) {
+        if (static::$databaseConnection === null) {
             // let Miniflux setup the database
             require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'common.php';
 
@@ -142,7 +142,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
     protected function getDatabaseTester($dataset)
     {
-        if (is_null(static::$databaseTester)) {
+        if (static::$databaseTester === null) {
             $rdataset = new PHPUnit_Extensions_Database_DataSet_ReplacementDataSet($dataset);
             $rdataset->addSubStrReplacement('##TIMESTAMP##', substr((string)(time()-100), 0, -2));
 
@@ -247,7 +247,7 @@ abstract class minifluxTestCase extends PHPUnit_Extensions_Selenium2TestCase
                     $elements = $this->elements($this->using('id')->value($id));
 
                     if (count($elements) === 1 && $elements[0]->text() == $text
-                        || count($elements) === 0 && is_null($text)) {
+                        || count($elements) === 0 && $text === null) {
                         return true;
                     }
                 } catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {

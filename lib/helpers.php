@@ -17,7 +17,7 @@ function parse_app_version($refnames, $commithash)
     if ($refnames !== '$Format:%d$') {
         $tag = preg_replace('/\s*\(.*tag:\sv([^,]+).*\)/i', '\1', $refnames);
 
-        if (!is_null($tag) && $tag !== $refnames) {
+        if ($tag !== null && $tag !== $refnames) {
             return $tag;
         }
     }
@@ -222,7 +222,7 @@ function form_hidden($name, $values = array())
 
 function form_default_select($name, array $options, $values = array(), array $errors = array(), $class = '')
 {
-    $options = array('' => '?') + $options;
+    $options += array('' => '?');
     return form_select($name, $options, $values, $errors, $class);
 }
 

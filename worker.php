@@ -19,10 +19,10 @@ function check_job_left(Pheanstalk $connection, array $options)
 
         if (in_array(BEANSTALKD_QUEUE, $queues)) {
             $stats = $connection->statsTube(BEANSTALKD_QUEUE);
-            echo 'Jobs in queue: '.$stats->current_jobs_ready.PHP_EOL;
+            echo 'Jobs in queue: ', $stats->current_jobs_ready, PHP_EOL;
             (int) $stats->current_jobs_ready === 0 && exit(0);
         } else {
-            echo 'No queue'.PHP_EOL;
+            echo 'No queue', PHP_EOL;
             exit(0);
         }
     }
@@ -35,7 +35,7 @@ check_job_left($connection, $options);
 while ($job = $connection->reserveFromTube(BEANSTALKD_QUEUE)) {
     $feed_id = $job->getData();
 
-    echo 'Processing feed_id='.$feed_id.PHP_EOL;
+    echo 'Processing feed_id=', $feed_id, PHP_EOL;
 
     Model\Feed\refresh($feed_id);
     $connection->delete($job);

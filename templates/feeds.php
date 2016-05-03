@@ -34,7 +34,7 @@
                 <?= Helper\favicon($favicons, $feed['id']) ?>
 
                 <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>" title="<?= t('Show only this subscription') ?>"><?= Helper\escape($feed['title']) ?></a>
-                &lrm;<span class="items-count"><?= $feed['items_unread'] .'/' . $feed['items_total'] ?></span>
+                &lrm;<span class="items-count"><?= $feed['items_unread'], '/', $feed['items_total'] ?></span>
 
                 <?php if ($feed['enabled']): ?>
 
@@ -42,7 +42,7 @@
 
                     <?php if ($feed['last_checked']): ?>
                         <time class="feed-last-checked" data-after-update="<?= t('updated just now') ?>">
-                            <?= t('checked at').' '.dt('%e %B %Y %k:%M', $feed['last_checked']) ?>
+                            <?= t('checked at'), ' ', dt('%e %B %Y %k:%M', $feed['last_checked']) ?>
                         </time>
                     <?php else: ?>
                         <span class="feed-last-checked" data-after-update="<?= t('updated just now') ?>">

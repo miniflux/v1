@@ -18,9 +18,9 @@
 
         <ul>
             <li>
-                <a href="?action=history<?= is_null($group_id) ? '' : '&amp;group_id='.$group_id ?>&amp;order=updated&amp;direction=<?= $direction == 'asc' ? 'desc' : 'asc' ?>"><?= tne('sort by date %s(%s)%s', '<span class="hide-mobile">', $direction == 'desc' ? t('older first') : t('most recent first'), '</span>') ?></a>
+                <a href="?action=history<?= $group_id === null ? '' : '&amp;group_id='.$group_id ?>&amp;order=updated&amp;direction=<?= $direction == 'asc' ? 'desc' : 'asc' ?>"><?= tne('sort by date %s(%s)%s', '<span class="hide-mobile">', $direction == 'desc' ? t('older first') : t('most recent first'), '</span>') ?></a>
             </li>
-            <li><a href="?action=confirm-flush-history<?= is_null($group_id) ? '' : '&amp;group_id='.$group_id ?>"><?= t('flush all items') ?></a></li>
+            <li><a href="?action=confirm-flush-history<?= $group_id === null ? '' : '&amp;group_id='.$group_id ?>"><?= t('flush all items') ?></a></li>
         </ul>
     </div>
 

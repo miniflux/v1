@@ -109,7 +109,7 @@ namespace Translator {
             }
         }
 
-        for ($i = $plural; $i >= 0; $i--) {
+        for ($i = $plural; $i >= 0; --$i) {
             if (isset($locales[$identifier][$i])) {
                 return $locales[$identifier][$i];
             }

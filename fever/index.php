@@ -309,7 +309,7 @@ foreach (array_keys($_GET) as $action) {
 }
 
 if (! empty($_POST['mark']) && ! empty($_POST['as'])
-    && ! is_null(filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, array('options' => array('default' => null, 'min_range' => -1))))) {
+    && filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, array('options' => array('default' => null, 'min_range' => -1))) !== null) {
     if ($_POST['mark'] === 'item') {
         route('write_items');
     } elseif ($_POST['mark'] === 'feed' && ! empty($_POST['before'])) {

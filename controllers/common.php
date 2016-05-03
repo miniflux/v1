@@ -7,7 +7,7 @@ Router\before(function ($action) {
     // Select the requested database either from post param database or from the
     // session variable. If it fails, logout to destroy session and
     // 'remember me' cookie
-    if (! is_null(Request\value('database')) && ! Model\Database\select(Request\value('database'))) {
+    if (Request\value('database') !== null && ! Model\Database\select(Request\value('database'))) {
         Model\User\logout();
         Response\redirect('?action=login');
     } elseif (! empty($_SESSION['database'])) {

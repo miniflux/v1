@@ -1,4 +1,4 @@
-<?php if (empty($items) && is_null($group_id)): ?>
+<?php if (empty($items) && $group_id === null): ?>
     <p class="alert alert-info"><?= t('No bookmark') ?></p>
 <?php else: ?>
 

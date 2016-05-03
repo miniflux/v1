@@ -8,7 +8,7 @@ Router\get_action('history', function () {
     $group_id = Request\int_param('group_id', null);
     $feed_ids = array();
     
-    if (! is_null($group_id)) {
+    if ($group_id !== null) {
         $feed_ids = Model\Group\get_feeds_by_group($group_id);
     }
 
@@ -59,7 +59,7 @@ Router\get_action('confirm-flush-history', function () {
 Router\get_action('flush-history', function () {
     $group_id = Request\int_param('group_id', null);
     
-    if (!is_null($group_id)) {
+    if ($group_id !== null) {
         Model\Item\mark_group_as_removed($group_id);
     } else {
         Model\Item\mark_all_as_removed();

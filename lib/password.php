@@ -114,9 +114,9 @@ if (!defined('PASSWORD_BCRYPT')) {
             }
             if (!$buffer_valid || strlen($buffer) < $raw_length) {
                 $bl = strlen($buffer);
-                for ($i = 0; $i < $raw_length; $i++) {
+                for ($i = 0; $i < $raw_length; ++$i) {
                     if ($i < $bl) {
-                        $buffer[$i] = $buffer[$i] ^ chr(mt_rand(0, 255));
+                        $buffer[$i] ^= chr(mt_rand(0, 255));
                     } else {
                         $buffer .= chr(mt_rand(0, 255));
                     }
@@ -212,12 +212,13 @@ if (!defined('PASSWORD_BCRYPT')) {
             return false;
         }
         $ret = crypt($password, $hash);
-        if (!is_string($ret) || strlen($ret) != strlen($hash) || strlen($ret) <= 13) {
+        $len = strlen($ret);
+        if (!is_string($ret) || $len != strlen($hash) || $len <= 13) {
             return false;
         }
 
         $status = 0;
-        for ($i = 0; $i < strlen($ret); $i++) {
+        for ($i = 0; $i < $len; ++$i) {
             $status |= (ord($ret[$i]) ^ ord($hash[$i]));
         }
 

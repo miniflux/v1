@@ -11,7 +11,7 @@ Router\get_action('unread', function () {
     $group_id = Request\int_param('group_id', null);
     $feed_ids = array();
 
-    if (! is_null($group_id)) {
+    if ($group_id !== null) {
         $feed_ids = Model\Group\get_feeds_by_group($group_id);
     }
 
@@ -160,7 +160,7 @@ Router\post_action('mark-item-unread', function () {
 Router\get_action('mark-all-read', function () {
     $group_id = Request\int_param('group_id', null);
 
-    if (!is_null($group_id)) {
+    if ($group_id !== null) {
         Model\Item\mark_group_as_read($group_id);
     } else {
         Model\Item\mark_all_as_read();

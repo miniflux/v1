@@ -244,7 +244,7 @@ function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $fee
     $next_item = null;
     $previous_item = null;
 
-    for ($i = 0, $ilen = count($items); $i < $ilen; $i++) {
+    for ($i = 0, $ilen = count($items); $i < $ilen; ++$i) {
         if ($items[$i]['id'] == $item['id']) {
             if ($i > 0) {
                 $j = $i - 1;
@@ -255,7 +255,7 @@ function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $fee
                         break;
                     }
 
-                    $j--;
+                    --$j;
                 }
             }
 
@@ -268,7 +268,7 @@ function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $fee
                         break;
                     }
 
-                    $j++;
+                    ++$j;
                 }
             }
 
