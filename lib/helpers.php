@@ -7,9 +7,6 @@ function is_secure_connection()
     return ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
 }
 
-/*
- * get Version number from git archive output
- */
 function parse_app_version($refnames, $commithash)
 {
     $version = 'master';
@@ -29,9 +26,6 @@ function parse_app_version($refnames, $commithash)
     return $version;
 }
 
-/*
- * get Image extension from mime type
- */
 function favicon_extension($type)
 {
     $types = array(
@@ -135,15 +129,6 @@ function summary($value, $min_length = 5, $max_length = 120, $end = '[...]')
     return $value;
 }
 
-function in_list($id, array $listing)
-{
-    if (isset($listing[$id])) {
-        return escape($listing[$id]);
-    }
-
-    return '?';
-}
-
 function relative_time($timestamp, $fallback_date_format = '%e %B %Y %k:%M')
 {
     $diff = time() - $timestamp;
@@ -220,12 +205,6 @@ function form_hidden($name, $values = array())
     return '<input type="hidden" name="'.$name.'" id="form-'.$name.'" '.form_value($values, $name).'/>';
 }
 
-function form_default_select($name, array $options, $values = array(), array $errors = array(), $class = '')
-{
-    $options += array('' => '?');
-    return form_select($name, $options, $values, $errors, $class);
-}
-
 function form_select($name, array $options, $values = array(), array $errors = array(), $class = '')
 {
     $html = '<select name="'.$name.'" id="form-'.$name.'" class="'.$class.'">';
@@ -249,17 +228,6 @@ function form_select($name, array $options, $values = array(), array $errors = a
     return $html;
 }
 
-function form_radios($name, array $options, array $values = array())
-{
-    $html = '';
-
-    foreach ($options as $value => $label) {
-        $html .= form_radio($name, $label, $value, isset($values[$name]) && $values[$name] == $value);
-    }
-
-    return $html;
-}
-
 function form_radio($name, $label, $value, $checked = false, $class = '')
 {
     return '<label><input type="radio" name="'.$name.'" class="'.$class.'" value="'.escape($value).'" '.($checked ? 'checked' : '').'>'.escape($label).'</label>';
@@ -273,19 +241,6 @@ function form_checkbox($name, $label, $value, $checked = false, $class = '')
 function form_label($label, $name, $class = '')
 {
     return '<label for="form-'.$name.'" class="'.$class.'">'.escape($label).'</label>';
-}
-
-function form_textarea($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
-{
-    $class .= error_class($errors, $name);
-
-    $html = '<textarea name="'.$name.'" id="form-'.$name.'" class="'.$class.'" ';
-    $html .= implode(' ', $attributes).'>';
-    $html .= isset($values->$name) ? escape($values->$name) : isset($values[$name]) ? $values[$name] : '';
-    $html .= '</textarea>';
-    $html .= error_list($errors, $name);
-
-    return $html;
 }
 
 function form_input($type, $name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
@@ -307,16 +262,6 @@ function form_text($name, $values = array(), array $errors = array(), array $att
 function form_password($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
 {
     return form_input('password', $name, $values, $errors, $attributes, $class);
-}
-
-function form_email($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
-{
-    return form_input('email', $name, $values, $errors, $attributes, $class);
-}
-
-function form_date($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
-{
-    return form_input('date', $name, $values, $errors, $attributes, $class);
 }
 
 function form_number($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
