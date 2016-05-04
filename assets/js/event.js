@@ -91,6 +91,9 @@ Miniflux.Event = (function() {
                         case 'close-help':
                             Miniflux.Nav.CloseHelp();
                             break;
+                        case 'show-search':
+                            Miniflux.Nav.ShowSearch();
+                            break;
                     }
                 }
             };

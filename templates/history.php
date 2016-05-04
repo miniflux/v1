@@ -1,7 +1,7 @@
 <?php if (empty($items)): ?>
     <p class="alert alert-info"><?= t('No history') ?></p>
 <?php else: ?>
-
+    <?= \Template\load('search_form') ?>
     <div class="page-header">
         <h2><?= t('History') ?><span id="page-counter"><?= isset($nb_items) ? $nb_items : '' ?></span></h2>
         <?php if (!empty($groups)): ?>

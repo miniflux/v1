@@ -245,4 +245,6 @@ return array(
     'Item title links to' => 'Le titre des articles redirige vers',
     'Original' => 'Original',
     'Last login:' => 'Dernière connexion :',
+    // 'Search' => '',
+    // 'There are no results for your search' => '',
 );

@@ -245,4 +245,6 @@ return array(
     'Item title links to' => 'Öğe başlığıyla ilişkili bağlantılar',
     'Original' => 'Orijinal',
     'Last login:' => 'En son sisteme giriş zamanı:',
+    // 'Search' => '',
+    // 'There are no results for your search' => '',
 );

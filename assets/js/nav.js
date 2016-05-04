@@ -108,6 +108,10 @@ Miniflux.Nav = (function() {
             var help_layer = document.getElementById("help-layer");
             help_layer.setAttribute("class", "hide");
         },
+        ShowSearch: function() {
+            document.getElementById("search-opener").setAttribute("class", "hide");
+            document.getElementById("search-form").removeAttribute("class")
+        },
         IsListing: isListing
     };
 

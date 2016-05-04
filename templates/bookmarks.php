@@ -1,7 +1,7 @@
 <?php if (empty($items) && $group_id === null): ?>
     <p class="alert alert-info"><?= t('No bookmark') ?></p>
 <?php else: ?>
-
+    <?= \Template\load('search_form') ?>
     <div class="page-header">
         <h2><?= t('Bookmarks') ?><span id="page-counter"><?= isset($nb_items) ? $nb_items : '' ?></span></h2>
         <?php if (!empty($groups)): ?>

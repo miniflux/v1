@@ -2,7 +2,7 @@
 
 require __DIR__.'/common.php';
 
-Router\bootstrap(__DIR__.'/controllers', 'common', 'console', 'user', 'config', 'item', 'history', 'bookmark', 'feed');
+Router\bootstrap(__DIR__.'/controllers', 'common', 'console', 'user', 'config', 'item', 'history', 'bookmark', 'feed', 'search');
 
 // Page not found
 Router\notfound(function() {

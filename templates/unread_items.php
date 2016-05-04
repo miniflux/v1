@@ -1,5 +1,5 @@
 
-
+    <?= \Template\load('search_form') ?>
     <div class="page-header">
         <h2><?= t('Unread') ?><span id="page-counter"><?= isset($nb_items) ? $nb_items : '' ?></span></h2>
         <?php if (!empty($groups)): ?>
