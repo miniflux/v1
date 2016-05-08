@@ -38,44 +38,6 @@
         "homepage": "https://github.com/fguillot/simpleValidator"
     },
     {
-        "name": "fguillot/json-rpc",
-        "version": "v1.0.2",
-        "version_normalized": "1.0.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fguillot/JsonRPC.git",
-            "reference": "265cf039c2823f684349de78c0c03a597992bea9"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/JsonRPC/zipball/265cf039c2823f684349de78c0c03a597992bea9",
-            "reference": "265cf039c2823f684349de78c0c03a597992bea9",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.4"
-        },
-        "time": "2015-09-12 16:27:13",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "JsonRPC": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Frédéric Guillot"
-            }
-        ],
-        "description": "Simple Json-RPC client/server library that just works",
-        "homepage": "https://github.com/fguillot/JsonRPC"
-    },
-    {
         "name": "fguillot/picodb",
         "version": "v1.0.2",
         "version_normalized": "1.0.2.0",
@@ -262,5 +224,43 @@
         "keywords": [
             "beanstalkd"
         ]
+    },
+    {
+        "name": "fguillot/json-rpc",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fguillot/JsonRPC.git",
+            "reference": "e915dab71940e7ac251955c785570048f460d332"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fguillot/JsonRPC/zipball/e915dab71940e7ac251955c785570048f460d332",
+            "reference": "e915dab71940e7ac251955c785570048f460d332",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.4"
+        },
+        "time": "2016-04-27 02:48:10",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "JsonRPC": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frédéric Guillot"
+            }
+        ],
+        "description": "Simple Json-RPC client/server library that just works",
+        "homepage": "https://github.com/fguillot/JsonRPC"
     }
 ]

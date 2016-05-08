@@ -1,13 +1,14 @@
 <?php
 
-namespace JsonRPC;
+namespace JsonRPC\Exception;
 
 use Exception;
 
 /**
  * Class ResponseException
  *
- * @package JsonRPC
+ * @package JsonRPC\Exception
+ * @author  Frederic Guillot
  */
 class ResponseException extends Exception
 {
@@ -40,7 +41,7 @@ class ResponseException extends Exception
      *
      * @access public
      * @param mixed $data [optional] A value that contains additional information about the error.
-     * @return \JsonRPC\ResponseException
+     * @return \JsonRPC\Exception\ResponseException
      */
     public function setData($data = null)
     {
