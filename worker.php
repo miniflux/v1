@@ -38,6 +38,9 @@ while ($job = $connection->reserveFromTube(BEANSTALKD_QUEUE)) {
     echo 'Processing feed_id=', $feed_id, PHP_EOL;
 
     Model\Feed\refresh($feed_id);
+    Model\Item\autoflush_read();
+    Model\Item\autoflush_unread();
+
     $connection->delete($job);
 
     check_job_left($connection, $options);
