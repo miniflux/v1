@@ -85,6 +85,185 @@ $server->register('group.list', function () {
     return Model\Group\get_all();
 });
 
+//--------------------------------------------------------------------------------
+// mjb added 2016.07.24
+
+// Add a new group
+$server->register('group.create', function($title) {
+
+    try {
+        $result = Model\Group\create($title);
+    }
+    catch (PicoFeedException $e) {
+        $result = false;
+    }
+    catch (UnexpectedValueException $e) {
+        $result = false;
+    }
+
+    Model\Config\write_debug();
+
+    return $result;
+});
+
+// Get assoc array of group ids with assigned feeds ids
+
+$server->register('group.map', function() {
+
+    try {
+        $result = Model\Group\get_map();
+    }
+    catch (PicoFeedException $e) {
+        $result = false;
+    }
+    catch (UnexpectedValueException $e) {
+        $result = false;
+    }
+
+    Model\Config\write_debug();
+
+    return $result;
+});
+
+// Get the id of a group
+
+$server->register('group.id', function($title) {
+
+    try {
+        $result = Model\Group\get_group_id($title);
+    }
+    catch (PicoFeedException $e) {
+        $result = false;
+    }
+    catch (UnexpectedValueException $e) {
+        $result = false;
+    }
+
+    Model\Config\write_debug();
+
+    return $result;
+});
+
+// Get all feed ids assigned to a group
+
+$server->register('group.feeds', function($group_id) {
+
+    try {
+        $result = Model\Group\get_feeds_by_group($group_id);
+    }
+    catch (PicoFeedException $e) {
+        $result = false;
+    }
+    catch (UnexpectedValueException $e) {
+        $result = false;
+    }
+
+    Model\Config\write_debug();
+
+    return $result;
+});
+
+// add groups to feed
+
+$server->register('group.add', function($feed_id, $group_ids) {
+
+    try {
+        $result = Model\Group\add($feed_id, $group_ids);
+    }
+    catch (PicoFeedException $e) {
+        $result = false;
+    }
+    catch (UnexpectedValueException $e) {
+        $result = false;
+    }
+
+    Model\Config\write_debug();
+
+    return $result;
+});
+
+// remove groups from feed
+
+$server->register('group.remove', function($feed_id, $group_ids) {
+
+    try {
+        $result = Model\Group\remove($feed_id, $group_ids);
+    }
+    catch (PicoFeedException $e) {
+        $result = false;
+    }
+    catch (UnexpectedValueException $e) {
+        $result = false;
+    }
+
+    Model\Config\write_debug();
+
+    return $result;
+});
+
+
+// remove all groups from feed
+
+$server->register('group.remove_all', function($feed_id) {
+
+    try {
+        $result = Model\Group\remove_all($feed_id);
+    }
+    catch (PicoFeedException $e) {
+        $result = false;
+    }
+    catch (UnexpectedValueException $e) {
+        $result = false;
+    }
+
+    Model\Config\write_debug();
+
+    return $result;
+});
+
+
+// Purge orphaned groups from database
+
+$server->register('group.purge_groups', function() {
+
+    try {
+        $result = Model\Group\purge_groups();
+    }
+    catch (PicoFeedException $e) {
+        $result = false;
+    }
+    catch (UnexpectedValueException $e) {
+        $result = false;
+    }
+
+    Model\Config\write_debug();
+
+    return $result;
+});
+
+
+// update feed group associations
+
+$server->register('group.update_feed_groups', function($feed_id, $group_ids, $create_group = '') {
+
+    try {
+        $result = Model\Group\update_feed_groups($feed_id, $group_ids, $create_group = '');
+    }
+    catch (PicoFeedException $e) {
+        $result = false;
+    }
+    catch (UnexpectedValueException $e) {
+        $result = false;
+    }
+
+    Model\Config\write_debug();
+
+    return $result;
+});
+
+//--------------------------------------------------------------------------------
+
+
 // Get all items for a specific feed
 $server->register('item.feed.list', function ($feed_id, $offset = null, $limit = null) {
     return Model\Item\get_all_by_feed($feed_id, $offset, $limit);
