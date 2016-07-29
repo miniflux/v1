@@ -946,6 +946,7 @@ html[dir="rtl"] span.items-count:before {
     .page {
         clear: both;
         padding-top: 20px;
+        overflow-x: hidden;
     }
 
     .page li {
