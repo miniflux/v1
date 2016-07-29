@@ -810,6 +810,7 @@ iframe {
 .menu-more a {
     text-decoration: none;
     color: #333;
+    display: block;
 }
 
 #help-layer {
