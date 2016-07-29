@@ -189,7 +189,7 @@ Miniflux.Event = (function() {
                         case 'h':
                         case 104:
                             Miniflux.Nav.OpenPreviousPage();
-                            break
+                            break;
                         case 'l':
                         case 108:
                             Miniflux.Nav.OpenNextPage();

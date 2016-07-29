@@ -343,6 +343,7 @@ Miniflux.Item = (function() {
 
                 for (var feed_id in response['feeds']) {
                     var current_feed = response['feeds'][feed_id];
+                    var feed_id = parseInt(feed_id, 10);
 
                     if (! latest_feeds_items.hasOwnProperty(feed_id) || current_feed.time > latest_feeds_items[feed_id]) {
                         Miniflux.App.Log('feed ' + feed_id + ': New item(s)');
