@@ -15,7 +15,7 @@
         "fguillot/simple-validator": "v1.0.0",
         "fguillot/json-rpc": "v1.1.0",
         "fguillot/picodb": "v1.0.2",
-        "fguillot/picofeed": "v0.1.23",
+        "fguillot/picofeed": "v0.1.24",
         "pda/pheanstalk": "v3.1.0"
     },
     "require-dev": {

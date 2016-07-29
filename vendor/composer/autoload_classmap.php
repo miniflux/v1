@@ -113,6 +113,7 @@ return array(
     'PicoFeed\\Parser\\MalformedXmlException' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/MalformedXmlException.php',
     'PicoFeed\\Parser\\Parser' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/Parser.php',
     'PicoFeed\\Parser\\ParserException' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/ParserException.php',
+    'PicoFeed\\Parser\\ParserInterface' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/ParserInterface.php',
     'PicoFeed\\Parser\\Rss10' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/Rss10.php',
     'PicoFeed\\Parser\\Rss20' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/Rss20.php',
     'PicoFeed\\Parser\\Rss91' => $vendorDir . '/fguillot/picofeed/lib/PicoFeed/Parser/Rss91.php',
