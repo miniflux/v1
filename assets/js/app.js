@@ -17,6 +17,7 @@ Miniflux.App = (function() {
             Miniflux.Event.ListenKeyboardEvents();
             Miniflux.Event.ListenMouseEvents();
             Miniflux.Event.ListenVisibilityEvents();
+            Miniflux.Event.ListenTouchEvents();
             this.FrontendUpdateCheck();
         },
         FrontendUpdateCheck: function() {
