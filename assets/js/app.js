@@ -1,15 +1,12 @@
 var Miniflux = {};
 
-/**
-* @define {boolean}
-*/
-var COMPILED = false;
+var DEBUG = false;
 
 Miniflux.App = (function() {
 
     return {
         Log: function(message) {
-            if (! COMPILED) {
+            if (DEBUG) {
                console.log(message);
             }
         },

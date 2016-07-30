@@ -28,21 +28,18 @@ Miniflux.Event = (function() {
             };
 
             document.onmouseup = function(e) {
-
-                // ignore right mouse button (context menu)
+                // Ignore right mouse button (context menu)
                 if (e.button === 2) {
                     return;
                 }
 
                 // Auto-select input content
-
                 if (e.target.nodeName === "INPUT" && e.target.className === "auto-select") {
                     e.target.select();
                     return;
                 }
 
                 // Application actions
-
                 var action = e.target.getAttribute("data-action");
 
                 if (action) {
@@ -304,7 +301,6 @@ Miniflux.Event = (function() {
               window.requestAnimationFrame(drawElement);
             };
             var touchHandler = function (e) {
-                //e.preventDefault();
                 if (typeof e.touches != 'undefined' && e.touches.length <= 1) {
                     var touch = e.touches[0];
                     var swipedistance = null;

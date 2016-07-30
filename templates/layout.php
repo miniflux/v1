@@ -22,7 +22,7 @@
         <link rel="apple-touch-icon" sizes="144x144" href="assets/img/touch-icon-ipad-retina.png">
 
         <link href="<?= Helper\css() ?>" rel="stylesheet" media="screen">
-        <script type="text/javascript" src="assets/js/all.min.js?<?= filemtime('assets/js/all.min.js') ?>" defer></script>
+        <script type="text/javascript" src="assets/js/all.js?<?= filemtime('assets/js/all.js') ?>" defer></script>
     </head>
     <body>
         <header>
