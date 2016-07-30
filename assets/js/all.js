@@ -41,9 +41,6 @@ Miniflux.App = (function() {
 })();
 Miniflux.Feed = (function() {
 
-    // List of subscriptions
-    var feeds = [];
-
     // List of feeds currently updating
     var queue = [];
 
@@ -55,7 +52,7 @@ Miniflux.Feed = (function() {
             var itemsCounter = feed.querySelector("span.items-count");
             if (! itemsCounter) return;
 
-            var feed_id = feed.getAttribute("data-feed-id")
+            var feed_id = feed.getAttribute("data-feed-id");
 
             var heading = feed.querySelector("h2:first-of-type");
             heading.className = "loading-icon";
@@ -112,7 +109,8 @@ Miniflux.Feed = (function() {
             }, 100);
         }
     };
-})();Miniflux.Item = (function() {
+})();
+Miniflux.Item = (function() {
 
     // timestamp of the latest item per feed ever seen
     var latest_feeds_items = [];
@@ -124,8 +122,7 @@ Miniflux.Feed = (function() {
         var navCounterElement = document.getElementById("nav-counter");
 
         if (navCounterElement) {
-            counter = parseInt(navCounterElement.textContent, 10) || 0;
-            return counter;
+            return parseInt(navCounterElement.textContent, 10) || 0;
         }
     }();
 
@@ -133,8 +130,7 @@ Miniflux.Feed = (function() {
         var pageCounterElement = document.getElementById("page-counter");
 
         if (pageCounterElement) {
-            counter = parseInt(pageCounterElement.textContent, 10) || 0;
-            return counter;
+            return parseInt(pageCounterElement.textContent, 10) || 0;
         }
     }();
 
@@ -144,7 +140,7 @@ Miniflux.Feed = (function() {
         event.initEvent("mousedown", true, true);
         element.dispatchEvent(event);
 
-        var event = document.createEvent("MouseEvents");
+        event = document.createEvent("MouseEvents");
         event.initEvent("mouseup", true, true);
         element.dispatchEvent(event);
 
@@ -153,8 +149,7 @@ Miniflux.Feed = (function() {
 
     function getItemID(item)
     {
-        item_id = item.getAttribute("data-item-id");
-        return item_id;
+        return item.getAttribute("data-item-id");
     }
 
     function changeLabel(link)
@@ -239,6 +234,8 @@ Miniflux.Feed = (function() {
 
     function updateCounters()
     {
+        var pageHeading = null;
+
         // redirect to unread if we're on a nothing to read page
         if (window.location.href.indexOf('nothing_to_read=1') > -1 && nbUnreadItems > 0) {
             window.location.href = '?action=unread';
@@ -457,7 +454,6 @@ Miniflux.Feed = (function() {
 
                 for (var feed_id in response['feeds']) {
                     var current_feed = response['feeds'][feed_id];
-                    var feed_id = parseInt(feed_id, 10);
 
                     if (! latest_feeds_items.hasOwnProperty(feed_id) || current_feed.time > latest_feeds_items[feed_id]) {
                         Miniflux.App.Log('feed ' + feed_id + ': New item(s)');
@@ -508,11 +504,7 @@ Miniflux.Event = (function() {
 
         // Do not handle events when there is a focus in form fields
         var target = e.target || e.srcElement;
-        if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
-            return true;
-        }
-
-        return false;
+        return !!(target.tagName === 'INPUT' || target.tagName === 'TEXTAREA');
     }
 
     return {
@@ -545,7 +537,7 @@ Miniflux.Event = (function() {
                     Miniflux.Event.lastEventType = "mouse";
 
                     var currentItem = function () {
-                        element = e.target;
+                        var element = e.target;
 
                         while (element && element.parentNode) {
                             element = element.parentNode;
@@ -553,8 +545,6 @@ Miniflux.Event = (function() {
                                 return element;
                             }
                         }
-
-                        return;
                     }();
 
                     switch (action) {
@@ -754,7 +744,7 @@ Miniflux.Event = (function() {
                 "touchend"  : false,
                 "direction" : "undetermined",
                 "swipestarted" : false,
-                "element" : null,
+                "element" : null
               };
             };
             var horizontalSwipe = function () {
@@ -784,7 +774,7 @@ Miniflux.Event = (function() {
               if(touches.element === null) {
                 touches.element = getTouchElement();
               }
-              swipedistance = horizontalSwipe();
+              var swipedistance = horizontalSwipe();
 
               if(swipedistance > 0) {
                   var element = getTouchElement();
@@ -916,8 +906,7 @@ Miniflux.Nav = (function() {
 
     function isListing()
     {
-        if (document.getElementById("listing")) return true;
-        return false;
+        return !!document.getElementById("listing");
     }
 
     return {

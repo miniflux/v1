@@ -67,8 +67,7 @@ Miniflux.Nav = (function() {
 
     function isListing()
     {
-        if (document.getElementById("listing")) return true;
-        return false;
+        return !!document.getElementById("listing");
     }
 
     return {

@@ -10,11 +10,7 @@ Miniflux.Event = (function() {
 
         // Do not handle events when there is a focus in form fields
         var target = e.target || e.srcElement;
-        if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
-            return true;
-        }
-
-        return false;
+        return !!(target.tagName === 'INPUT' || target.tagName === 'TEXTAREA');
     }
 
     return {
@@ -47,7 +43,7 @@ Miniflux.Event = (function() {
                     Miniflux.Event.lastEventType = "mouse";
 
                     var currentItem = function () {
-                        element = e.target;
+                        var element = e.target;
 
                         while (element && element.parentNode) {
                             element = element.parentNode;
@@ -55,8 +51,6 @@ Miniflux.Event = (function() {
                                 return element;
                             }
                         }
-
-                        return;
                     }();
 
                     switch (action) {
@@ -256,7 +250,7 @@ Miniflux.Event = (function() {
                 "touchend"  : false,
                 "direction" : "undetermined",
                 "swipestarted" : false,
-                "element" : null,
+                "element" : null
               };
             };
             var horizontalSwipe = function () {
@@ -286,7 +280,7 @@ Miniflux.Event = (function() {
               if(touches.element === null) {
                 touches.element = getTouchElement();
               }
-              swipedistance = horizontalSwipe();
+              var swipedistance = horizontalSwipe();
 
               if(swipedistance > 0) {
                   var element = getTouchElement();

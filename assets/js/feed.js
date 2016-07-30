@@ -1,8 +1,5 @@
 Miniflux.Feed = (function() {
 
-    // List of subscriptions
-    var feeds = [];
-
     // List of feeds currently updating
     var queue = [];
 
@@ -14,7 +11,7 @@ Miniflux.Feed = (function() {
             var itemsCounter = feed.querySelector("span.items-count");
             if (! itemsCounter) return;
 
-            var feed_id = feed.getAttribute("data-feed-id")
+            var feed_id = feed.getAttribute("data-feed-id");
 
             var heading = feed.querySelector("h2:first-of-type");
             heading.className = "loading-icon";

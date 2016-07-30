@@ -10,8 +10,7 @@ Miniflux.Item = (function() {
         var navCounterElement = document.getElementById("nav-counter");
 
         if (navCounterElement) {
-            counter = parseInt(navCounterElement.textContent, 10) || 0;
-            return counter;
+            return parseInt(navCounterElement.textContent, 10) || 0;
         }
     }();
 
@@ -19,8 +18,7 @@ Miniflux.Item = (function() {
         var pageCounterElement = document.getElementById("page-counter");
 
         if (pageCounterElement) {
-            counter = parseInt(pageCounterElement.textContent, 10) || 0;
-            return counter;
+            return parseInt(pageCounterElement.textContent, 10) || 0;
         }
     }();
 
@@ -30,7 +28,7 @@ Miniflux.Item = (function() {
         event.initEvent("mousedown", true, true);
         element.dispatchEvent(event);
 
-        var event = document.createEvent("MouseEvents");
+        event = document.createEvent("MouseEvents");
         event.initEvent("mouseup", true, true);
         element.dispatchEvent(event);
 
@@ -39,8 +37,7 @@ Miniflux.Item = (function() {
 
     function getItemID(item)
     {
-        item_id = item.getAttribute("data-item-id");
-        return item_id;
+        return item.getAttribute("data-item-id");
     }
 
     function changeLabel(link)
@@ -125,6 +122,8 @@ Miniflux.Item = (function() {
 
     function updateCounters()
     {
+        var pageHeading = null;
+
         // redirect to unread if we're on a nothing to read page
         if (window.location.href.indexOf('nothing_to_read=1') > -1 && nbUnreadItems > 0) {
             window.location.href = '?action=unread';
@@ -343,7 +342,6 @@ Miniflux.Item = (function() {
 
                 for (var feed_id in response['feeds']) {
                     var current_feed = response['feeds'][feed_id];
-                    var feed_id = parseInt(feed_id, 10);
 
                     if (! latest_feeds_items.hasOwnProperty(feed_id) || current_feed.time > latest_feeds_items[feed_id]) {
                         Miniflux.App.Log('feed ' + feed_id + ': New item(s)');
