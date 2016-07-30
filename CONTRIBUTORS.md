@@ -20,6 +20,7 @@ List of contributors:
 - [Eshin Kunishima](https://github.com/mikoim)
 - [Félix](https://github.com/dysosmus)
 - [Filimonov Denis](https://github.com/denfil)
+- [Gyger](https://github.com/gyger)
 - [Geriel Castro](https://github.com/GerielCastro)
 - [Hika0](https://github.com/hika0)
 - [Horsely](https://github.com/horsley)
