@@ -247,6 +247,109 @@ Miniflux.Event = (function() {
                     Miniflux.Item.CheckForUpdates();
                 }
             });
+        },
+        ListenTouchEvents: function() {
+            var touches = null;
+            var resetTouch = function () {
+              touches && touches.element && (touches.element.style.opacity = 1);
+              touches && touches.element && (touches.element.style.transform = "");
+              touches = {
+                "touchstart": {"x":-1, "y":-1},
+                "touchmove" : {"x":-1, "y":-1},
+                "touchend"  : false,
+                "direction" : "undetermined",
+                "swipestarted" : false,
+                "element" : null,
+              };
+            };
+            var horizontalSwipe = function () {
+              if((touches.touchstart.x > -1 && touches.touchmove.x > -1 &&
+                ((touches.touchmove.x - touches.touchstart.x) > 30 | touches.swipestarted) &&
+                 Math.abs(touches.touchmove.y - touches.touchstart.y) < 75)) {
+                     touches.swipestarted = true;
+                     return touches.touchmove.x - touches.touchstart.x;
+              }
+              return 0;
+            };
+            var closest = function(el, fn) {
+                return el && (fn(el) ? el : closest(el.parentNode, fn));
+            };
+            var getTouchElement = function() {
+              return touches.element ? touches.element :
+               closest(document.elementFromPoint(touches.touchstart.x, touches.touchstart.y),
+                 function(el) {
+                 return el.tagName === 'ARTICLE';
+               });
+            };
+            var drawElement = function(){
+              if(touches &&
+                 (touches.touchend === true || touches.touchstart.x == -1)) {
+                return;
+              }
+              if(touches.element === null) {
+                touches.element = getTouchElement();
+              }
+              swipedistance = horizontalSwipe();
+
+              if(swipedistance > 0) {
+                  var element = getTouchElement();
+                  if(!element) {resetTouch(); return;}
+
+                  touches.element.style.opacity = 1 -
+                  ((swipedistance > 75) ? 0.9 : swipedistance/75 *0.9);
+                  touches.element.style.transform = "translateX("+
+                    (swipedistance > 75 ? 75 : swipedistance)+"px)";
+                  touches.element = element;
+              }
+              window.requestAnimationFrame(drawElement);
+            };
+            var touchHandler = function (e) {
+                //e.preventDefault();
+                if (typeof e.touches != 'undefined' && e.touches.length <= 1) {
+                    var touch = e.touches[0];
+                    var swipedistance = null;
+                    var element = null;
+                    switch (e.type) {
+                      case 'touchstart':
+                          resetTouch();
+                          touches[e.type].x = touch.clientX;
+                          touches[e.type].y = touch.clientY;
+                          drawElement();
+                          break;
+                      case 'touchmove':
+                          touches[e.type].x = touch.clientX;
+                          touches[e.type].y = touch.clientY;
+                          break;
+                      case 'touchend':
+                          touches[e.type] = true;
+                          element = getTouchElement();
+                          swipedistance = horizontalSwipe();
+                          if(swipedistance > 75) {
+                              element && Miniflux.Item.MarkAsRead(element);
+                              if(!element.getAttribute("data-hide")){
+                                  resetTouch();
+                              }
+                          } else {
+                            resetTouch();
+                          }
+                          break;
+                      case 'touchcancel':
+                          resetTouch();
+                          break;
+                      default:
+                          break;
+                    }
+                } else {
+                  resetTouch();
+                }
+
+            };
+
+            resetTouch();
+            document.addEventListener('touchstart', touchHandler, false);
+            document.addEventListener('touchmove', touchHandler, false);
+            document.addEventListener('touchend', touchHandler, false);
+            document.addEventListener('touchcancel', touchHandler, false);
         }
     };
 })();
