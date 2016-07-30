@@ -9,7 +9,8 @@ use PDOException;
 /**
  * Base Driver class
  *
- * @author   Frederic Guillot
+ * @package PicoDb\Driver
+ * @author  Frederic Guillot
  */
 abstract class Base
 {
@@ -19,7 +20,7 @@ abstract class Base
      * @access protected
      * @var array
      */
-    protected $requiredAtttributes = array();
+    protected $requiredAttributes = array();
 
     /**
      * PDO connection
@@ -119,7 +120,7 @@ abstract class Base
      */
     public function __construct(array $settings)
     {
-        foreach ($this->requiredAtttributes as $attribute) {
+        foreach ($this->requiredAttributes as $attribute) {
             if (! isset($settings[$attribute])) {
                 throw new LogicException('This configuration parameter is missing: "'.$attribute.'"');
             }
@@ -185,8 +186,49 @@ abstract class Base
             return true;
         }
         catch (PDOException $e) {
-            $this->pdo->rollback();
+            $this->pdo->rollBack();
             return false;
         }
+    }
+
+    /**
+     * Run EXPLAIN command
+     *
+     * @access public
+     * @param  string $sql
+     * @param  array  $values
+     * @return array
+     */
+    public function explain($sql, array $values)
+    {
+        return $this->getConnection()->query('EXPLAIN '.$this->getSqlFromPreparedStatement($sql, $values))->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Replace placeholder with values in prepared statement
+     *
+     * @access protected
+     * @param  string $sql
+     * @param  array  $values
+     * @return string
+     */
+    protected function getSqlFromPreparedStatement($sql, array $values)
+    {
+        foreach ($values as $value) {
+            $sql = substr_replace($sql, "'$value'", strpos($sql, '?'), 1);
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Get database version
+     *
+     * @access public
+     * @return array
+     */
+    public function getDatabaseVersion()
+    {
+        return $this->getConnection()->query('SELECT VERSION()')->fetchColumn();
     }
 }

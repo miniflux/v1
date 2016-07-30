@@ -8,7 +8,8 @@ use PDOException;
 /**
  * Sqlite Driver
  *
- * @author   Frederic Guillot
+ * @package PicoDb\Driver
+ * @author  Frederic Guillot
  */
 class Sqlite extends Base
 {
@@ -18,7 +19,7 @@ class Sqlite extends Base
      * @access protected
      * @var array
      */
-    protected $requiredAtttributes = array('filename');
+    protected $requiredAttributes = array('filename');
 
     /**
      * Create a new PDO connection
@@ -161,8 +162,32 @@ class Sqlite extends Base
             return true;
         }
         catch (PDOException $e) {
-            $this->pdo->rollback();
+            $this->pdo->rollBack();
             return false;
         }
+    }
+
+    /**
+     * Run EXPLAIN command
+     *
+     * @access public
+     * @param  string $sql
+     * @param  array  $values
+     * @return array
+     */
+    public function explain($sql, array $values)
+    {
+        return $this->getConnection()->query('EXPLAIN QUERY PLAN '.$this->getSqlFromPreparedStatement($sql, $values))->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get database version
+     *
+     * @access public
+     * @return array
+     */
+    public function getDatabaseVersion()
+    {
+        return $this->getConnection()->query('SELECT sqlite_version()')->fetchColumn();
     }
 }

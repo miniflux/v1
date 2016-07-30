@@ -1,13 +1,17 @@
 <?php
 
-namespace PicoDb;
+namespace PicoDb\Builder;
+
+use PicoDb\Database;
+use PicoDb\Table;
 
 /**
  * Handle SQL conditions
  *
- * @author   Frederic Guillot
+ * @package PicoDb\Builder
+ * @author  Frederic Guillot
  */
-class Condition
+class ConditionBuilder
 {
     /**
      * Database instance
@@ -26,10 +30,10 @@ class Condition
     private $values = array();
 
     /**
-     * SQL conditions
+     * SQL AND conditions
      *
      * @access private
-     * @var    array
+     * @var    string[]
      */
     private $conditions = array();
 
@@ -37,17 +41,17 @@ class Condition
      * SQL OR conditions
      *
      * @access private
-     * @var    array
+     * @var    OrConditionBuilder[]
      */
-    private $or = array();
+    private $orConditions = array();
 
     /**
-     * OR condition started
+     * SQL condition offset
      *
      * @access private
-     * @var    boolean
+     * @var int
      */
-    private $beginOr = false;
+    private $orConditionOffset = 0;
 
     /**
      * Constructor
@@ -101,8 +105,8 @@ class Condition
      */
     public function addCondition($sql)
     {
-        if ($this->beginOr) {
-            $this->or[] = $sql;
+        if ($this->orConditionOffset > 0) {
+            $this->orConditions[$this->orConditionOffset]->withCondition($sql);
         }
         else {
             $this->conditions[] = $sql;
@@ -116,9 +120,10 @@ class Condition
      */
     public function beginOr()
     {
-        $this->beginOr = true;
-        $this->or = array();
+        $this->orConditionOffset++;
+        $this->orConditions[$this->orConditionOffset] = new OrConditionBuilder();
     }
+
     /**
      * Close OR condition
      *
@@ -126,10 +131,13 @@ class Condition
      */
     public function closeOr()
     {
-        $this->beginOr = false;
+        $condition = $this->orConditions[$this->orConditionOffset]->build();
+        $this->orConditionOffset--;
 
-        if (! empty($this->or)) {
-            $this->conditions[] = '('.implode(' OR ', $this->or).')';
+        if ($this->orConditionOffset > 0) {
+            $this->orConditions[$this->orConditionOffset]->withCondition($condition);
+        } else {
+            $this->conditions[] = $condition;
         }
     }
 
@@ -175,18 +183,44 @@ class Condition
     }
 
     /**
+     * IN condition with a subquery
+     *
+     * @access public
+     * @param  string   $column
+     * @param  Table    $subquery
+     */
+    public function inSubquery($column, Table $subquery)
+    {
+        $this->addCondition($this->db->escapeIdentifier($column).' IN ('.$subquery->buildSelectQuery().')');
+        $this->values = array_merge($this->values, $subquery->getConditionBuilder()->getValues());
+    }
+
+    /**
      * NOT IN condition
      *
      * @access public
      * @param  string   $column
      * @param  array    $values
      */
-    public function notin($column, array $values)
+    public function notIn($column, array $values)
     {
         if (! empty($values)) {
             $this->addCondition($this->db->escapeIdentifier($column).' NOT IN ('.implode(', ', array_fill(0, count($values), '?')).')');
             $this->values = array_merge($this->values, $values);
         }
+    }
+
+    /**
+     * NOT IN condition with a subquery
+     *
+     * @access public
+     * @param  string   $column
+     * @param  Table    $subquery
+     */
+    public function notInSubquery($column, Table $subquery)
+    {
+        $this->addCondition($this->db->escapeIdentifier($column).' NOT IN ('.$subquery->buildSelectQuery().')');
+        $this->values = array_merge($this->values, $subquery->getConditionBuilder()->getValues());
     }
 
     /**
@@ -229,6 +263,19 @@ class Condition
     }
 
     /**
+     * Greater than condition with subquery
+     *
+     * @access public
+     * @param  string   $column
+     * @param  Table    $subquery
+     */
+    public function gtSubquery($column, Table $subquery)
+    {
+        $this->addCondition($this->db->escapeIdentifier($column).' > ('.$subquery->buildSelectQuery().')');
+        $this->values = array_merge($this->values, $subquery->getConditionBuilder()->getValues());
+    }
+
+    /**
      * Lower than condition
      *
      * @access public
@@ -239,6 +286,19 @@ class Condition
     {
         $this->addCondition($this->db->escapeIdentifier($column).' < ?');
         $this->values[] = $value;
+    }
+
+    /**
+     * Lower than condition with subquery
+     *
+     * @access public
+     * @param  string   $column
+     * @param  Table    $subquery
+     */
+    public function ltSubquery($column, Table $subquery)
+    {
+        $this->addCondition($this->db->escapeIdentifier($column).' < ('.$subquery->buildSelectQuery().')');
+        $this->values = array_merge($this->values, $subquery->getConditionBuilder()->getValues());
     }
 
     /**
@@ -255,6 +315,19 @@ class Condition
     }
 
     /**
+     * Greater than or equal condition with subquery
+     *
+     * @access public
+     * @param  string   $column
+     * @param  Table    $subquery
+     */
+    public function gteSubquery($column, Table $subquery)
+    {
+        $this->addCondition($this->db->escapeIdentifier($column).' >= ('.$subquery->buildSelectQuery().')');
+        $this->values = array_merge($this->values, $subquery->getConditionBuilder()->getValues());
+    }
+
+    /**
      * Lower than or equals condition
      *
      * @access public
@@ -265,6 +338,19 @@ class Condition
     {
         $this->addCondition($this->db->escapeIdentifier($column).' <= ?');
         $this->values[] = $value;
+    }
+
+    /**
+     * Lower than or equal condition with subquery
+     *
+     * @access public
+     * @param  string   $column
+     * @param  Table    $subquery
+     */
+    public function lteSubquery($column, Table $subquery)
+    {
+        $this->addCondition($this->db->escapeIdentifier($column).' <= ('.$subquery->buildSelectQuery().')');
+        $this->values = array_merge($this->values, $subquery->getConditionBuilder()->getValues());
     }
 
     /**

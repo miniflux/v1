@@ -7,7 +7,8 @@ use PDOException;
 /**
  * Schema migration class
  *
- * @author   Frederic Guillot
+ * @package PicoDb
+ * @author  Frederic Guillot
  */
 class Schema
 {
@@ -20,6 +21,14 @@ class Schema
     protected $db = null;
 
     /**
+     * Schema namespace
+     *
+     * @access protected
+     * @var string
+     */
+    protected $namespace = '\Schema';
+
+    /**
      * Constructor
      *
      * @access public
@@ -28,6 +37,30 @@ class Schema
     public function __construct(Database $db)
     {
         $this->db = $db;
+    }
+
+    /**
+     * Set another namespace
+     *
+     * @access public
+     * @param  string $namespace
+     * @return Schema
+     */
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
+        return $this;
+    }
+
+    /**
+     * Get schema namespace
+     *
+     * @access public
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
     }
 
     /**
@@ -59,25 +92,23 @@ class Schema
     public function migrateTo($current_version, $next_version)
     {
         try {
-
-            $this->db->startTransaction();
-            $this->db->getDriver()->disableForeignKeys();
-
             for ($i = $current_version + 1; $i <= $next_version; $i++) {
+                $this->db->startTransaction();
+                $this->db->getDriver()->disableForeignKeys();
 
-                $function_name = '\Schema\version_'.$i;
+                $function_name = $this->getNamespace().'\version_'.$i;
 
                 if (function_exists($function_name)) {
+                    $this->db->setLogMessage('Running migration '.$function_name);
                     call_user_func($function_name, $this->db->getConnection());
                 }
-            }
 
-            $this->db->getDriver()->setSchemaVersion($i - 1);
-            $this->db->getDriver()->enableForeignKeys();
-            $this->db->closeTransaction();
-        }
-        catch (PDOException $e) {
-            $this->db->setLogMessage($function_name.' => '.$e->getMessage());
+                $this->db->getDriver()->setSchemaVersion($i);
+                $this->db->getDriver()->enableForeignKeys();
+                $this->db->closeTransaction();
+            }
+        } catch (PDOException $e) {
+            $this->db->setLogMessage($e->getMessage());
             $this->db->cancelTransaction();
             $this->db->getDriver()->enableForeignKeys();
             return false;

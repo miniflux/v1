@@ -14,6 +14,8 @@ const EXPIRATION = 5184000;
  * Get a remember me record
  *
  * @access public
+ * @param  string $token
+ * @param  string $sequence
  * @return mixed
  */
 function find($token, $sequence)

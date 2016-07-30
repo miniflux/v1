@@ -3,15 +3,14 @@
 namespace PicoDb\Driver;
 
 use PDO;
-use PDOException;
 
 /**
- * Postgres Driver
+ * Microsoft SQL Server Driver
  *
  * @package PicoDb\Driver
- * @author  Frederic Guillot
+ * @author  Algy Taylor <thomas.taylor@cmft.nhs.uk>
  */
-class Postgres extends Base
+class Mssql extends Base
 {
     /**
      * List of required settings options
@@ -42,10 +41,10 @@ class Postgres extends Base
      */
     public function createConnection(array $settings)
     {
-        $dsn = 'pgsql:host='.$settings['hostname'].';dbname='.$settings['database'];
+        $dsn = 'sqlsrv:Server=' . $settings['hostname'] . ';Database=' . $settings['database'];
 
         if (! empty($settings['port'])) {
-            $dsn .= ';port='.$settings['port'];
+            $dsn .= ';port=' . $settings['port'];
         }
 
         $this->pdo = new PDO($dsn, $settings['username'], $settings['password']);
@@ -62,6 +61,7 @@ class Postgres extends Base
      */
     public function enableForeignKeys()
     {
+        $this->pdo->exec('EXEC sp_MSforeachtable @command1="ALTER TABLE ? CHECK CONSTRAINT ALL"; GO;');
     }
 
     /**
@@ -71,6 +71,7 @@ class Postgres extends Base
      */
     public function disableForeignKeys()
     {
+        $this->pdo->exec('EXEC sp_MSforeachtable @command1="ALTER TABLE ? NOCHECK CONSTRAINT ALL"; GO;');
     }
 
     /**
@@ -82,11 +83,13 @@ class Postgres extends Base
      */
     public function isDuplicateKeyError($code)
     {
-        return $code == 23505 || $code == 23503;
+        return $code == 2601;
     }
 
     /**
      * Escape identifier
+     *
+     * https://msdn.microsoft.com/en-us/library/ms175874.aspx
      *
      * @access public
      * @param  string  $identifier
@@ -94,7 +97,7 @@ class Postgres extends Base
      */
     public function escape($identifier)
     {
-        return '"'.$identifier.'"';
+        return '['.$identifier.']';
     }
 
     /**
@@ -106,11 +109,8 @@ class Postgres extends Base
      */
     public function getOperator($operator)
     {
-        if ($operator === 'LIKE') {
+        if ($operator === 'LIKE' || $operator === 'ILIKE') {
             return 'LIKE';
-        }
-        else if ($operator === 'ILIKE') {
-            return 'ILIKE';
         }
 
         return '';
@@ -124,15 +124,7 @@ class Postgres extends Base
      */
     public function getLastId()
     {
-        try {
-            $rq = $this->pdo->prepare('SELECT LASTVAL()');
-            $rq->execute();
-
-            return $rq->fetchColumn();
-        }
-        catch (PDOException $e) {
-            return 0;
-        }
+        return $this->pdo->lastInsertId();
     }
 
     /**
@@ -143,9 +135,9 @@ class Postgres extends Base
      */
     public function getSchemaVersion()
     {
-        $this->pdo->exec("CREATE TABLE IF NOT EXISTS ".$this->schemaTable." (version INTEGER DEFAULT 0)");
+        $this->pdo->exec("CREATE TABLE IF NOT EXISTS [".$this->schemaTable."] ([version] INT DEFAULT '0')");
 
-        $rq = $this->pdo->prepare('SELECT "version" FROM "'.$this->schemaTable.'"');
+        $rq = $this->pdo->prepare('SELECT [version] FROM ['.$this->schemaTable.']');
         $rq->execute();
         $result = $rq->fetchColumn();
 
@@ -153,7 +145,7 @@ class Postgres extends Base
             return (int) $result;
         }
         else {
-            $this->pdo->exec('INSERT INTO '.$this->schemaTable.' VALUES(0)');
+            $this->pdo->exec('INSERT INTO ['.$this->schemaTable.'] VALUES(0)');
         }
 
         return 0;
@@ -167,7 +159,7 @@ class Postgres extends Base
      */
     public function setSchemaVersion($version)
     {
-        $rq = $this->pdo->prepare('UPDATE '.$this->schemaTable.' SET version=?');
+        $rq = $this->pdo->prepare('UPDATE ['.$this->schemaTable.'] SET [version]=?');
         $rq->execute(array($version));
     }
 
@@ -180,17 +172,7 @@ class Postgres extends Base
      */
     public function explain($sql, array $values)
     {
-        return $this->getConnection()->query('EXPLAIN (FORMAT YAML) '.$this->getSqlFromPreparedStatement($sql, $values))->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * Get database version
-     *
-     * @access public
-     * @return array
-     */
-    public function getDatabaseVersion()
-    {
-        return $this->getConnection()->query('SHOW server_version')->fetchColumn();
+        $this->getConnection()->exec('SET SHOWPLAN_ALL ON');
+        return $this->getConnection()->query($this->getSqlFromPreparedStatement($sql, $values))->fetchAll(PDO::FETCH_ASSOC);
     }
 }

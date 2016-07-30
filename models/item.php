@@ -546,7 +546,7 @@ function cleanup($feed_id, array $items_in_feed)
         $removed_items = $db
             ->table('items')
             ->columns('id')
-            ->notin('id', $items_in_feed)
+            ->notIn('id', $items_in_feed)
             ->eq('status', 'removed')
             ->eq('feed_id', $feed_id)
             ->desc('updated')
