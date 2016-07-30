@@ -15,10 +15,9 @@ body {
 }
 
 body {
-    margin: 0 auto;
     padding-left: 10px;
     padding-right: 10px;
-    margin-bottom: 30px;
+    margin: 0 auto 30px;
     max-width: 780px;
     color: #333;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -176,7 +175,6 @@ input[type="text"] {
     margin-bottom: 10px;
     margin-top: 5px;
     -webkit-appearance: none;
-    appearance: none;
 }
 
 input[type="email"]:focus,
@@ -264,7 +262,7 @@ textarea.form-error {
 #grouplist input[type="checkbox"] + span, #grouplist input[type="text"] {
     padding: 4px;
     margin-top: 6px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 #grouplist input[type="checkbox"]:checked + span {
@@ -276,7 +274,7 @@ ul#grouplist {
 }
 
 ul#grouplist li {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 /* alerts */
@@ -321,14 +319,11 @@ ul#grouplist li {
 /* buttons */
 .btn, #grouplist span {
     -webkit-appearance: none;
-    appearance: none;
     display: inline-block;
     color: #333;
     border: 1px solid #ccc;
     background: #efefef;
-    padding: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 5px 15px;
     font-size: 90%;
     cursor: pointer;
     border-radius: 2px;
@@ -541,8 +536,7 @@ nav .active a {
 .items h2 {
     font-size: 100%;
     margin: 0;
-    padding: 0;
-    padding-bottom: 2px;
+    padding: 0 0 2px;
     font-weight: bold;
 }
 
@@ -821,7 +815,7 @@ iframe {
     width: 300px;
     overflow: auto;
     background: #f0f0f0;
-    box-shadow: 2px 0px 5px 0 #ccc;
+    box-shadow: 2px 0 5px 0 #ccc;
 }
 
 #help-layer .panel {
@@ -845,8 +839,7 @@ iframe {
 
 #login {
     width: 350px;
-    margin: 0 auto;
-    margin-top: 15%;
+    margin: 15% auto 0;
 }
 
 #login form {
@@ -855,8 +848,7 @@ iframe {
 }
 
 #database-selector h4 {
-    margin: 0;
-    margin-bottom: 10px;
+    margin: 0 0 10px;
     padding: 0;
     font-weight: normal;
 }
