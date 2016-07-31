@@ -4,6 +4,7 @@
 common.php export-subst
 
 # git files
+.dockerignore export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
 .gitkeep export-ignore
