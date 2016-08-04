@@ -40,25 +40,50 @@ Miniflux.Item = (function() {
         return item.getAttribute("data-item-id");
     }
 
-    function changeLabel(link)
+    function changeLabel(links)
     {
-        if (link && link.hasAttribute("data-reverse-title") && link.hasAttribute("title")) {
-            var title = link.getAttribute("title");
-            link.setAttribute("title", link.getAttribute("data-reverse-title"));
-            link.setAttribute("data-reverse-title", title);
+        if (links.length === 0) {
+            return;
+        }
+
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
+
+            if (link.hasAttribute("data-reverse-label")) {
+                var content = link.innerHTML;
+                link.innerHTML = link.getAttribute("data-reverse-label");
+                link.setAttribute("data-reverse-label", content);
+            }
+
+            if (link.hasAttribute("data-reverse-title")) {
+                var title = link.getAttribute("title");
+                link.setAttribute("title", link.getAttribute("data-reverse-title"));
+                link.setAttribute("data-reverse-title", title);
+            }
+        }
+    }
+
+    function changeAction(links, action)
+    {
+        if (links.length === 0) {
+            return;
+        }
+
+        for (var i = 0; i < links.length; i++) {
+            links[i].setAttribute("data-action", action);
         }
     }
 
     function changeBookmarkLabel(item)
     {
-        var link = item.querySelector(".bookmark-icon");
-        changeLabel(link);
+        var links = item.querySelectorAll(".bookmark-icon, a.bookmark");
+        changeLabel(links);
     }
 
     function changeStatusLabel(item)
     {
-        var link = item.querySelector(".read-icon");
-        changeLabel(link);
+        var links = item.querySelectorAll(".read-icon, a.mark");
+        changeLabel(links);
     }
 
     function showItemAsRead(item)
@@ -67,19 +92,18 @@ Miniflux.Item = (function() {
             return;
         }
 
+        nbUnreadItems--;
+
         if (item.getAttribute("data-hide")) {
             hideItem(item);
-        }
-        else {
-            item.setAttribute("data-item-status", "read");
-            changeStatusLabel(item);
-
-            // Change action
-            var link = item.querySelector(".read-icon");
-            if (link) link.setAttribute("data-action", "mark-unread");
+            return;
         }
 
-        nbUnreadItems--;
+        item.setAttribute("data-item-status", "read");
+        changeStatusLabel(item);
+
+        var links = item.querySelectorAll(".read-icon, a.mark");
+        changeAction(links, "mark-unread");
     }
 
     function showItemAsUnread(item)
@@ -88,19 +112,18 @@ Miniflux.Item = (function() {
             return;
         }
 
+        nbUnreadItems++;
+
         if (item.getAttribute("data-hide")) {
             hideItem(item);
-        }
-        else {
-            item.setAttribute("data-item-status", "unread");
-            changeStatusLabel(item);
-
-            // Change action
-            var link = item.querySelector(".read-icon");
-            if (link) link.setAttribute("data-action", "mark-read");
+            return;
         }
 
-        nbUnreadItems++;
+        item.setAttribute("data-item-status", "unread");
+        changeStatusLabel(item);
+
+        var links = item.querySelectorAll(".read-icon, a.mark");
+        changeAction(links, "mark-read");
     }
 
     function hideItem(item)

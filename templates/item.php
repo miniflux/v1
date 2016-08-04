@@ -8,8 +8,18 @@
     >
     <h2 <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
         <span class="item-icons">
-            <?= \Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset, 'source' => '')) ?>
-            <?= \Template\load('status_links', array('item' => $item, 'redirect' => $menu, 'offset' => $offset)) ?>
+            <span
+                class="bookmark-icon"
+                title="<?= ($item['bookmark']) ? t('remove bookmark') : t('bookmark') ?>"
+                data-action="bookmark"
+                data-reverse-title="<?= ($item['bookmark']) ? t('bookmark') : t('remove bookmark') ?>"
+            ></span>
+            <span
+                class="read-icon"
+                title="<?= ($item['status'] === 'unread') ? t('mark as read') : t('mark as unread') ?>"
+                data-action="<?= ($item['status'] === 'unread') ? 'mark-read' : 'mark-unread' ?>"
+                data-reverse-title="<?= ($item['status'] === 'unread') ? t('mark as unread') : t('mark as read') ?>"
+            ></span>
         </span>
         <span class="item-title">
         <?= Helper\favicon($favicons, $item['feed_id']) ?>
@@ -71,13 +81,8 @@
             <?php endif ?>
             </li>
         <?php endif ?>
-        <li class="hide-mobile">
-            <a
-                href="?action=mark-item-removed&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;redirect=<?= $menu ?>&amp;feed_id=<?= $item['feed_id'] ?>"
-                data-action="mark-removed"
-                class="delete"
-            ><?= t('remove') ?></a>
-        </li>
+        <?= \Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset)) ?>
+        <?= \Template\load('status_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset)) ?>
     </ul>
     <?php if ($display_mode === 'full'): ?>
         <div class="preview-full-content" <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>><?= $item['content'] ?></div>

@@ -1,15 +1,17 @@
+<li class="hide-mobile">
 <?php if ($item['bookmark']): ?>
-    <span
-        class="bookmark-icon"
+    <a
+        class="bookmark"
+        href="?action=bookmark&amp;value=0&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;menu=<?= $menu ?>&amp;feed_id=<?= $item['feed_id'] ?>"
         data-action="bookmark"
-        data-reverse-title="<?= t('bookmark') ?>"
-        title="<?= t('remove bookmark') ?>"
-    ></span>
+        data-reverse-label="<?= t('bookmark') ?>"
+    ><?= t('remove bookmark') ?></a>
 <?php else: ?>
-    <span
-        class="bookmark-icon"
+    <a
+        class="bookmark"
+        href="?action=bookmark&amp;value=1&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;menu=<?= $menu ?>&amp;feed_id=<?= $item['feed_id'] ?>"
         data-action="bookmark"
-        data-reverse-title="<?= t('remove bookmark') ?>"
-        title="<?= t('bookmark') ?>"
-    ></span>
+        data-reverse-label="<?= t('remove bookmark') ?>"
+    ><?= t('bookmark') ?></a>
 <?php endif ?>
+</li>
