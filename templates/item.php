@@ -8,18 +8,20 @@
     >
     <h2 <?= Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
         <span class="item-icons">
-            <span
+            <a
                 class="bookmark-icon"
+                href="?action=bookmark&amp;value=<?= (int)!$item['bookmark'] ?>&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;menu=<?= $menu ?>&amp;feed_id=<?= $item['feed_id'] ?>"
                 title="<?= ($item['bookmark']) ? t('remove bookmark') : t('bookmark') ?>"
                 data-action="bookmark"
                 data-reverse-title="<?= ($item['bookmark']) ? t('bookmark') : t('remove bookmark') ?>"
-            ></span>
-            <span
+            ></a>
+            <a
                 class="read-icon"
+                href="?action=<?= ($item['status'] === 'unread') ? 'mark-item-read' : 'mark-item-unread' ?>&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;redirect=<?= $menu ?>&amp;feed_id=<?= $item['feed_id'] ?>"
                 title="<?= ($item['status'] === 'unread') ? t('mark as read') : t('mark as unread') ?>"
                 data-action="<?= ($item['status'] === 'unread') ? 'mark-read' : 'mark-unread' ?>"
                 data-reverse-title="<?= ($item['status'] === 'unread') ? t('mark as unread') : t('mark as read') ?>"
-            ></span>
+            ></a>
         </span>
         <span class="item-title">
         <?= Helper\favicon($favicons, $item['feed_id']) ?>

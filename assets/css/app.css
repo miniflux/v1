@@ -362,9 +362,9 @@ a.btn-red:hover,
 /* icons */
 article .read-icon,
 article .bookmark-icon {
-    cursor: pointer;
-    color: #aaa;
-    font-weight: 200;
+    color: #aaa !important;
+    font-weight: 200 !important;
+    text-decoration: none !important;
 }
 
 article[data-item-bookmark="0"] .bookmark-icon:before {
