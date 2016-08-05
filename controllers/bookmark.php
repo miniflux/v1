@@ -18,18 +18,18 @@ Router\post_action('bookmark', function () {
 // Add new bookmark
 Router\get_action('bookmark', function () {
     $id = Request\param('id');
-    $menu = Request\param('menu', 'unread');
-    $source = Request\param('source', 'unread');
+    $menu = Request\param('menu');
+    $redirect = Request\param('redirect', 'unread');
     $offset = Request\int_param('offset', 0);
     $feed_id = Request\int_param('feed_id', 0);
 
     Model\Item\set_bookmark_value($id, Request\int_param('value'));
 
-    if ($source === 'show') {
+    if ($redirect === 'show') {
         Response\redirect('?action=show&menu='.$menu.'&id='.$id);
     }
 
-    Response\redirect('?action='.$menu.'&offset='.$offset.'&feed_id='.$feed_id.'#item-'.$id);
+    Response\redirect('?action='.$redirect.'&offset='.$offset.'&feed_id='.$feed_id.'#item-'.$id);
 });
 
 // Display bookmarks page

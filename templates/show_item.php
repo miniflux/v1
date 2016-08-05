@@ -37,7 +37,7 @@
             <li>
                 <a
                     class="bookmark-icon"
-                    href="?action=bookmark&amp;value=<?= (int)!$item['bookmark'] ?>&amp;id=<?= $item['id'] ?>&amp;source=show&amp;menu=<?= $menu ?>"
+                    href="?action=bookmark&amp;value=<?= (int)!$item['bookmark'] ?>&amp;id=<?= $item['id'] ?>&amp;redirect=show&amp;menu=<?= $menu ?>"
                     title="<?= ($item['bookmark']) ? t('remove bookmark') : t('bookmark') ?>"
                     data-reverse-title="<?= ($item['bookmark']) ? t('bookmark') :t('remove bookmark') ?>"
                     data-action="bookmark"

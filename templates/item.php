@@ -10,7 +10,7 @@
         <span class="item-icons">
             <a
                 class="bookmark-icon"
-                href="?action=bookmark&amp;value=<?= (int)!$item['bookmark'] ?>&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;menu=<?= $menu ?>&amp;feed_id=<?= $item['feed_id'] ?>"
+                href="?action=bookmark&amp;value=<?= (int)!$item['bookmark'] ?>&amp;id=<?= $item['id'] ?>&amp;offset=<?= $offset ?>&amp;redirect=<?= $menu ?>&amp;feed_id=<?= $item['feed_id'] ?>"
                 title="<?= ($item['bookmark']) ? t('remove bookmark') : t('bookmark') ?>"
                 data-action="bookmark"
                 data-reverse-title="<?= ($item['bookmark']) ? t('bookmark') : t('remove bookmark') ?>"
