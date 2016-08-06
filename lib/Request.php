@@ -53,28 +53,6 @@ function file_content($field)
 }
 
 
-function file_info($field)
-{
-    if (isset($_FILES[$field])) {
-        return array(
-            'name' => $_FILES[$field]['name'],
-            'mimetype' => $_FILES[$field]['type'],
-            'size' => $_FILES[$field]['size'],
-        );
-    }
-
-    return false;
-}
-
-
-function file_move($field, $destination)
-{
-    if (isset($_FILES[$field]) && ! file_exists($destination)) {
-        @mkdir(dirname($destination), 0777, true);
-        move_uploaded_file($_FILES[$field]['tmp_name'], $destination);
-    }
-}
-
 
 function uri()
 {
@@ -85,10 +63,4 @@ function uri()
 function is_post()
 {
     return $_SERVER['REQUEST_METHOD'] === 'POST';
-}
-
-
-function is_get()
-{
-    return $_SERVER['REQUEST_METHOD'] === 'GET';
 }

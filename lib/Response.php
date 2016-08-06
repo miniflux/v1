@@ -8,12 +8,6 @@ function force_download($filename)
 }
 
 
-function content_type($mimetype)
-{
-    header('Content-Type: '.$mimetype);
-}
-
-
 function status($status_code)
 {
     $sapi_name = php_sapi_name();
@@ -71,17 +65,6 @@ function xml($data, $status_code = 200)
     status($status_code);
 
     header('Content-Type: text/xml; charset=utf-8');
-    echo $data;
-
-    exit;
-}
-
-
-function js($data, $status_code = 200)
-{
-    status($status_code);
-
-    header('Content-Type: text/javascript; charset=utf-8');
     echo $data;
 
     exit;
