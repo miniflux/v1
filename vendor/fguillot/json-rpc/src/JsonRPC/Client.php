@@ -155,15 +155,17 @@ class Client
      * Execute a procedure
      *
      * @access public
-     * @param  string   $procedure   Procedure name
-     * @param  array    $params      Procedure arguments
+     * @param  string $procedure Procedure name
+     * @param  array  $params    Procedure arguments
+     * @param  array  $reqattrs
      * @return mixed
      */
-    public function execute($procedure, array $params = array())
+    public function execute($procedure, array $params = array(), array $reqattrs = array())
     {
         $payload = RequestBuilder::create()
             ->withProcedure($procedure)
             ->withParams($params)
+            ->withRequestAttributes($reqattrs)
             ->build();
 
         if ($this->isBatch) {
@@ -184,18 +186,9 @@ class Client
      */
     private function sendPayload($payload)
     {
-        try {
-
-            return ResponseParser::create()
-                ->withPayload($this->httpClient->execute($payload))
-                ->parse();
-
-        } catch (Exception $e) {
-            if ($this->returnException) {
-                return $e;
-            }
-
-            throw $e;
-        }
+        return ResponseParser::create()
+            ->withReturnException($this->returnException)
+            ->withPayload($this->httpClient->execute($payload))
+            ->parse();
     }
 }

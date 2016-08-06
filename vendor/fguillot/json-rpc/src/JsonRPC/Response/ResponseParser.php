@@ -4,6 +4,7 @@ namespace JsonRPC\Response;
 
 use BadFunctionCallException;
 use InvalidArgumentException;
+use Exception;
 use JsonRPC\Exception\InvalidJsonFormatException;
 use JsonRPC\Exception\InvalidJsonRpcFormatException;
 use JsonRPC\Exception\ResponseException;
@@ -26,6 +27,13 @@ class ResponseParser
     private $payload;
 
     /**
+     * Do not immediately throw an exception on error. Return it instead.
+     *
+     * @var bool
+     */
+    private $returnException = false;
+
+    /**
      * Get new object instance
      *
      * @static
@@ -35,6 +43,18 @@ class ResponseParser
     public static function create()
     {
         return new static();
+    }
+
+    /**
+     * Set Return Exception Or Throw It
+     *
+     * @param $returnException
+     * @return ResponseParser
+     */
+    public function withReturnException($returnException)
+    {
+        $this->returnException = $returnException;
+        return $this;
     }
 
     /**
@@ -53,11 +73,13 @@ class ResponseParser
     /**
      * Parse response
      *
-     * @access public
+     * @return array|Exception|null
      * @throws InvalidJsonFormatException
+     * @throws BadFunctionCallException
      * @throws InvalidJsonRpcFormatException
+     * @throws InvalidArgumentException
+     * @throws Exception
      * @throws ResponseException
-     * @return mixed
      */
     public function parse()
     {
@@ -68,6 +90,7 @@ class ResponseParser
 
             foreach ($this->payload as $response) {
                 $results[] = self::create()
+                    ->withReturnException($this->returnException)
                     ->withPayload($response)
                     ->parse();
             }
@@ -76,7 +99,14 @@ class ResponseParser
         }
 
         if (isset($this->payload['error']['code'])) {
-            $this->handleExceptions();
+            try {
+                $this->handleExceptions();
+            } catch (Exception $e) {
+                if ($this->returnException) {
+                    return $e;
+                }
+                throw $e;
+            }
         }
 
         return isset($this->payload['result']) ? $this->payload['result'] : null;

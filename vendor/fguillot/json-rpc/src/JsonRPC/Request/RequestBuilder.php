@@ -35,6 +35,14 @@ class RequestBuilder
     private $params = array();
 
     /**
+     * Additional request attributes
+     *
+     * @access private
+     * @var array
+     */
+    private $reqattrs = array();
+
+    /**
      * Get new object instance
      *
      * @static
@@ -86,6 +94,19 @@ class RequestBuilder
     }
 
     /**
+     * Set additional request attributes
+     *
+     * @access public
+     * @param  array $reqattrs
+     * @return RequestBuilder
+     */
+    public function withRequestAttributes(array $reqattrs)
+    {
+        $this->reqattrs = $reqattrs;
+        return $this;
+    }
+
+    /**
      * Build the payload
      *
      * @access public
@@ -93,11 +114,11 @@ class RequestBuilder
      */
     public function build()
     {
-        $payload = array(
+        $payload = array_merge_recursive($this->reqattrs, array(
             'jsonrpc' => '2.0',
             'method' => $this->procedure,
             'id' => $this->id ?: mt_rand(),
-        );
+        ));
 
         if (! empty($this->params)) {
             $payload['params'] = $this->params;

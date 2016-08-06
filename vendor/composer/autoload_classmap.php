@@ -16,6 +16,8 @@ return array(
     'JsonRPC\\Exception\\ResponseException' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Exception/ResponseException.php',
     'JsonRPC\\Exception\\ServerErrorException' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Exception/ServerErrorException.php',
     'JsonRPC\\HttpClient' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/HttpClient.php',
+    'JsonRPC\\MiddlewareHandler' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/MiddlewareHandler.php',
+    'JsonRPC\\MiddlewareInterface' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/MiddlewareInterface.php',
     'JsonRPC\\ProcedureHandler' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/ProcedureHandler.php',
     'JsonRPC\\Request\\BatchRequestParser' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Request/BatchRequestParser.php',
     'JsonRPC\\Request\\RequestBuilder' => $vendorDir . '/fguillot/json-rpc/src/JsonRPC/Request/RequestBuilder.php',

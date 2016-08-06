@@ -24,6 +24,8 @@ class BatchRequestParser extends RequestParser
             $responses[] = RequestParser::create()
                 ->withPayload($payload)
                 ->withProcedureHandler($this->procedureHandler)
+                ->withMiddlewareHandler($this->middlewareHandler)
+                ->withLocalException($this->localExceptions)
                 ->parse();
         }
 
@@ -34,6 +36,13 @@ class BatchRequestParser extends RequestParser
     /**
      * Return true if we have a batch request
      *
+     * ex : [
+     *   0 => '...',
+     *   1 => '...',
+     *   2 => '...',
+     *   3 => '...',
+     * ]
+     *
      * @static
      * @access public
      * @param  array $payload
@@ -41,6 +50,6 @@ class BatchRequestParser extends RequestParser
      */
     public static function isBatchRequest(array $payload)
     {
-        return is_array($payload) && array_keys($payload) === range(0, count($payload) - 1);
+        return array_keys($payload) === range(0, count($payload) - 1);
     }
 }

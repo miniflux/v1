@@ -88,6 +88,8 @@ class ComposerStaticInitfd7e8d436e1dc450edc3153ac8bc31b4
         'JsonRPC\\Exception\\ResponseException' => __DIR__ . '/..' . '/fguillot/json-rpc/src/JsonRPC/Exception/ResponseException.php',
         'JsonRPC\\Exception\\ServerErrorException' => __DIR__ . '/..' . '/fguillot/json-rpc/src/JsonRPC/Exception/ServerErrorException.php',
         'JsonRPC\\HttpClient' => __DIR__ . '/..' . '/fguillot/json-rpc/src/JsonRPC/HttpClient.php',
+        'JsonRPC\\MiddlewareHandler' => __DIR__ . '/..' . '/fguillot/json-rpc/src/JsonRPC/MiddlewareHandler.php',
+        'JsonRPC\\MiddlewareInterface' => __DIR__ . '/..' . '/fguillot/json-rpc/src/JsonRPC/MiddlewareInterface.php',
         'JsonRPC\\ProcedureHandler' => __DIR__ . '/..' . '/fguillot/json-rpc/src/JsonRPC/ProcedureHandler.php',
         'JsonRPC\\Request\\BatchRequestParser' => __DIR__ . '/..' . '/fguillot/json-rpc/src/JsonRPC/Request/BatchRequestParser.php',
         'JsonRPC\\Request\\RequestBuilder' => __DIR__ . '/..' . '/fguillot/json-rpc/src/JsonRPC/Request/RequestBuilder.php',

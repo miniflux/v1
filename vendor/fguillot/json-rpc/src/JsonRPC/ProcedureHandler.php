@@ -19,76 +19,34 @@ class ProcedureHandler
     /**
      * List of procedures
      *
-     * @access private
+     * @access protected
      * @var array
      */
-    private $callbacks = array();
+    protected $callbacks = array();
 
     /**
      * List of classes
      *
-     * @access private
+     * @access protected
      * @var array
      */
-    private $classes = array();
+    protected $classes = array();
 
     /**
      * List of instances
      *
-     * @access private
+     * @access protected
      * @var array
      */
-    private $instances = array();
+    protected $instances = array();
 
     /**
-     * Method name to execute before the procedure
+     * Before method name to call
      *
-     * @access private
+     * @access protected
      * @var string
      */
-    private $before = '';
-
-    /**
-     * Username
-     *
-     * @access private
-     * @var string
-     */
-    private $username;
-
-    /**
-     * Password
-     *
-     * @access private
-     * @var string
-     */
-    private $password;
-
-    /**
-     * Set username
-     *
-     * @access public
-     * @param  string $username
-     * @return $this
-     */
-    public function withUsername($username)
-    {
-        $this->username = $username;
-        return $this;
-    }
-
-    /**
-     * Set password
-     *
-     * @access public
-     * @param  string $password
-     * @return $this
-     */
-    public function withPassword($password)
-    {
-        $this->password = $password;
-        return $this;
-    }
+    protected $beforeMethodName = '';
 
     /**
      * Register a new procedure
@@ -96,7 +54,7 @@ class ProcedureHandler
      * @access public
      * @param  string   $procedure       Procedure name
      * @param  closure  $callback        Callback
-     * @return Server
+     * @return $this
      */
     public function withCallback($procedure, Closure $callback)
     {
@@ -111,7 +69,7 @@ class ProcedureHandler
      * @param  string   $procedure    Procedure name
      * @param  mixed    $class        Class name or instance
      * @param  string   $method       Procedure name
-     * @return Server
+     * @return $this
      */
     public function withClassAndMethod($procedure, $class, $method = '')
     {
@@ -128,7 +86,7 @@ class ProcedureHandler
      *
      * @access public
      * @param  mixed   $instance
-     * @return Server
+     * @return $this
      */
     public function withObject($instance)
     {
@@ -137,15 +95,15 @@ class ProcedureHandler
     }
 
     /**
-     * Attach a method that will be called before the procedure
+     * Set a before method to call
      *
      * @access public
-     * @param  string  $before
-     * @return Server
+     * @param  string $methodName
+     * @return $this
      */
-    public function withBeforeMethod($before)
+    public function withBeforeMethod($methodName)
     {
-        $this->before = $before;
+        $this->beforeMethodName = $methodName;
         return $this;
     }
 
@@ -161,8 +119,7 @@ class ProcedureHandler
     {
         if (isset($this->callbacks[$procedure])) {
             return $this->executeCallback($this->callbacks[$procedure], $params);
-        }
-        else if (isset($this->classes[$procedure]) && method_exists($this->classes[$procedure][0], $this->classes[$procedure][1])) {
+        } elseif (isset($this->classes[$procedure]) && method_exists($this->classes[$procedure][0], $this->classes[$procedure][1])) {
             return $this->executeMethod($this->classes[$procedure][0], $this->classes[$procedure][1], $params);
         }
 
@@ -209,18 +166,9 @@ class ProcedureHandler
     public function executeMethod($class, $method, $params)
     {
         $instance = is_string($class) ? new $class : $class;
-
-        // Execute before action
-        if (! empty($this->before)) {
-            if (is_callable($this->before)) {
-                call_user_func_array($this->before, array($this->username, $this->password, get_class($class), $method));
-            }
-            else if (method_exists($instance, $this->before)) {
-                $instance->{$this->before}($this->username, $this->password, get_class($class), $method);
-            }
-        }
-
         $reflection = new ReflectionMethod($class, $method);
+
+        $this->executeBeforeMethod($instance, $method);
 
         $arguments = $this->getArguments(
             $params,
@@ -233,32 +181,46 @@ class ProcedureHandler
     }
 
     /**
+     * Execute before method if defined
+     *
+     * @access public
+     * @param  mixed  $object
+     * @param  string $method
+     */
+    public function executeBeforeMethod($object, $method)
+    {
+        if ($this->beforeMethodName !== '' && method_exists($object, $this->beforeMethodName)) {
+            call_user_func_array(array($object, $this->beforeMethodName), array($method));
+        }
+    }
+
+    /**
      * Get procedure arguments
      *
      * @access public
-     * @param  array    $request_params       Incoming arguments
-     * @param  array    $method_params        Procedure arguments
-     * @param  integer  $nb_required_params   Number of required parameters
-     * @param  integer  $nb_max_params        Maximum number of parameters
+     * @param  array   $requestParams    Incoming arguments
+     * @param  array   $methodParams     Procedure arguments
+     * @param  integer $nbRequiredParams Number of required parameters
+     * @param  integer $nbMaxParams      Maximum number of parameters
      * @return array
      */
-    public function getArguments(array $request_params, array $method_params, $nb_required_params, $nb_max_params)
+    public function getArguments(array $requestParams, array $methodParams, $nbRequiredParams, $nbMaxParams)
     {
-        $nb_params = count($request_params);
+        $nbParams = count($requestParams);
 
-        if ($nb_params < $nb_required_params) {
+        if ($nbParams < $nbRequiredParams) {
             throw new InvalidArgumentException('Wrong number of arguments');
         }
 
-        if ($nb_params > $nb_max_params) {
+        if ($nbParams > $nbMaxParams) {
             throw new InvalidArgumentException('Too many arguments');
         }
 
-        if ($this->isPositionalArguments($request_params)) {
-            return $request_params;
+        if ($this->isPositionalArguments($requestParams)) {
+            return $requestParams;
         }
 
-        return $this->getNamedArguments($request_params, $method_params);
+        return $this->getNamedArguments($requestParams, $methodParams);
     }
 
     /**
@@ -277,24 +239,22 @@ class ProcedureHandler
      * Get named arguments
      *
      * @access public
-     * @param  array    $request_params      Incoming arguments
-     * @param  array    $method_params       Procedure arguments
+     * @param  array $requestParams Incoming arguments
+     * @param  array $methodParams  Procedure arguments
      * @return array
      */
-    public function getNamedArguments(array $request_params, array $method_params)
+    public function getNamedArguments(array $requestParams, array $methodParams)
     {
         $params = array();
 
-        foreach ($method_params as $p) {
+        foreach ($methodParams as $p) {
             $name = $p->getName();
 
-            if (isset($request_params[$name])) {
-                $params[$name] = $request_params[$name];
-            }
-            else if ($p->isDefaultValueAvailable()) {
+            if (isset($requestParams[$name])) {
+                $params[$name] = $requestParams[$name];
+            } elseif ($p->isDefaultValueAvailable()) {
                 $params[$name] = $p->getDefaultValue();
-            }
-            else {
+            } else {
                 throw new InvalidArgumentException('Missing argument: '.$name);
             }
         }

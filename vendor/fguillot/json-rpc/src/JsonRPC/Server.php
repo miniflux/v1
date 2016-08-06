@@ -22,76 +22,121 @@ class Server
     /**
      * Allowed hosts
      *
-     * @access private
+     * @access protected
      * @var array
      */
-    private $hosts = array();
+    protected $hosts = array();
 
     /**
      * Data received from the client
      *
-     * @access private
+     * @access protected
      * @var array
      */
-    private $payload = array();
+    protected $payload = array();
 
     /**
-     * List of exception classes that should be relayed to client
+     * List of exceptions that should not be relayed to the client
      *
-     * @access private
-     * @var array
+     * @access protected
+     * @var array()
      */
-    private $exceptions = array();
+    protected $localExceptions = array();
 
     /**
      * Username
      *
-     * @access private
+     * @access protected
      * @var string
      */
-    private $username = '';
+    protected $username = '';
 
     /**
      * Password
      *
-     * @access private
+     * @access protected
      * @var string
      */
-    private $password = '';
+    protected $password = '';
 
     /**
      * Allowed users
      *
-     * @access private
+     * @access protected
      * @var array
      */
-    private $users = array();
+    protected $users = array();
 
     /**
      * $_SERVER
      *
-     * @access private
+     * @access protected
      * @var array
      */
-    private $serverVariable;
+    protected $serverVariable;
 
     /**
      * ProcedureHandler object
      *
-     * @access private
+     * @access protected
      * @var ProcedureHandler
      */
-    private $procedureHandler;
+    protected $procedureHandler;
+
+    /**
+     * MiddlewareHandler object
+     *
+     * @access protected
+     * @var MiddlewareHandler
+     */
+    protected $middlewareHandler;
+
+    /**
+     * Response builder
+     *
+     * @access protected
+     * @var ResponseBuilder
+     */
+    protected $responseBuilder;
+
+    /**
+     * Response builder
+     *
+     * @access protected
+     * @var RequestParser
+     */
+    protected $requestParser;
+
+    /**
+     *
+     * Batch request parser
+     *
+     * @access protected
+     * @var BatchRequestParser
+     */
+    protected $batchRequestParser;
 
     /**
      * Constructor
      *
      * @access public
-     * @param  string $request
-     * @param array   $server
+     * @param  string              $request
+     * @param  array               $server
+     * @param  ResponseBuilder     $responseBuilder
+     * @param  RequestParser       $requestParser
+     * @param  BatchRequestParser  $batchRequestParser
+     * @param  ProcedureHandler    $procedureHandler
+     * @param  MiddlewareHandler   $middlewareHandler
      */
-    public function __construct($request = '', array $server = array())
-    {
+    public function __construct(
+        $request = '',
+        array $server = array(),
+        ResponseBuilder $responseBuilder = null,
+        RequestParser $requestParser = null,
+        BatchRequestParser $batchRequestParser = null,
+        ProcedureHandler $procedureHandler = null,
+        MiddlewareHandler $middlewareHandler = null
+    ) {
         if ($request !== '') {
             $this->payload = json_decode($request, true);
         } else {
@@ -99,7 +144,11 @@ class Server
         }
 
         $this->serverVariable = $server ?: $_SERVER;
-        $this->procedureHandler = new ProcedureHandler();
+        $this->responseBuilder = $responseBuilder ?: ResponseBuilder::create();
+        $this->requestParser = $requestParser ?: RequestParser::create();
+        $this->batchRequestParser = $batchRequestParser ?: BatchRequestParser::create();
+        $this->procedureHandler = $procedureHandler ?: new ProcedureHandler();
+        $this->middlewareHandler = $middlewareHandler ?: new MiddlewareHandler();
     }
 
     /**
@@ -107,7 +156,7 @@ class Server
      *
      * @access public
      * @param  string   $header   Header name
-     * @return Server
+     * @return $this
      */
     public function setAuthenticationHeader($header)
     {
@@ -132,6 +181,17 @@ class Server
     public function getProcedureHandler()
     {
         return $this->procedureHandler;
+    }
+
+    /**
+     * Get MiddlewareHandler
+     *
+     * @access public
+     * @return MiddlewareHandler
+     */
+    public function getMiddlewareHandler()
+    {
+        return $this->middlewareHandler;
     }
 
     /**
@@ -161,7 +221,7 @@ class Server
      *
      * @access public
      * @param  array   $hosts   List of hosts
-     * @return Server
+     * @return $this
      */
     public function allowHosts(array $hosts)
     {
@@ -174,7 +234,7 @@ class Server
      *
      * @access public
      * @param  array   $users   Dictionary of username/password
-     * @return Server
+     * @return $this
      */
     public function authentication(array $users)
     {
@@ -186,9 +246,10 @@ class Server
      * Register a new procedure
      *
      * @access public
+     * @deprecated Use $server->getProcedureHandler()->withCallback($procedure, $callback)
      * @param  string   $procedure       Procedure name
      * @param  closure  $callback        Callback
-     * @return Server
+     * @return $this
      */
     public function register($procedure, Closure $callback)
     {
@@ -200,10 +261,11 @@ class Server
      * Bind a procedure to a class
      *
      * @access public
+     * @deprecated Use $server->getProcedureHandler()->withClassAndMethod($procedure, $class, $method);
      * @param  string   $procedure    Procedure name
      * @param  mixed    $class        Class name or instance
      * @param  string   $method       Procedure name
-     * @return Server
+     * @return $this
      */
     public function bind($procedure, $class, $method = '')
     {
@@ -215,8 +277,9 @@ class Server
      * Bind a class instance
      *
      * @access public
+     * @deprecated Use $server->getProcedureHandler()->withObject($instance);
      * @param  mixed   $instance    Instance name
-     * @return Server
+     * @return $this
      */
     public function attach($instance)
     {
@@ -225,29 +288,15 @@ class Server
     }
 
     /**
-     * Bind an exception
-     * If this exception occurs it is relayed to the client as JSON-RPC error
+     * Exception classes that should not be relayed to the client
      *
      * @access public
-     * @param  mixed   $exception    Exception class. Defaults to all.
-     * @return Server
+     * @param  Exception|string $exception
+     * @return $this
      */
-    public function attachException($exception = 'Exception')
+    public function withLocalException($exception)
     {
-        $this->exceptions[] = $exception;
-        return $this;
-    }
-
-    /**
-     * Attach a method that will be called before the procedure
-     *
-     * @access public
-     * @param  string  $before
-     * @return Server
-     */
-    public function before($before)
-    {
-        $this->procedureHandler->withBeforeMethod($before);
+        $this->localExceptions[] = $exception;
         return $this;
     }
 
@@ -259,56 +308,78 @@ class Server
      */
     public function execute()
     {
-        $responseBuilder = ResponseBuilder::create();
-
         try {
-            $this->procedureHandler
-                ->withUsername($this->getUsername())
-                ->withPassword($this->getPassword());
-
             JsonFormatValidator::validate($this->payload);
             HostValidator::validate($this->hosts, $this->getServerVariable('REMOTE_ADDR'));
             UserValidator::validate($this->users, $this->getUsername(), $this->getPassword());
 
+            $this->middlewareHandler
+                ->withUsername($this->getUsername())
+                ->withPassword($this->getPassword())
+            ;
+
             $response = $this->parseRequest();
 
         } catch (Exception $e) {
-            $response = $responseBuilder->withException($e)->build();
+            $response = $this->handleExceptions($e);
         }
 
-        $responseBuilder->sendHeaders();
+        $this->responseBuilder->sendHeaders();
         return $response;
+    }
+
+    /**
+     * Handle exceptions
+     * 
+     * @access protected
+     * @param  Exception $e
+     * @return string
+     * @throws Exception
+     */
+    protected function handleExceptions(Exception $e)
+    {
+        foreach ($this->localExceptions as $exception) {
+            if ($e instanceof $exception) {
+                throw $e;
+            }
+        }
+
+        return $this->responseBuilder->withException($e)->build();
     }
 
     /**
      * Parse incoming request
      *
-     * @access private
+     * @access protected
      * @return string
      */
-    private function parseRequest()
+    protected function parseRequest()
     {
         if (BatchRequestParser::isBatchRequest($this->payload)) {
-            return BatchRequestParser::create()
+            return $this->batchRequestParser
                 ->withPayload($this->payload)
                 ->withProcedureHandler($this->procedureHandler)
+                ->withMiddlewareHandler($this->middlewareHandler)
+                ->withLocalException($this->localExceptions)
                 ->parse();
         }
 
-        return RequestParser::create()
+        return $this->requestParser
             ->withPayload($this->payload)
             ->withProcedureHandler($this->procedureHandler)
+            ->withMiddlewareHandler($this->middlewareHandler)
+            ->withLocalException($this->localExceptions)
             ->parse();
     }
 
     /**
      * Check existence and get value of server variable
      *
-     * @access private
+     * @access protected
      * @param  string $variable
      * @return string|null
      */
-    private function getServerVariable($variable)
+    protected function getServerVariable($variable)
     {
         return isset($this->serverVariable[$variable]) ? $this->serverVariable[$variable] : null;
     }
