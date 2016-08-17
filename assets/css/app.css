@@ -365,6 +365,8 @@ article .bookmark-icon {
     color: #aaa !important;
     font-weight: 200 !important;
     text-decoration: none !important;
+    font-size: 1.7em;
+    margin-left: 15px;
 }
 
 article[data-item-bookmark="0"] .bookmark-icon:before {
@@ -568,6 +570,16 @@ nav .active a {
     font-weight: bold;
 }
 
+.item-title {
+    display: block;
+    margin-right: 80px;
+}
+
+.item-icons {
+    display: block;
+    float: right;
+}
+
 .items a {
     text-decoration: none;
 }
@@ -765,6 +777,11 @@ ul.item-infos {
     margin-bottom: 20px;
 }
 
+ul.item-infos .bookmark-icon {
+    font-size: 1.5em;
+    margin-left: 0;
+}
+
 #download-item {
     color: #000;
 }
@@ -941,12 +958,6 @@ html[dir="rtl"] span.items-count:before {
         display: none;
     }
 
-    .items h2 {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-
     .search {
         margin-top: -30px;
     }
@@ -990,11 +1001,6 @@ html[dir="rtl"] span.items-count:before {
         font-size: 0.75em;
     }
 
-    .item-infos {
-        font-size: 0.9em;
-        margin-bottom: 5px;
-    }
-
     .item nav a {
         font-weight: bold;
         text-decoration: none;
@@ -1018,24 +1024,5 @@ html[dir="rtl"] span.items-count:before {
     #search-form input {
         box-sizing: border-box;
         width: 100%;
-    }
-
-    .item-icons {
-        display: block;
-        float: right;
-    }
-
-    .item-title {
-        display: block;
-    }
-
-    .item-icons .read-icon,
-    .item-icons .bookmark-icon {
-        font-size: 1.7em;
-        margin-left: 15px;
-    }
-
-    .item-infos .bookmark-icon {
-        font-size: 2.0em;
     }
 }
