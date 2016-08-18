@@ -369,37 +369,3 @@ function get_user_agent()
 {
     return empty($_SERVER['HTTP_USER_AGENT']) ? t('Unknown') : $_SERVER['HTTP_USER_AGENT'];
 }
-
-// Get the real IP address of the connected user
-function get_ip_address($only_public = false)
-{
-    $keys = array(
-        'HTTP_CLIENT_IP',
-        'HTTP_X_FORWARDED_FOR',
-        'HTTP_X_FORWARDED',
-        'HTTP_X_CLUSTER_CLIENT_IP',
-        'HTTP_FORWARDED_FOR',
-        'HTTP_FORWARDED',
-        'REMOTE_ADDR'
-    );
-
-    foreach ($keys as $key) {
-        if (isset($_SERVER[$key])) {
-            foreach (explode(',', $_SERVER[$key]) as $ip_address) {
-                $ip_address = trim($ip_address);
-
-                if ($only_public) {
-
-                    // Return only public IP address
-                    if (filter_var($ip_address, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
-                        return $ip_address;
-                    }
-                } else {
-                    return $ip_address;
-                }
-            }
-        }
-    }
-
-    return t('Unknown');
-}

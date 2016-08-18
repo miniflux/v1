@@ -1,0 +1,10 @@
+<phpunit stopOnError="true" stopOnFailure="true" colors="true">
+    <testsuites>
+        <testsuite name="Miniflux Unit Tests">
+            <directory>unit</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <const name="DB_FILENAME" value=":memory:" />
+    </php>
+</phpunit>

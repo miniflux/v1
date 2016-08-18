@@ -1,4 +1,4 @@
-<phpunit bootstrap="tests/integration/minifluxTestCase.php" >
+<phpunit bootstrap="tests/integration/minifluxTestCase.php" colors="true">
     <php>
         <const name="DB_FILENAME" value="unittest.sqlite" />
         <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BASEURL" value="http://localhost/miniflux/" />
@@ -28,14 +28,13 @@
     <listeners>
         <listener class="PHPUnit_Extensions_Selenium2TestCase_ScreenshotListener">
             <arguments>
-                <string>./tests/</string>
+                <string>./integration/</string>
             </arguments>
         </listener>
     </listeners>
     <testsuites>
         <testsuite name="Miniflux">
-            <directory>tests/</directory>
+            <directory>integration/</directory>
         </testsuite>
     </testsuites>
-
 </phpunit>
