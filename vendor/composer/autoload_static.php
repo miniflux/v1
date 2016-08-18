@@ -7,8 +7,11 @@ namespace Composer\Autoload;
 class ComposerStaticInitfd7e8d436e1dc450edc3153ac8bc31b4
 {
     public static $files = array (
-        '441b53696b2c1c13da1210b9b5d22213' => __DIR__ . '/../..' . '/lib/helpers.php',
+        'b799c009807ac0660ab624d18f619399' => __DIR__ . '/../..' . '/helpers/app.php',
         '4b6f1c38c1cab2809f0444d3a253f8f7' => __DIR__ . '/../..' . '/helpers/csrf.php',
+        '1ec82876b83b01f4d5d91ab48a9cf9df' => __DIR__ . '/../..' . '/helpers/favicon.php',
+        '3956a461ed00a30b727001d1c861a9b9' => __DIR__ . '/../..' . '/helpers/form.php',
+        'f4ed4710801c5f157356a94c00aae76c' => __DIR__ . '/../..' . '/helpers/template.php',
         '2ba60f191527015eb45c05a71d95b69f' => __DIR__ . '/../..' . '/lib/Translator.php',
         '1d58cdba7ce052ff0ce0219a932c284a' => __DIR__ . '/../..' . '/lib/Request.php',
         '8e1ed5229092ce48fdcef0a911fd739d' => __DIR__ . '/../..' . '/lib/Response.php',

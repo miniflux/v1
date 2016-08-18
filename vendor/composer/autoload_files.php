@@ -6,8 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '441b53696b2c1c13da1210b9b5d22213' => $baseDir . '/lib/helpers.php',
+    'b799c009807ac0660ab624d18f619399' => $baseDir . '/helpers/app.php',
     '4b6f1c38c1cab2809f0444d3a253f8f7' => $baseDir . '/helpers/csrf.php',
+    '1ec82876b83b01f4d5d91ab48a9cf9df' => $baseDir . '/helpers/favicon.php',
+    '3956a461ed00a30b727001d1c861a9b9' => $baseDir . '/helpers/form.php',
+    'f4ed4710801c5f157356a94c00aae76c' => $baseDir . '/helpers/template.php',
     '2ba60f191527015eb45c05a71d95b69f' => $baseDir . '/lib/Translator.php',
     '1d58cdba7ce052ff0ce0219a932c284a' => $baseDir . '/lib/Request.php',
     '8e1ed5229092ce48fdcef0a911fd739d' => $baseDir . '/lib/Response.php',

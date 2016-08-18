@@ -25,8 +25,11 @@
     },
     "autoload": {
         "files": [
-            "lib/helpers.php",
+            "helpers/app.php",
             "helpers/csrf.php",
+            "helpers/favicon.php",
+            "helpers/form.php",
+            "helpers/template.php",
             "lib/Translator.php",
             "lib/Request.php",
             "lib/Response.php",
