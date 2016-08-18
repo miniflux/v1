@@ -3,6 +3,20 @@
 namespace Helper;
 
 
+function generate_token()
+{
+    if (function_exists('random_bytes')) {
+        return bin2hex(random_bytes(30));
+    } elseif (function_exists('openssl_random_pseudo_bytes')) {
+        return bin2hex(openssl_random_pseudo_bytes(30));
+    } elseif (ini_get('open_basedir') === '' && strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
+        return hash('sha256', file_get_contents('/dev/urandom', false, null, 0, 30));
+    }
+
+    return hash('sha256', uniqid(mt_rand(), true));
+}
+
+
 function is_secure_connection()
 {
     return ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';

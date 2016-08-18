@@ -2,6 +2,7 @@
 
 namespace Model\Config;
 
+use Helper;
 use Translator;
 use DirectoryIterator;
 use SimpleValidator\Validator;
@@ -214,7 +215,7 @@ function generate_csrf()
         $_SESSION['csrf'] = array();
     }
 
-    $token = generate_token();
+    $token = Helper\generate_token();
     $_SESSION['csrf'][$token] = true;
 
     return $token;
@@ -242,28 +243,15 @@ function check_csrf($token)
     return false;
 }
 
-// Generate a token from /dev/urandom or with uniqid() if open_basedir is enabled
-function generate_token()
-{
-    if (function_exists('random_bytes')) {
-        return bin2hex(random_bytes(30));
-    } elseif (function_exists('openssl_random_pseudo_bytes')) {
-        return bin2hex(openssl_random_pseudo_bytes(30));
-    } elseif (ini_get('open_basedir') === '' && strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
-        return hash('sha256', file_get_contents('/dev/urandom', false, null, 0, 30));
-    }
-
-    return hash('sha256', uniqid(mt_rand(), true));
-}
 
 // Regenerate tokens for the API and bookmark feed
 function new_tokens()
 {
     $values = array(
-        'api_token' => generate_token(),
-        'feed_token' => generate_token(),
-        'bookmarklet_token' => generate_token(),
-        'fever_token' => substr(generate_token(), 0, 8),
+        'api_token' => Helper\generate_token(),
+        'feed_token' => Helper\generate_token(),
+        'bookmarklet_token' => Helper\generate_token(),
+        'fever_token' => substr(Helper\generate_token(), 0, 8),
     );
 
     return Database::getInstance('db')->hashtable('settings')->put($values);

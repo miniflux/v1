@@ -3,6 +3,7 @@
 namespace Schema;
 
 use PDO;
+use Helper;
 use Model\Config;
 
 const VERSION = 44;
@@ -180,7 +181,7 @@ function version_30(PDO $pdo)
 
 function version_29(PDO $pdo)
 {
-    $pdo->exec('ALTER TABLE config ADD COLUMN fever_token INTEGER DEFAULT "'.substr(Config\generate_token(), 0, 8).'"');
+    $pdo->exec('ALTER TABLE config ADD COLUMN fever_token INTEGER DEFAULT "'.substr(Helper\generate_token(), 0, 8).'"');
 }
 
 function version_28(PDO $pdo)
@@ -195,7 +196,7 @@ function version_27(PDO $pdo)
 
 function version_26(PDO $pdo)
 {
-    $pdo->exec('ALTER TABLE config ADD COLUMN bookmarklet_token TEXT DEFAULT "'.Config\generate_token().'"');
+    $pdo->exec('ALTER TABLE config ADD COLUMN bookmarklet_token TEXT DEFAULT "'.Helper\generate_token().'"');
 }
 
 function version_25(PDO $pdo)
@@ -276,7 +277,7 @@ function version_15(PDO $pdo)
 
 function version_14(PDO $pdo)
 {
-    $pdo->exec('ALTER TABLE config ADD COLUMN feed_token TEXT DEFAULT "'.Config\generate_token().'"');
+    $pdo->exec('ALTER TABLE config ADD COLUMN feed_token TEXT DEFAULT "'.Helper\generate_token().'"');
 }
 
 function version_13(PDO $pdo)
@@ -286,7 +287,7 @@ function version_13(PDO $pdo)
 
 function version_12(PDO $pdo)
 {
-    $pdo->exec('ALTER TABLE config ADD COLUMN api_token TEXT DEFAULT "'.Config\generate_token().'"');
+    $pdo->exec('ALTER TABLE config ADD COLUMN api_token TEXT DEFAULT "'.Helper\generate_token().'"');
 }
 
 function version_11(PDO $pdo)

@@ -2,6 +2,7 @@
 
 namespace Model\RememberMe;
 
+use Helper;
 use PicoDb\Database;
 use Model\Config;
 use Model\Database as DatabaseModel;
@@ -130,8 +131,8 @@ function destroy()
  */
 function create($dbname, $username, $ip, $user_agent)
 {
-    $token = hash('sha256', $dbname.$username.$user_agent.$ip.Config\generate_token());
-    $sequence = Config\generate_token();
+    $token = hash('sha256', $dbname.$username.$user_agent.$ip.Helper\generate_token());
+    $sequence = Helper\generate_token();
     $expiration = time() + EXPIRATION;
 
     cleanup();
@@ -178,7 +179,7 @@ function cleanup()
  */
 function update($token)
 {
-    $new_sequence = Config\generate_token();
+    $new_sequence = Helper\generate_token();
 
     Database::getInstance('db')
          ->table(TABLE)
