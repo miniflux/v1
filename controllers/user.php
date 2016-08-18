@@ -15,7 +15,7 @@ Router\get_action('login', function () {
     Response\html(Template\load('login', array(
         'errors' => array(),
         'values' => array(
-            'csrf' => Model\Config\generate_csrf(),
+            'csrf' => Helper\generate_csrf(),
         ),
         'databases' => Model\Database\get_list(),
         'current_database' => Model\Database\select()
@@ -25,7 +25,7 @@ Router\get_action('login', function () {
 // Check credentials and redirect to unread items
 Router\post_action('login', function () {
     $values = Request\values();
-    Model\Config\check_csrf_values($values);
+    Helper\check_csrf_values($values);
     list($valid, $errors) = Model\User\validate_login($values);
 
     if ($valid) {
@@ -34,7 +34,7 @@ Router\post_action('login', function () {
 
     Response\html(Template\load('login', array(
         'errors' => $errors,
-        'values' => $values + array('csrf' => Model\Config\generate_csrf()),
+        'values' => $values + array('csrf' => Helper\generate_csrf()),
         'databases' => Model\Database\get_list(),
         'current_database' => Model\Database\select()
     )));

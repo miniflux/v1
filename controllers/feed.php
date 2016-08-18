@@ -138,7 +138,7 @@ Router\get_action('add', function () {
     );
 
     Response\html(Template\layout('add', array(
-        'values' => $values + array('csrf' => Model\Config\generate_csrf()),
+        'values' => $values + array('csrf' => Helper\generate_csrf()),
         'errors' => array(),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'groups' => Model\Group\get_all(),
@@ -151,7 +151,7 @@ Router\get_action('add', function () {
 Router\action('subscribe', function () {
     if (Request\is_post()) {
         $values = Request\values();
-        Model\Config\check_csrf_values($values);
+        Helper\check_csrf_values($values);
         $url = isset($values['url']) ? $values['url'] : '';
     } else {
         $values = array();
@@ -215,7 +215,7 @@ Router\action('subscribe', function () {
     }
 
     Response\html(Template\layout('add', array(
-        'values' => $values + array('csrf' => Model\Config\generate_csrf()),
+        'values' => $values + array('csrf' => Helper\generate_csrf()),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'groups' => Model\Group\get_all(),
         'menu' => 'feeds',

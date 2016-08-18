@@ -8,6 +8,7 @@ class ComposerStaticInitfd7e8d436e1dc450edc3153ac8bc31b4
 {
     public static $files = array (
         '441b53696b2c1c13da1210b9b5d22213' => __DIR__ . '/../..' . '/lib/helpers.php',
+        '4b6f1c38c1cab2809f0444d3a253f8f7' => __DIR__ . '/../..' . '/helpers/csrf.php',
         '2ba60f191527015eb45c05a71d95b69f' => __DIR__ . '/../..' . '/lib/Translator.php',
         '1d58cdba7ce052ff0ce0219a932c284a' => __DIR__ . '/../..' . '/lib/Request.php',
         '8e1ed5229092ce48fdcef0a911fd739d' => __DIR__ . '/../..' . '/lib/Response.php',

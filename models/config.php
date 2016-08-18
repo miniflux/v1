@@ -208,41 +208,6 @@ function get_nothing_to_read_redirections()
     );
 }
 
-// Create a CSRF token
-function generate_csrf()
-{
-    if (empty($_SESSION['csrf'])) {
-        $_SESSION['csrf'] = array();
-    }
-
-    $token = Helper\generate_token();
-    $_SESSION['csrf'][$token] = true;
-
-    return $token;
-}
-
-// Check CSRF token (form values)
-function check_csrf_values(array &$values)
-{
-    if (empty($values['csrf']) || ! isset($_SESSION['csrf'][$values['csrf']])) {
-        $values = array();
-    } else {
-        unset($_SESSION['csrf'][$values['csrf']]);
-        unset($values['csrf']);
-    }
-}
-
-// Check CSRF token
-function check_csrf($token)
-{
-    if (isset($_SESSION['csrf'][$token])) {
-        unset($_SESSION['csrf'][$token]);
-        return true;
-    }
-
-    return false;
-}
-
 
 // Regenerate tokens for the API and bookmark feed
 function new_tokens()

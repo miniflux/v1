@@ -26,6 +26,7 @@
     "autoload": {
         "files": [
             "lib/helpers.php",
+            "helpers/csrf.php",
             "lib/Translator.php",
             "lib/Request.php",
             "lib/Response.php",

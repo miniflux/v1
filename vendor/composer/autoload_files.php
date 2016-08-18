@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     '441b53696b2c1c13da1210b9b5d22213' => $baseDir . '/lib/helpers.php',
+    '4b6f1c38c1cab2809f0444d3a253f8f7' => $baseDir . '/helpers/csrf.php',
     '2ba60f191527015eb45c05a71d95b69f' => $baseDir . '/lib/Translator.php',
     '1d58cdba7ce052ff0ce0219a932c284a' => $baseDir . '/lib/Request.php',
     '8e1ed5229092ce48fdcef0a911fd739d' => $baseDir . '/lib/Response.php',
