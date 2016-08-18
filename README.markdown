@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/miniflux/miniflux.svg?branch=master)](https://travis-ci.org/miniflux/miniflux)
+
 Miniflux - Minimalist News Reader
 =================================
 
