@@ -2,36 +2,6 @@
 
 namespace Helper;
 
-// Get the real IP address of the connected user
-function get_ip_address()
-{
-    $keys = array(
-        'HTTP_X_REAL_IP',
-        'HTTP_CLIENT_IP',
-        'HTTP_X_FORWARDED_FOR',
-        'HTTP_X_FORWARDED',
-        'HTTP_X_CLUSTER_CLIENT_IP',
-        'HTTP_FORWARDED_FOR',
-        'HTTP_FORWARDED',
-        'REMOTE_ADDR'
-    );
-
-    foreach ($keys as $key) {
-        $value = get_server_variable($key);
-        if ($value !== '') {
-            foreach (explode(',', $value) as $ip_address) {
-                return trim($ip_address);
-            }
-        }
-    }
-
-    return t('Unknown');
-}
-
-function get_server_variable($variable)
-{
-    return isset($_SERVER[$variable]) ? $_SERVER[$variable] : '';
-}
 
 function is_secure_connection()
 {

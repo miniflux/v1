@@ -2,6 +2,12 @@
 
 namespace Request;
 
+function get_server_variable($variable)
+{
+    return isset($_SERVER[$variable]) ? $_SERVER[$variable] : '';
+}
+
+
 function param($name, $default_value = null)
 {
     return isset($_GET[$name]) ? $_GET[$name] : $default_value;
@@ -53,7 +59,6 @@ function file_content($field)
 }
 
 
-
 function uri()
 {
     return $_SERVER['REQUEST_URI'];
@@ -63,4 +68,36 @@ function uri()
 function is_post()
 {
     return $_SERVER['REQUEST_METHOD'] === 'POST';
+}
+
+
+function get_user_agent()
+{
+    return get_server_variable('HTTP_USER_AGENT') ?: t('Unknown');
+}
+
+
+function get_ip_address()
+{
+    $keys = array(
+        'HTTP_X_REAL_IP',
+        'HTTP_CLIENT_IP',
+        'HTTP_X_FORWARDED_FOR',
+        'HTTP_X_FORWARDED',
+        'HTTP_X_CLUSTER_CLIENT_IP',
+        'HTTP_FORWARDED_FOR',
+        'HTTP_FORWARDED',
+        'REMOTE_ADDR'
+    );
+
+    foreach ($keys as $key) {
+        $value = get_server_variable($key);
+        if ($value !== '') {
+            foreach (explode(',', $value) as $ip_address) {
+                return trim($ip_address);
+            }
+        }
+    }
+
+    return t('Unknown');
 }

@@ -6,7 +6,7 @@ use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 use PicoDb\Database;
 use Session;
-use Helper;
+use Request;
 use Model\Config;
 use Model\RememberMe;
 use Model\Database as DatabaseModel;
@@ -62,7 +62,7 @@ function validate_login(array $values)
 
             // Setup the remember me feature
             if (! empty($values['remember_me'])) {
-                $cookie = RememberMe\create(DatabaseModel\select(), $values['username'], Helper\get_ip_address(), Config\get_user_agent());
+                $cookie = RememberMe\create(DatabaseModel\select(), $values['username'], Request\get_ip_address(), Request\get_user_agent());
                 RememberMe\write_cookie($cookie['token'], $cookie['sequence'], $cookie['expiration']);
             }
         } else {

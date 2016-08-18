@@ -363,9 +363,3 @@ function reload()
     $_SESSION['config'] = get_all();
     Translator\load(get('language'));
 }
-
-// Get the user agent of the connected user
-function get_user_agent()
-{
-    return empty($_SERVER['HTTP_USER_AGENT']) ? t('Unknown') : $_SERVER['HTTP_USER_AGENT'];
-}
