@@ -20,6 +20,7 @@ class ComposerStaticInitfd7e8d436e1dc450edc3153ac8bc31b4
         'dbd9090b0db725af4a3cd765a9d2e39a' => __DIR__ . '/../..' . '/app/core/router.php',
         '98faa6699f100c5ddb2013d85f9dfabb' => __DIR__ . '/../..' . '/app/core/session.php',
         '93228d441890e5962b0566344884332c' => __DIR__ . '/../..' . '/app/core/template.php',
+        '9de087554be89ca71a2ed558a4e35fde' => __DIR__ . '/../..' . '/app/handlers/scraper.php',
         'bc98222aedc910930f5b76b8c84f334e' => __DIR__ . '/../..' . '/app/models/config.php',
         'c3080c7edf4a590ce36fc4f3561968dc' => __DIR__ . '/../..' . '/app/models/service.php',
         'b59348c9973f21f2c58eb493d9fea5be' => __DIR__ . '/../..' . '/app/models/search.php',

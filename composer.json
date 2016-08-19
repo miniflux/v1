@@ -38,6 +38,7 @@
             "app/core/router.php",
             "app/core/session.php",
             "app/core/template.php",
+            "app/handlers/scraper.php",
             "app/models/config.php",
             "app/models/service.php",
             "app/models/search.php",

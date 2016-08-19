@@ -2,12 +2,12 @@
 
 namespace Model\Item;
 
+use PicoDb\Database;
+use PicoFeed\Logging\Logger;
 use Model\Service;
 use Model\Config;
 use Model\Group;
-use PicoDb\Database;
-use PicoFeed\Logging\Logger;
-use PicoFeed\Scraper\Scraper;
+use Handler;
 
 // Get all items without filtering
 function get_all()
@@ -407,32 +407,14 @@ function cleanup($feed_id, array $items_in_feed)
     }
 }
 
-// Download content from an URL
-function download_content_url($url)
-{
-    $content = '';
-
-    $grabber = new Scraper(Config\get_reader_config());
-    $grabber->setUrl($url);
-    $grabber->execute();
-
-    if ($grabber->hasRelevantContent()) {
-        $content = $grabber->getFilteredContent();
-    }
-
-    return $content;
-}
-
-// Download content from item ID
-function download_content_id($item_id)
+// Download item content
+function download_contents($item_id)
 {
     $item = get($item_id);
-    $content = download_content_url($item['url']);
+    $content = Handler\Scraper\download_contents($item['url']);
 
     if (! empty($content)) {
         if (! Config\get('nocontent')) {
-
-            // Save content
             Database::getInstance('db')
                 ->table('items')
                 ->eq('id', $item['id'])

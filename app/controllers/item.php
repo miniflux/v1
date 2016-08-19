@@ -132,7 +132,7 @@ Router\post_action('download-item', function () {
     $item = Model\Item\get($id);
     $feed = Model\Feed\get($item['feed_id']);
 
-    $download = Model\Item\download_content_id($id);
+    $download = Model\Item\download_contents($id);
     $download['content'] = Model\Proxy\rewrite_html($download['content'], $item['url'], Model\Config\get('image_proxy'), $feed['cloak_referrer']);
 
     Response\json($download);
