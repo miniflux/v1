@@ -21,6 +21,7 @@ return array(
     '93228d441890e5962b0566344884332c' => $baseDir . '/app/core/template.php',
     'bc98222aedc910930f5b76b8c84f334e' => $baseDir . '/app/models/config.php',
     'c3080c7edf4a590ce36fc4f3561968dc' => $baseDir . '/app/models/service.php',
+    'b59348c9973f21f2c58eb493d9fea5be' => $baseDir . '/app/models/search.php',
     '73671a34a21e27508f85cea36a9837de' => $baseDir . '/app/models/user.php',
     'e8bcd5701df9db676003b87e27b091c9' => $baseDir . '/app/models/feed.php',
     '7318478c1ab18cc398507355a29a93c3' => $baseDir . '/app/models/item.php',

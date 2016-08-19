@@ -9,8 +9,8 @@ Router\get_action('search', function() {
     $items = array();
     $nb_items = 0;
     if ($text) {
-        $items = Model\Item\search_all($text, $offset, Model\Config\get('items_per_page'));
-        $nb_items = Model\Item\count_by_search($text);
+        $items = Model\Search\get_all_items($text, $offset, Model\Config\get('items_per_page'));
+        $nb_items = Model\Search\count_items($text);
     }
 
     Response\html(Template\layout('search', array(

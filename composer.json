@@ -40,6 +40,7 @@
             "app/core/template.php",
             "app/models/config.php",
             "app/models/service.php",
+            "app/models/search.php",
             "app/models/user.php",
             "app/models/feed.php",
             "app/models/item.php",
