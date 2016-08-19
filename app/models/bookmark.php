@@ -47,7 +47,6 @@ function get_all_items($offset = null, $limit = null, $feed_ids = array())
         ->findAll();
 }
 
-// Enable/disable bookmark flag
 function set_flag($id, $value)
 {
     if ($value == 1) {

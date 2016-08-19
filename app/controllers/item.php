@@ -161,7 +161,7 @@ Router\get_action('mark-all-read', function () {
     $group_id = Request\int_param('group_id', null);
 
     if ($group_id !== null) {
-        Model\Item\mark_group_as_read($group_id);
+        Model\ItemGroup\mark_all_as_read($group_id);
     } else {
         Model\Item\mark_all_as_read();
     }

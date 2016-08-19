@@ -60,7 +60,7 @@ Router\get_action('flush-history', function () {
     $group_id = Request\int_param('group_id', null);
     
     if ($group_id !== null) {
-        Model\Item\mark_group_as_removed($group_id);
+        Model\ItemGroup\mark_all_as_removed($group_id);
     } else {
         Model\Item\mark_all_as_removed();
     }
