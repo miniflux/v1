@@ -129,12 +129,12 @@ $procedureHandler->withCallback('group.update_feed_groups', function($feed_id, $
 
 // Get all items for a specific feed
 $procedureHandler->withCallback('item.feed.list', function ($feed_id, $offset = null, $limit = null) {
-    return Model\Item\get_all_by_feed($feed_id, $offset, $limit);
+    return Model\ItemFeed\get_all_items($feed_id, $offset, $limit);
 });
 
 // Count all feed items
 $procedureHandler->withCallback('item.feed.count', function ($feed_id) {
-    return Model\Item\count_by_feed($feed_id);
+    return Model\ItemFeed\count_items($feed_id);
 });
 
 // Get all bookmark items

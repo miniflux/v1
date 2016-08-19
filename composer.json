@@ -43,6 +43,7 @@
             "app/models/user.php",
             "app/models/feed.php",
             "app/models/item.php",
+            "app/models/item_feed.php",
             "app/models/bookmark.php",
             "app/models/proxy.php",
             "app/models/auto_update.php",

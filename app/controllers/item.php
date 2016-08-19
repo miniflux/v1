@@ -101,11 +101,11 @@ Router\get_action('show', function () {
 Router\get_action('feed-items', function () {
     $feed_id = Request\int_param('feed_id', 0);
     $offset = Request\int_param('offset', 0);
-    $nb_items = Model\Item\count_by_feed($feed_id);
+    $nb_items = Model\ItemFeed\count_items($feed_id);
     $feed = Model\Feed\get($feed_id);
     $order = Request\param('order', 'updated');
     $direction = Request\param('direction', Model\Config\get('items_sorting_direction'));
-    $items = Model\Item\get_all_by_feed($feed_id, $offset, Model\Config\get('items_per_page'), $order, $direction);
+    $items = Model\ItemFeed\get_all_items($feed_id, $offset, Model\Config\get('items_per_page'), $order, $direction);
 
     Response\html(Template\layout('feed_items', array(
         'favicons' => Model\Favicon\get_favicons(array($feed['id'])),
@@ -173,7 +173,7 @@ Router\get_action('mark-all-read', function () {
 Router\get_action('mark-feed-as-read', function () {
     $feed_id = Request\int_param('feed_id');
 
-    Model\Item\mark_feed_as_read($feed_id);
+    Model\ItemFeed\mark_all_as_read($feed_id);
     Response\redirect('?action=feed-items&feed_id='.$feed_id);
 });
 
@@ -182,7 +182,7 @@ Router\get_action('mark-feed-as-read', function () {
 // that where marked read from the frontend, since the number of unread items
 // on page 2+ is unknown.
 Router\post_action('mark-feed-as-read', function () {
-    Model\Item\mark_feed_as_read(Request\int_param('feed_id'));
+    Model\ItemFeed\mark_all_as_read(Request\int_param('feed_id'));
     $nb_items = Model\Item\count_by_status('unread');
 
     Response\raw($nb_items);

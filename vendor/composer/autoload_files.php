@@ -24,6 +24,7 @@ return array(
     '73671a34a21e27508f85cea36a9837de' => $baseDir . '/app/models/user.php',
     'e8bcd5701df9db676003b87e27b091c9' => $baseDir . '/app/models/feed.php',
     '7318478c1ab18cc398507355a29a93c3' => $baseDir . '/app/models/item.php',
+    'c0f7d31e45ab3b885f3f3567be6b8cda' => $baseDir . '/app/models/item_feed.php',
     '546998ee103e300ad614144f30a1de8e' => $baseDir . '/app/models/bookmark.php',
     '0bdc342df97b8a477df96dbb288b21bf' => $baseDir . '/app/models/proxy.php',
     'd06207bd4580f7e9250cf39d0d648fc5' => $baseDir . '/app/models/auto_update.php',

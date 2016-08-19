@@ -169,46 +169,6 @@ function count_by_status($status, $feed_ids = array())
         ->count();
 }
 
-// Get the number of items per feed
-function count_by_feed($feed_id)
-{
-    return Database::getInstance('db')
-        ->table('items')
-        ->eq('feed_id', $feed_id)
-        ->in('status', array('unread', 'read'))
-        ->count();
-}
-
-// Get all items per feed
-function get_all_by_feed($feed_id, $offset = null, $limit = null, $order_column = 'updated', $order_direction = 'desc')
-{
-    return Database::getInstance('db')
-        ->table('items')
-        ->columns(
-            'items.id',
-            'items.title',
-            'items.updated',
-            'items.url',
-            'items.enclosure',
-            'items.enclosure_type',
-            'items.feed_id',
-            'items.status',
-            'items.content',
-            'items.bookmark',
-            'items.language',
-            'items.author',
-            'feeds.site_url',
-            'feeds.rtl'
-        )
-        ->join('feeds', 'id', 'feed_id')
-        ->in('status', array('unread', 'read'))
-        ->eq('feed_id', $feed_id)
-        ->orderBy($order_column, $order_direction)
-        ->offset($offset)
-        ->limit($limit)
-        ->findAll();
-}
-
 // Get one item by id
 function get($id)
 {
@@ -335,16 +295,6 @@ function mark_all_as_removed()
         ->eq('status', 'read')
         ->eq('bookmark', 0)
         ->save(array('status' => 'removed', 'content' => ''));
-}
-
-// Mark all items of a feed as read
-function mark_feed_as_read($feed_id)
-{
-    return Database::getInstance('db')
-        ->table('items')
-        ->eq('status', 'unread')
-        ->eq('feed_id', $feed_id)
-        ->update(array('status' => 'read'));
 }
 
 // Mark all items of a group as read
