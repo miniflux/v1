@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'e40631d46120a9c38ea139981f8dab26' => $vendorDir . '/ircmaxell/password-compat/lib/password.php',
     '1c6478a893aa3a9ae898668d7af7b441' => $baseDir . '/app/schemas/sqlite.php',
     'f0aaf41fd213d5a97cf56c060c89445c' => $baseDir . '/app/helpers/app.php',
     '5d8e3de7e01942090f1b7b4dbdfb5577' => $baseDir . '/app/helpers/csrf.php',

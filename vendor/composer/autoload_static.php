@@ -7,6 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInitfd7e8d436e1dc450edc3153ac8bc31b4
 {
     public static $files = array (
+        'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
         '1c6478a893aa3a9ae898668d7af7b441' => __DIR__ . '/../..' . '/app/schemas/sqlite.php',
         'f0aaf41fd213d5a97cf56c060c89445c' => __DIR__ . '/../..' . '/app/helpers/app.php',
         '5d8e3de7e01942090f1b7b4dbdfb5577' => __DIR__ . '/../..' . '/app/helpers/csrf.php',

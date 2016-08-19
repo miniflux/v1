@@ -71,8 +71,3 @@ if (! is_dir(FAVICON_DIRECTORY)) {
 if (! is_writable(FAVICON_DIRECTORY)) {
     die('The favicon directory must be writeable by your web server user');
 }
-
-// Include password_compat for PHP < 5.5
-if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-    require __DIR__.'/libraries/password.php';
-}
