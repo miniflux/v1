@@ -139,22 +139,22 @@ $procedureHandler->withCallback('item.feed.count', function ($feed_id) {
 
 // Get all bookmark items
 $procedureHandler->withCallback('item.bookmark.list', function ($offset = null, $limit = null) {
-    return Model\Item\get_bookmarks($offset, $limit);
+    return Model\Bookmark\get_all_items($offset, $limit);
 });
 
 // Count bookmarks
 $procedureHandler->withCallback('item.bookmark.count', function () {
-    return Model\Item\count_bookmarks();
+    return Model\Bookmark\count_items();
 });
 
 // Add a bookmark
 $procedureHandler->withCallback('item.bookmark.create', function ($item_id) {
-    return Model\Item\set_bookmark_value($item_id, 1);
+    return Model\Bookmark\set_flag($item_id, 1);
 });
 
 // Remove a bookmark
 $procedureHandler->withCallback('item.bookmark.delete', function ($item_id) {
-    return Model\Item\set_bookmark_value($item_id, 0);
+    return Model\Bookmark\set_flag($item_id, 0);
 });
 
 // Get all unread items

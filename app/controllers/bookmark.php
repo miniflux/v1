@@ -11,7 +11,7 @@ Router\post_action('bookmark', function () {
     Response\json(array(
         'id' => $id,
         'value' => $value,
-        'result' => Model\Item\set_bookmark_value($id, $value),
+        'result' => Model\Bookmark\set_flag($id, $value),
     ));
 });
 
@@ -23,7 +23,7 @@ Router\get_action('bookmark', function () {
     $offset = Request\int_param('offset', 0);
     $feed_id = Request\int_param('feed_id', 0);
 
-    Model\Item\set_bookmark_value($id, Request\int_param('value'));
+    Model\Bookmark\set_flag($id, Request\int_param('value'));
 
     if ($redirect === 'show') {
         Response\redirect('?action=show&menu='.$menu.'&id='.$id);
@@ -42,8 +42,8 @@ Router\get_action('bookmarks', function () {
         $feed_ids = Model\Group\get_feeds_by_group($group_id);
     }
 
-    $nb_items = Model\Item\count_bookmarks($feed_ids);
-    $items = Model\Item\get_bookmarks(
+    $nb_items = Model\Bookmark\count_items($feed_ids);
+    $items = Model\Bookmark\get_all_items(
         $offset,
         Model\Config\get('items_per_page'),
         $feed_ids
@@ -87,7 +87,7 @@ Router\get_action('bookmark-feed', function () {
     }
 
     // Build Feed
-    $bookmarks = Model\Item\get_bookmarks();
+    $bookmarks = Model\Bookmark\get_all_items();
 
     $feedBuilder = AtomFeedBuilder::create()
         ->withTitle(t('Bookmarks').' - Miniflux')
