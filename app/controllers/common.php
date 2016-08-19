@@ -66,6 +66,6 @@ Router\get_action('more', function () {
 
 // Image proxy (avoid SSL mixed content warnings)
 Router\get_action('proxy', function () {
-    Model\Proxy\download(rawurldecode(Request\param('url')));
+    Handler\Proxy\download(rawurldecode(Request\param('url')));
     exit;
 });

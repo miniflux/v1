@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Proxy;
+namespace Handler\Proxy;
 
 use Helper;
 use Model\Config;
@@ -59,8 +59,7 @@ function download($url)
         $client->setUserAgent(Config\HTTP_USER_AGENT);
         $client->enablePassthroughMode();
         $client->execute($url);
-    } catch (ClientException $e) {
-    }
+    } catch (ClientException $e) {}
 
     Config\write_debug();
 }
