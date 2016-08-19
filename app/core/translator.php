@@ -2,7 +2,7 @@
 
 namespace Translator;
 
-const PATH = __DIR__.'/../locales/';
+const PATH = '../locales/';
 
 function translate($identifier)
 {

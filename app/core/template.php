@@ -2,7 +2,7 @@
 
 namespace Template;
 
-const PATH = __DIR__.'/../templates/';
+const PATH = 'app/templates/';
 
 // Template\load('template_name', ['bla' => 'value']);
 function load()
