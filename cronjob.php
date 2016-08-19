@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__.'/common.php';
+require __DIR__.'/app/common.php';
 
 if (php_sapi_name() === 'cli') {
     $options = getopt('', array(
