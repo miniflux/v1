@@ -1,6 +1,6 @@
 <?php
 
-require '../common.php';
+require __DIR__.'/../app/common.php';
 
 use Model\Feed;
 use Model\Group;

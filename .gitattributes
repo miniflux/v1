@@ -29,5 +29,4 @@ vendor/bin/ export-ignore
 vendor/fguillot/picofeed/picofeed export-ignore
 
 # unittests
-phpunit.xml export-ignore
 **/tests/ export-ignore

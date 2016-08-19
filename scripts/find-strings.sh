@@ -3,7 +3,7 @@
 REF_LANG=${1:-fr_FR}
 
 ###
-APP_DIR=`dirname $0`/../
+APP_DIR=`dirname $0`/../app
 LANG_FILE=$APP_DIR/locales/$REF_LANG/translations.php
 TMPFILE=`mktemp`
 

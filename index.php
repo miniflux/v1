@@ -1,10 +1,20 @@
 <?php
 
-require __DIR__.'/common.php';
+require __DIR__.'/app/common.php';
 
-Router\bootstrap(__DIR__.'/controllers', 'common', 'console', 'user', 'config', 'item', 'history', 'bookmark', 'feed', 'search');
+Router\bootstrap(
+    __DIR__.'/app/controllers',
+    'common',
+    'console',
+    'user',
+    'config',
+    'item',
+    'history',
+    'bookmark',
+    'feed',
+    'search'
+);
 
-// Page not found
 Router\notfound(function() {
     Response\redirect('?action=unread');
 });

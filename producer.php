@@ -2,7 +2,7 @@
 
 use Pheanstalk\Pheanstalk;
 
-require __DIR__.'/common.php';
+require __DIR__.'/app/common.php';
 
 if (php_sapi_name() !== 'cli') {
     die('This script can run only from the command line.'.PHP_EOL);

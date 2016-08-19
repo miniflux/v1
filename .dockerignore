@@ -3,3 +3,5 @@
 .gitignore
 .dockerignore
 .travis.yml
+tests
+scripts
