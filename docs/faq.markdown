@@ -1,5 +1,5 @@
-FAQ
-===
+Frequently Asked Questions
+==========================
 
 How does Miniflux update my feeds from the user interface?
 ----------------------------------------------------------
@@ -13,7 +13,7 @@ I have 600 subscriptions, can Miniflux handle that?
 Probably, but your life is cluttered.
 
 Why is feature X missing?
-------------------------------------------------------
+-------------------------
 
 Miniflux is a minimalist software. _Less is more_.
 
@@ -35,9 +35,18 @@ How to setup Miniflux on OVH shared-hosting?
 --------------------------------------------
 
 OVH shared web-hosting can use different PHP versions.
-To have Miniflux working properly you have to use a custom `.htaccess`.
+To have Miniflux working properly you have to use a custom `.htaccess`, for example:
 
-There is example in the Miniflux root folder. Just rename the file `.htaccess_ovh` to `.htaccess`.
+```
+SetEnv PHP_VER 5_4
+SetEnv ZEND_OPTIMIZER 1
+SetEnv MAGIC_QUOTES 0
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization},L]
+</IfModule>
+```
 
 I want to send bookmarks to Pinboard. How do I find my Pinboard API token?
 --------------------------------------------------------------------------
