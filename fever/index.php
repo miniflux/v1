@@ -4,7 +4,6 @@ require __DIR__.'/../app/common.php';
 
 use Model\Feed;
 use Model\Group;
-use Model\Service;
 use PicoDb\Database;
 
 // Route handler
@@ -255,7 +254,7 @@ route('write_items', function () {
                             ->eq('rowid', $_POST['id'])
                             ->findOneColumn('id');
 
-            Service\push($item_id);
+            Handler\Service\sync($item_id);
         } elseif ($_POST['as'] === 'unsaved') {
             $query->update(array('bookmark' => 0));
         } elseif ($_POST['as'] === 'read') {

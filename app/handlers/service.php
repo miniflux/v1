@@ -1,28 +1,26 @@
 <?php
 
-namespace Model\Service;
+namespace Handler\Service;
 
-use Model\Config;
-use Model\Item;
 use PicoFeed\Client\Client;
 use PicoFeed\Client\ClientException;
+use Model\Config;
+use Model\Item;
 
-// Sync the item to an external service
-function push($item_id)
+function sync($item_id)
 {
     $item = Item\get($item_id);
 
     if ((bool) Config\get('pinboard_enabled')) {
-        pinboard_add($item);
+        pinboard_sync($item);
     }
 
     if ((bool) Config\get('instapaper_enabled')) {
-        instapaper_add($item);
+        instapaper_sync($item);
     }
 }
 
-// Send item to Instapaper
-function instapaper_add(array $item)
+function instapaper_sync(array $item)
 {
     $params = array(
         'username' => Config\get('instapaper_username'),
@@ -42,8 +40,7 @@ function instapaper_add(array $item)
     return false;
 }
 
-// Add a Pinboard bookmark
-function pinboard_add(array $item)
+function pinboard_sync(array $item)
 {
     $params = array(
         'auth_token' => Config\get('pinboard_token'),
@@ -65,7 +62,6 @@ function pinboard_add(array $item)
     return false;
 }
 
-// HTTP client
 function api_call($url)
 {
     try {

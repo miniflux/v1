@@ -2,9 +2,9 @@
 
 namespace Model\Bookmark;
 
-use Model\Config;
-use Model\Service;
 use PicoDb\Database;
+use Handler\Service;
+use Model\Config;
 
 function count_items($feed_ids = array())
 {
@@ -50,7 +50,7 @@ function get_all_items($offset = null, $limit = null, $feed_ids = array())
 function set_flag($id, $value)
 {
     if ($value == 1) {
-        Service\push($id);
+        Service\sync($id);
     }
 
     return Database::getInstance('db')
