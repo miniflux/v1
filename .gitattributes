@@ -8,6 +8,7 @@ common.php export-subst
 .gitattributes export-ignore
 .gitignore export-ignore
 .gitkeep export-ignore
+.github export-ignore
 
 # core
 data/*.sqlite export-ignore
