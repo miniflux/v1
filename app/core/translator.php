@@ -2,7 +2,9 @@
 
 namespace Translator;
 
-const PATH = '../locales/';
+use DirectoryIterator;
+
+const PATH = '/../locales/';
 
 function translate($identifier)
 {
@@ -15,7 +17,7 @@ function translate($identifier)
         $arg = htmlspecialchars($arg, ENT_QUOTES, 'UTF-8', false);
     }
 
-    return \call_user_func_array(
+    return call_user_func_array(
         'sprintf',
         $args
     );
@@ -115,11 +117,11 @@ function load($language)
 {
     setlocale(LC_TIME, $language.'.UTF-8');
 
-    $path = PATH.$language;
+    $path = __DIR__.PATH.$language;
     $locales = array();
 
     if (is_dir($path)) {
-        $dir = new \DirectoryIterator($path);
+        $dir = new DirectoryIterator($path);
 
         foreach ($dir as $fileinfo) {
             if (strpos($fileinfo->getFilename(), '.php') !== false) {

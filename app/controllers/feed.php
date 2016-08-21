@@ -147,7 +147,7 @@ Router\get_action('add', function () {
     )));
 });
 
-// Add a feed with the form or directly from the url, it can be used by a bookmarklet by example
+// Add a feed with the form or directly from the url, it can be used by a bookmarklet for example
 Router\action('subscribe', function () {
     if (Request\is_post()) {
         $values = Request\values();
