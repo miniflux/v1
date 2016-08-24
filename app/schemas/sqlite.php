@@ -29,8 +29,8 @@ function version_43(PDO $pdo)
         CREATE TABLE "favicons_feeds" (
             feed_id INTEGER NOT NULL,
             favicon_id INTEGER NOT NULL,
-            PRIMARY KEY(feed_id, favicon_id)
-            FOREIGN KEY(favicon_id) REFERENCES favicons(id) ON DELETE CASCADE
+            PRIMARY KEY(feed_id, favicon_id),
+            FOREIGN KEY(favicon_id) REFERENCES favicons(id) ON DELETE CASCADE,
             FOREIGN KEY(feed_id) REFERENCES feeds(id) ON DELETE CASCADE
         )
     ');

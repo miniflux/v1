@@ -226,7 +226,7 @@ Router\action('subscribe', function () {
 // OPML export
 Router\get_action('export', function () {
     Response\force_download('feeds.opml');
-    Response\xml(Model\Feed\export_opml());
+    Response\xml(Handler\Opml\export_all_feeds());
 });
 
 // OPML import form

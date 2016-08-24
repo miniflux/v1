@@ -2,9 +2,6 @@
 
 namespace Model\Feed;
 
-use PicoFeed\Serialization\Subscription;
-use PicoFeed\Serialization\SubscriptionList;
-use PicoFeed\Serialization\SubscriptionListBuilder;
 use PicoFeed\Serialization\SubscriptionListParser;
 use UnexpectedValueException;
 use Model\Config;
@@ -49,31 +46,6 @@ function update(array $values)
     Database::getInstance('db')->closeTransaction();
 
     return $result;
-}
-
-// Export all feeds
-function export_opml()
-{
-    $feeds = get_all();
-    $subscriptionList = SubscriptionList::create()->setTitle(t('Subscriptions'));
-
-    foreach ($feeds as $feed) {
-        $groups = Group\get_feed_groups($feed['id']);
-        $category = '';
-
-        if (!empty($groups)) {
-            $category = $groups[0]['title'];
-        }
-
-        $subscriptionList->addSubscription(Subscription::create()
-            ->setTitle($feed['title'])
-            ->setSiteUrl($feed['site_url'])
-            ->setFeedUrl($feed['feed_url'])
-            ->setCategory($category)
-        );
-    }
-
-    return SubscriptionListBuilder::create($subscriptionList)->build();
 }
 
 // Import OPML file

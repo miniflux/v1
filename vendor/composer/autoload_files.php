@@ -21,6 +21,7 @@ return array(
     '93228d441890e5962b0566344884332c' => $baseDir . '/app/core/template.php',
     '9de087554be89ca71a2ed558a4e35fde' => $baseDir . '/app/handlers/scraper.php',
     '45d63f4d04cfb927b889e126b91aa553' => $baseDir . '/app/handlers/service.php',
+    'bf8c8992b55a0d6166f67a273960030e' => $baseDir . '/app/handlers/opml.php',
     '081a26ac825aa2a7e4cb00c18e0510d5' => $baseDir . '/app/handlers/proxy.php',
     'bc98222aedc910930f5b76b8c84f334e' => $baseDir . '/app/models/config.php',
     'b59348c9973f21f2c58eb493d9fea5be' => $baseDir . '/app/models/search.php',
