@@ -9,8 +9,6 @@ use Model\Item;
 use Model\Group;
 use Model\Favicon;
 use Helper;
-use SimpleValidator\Validator;
-use SimpleValidator\Validators;
 use PicoDb\Database;
 use PicoFeed\Reader\Reader;
 use PicoFeed\PicoFeedException;
@@ -350,23 +348,4 @@ function enable($feed_id)
 function disable($feed_id)
 {
     return Database::getInstance('db')->table('feeds')->eq('id', $feed_id)->save((array('enabled' => 0)));
-}
-
-// Validation for edit
-function validate_modification(array $values)
-{
-    $v = new Validator($values, array(
-        new Validators\Required('id', t('The feed id is required')),
-        new Validators\Required('title', t('The title is required')),
-        new Validators\Required('site_url', t('The site url is required')),
-        new Validators\Required('feed_url', t('The feed url is required')),
-    ));
-
-    $result = $v->execute();
-    $errors = $v->getErrors();
-
-    return array(
-        $result,
-        $errors
-    );
 }

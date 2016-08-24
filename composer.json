@@ -54,7 +54,10 @@
             "app/models/database.php",
             "app/models/remember_me.php",
             "app/models/group.php",
-            "app/models/favicon.php"
+            "app/models/favicon.php",
+            "app/validators/config.php",
+            "app/validators/feed.php",
+            "app/validators/user.php"
         ],
         "classmap": [
             "vendor/fguillot/json-rpc/src/",

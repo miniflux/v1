@@ -1,6 +1,7 @@
 <?php
 
 use PicoFeed\Parser\MalformedXmlException;
+use Miniflux\Validator;
 
 // Refresh all feeds, used when Javascript is disabled
 Router\get_action('refresh-all', function () {
@@ -40,7 +41,7 @@ Router\post_action('edit-feed', function () {
         'create_group' => ''
     );
 
-    list($valid, $errors) = Model\Feed\validate_modification($values);
+    list($valid, $errors) = Validator\Feed\validate_modification($values);
 
     if ($valid) {
         if (Model\Feed\update($values)) {

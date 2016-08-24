@@ -37,6 +37,9 @@ class ComposerStaticInitfd7e8d436e1dc450edc3153ac8bc31b4
         'ee585b658e324609d721bc6f959e85c8' => __DIR__ . '/../..' . '/app/models/remember_me.php',
         'fc49fda782025f9f73852265b1fa7760' => __DIR__ . '/../..' . '/app/models/group.php',
         '785cebb801997d40232b8337459f1606' => __DIR__ . '/../..' . '/app/models/favicon.php',
+        'e348a7661429e81fa0e42efff1ebfe6e' => __DIR__ . '/../..' . '/app/validators/config.php',
+        '679a0a7c75414c39298328823e0be180' => __DIR__ . '/../..' . '/app/validators/feed.php',
+        'eea04c7f459daa801618b71f49a8c470' => __DIR__ . '/../..' . '/app/validators/user.php',
     );
 
     public static $prefixLengthsPsr4 = array (

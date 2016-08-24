@@ -2,8 +2,6 @@
 
 namespace Model\User;
 
-use SimpleValidator\Validator;
-use SimpleValidator\Validators;
 use PicoDb\Database;
 use Session;
 use Request;
@@ -38,41 +36,4 @@ function set_last_login()
     return Database::getInstance('db')
         ->hashtable('settings')
         ->put(array('last_login' => time()));
-}
-
-// Validate authentication
-function validate_login(array $values)
-{
-    $v = new Validator($values, array(
-        new Validators\Required('username', t('The user name is required')),
-        new Validators\MaxLength('username', t('The maximum length is 50 characters'), 50),
-        new Validators\Required('password', t('The password is required'))
-    ));
-
-    $result = $v->execute();
-    $errors = $v->getErrors();
-
-    if ($result) {
-        $credentials = get_credentials();
-
-        if ($credentials && $credentials['username'] === $values['username'] && password_verify($values['password'], $credentials['password'])) {
-            set_last_login();
-            $_SESSION['loggedin'] = true;
-            $_SESSION['config'] = Config\get_all();
-
-            // Setup the remember me feature
-            if (! empty($values['remember_me'])) {
-                $cookie = RememberMe\create(DatabaseModel\select(), $values['username'], Request\get_ip_address(), Request\get_user_agent());
-                RememberMe\write_cookie($cookie['token'], $cookie['sequence'], $cookie['expiration']);
-            }
-        } else {
-            $result = false;
-            $errors['login'] = t('Bad username or password');
-        }
-    }
-
-    return array(
-        $result,
-        $errors
-    );
 }

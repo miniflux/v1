@@ -4,7 +4,7 @@ namespace Model\Item;
 
 use PicoDb\Database;
 use PicoFeed\Logging\Logger;
-use Model\Service;
+use Handler\Service;
 use Model\Config;
 use Model\Group;
 use Handler;

@@ -1,6 +1,7 @@
 <?php
 
 use PicoDb\Database;
+use Miniflux\Validator;
 
 // Display a form to add a new database
 Router\get_action('new-db', function () {
@@ -24,7 +25,7 @@ Router\post_action('new-db', function () {
     if (ENABLE_MULTIPLE_DB) {
         $values = Request\values();
         Helper\check_csrf_values($values);
-        list($valid, $errors) = Model\Database\validate($values);
+        list($valid, $errors) = Validator\User\validate_creation($values);
 
         if ($valid) {
             if (Model\Database\create(strtolower($values['name']).'.sqlite', $values['username'], $values['password'])) {
@@ -121,7 +122,7 @@ Router\get_action('config', function () {
 Router\post_action('config', function () {
     $values = Request\values() + array('nocontent' => 0, 'image_proxy' => 0, 'favicons' => 0, 'debug_mode' => 0, 'original_marks_read' => 0);
     Helper\check_csrf_values($values);
-    list($valid, $errors) = Model\Config\validate_modification($values);
+    list($valid, $errors) = Validator\Config\validate_modification($values);
 
     if ($valid) {
         if (Model\Config\save($values)) {

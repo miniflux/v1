@@ -20,5 +20,6 @@ config.php
 !app/models/*
 !app/controllers/*
 !app/templates/*
+!app/validators/*
 rules/*.php
 data/favicons/*.*

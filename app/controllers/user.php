@@ -1,5 +1,7 @@
 <?php
 
+use Miniflux\Validator;
+
 // Logout and destroy session
 Router\get_action('logout', function () {
     Model\User\logout();
@@ -26,7 +28,7 @@ Router\get_action('login', function () {
 Router\post_action('login', function () {
     $values = Request\values();
     Helper\check_csrf_values($values);
-    list($valid, $errors) = Model\User\validate_login($values);
+    list($valid, $errors) = Validator\User\validate_login($values);
 
     if ($valid) {
         Response\redirect('?action=unread');

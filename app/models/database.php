@@ -5,8 +5,6 @@ namespace Model\Database;
 use Schema;
 use DirectoryIterator;
 use Model\Config;
-use SimpleValidator\Validator;
-use SimpleValidator\Validators;
 
 // Create a new database for a new user
 function create($filename, $username, $password)
@@ -100,24 +98,4 @@ function get_list()
     }
 
     return $listing;
-}
-
-// Validate database form
-function validate(array $values)
-{
-    $v = new Validator($values, array(
-        new Validators\Required('name', t('The database name is required')),
-        new Validators\AlphaNumeric('name', t('The name must have only alpha-numeric characters')),
-        new Validators\Required('username', t('The user name is required')),
-        new Validators\MaxLength('username', t('The maximum length is 50 characters'), 50),
-        new Validators\Required('password', t('The password is required')),
-        new Validators\MinLength('password', t('The minimum length is 6 characters'), 6),
-        new Validators\Required('confirmation', t('The confirmation is required')),
-        new Validators\Equals('password', 'confirmation', t('Passwords don\'t match')),
-    ));
-
-    return array(
-        $v->execute(),
-        $v->getErrors()
-    );
 }
