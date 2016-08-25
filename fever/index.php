@@ -2,8 +2,10 @@
 
 require __DIR__.'/../app/common.php';
 
-use Model\Feed;
-use Model\Group;
+use Miniflux\Handler;
+use Miniflux\Model;
+use Miniflux\Model\Feed;
+use Miniflux\Model\Group;
 use PicoDb\Database;
 
 // Route handler
