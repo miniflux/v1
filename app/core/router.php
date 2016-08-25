@@ -1,6 +1,6 @@
 <?php
 
-namespace Router;
+namespace Miniflux\Router;
 
 use Closure;
 

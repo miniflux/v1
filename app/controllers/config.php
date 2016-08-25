@@ -2,6 +2,13 @@
 
 use PicoDb\Database;
 use Miniflux\Validator;
+use Miniflux\Router;
+use Miniflux\Response;
+use Miniflux\Request;
+use Miniflux\Session;
+use Miniflux\Template;
+use Miniflux\Helper;
+use Miniflux\Model;
 
 // Display a form to add a new database
 Router\get_action('new-db', function () {
@@ -196,7 +203,7 @@ Router\get_action('database', function () {
     Response\html(Template\layout('database', array(
         'csrf' => Helper\generate_csrf(),
         'config' => Model\Config\get_all(),
-        'db_size' => filesize(\Model\Database\get_path()),
+        'db_size' => filesize(Model\Database\get_path()),
         'nb_unread_items' => Model\Item\count_by_status('unread'),
         'menu' => 'config',
         'title' => t('Preferences')

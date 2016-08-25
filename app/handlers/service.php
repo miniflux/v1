@@ -1,11 +1,11 @@
 <?php
 
-namespace Handler\Service;
+namespace Miniflux\Handler\Service;
 
 use PicoFeed\Client\Client;
 use PicoFeed\Client\ClientException;
-use Model\Config;
-use Model\Item;
+use Miniflux\Model\Config;
+use Miniflux\Model\Item;
 
 function sync($item_id)
 {

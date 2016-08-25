@@ -2,6 +2,14 @@
 
 use PicoFeed\Parser\MalformedXmlException;
 use Miniflux\Validator;
+use Miniflux\Router;
+use Miniflux\Response;
+use Miniflux\Request;
+use Miniflux\Session;
+use Miniflux\Template;
+use Miniflux\Helper;
+use Miniflux\Handler;
+use Miniflux\Model;
 
 // Refresh all feeds, used when Javascript is disabled
 Router\get_action('refresh-all', function () {

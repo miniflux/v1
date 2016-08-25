@@ -3,12 +3,12 @@
 require __DIR__.'/app/common.php';
 
 use JsonRPC\Server;
-use Model\Config;
+use Miniflux\Model;
 
 $server = new Server();
 
 $server->authentication(array(
-    Config\get('username') => Config\get('api_token')
+    Model\Config\get('username') => Model\Config\get('api_token')
 ));
 
 $procedureHandler = $server->getProcedureHandler();

@@ -1,10 +1,10 @@
 <?php
 
-namespace Model\Database;
+namespace Miniflux\Model\Database;
 
-use Schema;
 use DirectoryIterator;
-use Model\Config;
+use Miniflux\Schema;
+use Miniflux\Model\Config;
 
 // Create a new database for a new user
 function create($filename, $username, $password)
@@ -17,7 +17,7 @@ function create($filename, $username, $password)
             'filename' => $filename,
         ));
 
-        if ($db->schema()->check(Schema\VERSION)) {
+        if ($db->schema('\Miniflux\Schema')->check(Schema\VERSION)) {
             $credentials = array(
                 'username' => $username,
                 'password' => password_hash($password, PASSWORD_BCRYPT)

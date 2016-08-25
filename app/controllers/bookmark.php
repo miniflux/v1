@@ -2,6 +2,12 @@
 
 use PicoFeed\Syndication\AtomFeedBuilder;
 use PicoFeed\Syndication\AtomItemBuilder;
+use Miniflux\Router;
+use Miniflux\Response;
+use Miniflux\Request;
+use Miniflux\Template;
+use Miniflux\Helper;
+use Miniflux\Model;
 
 // Ajax call to add or remove a bookmark
 Router\post_action('bookmark', function () {

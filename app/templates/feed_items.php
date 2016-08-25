@@ -5,7 +5,7 @@
 <?php else: ?>
 
     <div class="page-header">
-        <h2><?= Helper\escape($feed['title']) ?>&lrm;<span id="page-counter"><?= isset($nb_items) ? $nb_items : '' ?></span></h2>
+        <h2><?= Miniflux\Helper\escape($feed['title']) ?>&lrm;<span id="page-counter"><?= isset($nb_items) ? $nb_items : '' ?></span></h2>
         <ul>
             <li>
                 <a href="?action=refresh-feed&amp;feed_id=<?= $feed['id'] ?>&amp;redirect=feed-items"><?= t('refresh') ?></a>
@@ -30,7 +30,7 @@
 
     <section class="items" id="listing" data-feed-id="<?= $feed['id'] ?>">
         <?php foreach ($items as $item): ?>
-            <?= \Template\load('item', array(
+            <?= Miniflux\Template\load('item', array(
                 'feed' => $feed,
                 'item' => $item,
                 'menu' => $menu,
@@ -47,7 +47,7 @@
             <a href="?action=mark-feed-as-read&amp;feed_id=<?= $feed['id'] ?>" data-action="mark-feed-read"><?= t('mark all as read') ?></a>
         </div>
 
-        <?= \Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'feed_id' => $feed['id'])) ?>
+        <?= Miniflux\Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'feed_id' => $feed['id'])) ?>
     </section>
 
 <?php endif ?>

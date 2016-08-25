@@ -1,5 +1,7 @@
 <?php
 
+use Miniflux\Helper;
+
 class HelperTest extends BaseTest
 {
     public function testGenerateToken()

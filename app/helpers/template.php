@@ -1,6 +1,8 @@
 <?php
 
-namespace Helper;
+namespace Miniflux\Helper;
+
+use Miniflux\Model\Config;
 
 function flash($type, $html)
 {
@@ -21,7 +23,7 @@ function is_rtl(array $item)
 
 function css()
 {
-    $theme = \Model\Config\get('theme');
+    $theme = Config\get('theme');
 
     if ($theme !== 'original') {
         $css_file = THEME_DIRECTORY.'/'.$theme.'/css/app.css';

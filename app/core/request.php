@@ -1,6 +1,6 @@
 <?php
 
-namespace Request;
+namespace Miniflux\Request;
 
 function get_server_variable($variable)
 {

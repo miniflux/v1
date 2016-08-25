@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html
-    <?php if (Model\Config\is_language_rtl()): ?>
+    <?php if (Miniflux\Model\Config\is_language_rtl()): ?>
         dir="rtl"
     <?php endif ?>
 >
@@ -12,7 +12,7 @@
         <meta name="referrer" content="no-referrer">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title><?= isset($title) ? Helper\escape($title) : t('Miniflux') ?></title>
+        <title><?= isset($title) ? Miniflux\Helper\escape($title) : t('Miniflux') ?></title>
 
         <link rel="icon" type="image/png" href="assets/img/favicon.png">
         <link rel="shortcut icon" href="favicon.ico">
@@ -21,7 +21,7 @@
         <link rel="apple-touch-icon" sizes="114x114" href="assets/img/touch-icon-iphone-retina.png">
         <link rel="apple-touch-icon" sizes="144x144" href="assets/img/touch-icon-ipad-retina.png">
 
-        <link href="<?= Helper\css() ?>" rel="stylesheet" media="screen">
+        <link href="<?= Miniflux\Helper\css() ?>" rel="stylesheet" media="screen">
         <script type="text/javascript" src="assets/js/all.js?<?= filemtime('assets/js/all.js') ?>" defer></script>
     </head>
     <body>
@@ -54,10 +54,10 @@
             </nav>
         </header>
         <section class="page" data-item-page="<?= $menu ?>">
-            <?= Helper\flash('flash_message', '<div class="alert alert-success">%s</div>') ?>
-            <?= Helper\flash('flash_error_message', '<div class="alert alert-error">%s</div>') ?>
+            <?= Miniflux\Helper\flash('flash_message', '<div class="alert alert-success">%s</div>') ?>
+            <?= Miniflux\Helper\flash('flash_error_message', '<div class="alert alert-error">%s</div>') ?>
             <?= $content_for_layout ?>
         </section>
-        <?= \Template\load('help_layer') ?>
+        <?= Miniflux\Template\load('help_layer') ?>
     </body>
 </html>

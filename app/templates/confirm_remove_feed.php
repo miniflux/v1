@@ -2,7 +2,7 @@
     <h2><?= t('Confirmation') ?></h2>
 </div>
 
-<p class="alert alert-info"><?= t('Do you really want to remove this subscription: "%s"?', Helper\escape($feed['title'])) ?></p>
+<p class="alert alert-info"><?= t('Do you really want to remove this subscription: "%s"?', Miniflux\Helper\escape($feed['title'])) ?></p>
 
 <div class="form-actions">
     <a href="?action=remove-feed&amp;feed_id=<?= $feed['id'] ?>" class="btn btn-red"><?= t('Remove') ?></a>

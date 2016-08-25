@@ -1,6 +1,6 @@
 <?php
 
-namespace Helper;
+namespace Miniflux\Helper;
 
 function generate_csrf()
 {

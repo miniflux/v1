@@ -1,6 +1,6 @@
 <?php
 
-defined('APP_VERSION') or define('APP_VERSION', Helper\parse_app_version('$Format:%d$','$Format:%H$'));
+defined('APP_VERSION') or define('APP_VERSION', Miniflux\Helper\parse_app_version('$Format:%d$','$Format:%H$'));
 
 defined('HTTP_TIMEOUT') or define('HTTP_TIMEOUT', 20);
 defined('HTTP_MAX_RESPONSE_SIZE') or define('HTTP_MAX_RESPONSE_SIZE', 2097152);

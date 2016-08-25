@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\ItemFeed;
+namespace Miniflux\Model\ItemFeed;
 
 use PicoDb\Database;
 

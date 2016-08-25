@@ -1,9 +1,9 @@
 <?php
 
-namespace Handler\Proxy;
+namespace Miniflux\Handler\Proxy;
 
-use Helper;
-use Model\Config;
+use Miniflux\Helper;
+use Miniflux\Model\Config;
 use PicoFeed\Client\ClientException;
 use PicoFeed\Config\Config as PicoFeedConfig;
 use PicoFeed\Filter\Filter;

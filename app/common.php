@@ -13,10 +13,10 @@ require __DIR__.'/functions.php';
 PicoDb\Database::setInstance('db', function() {
     $db = new PicoDb\Database(array(
         'driver' => 'sqlite',
-        'filename' => Model\Database\get_path(),
+        'filename' => Miniflux\Model\Database\get_path(),
     ));
 
-    if ($db->schema()->check(Schema\VERSION)) {
+    if ($db->schema('\Miniflux\Schema')->check(Miniflux\Schema\VERSION)) {
         return $db;
     }
     else {

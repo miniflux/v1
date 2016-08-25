@@ -1,12 +1,12 @@
 <?php
 
-namespace Model\AutoUpdate;
+namespace Miniflux\Model\AutoUpdate;
 
 use ZipArchive;
 use DirectoryIterator;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-use Model\Config;
+use Miniflux\Model\Config;
 
 // Get all files of a given directory
 function get_files_list($directory)
@@ -133,7 +133,7 @@ function cleanup_directory($directory)
             $filename = $fileinfo->getRealPath();
 
             if ($fileinfo->isFile()) {
-                \Model\Config\debug('[REMOVE] '.$filename);
+                Config\debug('[REMOVE] '.$filename);
                 @unlink($filename);
             } else {
                 cleanup_directory($filename);

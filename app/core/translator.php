@@ -1,6 +1,6 @@
 <?php
 
-namespace Translator;
+namespace Miniflux\Translator;
 
 use DirectoryIterator;
 

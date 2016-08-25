@@ -1,9 +1,9 @@
 <?php
 
-namespace Schema;
+namespace Miniflux\Schema;
 
 use PDO;
-use Helper;
+use Miniflux\Helper;
 
 const VERSION = 44;
 
@@ -64,8 +64,8 @@ function version_41(PDO $pdo)
         CREATE TABLE "feeds_groups" (
             feed_id INTEGER  NOT NULL,
             group_id INTEGER NOT NULL,
-            PRIMARY KEY(feed_id, group_id)
-            FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE CASCADE
+            PRIMARY KEY(feed_id, group_id),
+            FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE CASCADE,
             FOREIGN KEY(feed_id) REFERENCES feeds(id) ON DELETE CASCADE
         )
     ');

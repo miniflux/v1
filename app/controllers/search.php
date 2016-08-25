@@ -1,5 +1,12 @@
 <?php
 
+use Miniflux\Router;
+use Miniflux\Response;
+use Miniflux\Request;
+use Miniflux\Template;
+use Miniflux\Helper;
+use Miniflux\Model;
+
 // Display search results page
 Router\get_action('search', function() {
 

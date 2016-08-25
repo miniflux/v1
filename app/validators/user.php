@@ -4,11 +4,11 @@ namespace Miniflux\Validator\User;
 
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
-use Model\Config;
-use Model\User as UserModel;
-use Model\Database as DatabaseModel;
-use Model\RememberMe;
-use Request;
+use Miniflux\Model\Config;
+use Miniflux\Model\User as UserModel;
+use Miniflux\Model\Database as DatabaseModel;
+use Miniflux\Model\RememberMe;
+use Miniflux\Request;
 
 function validate_creation(array $values)
 {

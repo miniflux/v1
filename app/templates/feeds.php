@@ -31,9 +31,9 @@
                     <span title="<?= t('Subscription disabled') ?>">✖</span>
                 <?php endif ?>
 
-                <?= Helper\favicon($favicons, $feed['id']) ?>
+                <?= Miniflux\Helper\favicon($favicons, $feed['id']) ?>
 
-                <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>" title="<?= t('Show only this subscription') ?>"><?= Helper\escape($feed['title']) ?></a>
+                <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>" title="<?= t('Show only this subscription') ?>"><?= Miniflux\Helper\escape($feed['title']) ?></a>
                 &lrm;<span class="items-count"><?= $feed['items_unread'], '/', $feed['items_total'] ?></span>
 
                 <?php if ($feed['enabled']): ?>
@@ -58,7 +58,7 @@
             </h2>
             <ul class="item-menu">
                 <li>
-                    <a href="<?= $feed['site_url'] ?>" rel="noreferrer" target="_blank"><?= Helper\get_host_from_url($feed['site_url']) ?></a>
+                    <a href="<?= $feed['site_url'] ?>" rel="noreferrer" target="_blank"><?= Miniflux\Helper\get_host_from_url($feed['site_url']) ?></a>
                 </li>
 
                 <?php if ($feed['enabled']): ?>

@@ -1,11 +1,11 @@
 <?php
 
-namespace Model\RememberMe;
+namespace Miniflux\Model\RememberMe;
 
-use Helper;
 use PicoDb\Database;
-use Model\Config;
-use Model\Database as DatabaseModel;
+use Miniflux\Helper;
+use Miniflux\Model\Config;
+use Miniflux\Model\Database as DatabaseModel;
 
 const TABLE = 'remember_me';
 const COOKIE_NAME = '_R_';
@@ -250,7 +250,7 @@ function write_cookie($token, $sequence, $expiration)
         $expiration,
         BASE_URL_DIRECTORY,
         null,
-        \Helper\is_secure_connection(),
+        Helper\is_secure_connection(),
         true
     );
 }
@@ -283,7 +283,7 @@ function delete_cookie()
         time() - 3600,
         BASE_URL_DIRECTORY,
         null,
-        \Helper\is_secure_connection(),
+        Helper\is_secure_connection(),
         true
     );
 }

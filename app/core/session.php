@@ -1,6 +1,6 @@
 <?php
 
-namespace Session;
+namespace Miniflux\Session;
 
 const SESSION_LIFETIME = 2678400;
 

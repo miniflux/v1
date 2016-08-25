@@ -2,6 +2,9 @@
 
 require __DIR__.'/app/common.php';
 
+use Miniflux\Router;
+use Miniflux\Response;
+
 Router\bootstrap(
     __DIR__.'/app/controllers',
     'common',

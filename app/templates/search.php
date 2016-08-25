@@ -1,4 +1,4 @@
-<?= \Template\load('search_form', array('text' => $text, 'opened' => true)) ?>
+<?= Miniflux\Template\load('search_form', array('text' => $text, 'opened' => true)) ?>
 <?php if (empty($items)): ?>
     <p class="alert alert-info"><?= t('There are no results for your search') ?></p>
 <?php else: ?>
@@ -8,7 +8,7 @@
 
     <section class="items" id="listing">
         <?php foreach ($items as $item): ?>
-            <?= \Template\load('item', array(
+            <?= Miniflux\Template\load('item', array(
                 'item' => $item,
                 'menu' => $menu,
                 'offset' => $offset,
@@ -20,7 +20,7 @@
             )) ?>
         <?php endforeach ?>
 
-        <?= \Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'text' => $text)) ?>
+        <?= Miniflux\Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'text' => $text)) ?>
     </section>
 
 <?php endif ?>

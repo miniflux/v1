@@ -1,6 +1,6 @@
 <?php
 
-namespace Response;
+namespace Miniflux\Response;
 
 function force_download($filename)
 {

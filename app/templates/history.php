@@ -1,7 +1,7 @@
 <?php if (empty($items)): ?>
     <p class="alert alert-info"><?= t('No history') ?></p>
 <?php else: ?>
-    <?= \Template\load('search_form') ?>
+    <?= Miniflux\Template\load('search_form') ?>
     <div class="page-header">
         <h2><?= t('History') ?><span id="page-counter"><?= isset($nb_items) ? $nb_items : '' ?></span></h2>
         <?php if (!empty($groups)): ?>
@@ -30,7 +30,7 @@
 
     <section class="items" id="listing">
         <?php foreach ($items as $item): ?>
-            <?= \Template\load('item', array(
+            <?= Miniflux\Template\load('item', array(
                 'item' => $item,
                 'menu' => $menu,
                 'offset' => $offset,
@@ -42,7 +42,7 @@
             )) ?>
         <?php endforeach ?>
 
-        <?= \Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'group_id' => $group_id)) ?>
+        <?= Miniflux\Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'group_id' => $group_id)) ?>
     </section>
 
 <?php endif ?>

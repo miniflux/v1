@@ -13,7 +13,7 @@
         <nav class="top">
             <span class="nav-left">
                 <?php if ($item_nav['previous']): ?>
-                    <a href="?action=show&amp;menu=<?= $menu ?><?= $group_id ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item_nav['previous']['id'] ?>" id="previous-item" title="<?= Helper\escape($item_nav['previous']['title']) ?>"><?= t('Previous') ?></a>
+                    <a href="?action=show&amp;menu=<?= $menu ?><?= $group_id ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item_nav['previous']['id'] ?>" id="previous-item" title="<?= Miniflux\Helper\escape($item_nav['previous']['title']) ?>"><?= t('Previous') ?></a>
                 <?php else: ?>
                     <?= t('Previous') ?>
                 <?php endif ?>
@@ -21,7 +21,7 @@
 
             <span class="nav-right">
                 <?php if ($item_nav['next']): ?>
-                    <a href="?action=show&amp;menu=<?= $menu ?><?= $group_id ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item_nav['next']['id'] ?>" id="next-item" title="<?= Helper\escape($item_nav['next']['title']) ?>"><?= t('Next') ?></a>
+                    <a href="?action=show&amp;menu=<?= $menu ?><?= $group_id ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item_nav['next']['id'] ?>" id="next-item" title="<?= Miniflux\Helper\escape($item_nav['next']['title']) ?>"><?= t('Next') ?></a>
                 <?php else: ?>
                     <?= t('Next') ?>
                 <?php endif ?>
@@ -29,8 +29,8 @@
         </nav>
         <?php endif ?>
 
-        <h1 <?= Helper\is_rtl($item + array('rtl' => $feed['rtl'])) ? 'dir="rtl"' : 'dir="ltr"' ?>>
-            <a href="<?= $item['url'] ?>" rel="noreferrer" target="_blank" class="original"><?= Helper\escape($item['title']) ?></a>
+        <h1 <?= Miniflux\Helper\is_rtl($item + array('rtl' => $feed['rtl'])) ? 'dir="rtl"' : 'dir="ltr"' ?>>
+            <a href="<?= $item['url'] ?>" rel="noreferrer" target="_blank" class="original"><?= Miniflux\Helper\escape($item['title']) ?></a>
         </h1>
 
         <ul class="item-infos">
@@ -44,15 +44,15 @@
                 ></a>
             </li>
             <li>
-                <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>"><?= Helper\escape($feed['title']) ?></a>
+                <a href="?action=feed-items&amp;feed_id=<?= $feed['id'] ?>"><?= Miniflux\Helper\escape($feed['title']) ?></a>
             </li>
             <?php if (!empty($item['author'])): ?>
                 <li>
-                    <?= Helper\escape($item['author']) ?>
+                    <?= Miniflux\Helper\escape($item['author']) ?>
                 </li>
             <?php endif ?>
             <li class="hide-mobile">
-                <span title="<?= dt('%e %B %Y %k:%M', $item['updated']) ?>"><?= Helper\relative_time($item['updated']) ?></span>
+                <span title="<?= dt('%e %B %Y %k:%M', $item['updated']) ?>"><?= Miniflux\Helper\relative_time($item['updated']) ?></span>
             </li>
             <?php if ($item['enclosure']): ?>
             <li>
@@ -74,7 +74,7 @@
             <?php endif; ?>
         </ul>
 
-        <div id="item-content" <?= Helper\is_rtl($item + array('rtl' => $feed['rtl']))  ? 'dir="rtl"' : 'dir="ltr"' ?>>
+        <div id="item-content" <?= Miniflux\Helper\is_rtl($item + array('rtl' => $feed['rtl']))  ? 'dir="rtl"' : 'dir="ltr"' ?>>
 
             <?php if ($item['enclosure']): ?>
                 <?php if (strpos($item['enclosure_type'], 'audio') !== false): ?>
@@ -103,7 +103,7 @@
         <nav class="bottom">
             <span class="nav-left">
                 <?php if ($item_nav['previous']): ?>
-                    <a href="?action=show&amp;menu=<?= $menu ?><?= $group_id ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item_nav['previous']['id'] ?>" id="previous-item" title="<?= Helper\escape($item_nav['previous']['title']) ?>"><?= t('Previous') ?></a>
+                    <a href="?action=show&amp;menu=<?= $menu ?><?= $group_id ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item_nav['previous']['id'] ?>" id="previous-item" title="<?= Miniflux\Helper\escape($item_nav['previous']['title']) ?>"><?= t('Previous') ?></a>
                 <?php else: ?>
                     <?= t('Previous') ?>
                 <?php endif ?>
@@ -111,7 +111,7 @@
 
             <span class="nav-right">
                 <?php if ($item_nav['next']): ?>
-                    <a href="?action=show&amp;menu=<?= $menu ?><?= $group_id ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item_nav['next']['id'] ?>" id="next-item" title="<?= Helper\escape($item_nav['next']['title']) ?>"><?= t('Next') ?></a>
+                    <a href="?action=show&amp;menu=<?= $menu ?><?= $group_id ? '&amp;group_id='.$group_id : '' ?>&amp;id=<?= $item_nav['next']['id'] ?>" id="next-item" title="<?= Miniflux\Helper\escape($item_nav['next']['title']) ?>"><?= t('Next') ?></a>
                 <?php else: ?>
                     <?= t('Next') ?>
                 <?php endif ?>

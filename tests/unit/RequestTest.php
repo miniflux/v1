@@ -1,5 +1,7 @@
 <?php
 
+use Miniflux\Request;
+
 class RequestTest extends BaseTest
 {
     public function testGetIpAddress()

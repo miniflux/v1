@@ -1,17 +1,17 @@
 <?php
 
-namespace Model\Feed;
+namespace Miniflux\Model\Feed;
 
-use PicoFeed\Serialization\SubscriptionListParser;
 use UnexpectedValueException;
-use Model\Config;
-use Model\Item;
-use Model\Group;
-use Model\Favicon;
-use Helper;
+use Miniflux\Model\Config;
+use Miniflux\Model\Item;
+use Miniflux\Model\Group;
+use Miniflux\Model\Favicon;
+use Miniflux\Helper;
 use PicoDb\Database;
 use PicoFeed\Reader\Reader;
 use PicoFeed\PicoFeedException;
+use PicoFeed\Serialization\SubscriptionListParser;
 
 const LIMIT_ALL = -1;
 

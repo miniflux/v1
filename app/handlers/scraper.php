@@ -1,9 +1,9 @@
 <?php
 
-namespace Handler\Scraper;
+namespace Miniflux\Handler\Scraper;
 
 use PicoFeed\Scraper\Scraper;
-use Model\Config;
+use Miniflux\Model\Config;
 
 function download_contents($url)
 {

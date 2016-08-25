@@ -1,6 +1,12 @@
 <?php
 
 use Miniflux\Validator;
+use Miniflux\Router;
+use Miniflux\Response;
+use Miniflux\Request;
+use Miniflux\Template;
+use Miniflux\Helper;
+use Miniflux\Model;
 
 // Logout and destroy session
 Router\get_action('logout', function () {

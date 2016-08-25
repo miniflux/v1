@@ -1,10 +1,10 @@
 <?php
 
-namespace Model\Favicon;
+namespace Miniflux\Model\Favicon;
 
-use Model\Config;
-use Model\Group;
-use Helper;
+use Miniflux\Model\Config;
+use Miniflux\Model\Group;
+use Miniflux\Helper;
 use PicoDb\Database;
 use PicoFeed\Reader\Favicon;
 

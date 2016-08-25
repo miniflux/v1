@@ -1,6 +1,6 @@
 <?php
 
-namespace Helper;
+namespace Miniflux\Helper;
 
 function error_class(array $errors, $name)
 {

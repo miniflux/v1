@@ -1,13 +1,13 @@
 <?php
 
-namespace Model\Item;
+namespace Miniflux\Model\Item;
 
 use PicoDb\Database;
 use PicoFeed\Logging\Logger;
-use Handler\Service;
-use Model\Config;
-use Model\Group;
-use Handler;
+use Miniflux\Handler\Service;
+use Miniflux\Model\Config;
+use Miniflux\Model\Group;
+use Miniflux\Handler;
 
 // Get all items without filtering
 function get_all()

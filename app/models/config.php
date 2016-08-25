@@ -1,9 +1,9 @@
 <?php
 
-namespace Model\Config;
+namespace Miniflux\Model\Config;
 
-use Helper;
-use Translator;
+use Miniflux\Helper;
+use Miniflux\Translator;
 use DirectoryIterator;
 use PicoDb\Database;
 use PicoFeed\Config\Config as ReaderConfig;

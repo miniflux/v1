@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Group;
+namespace Miniflux\Model\Group;
 
 use PicoDb\Database;
 

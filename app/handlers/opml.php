@@ -1,9 +1,9 @@
 <?php
 
-namespace Handler\Opml;
+namespace Miniflux\Handler\Opml;
 
-use Model\Feed;
-use Model\Group;
+use Miniflux\Model\Feed;
+use Miniflux\Model\Group;
 use PicoFeed\Serialization\Subscription;
 use PicoFeed\Serialization\SubscriptionList;
 use PicoFeed\Serialization\SubscriptionListBuilder;

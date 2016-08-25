@@ -1,6 +1,6 @@
 <?php
 
-namespace Template;
+namespace Miniflux\Template;
 
 const PATH = 'app/templates/';
 

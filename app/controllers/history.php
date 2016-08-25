@@ -1,5 +1,12 @@
 <?php
 
+use Miniflux\Router;
+use Miniflux\Response;
+use Miniflux\Request;
+use Miniflux\Template;
+use Miniflux\Helper;
+use Miniflux\Model;
+
 // Display history page
 Router\get_action('history', function () {
     $order = Request\param('order', 'updated');

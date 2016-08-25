@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Search;
+namespace Miniflux\Model\Search;
 
 use PicoDb\Database;
 

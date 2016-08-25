@@ -1,5 +1,13 @@
 <?php
 
+use Miniflux\Router;
+use Miniflux\Response;
+use Miniflux\Request;
+use Miniflux\Template;
+use Miniflux\Helper;
+use Miniflux\Handler;
+use Miniflux\Model;
+
 // Display unread items
 Router\get_action('unread', function () {
     Model\Item\autoflush_read();

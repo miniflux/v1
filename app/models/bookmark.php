@@ -1,10 +1,10 @@
 <?php
 
-namespace Model\Bookmark;
+namespace Miniflux\Model\Bookmark;
 
 use PicoDb\Database;
-use Handler\Service;
-use Model\Config;
+use Miniflux\Handler\Service;
+use Miniflux\Model\Config;
 
 function count_items($feed_ids = array())
 {

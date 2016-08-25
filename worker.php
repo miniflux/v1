@@ -1,6 +1,7 @@
 <?php
 
 use Pheanstalk\Pheanstalk;
+use Miniflux\Model;
 
 require __DIR__.'/app/common.php';
 

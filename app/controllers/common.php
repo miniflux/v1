@@ -1,5 +1,15 @@
 <?php
 
+use Miniflux\Router;
+use Miniflux\Response;
+use Miniflux\Request;
+use Miniflux\Session;
+use Miniflux\Template;
+use Miniflux\Helper;
+use Miniflux\Model;
+use Miniflux\Translator;
+use Miniflux\Handler;
+
 // Called before each action
 Router\before(function ($action) {
     Session\open(BASE_URL_DIRECTORY, SESSION_SAVE_PATH, 0);

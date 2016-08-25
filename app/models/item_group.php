@@ -1,9 +1,9 @@
 <?php
 
-namespace Model\ItemGroup;
+namespace Miniflux\Model\ItemGroup;
 
 use PicoDb\Database;
-use Model\Group;
+use Miniflux\Model\Group;
 
 function mark_all_as_read($group_id)
 {

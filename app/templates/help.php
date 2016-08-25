@@ -12,7 +12,7 @@
     </nav>
 </div>
 <section>
-    <?= \Template\load('keyboard_shortcuts') ?>
+    <?= Miniflux\Template\load('keyboard_shortcuts') ?>
 </section>
 <div class="page-section">
     <h2><?= t('Documentation') ?></h2>

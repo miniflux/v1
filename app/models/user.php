@@ -1,13 +1,13 @@
 <?php
 
-namespace Model\User;
+namespace Miniflux\Model\User;
 
 use PicoDb\Database;
-use Session;
-use Request;
-use Model\Config;
-use Model\RememberMe;
-use Model\Database as DatabaseModel;
+use Miniflux\Session;
+use Miniflux\Request;
+use Miniflux\Model\Config;
+use Miniflux\Model\RememberMe;
+use Miniflux\Model\Database as DatabaseModel;
 
 // Check if the user is logged in
 function is_loggedin()

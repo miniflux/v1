@@ -14,7 +14,7 @@
 <section>
     <div class="panel panel-default">
         <ul>
-            <li><?= t('Database size:') ?> <strong><?= Helper\format_bytes($db_size) ?></strong></li>
+            <li><?= t('Database size:') ?> <strong><?= Miniflux\Helper\format_bytes($db_size) ?></strong></li>
             <li><a href="?action=optimize-db&amp;csrf=<?= $csrf ?>"><?= t('Optimize the database') ?></a> <?= t('(VACUUM command)') ?></li>
             <li><a href="?action=download-db&amp;csrf=<?= $csrf ?>"><?= t('Download the entire database') ?></a> <?= t('(Gzip compressed Sqlite file)') ?></li>
             <?php if (ENABLE_MULTIPLE_DB): ?>

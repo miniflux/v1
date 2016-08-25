@@ -1,5 +1,10 @@
 <?php
 
+use Miniflux\Router;
+use Miniflux\Response;
+use Miniflux\Template;
+use Miniflux\Model;
+
 // Flush console messages
 Router\get_action('flush-console', function () {
     @unlink(DEBUG_FILENAME);
