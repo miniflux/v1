@@ -245,4 +245,6 @@ return array(
     'Item title links to' => 'Eintragstitel verweist auf',
     'Original' => 'Original',
     'Last login:' => 'Letzte Anmeldung:',
+    'Search' => 'Suchen',
+    'There are no results for your search' => 'Deine Suche lieferte keine Ergebnisse',
 );
