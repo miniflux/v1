@@ -245,4 +245,6 @@ return array(
     'Item title links to' => 'Titulek článku odkazuje na',
     'Original' => 'Originál',
     'Last login:' => 'Poslední přihlášení:',
+    // 'Search' => '',
+    // 'There are no results for your search' => '',
 );
