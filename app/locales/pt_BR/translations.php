@@ -245,4 +245,6 @@ return array(
     // 'Item title links to' => '',
     // 'Original' => '',
     // 'Last login:' => '',
+    // 'Search' => '',
+    // 'There are no results for your search' => '',
 );

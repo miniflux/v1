@@ -245,4 +245,6 @@ return array(
     'Item title links to' => 'Заголовок статьи ведет на',
     'Original' => 'Оригинал',
     'Last login:' => 'Последний вход:',
+    'Search' => 'Поиск',
+    'There are no results for your search' => 'По вашему запросу ничего не нашлось',
 );

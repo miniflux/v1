@@ -247,4 +247,6 @@ return array(
     'Item title links to' => 'アイテムのタイトルのリンク先',
     'Original' => '元のページ',
     // 'Last login:' => '',
+    // 'Search' => '',
+    // 'There are no results for your search' => '',
 );
