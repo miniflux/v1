@@ -1,22 +1,22 @@
 <div class="menu-more">
 <ul>
     <li>
-        <a href="?action=unread"><?= t('unread') ?></a>
+        <a href="?action=unread"><?php echo t('unread') ?></a>
     </li>
     <li>
-        <a href="?action=bookmarks"><?= t('bookmarks') ?></a>
+        <a href="?action=bookmarks"><?php echo t('bookmarks') ?></a>
     </li>
     <li>
-        <a href="?action=history"><?= t('history') ?></a>
+        <a href="?action=history"><?php echo t('history') ?></a>
     </li>
     <li>
-        <a href="?action=feeds"><?= t('subscriptions') ?></a>
+        <a href="?action=feeds"><?php echo t('subscriptions') ?></a>
     </li>
     <li>
-        <a href="?action=config"><?= t('preferences') ?></a>
+        <a href="?action=config"><?php echo t('preferences') ?></a>
     </li>
     <li>
-        <a href="?action=logout"><?= t('logout') ?></a>
+        <a href="?action=logout"><?php echo t('logout') ?></a>
     </li>
 </ul>
 </div>

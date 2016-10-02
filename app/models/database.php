@@ -74,8 +74,9 @@ function get_all()
     $dir = new DirectoryIterator(DATA_DIRECTORY);
 
     foreach ($dir as $fileinfo) {
-        if ($fileinfo->getExtension() === 'sqlite') {
-            $listing[] = $fileinfo->getFilename();
+	$filename = $fileinfo->getFilename();
+        if (preg_match('/sqlite$/', $filename)) {
+            $listing[] = $filename;
         }
     }
 
