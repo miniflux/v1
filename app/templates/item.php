@@ -88,7 +88,9 @@
     </ul>
     <?php if ($display_mode === 'full'): ?>
         <div class="preview-full-content" <?php echo Miniflux\Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>><?php echo $item['content'] ?></div>
-    <?php else: ?>
+    <?php elseif ($display_mode === 'summaries'): ?>
         <p class="preview" <?php echo Miniflux\Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>><?php echo Miniflux\Helper\escape(Miniflux\Helper\summary(strip_tags($item['content']), 50, 300)) ?></p>
+    <?php else: ?>
+        <p class="no-preview"></p>
     <?php endif ?>
 </article>
