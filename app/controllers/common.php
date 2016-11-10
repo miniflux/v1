@@ -69,11 +69,6 @@ Router\get_action('show-help', function () {
     Response\html(Template\load('show_help'));
 });
 
-// Show the menu for the mobile view
-Router\get_action('more', function () {
-    Response\html(Template\layout('show_more', array('menu' => 'more')));
-});
-
 // Image proxy (avoid SSL mixed content warnings)
 Router\get_action('proxy', function () {
     Handler\Proxy\download(rawurldecode(Request\param('url')));

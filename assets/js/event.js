@@ -85,6 +85,9 @@ Miniflux.Event = (function() {
                         case 'show-search':
                             Miniflux.Nav.ShowSearch();
                             break;
+                       case 'toggle-menu-more':
+                            Miniflux.Nav.ToggleMenuMore();
+                            break;
                     }
                 }
             };

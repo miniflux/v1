@@ -442,6 +442,11 @@ header a {
     text-decoration: none;
 }
 
+nav .menu-more-switcher {
+    color: #777;
+    cursor: pointer;
+}
+
 nav .active a {
     color: #333;
     font-weight: bold;
@@ -793,7 +798,11 @@ iframe {
     font-size: 75%;
 }
 
-.menu-more li {
+#menu-more {
+    padding-top: 20px;
+}
+
+#menu-more li {
     font-size: 1.1em;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -801,9 +810,13 @@ iframe {
     list-style-type: none;
 }
 
-.menu-more a {
-    text-decoration: none;
+#menu-more li.active a {
     color: #333;
+}
+
+#menu-more a {
+    text-decoration: none;
+    color: #777;
     display: block;
 }
 

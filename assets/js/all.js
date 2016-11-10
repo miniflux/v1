@@ -602,6 +602,9 @@ Miniflux.Event = (function() {
                         case 'show-search':
                             Miniflux.Nav.ShowSearch();
                             break;
+                       case 'toggle-menu-more':
+                            Miniflux.Nav.ToggleMenuMore();
+                            break;
                     }
                 }
             };
@@ -973,6 +976,12 @@ Miniflux.Nav = (function() {
             document.getElementById("search-opener").setAttribute("class", "hide");
             document.getElementById("search-form").removeAttribute("class");
             document.getElementById("form-text").focus();
+        },
+        ToggleMenuMore: function () {
+            var menu = document.getElementById("menu-more");
+            menu.hasAttribute("class")
+                ? menu.removeAttribute("class")
+                : menu.setAttribute("class", "hide");
         },
         IsListing: isListing
     };

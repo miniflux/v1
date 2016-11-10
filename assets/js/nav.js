@@ -112,6 +112,12 @@ Miniflux.Nav = (function() {
             document.getElementById("search-form").removeAttribute("class");
             document.getElementById("form-text").focus();
         },
+        ToggleMenuMore: function () {
+            var menu = document.getElementById("menu-more");
+            menu.hasAttribute("class")
+                ? menu.removeAttribute("class")
+                : menu.setAttribute("class", "hide");
+        },
         IsListing: isListing
     };
 
