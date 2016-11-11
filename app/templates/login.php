@@ -19,38 +19,38 @@
         <link rel="apple-touch-icon" sizes="114x114" href="assets/img/touch-icon-iphone-retina.png">
         <link rel="apple-touch-icon" sizes="144x144" href="assets/img/touch-icon-ipad-retina.png">
         <title>Miniflux</title>
-        <link href="<?= Miniflux\Helper\css() ?>" rel="stylesheet" media="screen">
+        <link href="<?php echo Miniflux\Helper\css() ?>" rel="stylesheet" media="screen">
     </head>
     <body id="login-page">
         <section class="page" id="login">
             <?php if (isset($errors['login'])): ?>
-                <p class="alert alert-error"><?= Miniflux\Helper\escape($errors['login']) ?></p>
+                <p class="alert alert-error"><?php echo Miniflux\Helper\escape($errors['login']) ?></p>
             <?php endif ?>
 
             <form method="post" action="?action=login">
 
-                <?= Miniflux\Helper\form_hidden('csrf', $values) ?>
+                <?php echo Miniflux\Helper\form_hidden('csrf', $values) ?>
 
-                <?= Miniflux\Helper\form_label(t('Username'), 'username') ?>
-                <?= Miniflux\Helper\form_text('username', $values, $errors, array('autofocus', 'required')) ?><br/>
+                <?php echo Miniflux\Helper\form_label(t('Username'), 'username') ?>
+                <?php echo Miniflux\Helper\form_text('username', $values, $errors, array('autofocus', 'required')) ?><br/>
 
-                <?= Miniflux\Helper\form_label(t('Password'), 'password') ?>
-                <?= Miniflux\Helper\form_password('password', $values, $errors, array('required')) ?>
+                <?php echo Miniflux\Helper\form_label(t('Password'), 'password') ?>
+                <?php echo Miniflux\Helper\form_password('password', $values, $errors, array('required')) ?>
 
-                <?= Miniflux\Helper\form_checkbox('remember_me', t('Remember Me'), 1) ?><br/>
+                <?php echo Miniflux\Helper\form_checkbox('remember_me', t('Remember Me'), 1) ?><br/>
 
                 <?php if (ENABLE_MULTIPLE_DB && count($databases) > 1): ?>
                 <div id="database-selector">
-                    <h4><?= t('Select another database') ?></h4>
+                    <h4><?php echo t('Select another database') ?></h4>
                     <?php foreach ($databases as $filename => $dbname): ?>
-                        <?= Miniflux\Helper\form_radio('database', $dbname, $filename, ($current_database === $filename)) ?>
+                        <?php echo Miniflux\Helper\form_radio('database', $dbname, $filename, ($current_database === $filename)) ?>
                     <?php endforeach ?>
                 </div>
                 <?php endif ?>
 
 
                 <div class="form-actions">
-                    <input type="submit" value="<?= t('Sign in') ?>" class="btn btn-blue"/>
+                    <input type="submit" value="<?php echo t('Sign in') ?>" class="btn btn-blue"/>
                 </div>
             </form>
 

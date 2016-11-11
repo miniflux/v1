@@ -1,13 +1,13 @@
 <div class="page-header">
-    <h2><?= t('Console') ?></h2>
+    <h2><?php echo t('Console') ?></h2>
     <ul>
-        <li><a href="?action=console"><?= t('refresh') ?></a></li>
-        <li><a href="?action=flush-console"><?= t('flush messages') ?></a></li>
+        <li><a href="?action=console"><?php echo t('refresh') ?></a></li>
+        <li><a href="?action=flush-console"><?php echo t('flush messages') ?></a></li>
     </ul>
 </div>
 
 <?php if (empty($content)): ?>
-    <p class="alert alert-info"><?= t('Nothing to show. Enable the debug mode to see log messages.') ?></p>
+    <p class="alert alert-info"><?php echo t('Nothing to show. Enable the debug mode to see log messages.') ?></p>
 <?php else: ?>
-    <pre id="console"><code><?= Miniflux\Helper\escape($content) ?></code></pre>
+    <pre id="console"><code><?php echo Miniflux\Helper\escape($content) ?></code></pre>
 <?php endif ?>
