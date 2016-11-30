@@ -247,4 +247,7 @@ return array(
     'Last login:' => 'En son sisteme giriş zamanı:',
     // 'Search' => '',
     // 'There are no results for your search' => '',
+    // 'Send bookmarks to Wallabag' => '',
+    // 'Wallabag username' => '',
+    // 'Wallabag password' => '',
 );

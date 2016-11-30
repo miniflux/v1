@@ -247,4 +247,7 @@ return array(
     'Last login:' => 'Letzte Anmeldung:',
     'Search' => 'Suchen',
     'There are no results for your search' => 'Deine Suche lieferte keine Ergebnisse',
+    // 'Send bookmarks to Wallabag' => '',
+    // 'Wallabag username' => '',
+    // 'Wallabag password' => '',
 );

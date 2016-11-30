@@ -247,4 +247,7 @@ return array(
     'Last login:' => 'Poslední přihlášení:',
     'Search' => 'Hledat',
     'There are no results for your search' => 'Žádné výsledky pro toto hledání',
+    // 'Send bookmarks to Wallabag' => '',
+    // 'Wallabag username' => '',
+    // 'Wallabag password' => '',
 );

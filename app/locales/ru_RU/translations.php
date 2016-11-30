@@ -247,4 +247,7 @@ return array(
     'Last login:' => 'Последний вход:',
     'Search' => 'Поиск',
     'There are no results for your search' => 'По вашему запросу ничего не нашлось',
+    'Send bookmarks to Wallabag' => 'Отправлять закладки в Wallabag',
+    'Wallabag username' => 'Имя пользователя Wallabag',
+    'Wallabag password' => 'Пароль Wallabag',
 );

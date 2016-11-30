@@ -232,7 +232,7 @@ Router\get_action('services', function () {
 
 // Update bookmark services
 Router\post_action('services', function () {
-    $values = Request\values() + array('pinboard_enabled' => 0, 'instapaper_enabled' => 0);
+    $values = Request\values() + array('pinboard_enabled' => 0, 'instapaper_enabled' => 0, 'wallabag_enabled' => 0);
     Helper\check_csrf_values($values);
 
     if (Model\Config\save($values)) {
