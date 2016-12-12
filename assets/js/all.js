@@ -713,6 +713,10 @@ Miniflux.Event = (function() {
                         case 63:
                             Miniflux.Nav.ShowHelp();
                             break;
+                        case '/':
+                        case 47:
+                            Miniflux.Nav.ShowSearch();
+                            break;
                         case 'Q':
                         case 81:  // Q
                         case 'q':
