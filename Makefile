@@ -1,3 +1,9 @@
+.PHONY: docker-image
+.PHONY: docker-push
+.PHONY: docker-destroy
+.PHONY: docker-run
+.PHONY: archive
+
 JS_FILE = assets/js/all.js
 CONTAINER = miniflux
 IMAGE = miniflux/miniflux
