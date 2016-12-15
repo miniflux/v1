@@ -713,10 +713,6 @@ Miniflux.Event = (function() {
                         case 63:
                             Miniflux.Nav.ShowHelp();
                             break;
-                        case '/':
-                        case 47:
-                            Miniflux.Nav.ShowSearch();
-                            break;
                         case 'Q':
                         case 81:  // Q
                         case 'q':
@@ -749,6 +745,22 @@ Miniflux.Event = (function() {
                     case "Right":
                     case 39:
                         Miniflux.Nav.SelectNextItem();
+                        break;
+                }
+            };
+
+            document.onkeyup = function(e) {
+
+                if (isEventIgnored(e)) {
+                    return;
+                }
+
+                Miniflux.Event.lastEventType = "keyboard";
+
+                switch (e.key || e.which) {
+                    case '/':
+                    case 47:
+                        Miniflux.Nav.ShowSearch();
                         break;
                 }
             };
