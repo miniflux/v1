@@ -174,7 +174,7 @@ return array(
     'Display items on lists' => '在列表上显示条目',
     'Summaries' => '摘要',
     'Full contents' => '全文',
-    'Force RTL mode (Right-to-left language)' => '开启RTL模式(从左到右书写)',
+    'Force RTL mode (Right-to-left language)' => '开启RTL模式(从右到左书写)',
     'Activated' => '启用',
     'Remove this feed' => '移出这个订阅源',
     // 'Miniflux' => '',
