@@ -42,7 +42,7 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase
         return $item;
     }
 
-    public function buildFeed()
+    public function buildFeed($feedUrl = 'feed url')
     {
         $items = array();
 
@@ -63,7 +63,7 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase
 
         $feed = new Feed();
         $feed->setTitle('My feed');
-        $feed->setFeedUrl('feed url');
+        $feed->setFeedUrl($feedUrl);
         $feed->setSiteUrl('site url');
         $feed->setItems($items);
 
@@ -72,6 +72,6 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase
 
     public function assertCreateFeed(Feed $feed)
     {
-        $this->assertEquals(1, Model\Feed\create(1, $feed, 'etag', 'last modified'));
+        $this->assertNotFalse(Model\Feed\create(1, $feed, 'etag', 'last modified'));
     }
 }

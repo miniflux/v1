@@ -7,6 +7,7 @@ use Miniflux\Model;
 use PicoFeed;
 use PicoFeed\Config\Config as ReaderConfig;
 use PicoFeed\Logging\Logger;
+use PicoFeed\Reader\Favicon;
 use PicoFeed\Reader\Reader;
 
 function fetch_feed($url, $download_content = false, $etag = '', $last_modified = '')
@@ -74,7 +75,7 @@ function create_feed($user_id, $url, $download_content = false, $rtl = false, $c
         } else if ($feed_id === false) {
             $error_message = t('Unable to save this subscription in the database.');
         } else {
-            Model\Favicon\create_feed_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
+            fetch_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
 
             if (! empty($feed_group_ids)) {
                 Model\Group\update_feed_groups($user_id, $feed_id, $feed_group_ids, $group_name);
@@ -115,7 +116,7 @@ function update_feed($user_id, $feed_id)
 
     if ($feed !== null) {
         Model\Item\update_feed_items($user_id, $feed_id, $feed->getItems(), $subscription['rtl']);
-        Model\Favicon\create_feed_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
+        fetch_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
     }
 
     return true;
@@ -125,6 +126,17 @@ function update_feeds($user_id, $limit = null)
 {
     foreach (Model\Feed\get_feed_ids($user_id, $limit) as $feed_id) {
         update_feed($user_id, $feed_id);
+    }
+}
+
+function fetch_favicon($feed_id, $site_url, $icon_link)
+{
+    if (Helper\bool_config('favicons') && ! Model\Favicon\has_favicon($feed_id)) {
+        $favicon = new Favicon();
+
+        if ($favicon->find($site_url, $icon_link)) {
+            Model\Favicon\create_feed_favicon($feed_id, $favicon->getType(), $favicon->getContent());
+        }
     }
 }
 

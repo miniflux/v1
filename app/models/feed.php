@@ -2,6 +2,7 @@
 
 namespace Miniflux\Model\Feed;
 
+use Miniflux\Model\Favicon;
 use Miniflux\Model\Item;
 use Miniflux\Model\Group;
 use PicoDb\Database;
@@ -151,11 +152,17 @@ function change_feed_status($user_id, $feed_id, $status = STATUS_ACTIVE)
 
 function remove_feed($user_id, $feed_id)
 {
-    return Database::getInstance('db')
+    $result = Database::getInstance('db')
         ->table(TABLE)
         ->eq('user_id', $user_id)
         ->eq('id', $feed_id)
         ->remove();
+
+    if ($result) {
+        Favicon\purge_favicons();
+    }
+
+    return $result;
 }
 
 function count_failed_feeds($user_id)
