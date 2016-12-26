@@ -3,46 +3,12 @@
 namespace Miniflux\Model\Config;
 
 use Miniflux\Helper;
-use Miniflux\Translator;
+use Miniflux\Model;
 use DirectoryIterator;
+use Miniflux\Session\SessionStorage;
 use PicoDb\Database;
-use PicoFeed\Config\Config as ReaderConfig;
-use PicoFeed\Logging\Logger;
 
-const HTTP_USER_AGENT = 'Miniflux (https://miniflux.net)';
-
-// Get PicoFeed config
-function get_reader_config()
-{
-    $config = new ReaderConfig;
-    $config->setTimezone(get('timezone'));
-
-    // Client
-    $config->setClientTimeout(HTTP_TIMEOUT);
-    $config->setClientUserAgent(HTTP_USER_AGENT);
-    $config->setMaxBodySize(HTTP_MAX_RESPONSE_SIZE);
-
-    // Grabber
-    $config->setGrabberRulesFolder(RULES_DIRECTORY);
-
-    // Proxy
-    $config->setProxyHostname(PROXY_HOSTNAME);
-    $config->setProxyPort(PROXY_PORT);
-    $config->setProxyUsername(PROXY_USERNAME);
-    $config->setProxyPassword(PROXY_PASSWORD);
-
-    // Filter
-    $config->setFilterIframeWhitelist(get_iframe_whitelist());
-
-    if ((bool) get('debug_mode')) {
-        Logger::enable();
-    }
-
-    // Parser
-    $config->setParserHashAlgo('crc32b');
-
-    return $config;
-}
+const TABLE = 'user_settings';
 
 function get_iframe_whitelist()
 {
@@ -56,60 +22,41 @@ function get_iframe_whitelist()
     );
 }
 
-// Send a debug message to the console
-function debug($line)
-{
-    Logger::setMessage($line);
-    write_debug();
-}
-
-// Write PicoFeed debug output to a file
-function write_debug()
-{
-    if ((bool) get('debug_mode')) {
-        file_put_contents(DEBUG_FILENAME, implode(PHP_EOL, Logger::getMessages()));
-    }
-}
-
-// Get available timezone
 function get_timezones()
 {
     $timezones = timezone_identifiers_list();
     return array_combine(array_values($timezones), $timezones);
 }
 
-// Returns true if the language is RTL
 function is_language_rtl()
 {
     $languages = array(
         'ar_AR'
     );
 
-    return in_array(get('language'), $languages);
+    return in_array(Helper\config('language'), $languages);
 }
 
-// Get all supported languages
 function get_languages()
 {
     return array(
-        'ar_AR' => 'عربي',
-        'cs_CZ' => 'Čeština',
-        'de_DE' => 'Deutsch',
-        'en_US' => 'English',
-        'es_ES' => 'Español',
-        'fr_FR' => 'Français',
-        'it_IT' => 'Italiano',
-        'ja_JP' => '日本語',
-        'pt_BR' => 'Português',
-        'zh_CN' => '简体中国',
-        'sr_RS' => 'српски',
+        'ar_AR'       => 'عربي',
+        'cs_CZ'       => 'Čeština',
+        'de_DE'       => 'Deutsch',
+        'en_US'       => 'English',
+        'es_ES'       => 'Español',
+        'fr_FR'       => 'Français',
+        'it_IT'       => 'Italiano',
+        'ja_JP'       => '日本語',
+        'pt_BR'       => 'Português',
+        'zh_CN'       => '简体中国',
+        'sr_RS'       => 'српски',
         'sr_RS@latin' => 'srpski',
-        'ru_RU' => 'Русский',
-        'tr_TR' => 'Türkçe',
+        'ru_RU'       => 'Русский',
+        'tr_TR'       => 'Türkçe',
     );
 }
 
-// Get all skins
 function get_themes()
 {
     $themes = array(
@@ -129,52 +76,47 @@ function get_themes()
     return $themes;
 }
 
-// Sorting direction choices for items
 function get_sorting_directions()
 {
     return array(
-        'asc' => t('Older items first'),
+        'asc'  => t('Older items first'),
         'desc' => t('Most recent first'),
     );
 }
 
-// Display summaries or full contents on lists
 function get_display_mode()
 {
     return array(
-        'titles' => t('Titles'),
+        'titles'    => t('Titles'),
         'summaries' => t('Summaries'),
-        'full' => t('Full contents')
+        'full'      => t('Full contents'),
     );
 }
 
-// Item title links to original or full contents
 function get_item_title_link()
 {
     return array(
         'original' => t('Original'),
-        'full' => t('Full contents')
+        'full'     => t('Full contents'),
     );
 }
 
-// Autoflush choices for read items
 function get_autoflush_read_options()
 {
     return array(
-        '0' => t('Never'),
+        '0'  => t('Never'),
         '-1' => t('Immediately'),
-        '1' => t('After %d day', 1),
-        '5' => t('After %d day', 5),
+        '1'  => t('After %d day', 1),
+        '5'  => t('After %d day', 5),
         '15' => t('After %d day', 15),
-        '30' => t('After %d day', 30)
+        '30' => t('After %d day', 30),
     );
 }
 
-// Autoflush choices for unread items
 function get_autoflush_unread_options()
 {
     return array(
-        '0' => t('Never'),
+        '0'  => t('Never'),
         '15' => t('After %d day', 15),
         '30' => t('After %d day', 30),
         '45' => t('After %d day', 45),
@@ -182,14 +124,13 @@ function get_autoflush_unread_options()
     );
 }
 
-// Number of items per pages
 function get_paging_options()
 {
     return array(
-        10 => 10,
-        20 => 20,
-        30 => 30,
-        50 => 50,
+        10  => 10,
+        20  => 20,
+        30  => 30,
+        50  => 50,
         100 => 100,
         150 => 150,
         200 => 200,
@@ -197,84 +138,96 @@ function get_paging_options()
     );
 }
 
-// Get redirect options when there is nothing to read
 function get_nothing_to_read_redirections()
 {
     return array(
-        'feeds' => t('Subscriptions'),
-        'history' => t('History'),
+        'feeds'     => t('Subscriptions'),
+        'history'   => t('History'),
         'bookmarks' => t('Bookmarks'),
     );
 }
 
-
-// Regenerate tokens for the API and bookmark feed
-function new_tokens()
+function get_default_values()
 {
-    $values = array(
-        'api_token' => Helper\generate_token(),
-        'feed_token' => Helper\generate_token(),
-        'bookmarklet_token' => Helper\generate_token(),
-        'fever_token' => substr(Helper\generate_token(), 0, 8),
+    return array(
+        'language'                      => 'en_US',
+        'timezone'                      => 'UTC',
+        'theme'                         => 'original',
+        'autoflush'                     => 15,
+        'autoflush_unread'              => 45,
+        'frontend_updatecheck_interval' => 10,
+        'favicons'                      => 1,
+        'nocontent'                     => 0,
+        'image_proxy'                   => 0,
+        'original_marks_read'           => 1,
+        'instapaper_enabled'            => 0,
+        'pinboard_enabled'              => 0,
+        'pinboard_tags'                 => 'miniflux',
+        'items_per_page'                => 100,
+        'items_display_mode'            => 'summaries',
+        'items_sorting_direction'       => 'desc',
+        'redirect_nothing_to_read'      => 'feeds',
+        'item_title_link'               => 'full',
     );
-
-    return Database::getInstance('db')->hashtable('settings')->put($values);
 }
 
-// Get a config value from the DB or from the session
-function get($name)
+function get_all($user_id)
 {
-    if (! isset($_SESSION)) {
-        return current(Database::getInstance('db')->hashtable('settings')->get($name));
-    } else {
-        if (! isset($_SESSION['config'][$name])) {
-            $_SESSION['config'] = get_all();
-        }
+    $settings = Database::getInstance('db')
+        ->hashtable(TABLE)
+        ->eq('user_id', $user_id)
+        ->getAll('key', 'value');
 
-        if (isset($_SESSION['config'][$name])) {
-            return $_SESSION['config'][$name];
-        }
+    if (empty($settings)) {
+        save_defaults($user_id);
+        $settings = Database::getInstance('db')
+            ->hashtable(TABLE)
+            ->eq('user_id', $user_id)
+            ->getAll('key', 'value');
     }
 
-    return null;
+    return $settings;
 }
 
-// Get all config parameters
-function get_all()
+function save_defaults($user_id)
 {
-    $config = Database::getInstance('db')->hashtable('settings')->get();
-    unset($config['password']);
-    return $config;
+    return save($user_id, get_default_values());
 }
 
-// Save config into the database and update the session
-function save(array $values)
+function save($user_id, array $values)
 {
-    // Update the password if needed
-    if (! empty($values['password'])) {
-        $values['password'] = password_hash($values['password'], PASSWORD_BCRYPT);
-    } else {
-        unset($values['password']);
-    }
+    $db = Database::getInstance('db');
+    $results = array();
+    $db->startTransaction();
 
-    unset($values['confirmation']);
-
-    // If the user does not want content of feeds, remove it in previous ones
     if (isset($values['nocontent']) && (bool) $values['nocontent']) {
-        Database::getInstance('db')->table('items')->update(array('content' => ''));
+        $db
+            ->table(Model\Item\TABLE)
+            ->eq('user_id', $user_id)
+            ->update(array('content' => ''));
     }
 
-    if (Database::getInstance('db')->hashtable('settings')->put($values)) {
-        reload();
-        return true;
+    foreach ($values as $key => $value) {
+        if ($db->table(TABLE)->eq('user_id', $user_id)->eq('key', $key)->exists()) {
+            $results[] = $db->table(TABLE)
+                ->eq('user_id', $user_id)
+                ->eq('key', $key)
+                ->update(array('value' => $value));
+        } else {
+            $results[] = $db->table(TABLE)->insert(array(
+                'key'     => $key,
+                'value'   => $value,
+                'user_id' => $user_id,
+            ));
+        }
     }
 
-    return false;
-}
+    if (in_array(false, $results, true)) {
+        $db->cancelTransaction();
+        return false;
+    }
 
-// Reload the cache in session
-function reload()
-{
-    $_SESSION['config'] = get_all();
-    Translator\load(get('language'));
+    $db->closeTransaction();
+    SessionStorage::getInstance()->flushConfig();
+    return true;
 }

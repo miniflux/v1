@@ -155,17 +155,19 @@ class Client
      * Execute a procedure
      *
      * @access public
-     * @param  string $procedure Procedure name
-     * @param  array  $params    Procedure arguments
-     * @param  array  $reqattrs
+     * @param  string      $procedure Procedure name
+     * @param  array       $params    Procedure arguments
+     * @param  array       $reqattrs
+     * @param  string|null $requestId Request Id
      * @return mixed
      */
-    public function execute($procedure, array $params = array(), array $reqattrs = array())
+    public function execute($procedure, array $params = array(), array $reqattrs = array(), $requestId = null)
     {
         $payload = RequestBuilder::create()
             ->withProcedure($procedure)
             ->withParams($params)
             ->withRequestAttributes($reqattrs)
+            ->withId($requestId)
             ->build();
 
         if ($this->isBatch) {

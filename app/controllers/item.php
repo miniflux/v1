@@ -1,101 +1,73 @@
 <?php
 
+namespace Miniflux\Controller;
+
+use Miniflux\Helper;
 use Miniflux\Router;
 use Miniflux\Response;
 use Miniflux\Request;
+use Miniflux\Session\SessionStorage;
 use Miniflux\Template;
-use Miniflux\Helper;
 use Miniflux\Handler;
 use Miniflux\Model;
 
 // Display unread items
 Router\get_action('unread', function () {
-    Model\Item\autoflush_read();
-    Model\Item\autoflush_unread();
+    $user_id = SessionStorage::getInstance()->getUserId();
 
-    $order = Request\param('order', 'updated');
-    $direction = Request\param('direction', Model\Config\get('items_sorting_direction'));
-    $offset = Request\int_param('offset', 0);
-    $group_id = Request\int_param('group_id', null);
-    $feed_ids = array();
+    Model\Item\autoflush_read($user_id);
+    Model\Item\autoflush_unread($user_id);
 
-    if ($group_id !== null) {
-        $feed_ids = Model\Group\get_feeds_by_group($group_id);
-    }
+    $params = items_list(Model\Item\STATUS_UNREAD);
 
-    $items = Model\Item\get_all_by_status(
-        'unread',
-        $feed_ids,
-        $offset,
-        Model\Config\get('items_per_page'),
-        $order,
-        $direction
-    );
-
-    $nb_items = Model\Item\count_by_status('unread', $feed_ids);
-    $nb_unread_items = Model\Item\count_by_status('unread');
-
-    if ($nb_unread_items === 0) {
-        $action = Model\Config\get('redirect_nothing_to_read');
+    if ($params['nb_unread_items'] === 0) {
+        $action = Helper\config('redirect_nothing_to_read', 'feeds');
         Response\redirect('?action='.$action.'&nothing_to_read=1');
     }
 
-    Response\html(Template\layout('unread_items', array(
-        'favicons' => Model\Favicon\get_item_favicons($items),
-        'original_marks_read' => Model\Config\get('original_marks_read'),
-        'order' => $order,
-        'direction' => $direction,
-        'display_mode' => Model\Config\get('items_display_mode'),
-        'item_title_link' => Model\Config\get('item_title_link'),
-        'group_id' => $group_id,
-        'items' => $items,
-        'nb_items' => $nb_items,
-        'nb_unread_items' => $nb_unread_items,
-        'offset' => $offset,
-        'items_per_page' => Model\Config\get('items_per_page'),
-        'title' => 'Miniflux ('.$nb_items.')',
-        'menu' => 'unread',
-        'groups' => Model\Group\get_all()
+    Response\html(Template\layout('unread_items', $params + array(
+        'title' => 'Miniflux (' . $params['nb_items'] . ')',
+        'menu'  => 'unread',
     )));
 });
 
 // Show item
 Router\get_action('show', function () {
-    $id = Request\param('id');
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $item_id = Request\param('id');
     $menu = Request\param('menu');
-    $item = Model\Item\get($id);
-    $feed = Model\Feed\get($item['feed_id']);
+    $item = Model\Item\get_item($user_id, $item_id);
+    $feed = Model\Feed\get_feed($user_id, $item['feed_id']);
     $group_id = Request\int_param('group_id', null);
 
-    Model\Item\set_read($id);
+    Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_READ);
     $item['status'] = 'read';
 
     switch ($menu) {
         case 'unread':
-            $nav = Model\Item\get_nav($item, array('unread'), array(1, 0), null, $group_id);
+            $nav = Model\Item\get_item_nav($user_id, $item, array('unread'), array(1, 0), null, $group_id);
             break;
         case 'history':
-            $nav = Model\Item\get_nav($item, array('read'));
+            $nav = Model\Item\get_item_nav($user_id, $item, array('read'));
             break;
         case 'feed-items':
-            $nav = Model\Item\get_nav($item, array('unread', 'read'), array(1, 0), $item['feed_id']);
+            $nav = Model\Item\get_item_nav($user_id, $item, array('unread', 'read'), array(1, 0), $item['feed_id']);
             break;
         case 'bookmarks':
-            $nav = Model\Item\get_nav($item, array('unread', 'read'), array(1));
+            $nav = Model\Item\get_item_nav($user_id, $item, array('unread', 'read'), array(1));
             break;
     }
 
-    $image_proxy = (bool) Model\Config\get('image_proxy');
+    $image_proxy = (bool) Helper\config('image_proxy');
 
     // add the image proxy if requested and required
     $item['content'] = Handler\Proxy\rewrite_html($item['content'], $item['url'], $image_proxy, $feed['cloak_referrer']);
 
     if ($image_proxy && strpos($item['enclosure_type'], 'image') === 0) {
-        $item['enclosure'] = Handler\Proxy\rewrite_link($item['enclosure']);
+        $item['enclosure_url'] = Handler\Proxy\rewrite_link($item['enclosure_url']);
     }
 
     Response\html(Template\layout('show_item', array(
-        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'item' => $item,
         'feed' => $feed,
         'item_nav' => isset($nav) ? $nav : null,
@@ -107,27 +79,27 @@ Router\get_action('show', function () {
 
 // Display feed items page
 Router\get_action('feed-items', function () {
+    $user_id = SessionStorage::getInstance()->getUserId();
     $feed_id = Request\int_param('feed_id', 0);
     $offset = Request\int_param('offset', 0);
-    $nb_items = Model\ItemFeed\count_items($feed_id);
-    $feed = Model\Feed\get($feed_id);
+    $feed = Model\Feed\get_feed($user_id, $feed_id);
     $order = Request\param('order', 'updated');
-    $direction = Request\param('direction', Model\Config\get('items_sorting_direction'));
-    $items = Model\ItemFeed\get_all_items($feed_id, $offset, Model\Config\get('items_per_page'), $order, $direction);
+    $direction = Request\param('direction', Helper\config('items_sorting_direction'));
+    $items = Model\ItemFeed\get_all_items($user_id, $feed_id, $offset, Helper\config('items_per_page'), $order, $direction);
+    $nb_items = Model\ItemFeed\count_items($user_id, $feed_id);
 
     Response\html(Template\layout('feed_items', array(
-        'favicons' => Model\Favicon\get_favicons(array($feed['id'])),
-        'original_marks_read' => Model\Config\get('original_marks_read'),
+        'favicons' => Model\Favicon\get_favicons_by_feed_ids(array($feed['id'])),
+        'original_marks_read' => Helper\config('original_marks_read'),
         'order' => $order,
         'direction' => $direction,
-        'display_mode' => Model\Config\get('items_display_mode'),
+        'display_mode' => Helper\config('items_display_mode'),
         'feed' => $feed,
         'items' => $items,
         'nb_items' => $nb_items,
-        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'offset' => $offset,
-        'items_per_page' => Model\Config\get('items_per_page'),
-        'item_title_link' => Model\Config\get('item_title_link'),
+        'items_per_page' => Helper\config('items_per_page'),
+        'item_title_link' => Helper\config('item_title_link'),
         'menu' => 'feed-items',
         'title' => '('.$nb_items.') '.$feed['title']
     )));
@@ -135,43 +107,56 @@ Router\get_action('feed-items', function () {
 
 // Ajax call to download an item (fetch the full content from the original website)
 Router\post_action('download-item', function () {
-    $id = Request\param('id');
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $item_id = Request\param('id');
 
-    $item = Model\Item\get($id);
-    $feed = Model\Feed\get($item['feed_id']);
+    $item = Model\Item\get_item($user_id, $item_id);
+    $feed = Model\Feed\get_feed($user_id, $item['feed_id']);
 
-    $download = Model\Item\download_contents($id);
-    $download['content'] = Handler\Proxy\rewrite_html($download['content'], $item['url'], Model\Config\get('image_proxy'), $feed['cloak_referrer']);
+    $download = Handler\Item\download_item_content($user_id, $item_id);
+    $download['content'] = Handler\Proxy\rewrite_html(
+        $download['content'],
+        $item['url'],
+        Helper\bool_config('image_proxy'),
+        (bool) $feed['cloak_referrer']
+    );
 
     Response\json($download);
 });
 
 // Ajax call to mark item read
 Router\post_action('mark-item-read', function () {
-    Model\Item\set_read(Request\param('id'));
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $item_id = Request\param('id');
+    Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_READ);
     Response\json(array('Ok'));
 });
 
 // Ajax call to mark item as removed
 Router\post_action('mark-item-removed', function () {
-    Model\Item\set_removed(Request\param('id'));
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $item_id = Request\param('id');
+    Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_REMOVED);
     Response\json(array('Ok'));
 });
 
 // Ajax call to mark item unread
 Router\post_action('mark-item-unread', function () {
-    Model\Item\set_unread(Request\param('id'));
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $item_id = Request\param('id');
+    Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_UNREAD);
     Response\json(array('Ok'));
 });
 
 // Mark unread items as read
 Router\get_action('mark-all-read', function () {
+    $user_id = SessionStorage::getInstance()->getUserId();
     $group_id = Request\int_param('group_id', null);
 
     if ($group_id !== null) {
-        Model\ItemGroup\mark_all_as_read($group_id);
+        Model\ItemGroup\change_items_status($user_id, $group_id, Model\Item\STATUS_UNREAD, Model\Item\STATUS_READ);
     } else {
-        Model\Item\mark_all_as_read();
+        Model\Item\change_items_status($user_id, Model\Item\STATUS_UNREAD, Model\Item\STATUS_READ);
     }
 
     Response\redirect('?action=unread');
@@ -179,9 +164,11 @@ Router\get_action('mark-all-read', function () {
 
 // Mark all unread items as read for a specific feed
 Router\get_action('mark-feed-as-read', function () {
+    $user_id = SessionStorage::getInstance()->getUserId();
     $feed_id = Request\int_param('feed_id');
 
-    Model\ItemFeed\mark_all_as_read($feed_id);
+    Model\ItemFeed\change_items_status($user_id, $feed_id, Model\Item\STATUS_UNREAD, Model\Item\STATUS_READ);
+
     Response\redirect('?action=feed-items&feed_id='.$feed_id);
 });
 
@@ -190,48 +177,55 @@ Router\get_action('mark-feed-as-read', function () {
 // that where marked read from the frontend, since the number of unread items
 // on page 2+ is unknown.
 Router\post_action('mark-feed-as-read', function () {
-    Model\ItemFeed\mark_all_as_read(Request\int_param('feed_id'));
-    $nb_items = Model\Item\count_by_status('unread');
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $feed_id = Request\int_param('feed_id');
 
+    Model\ItemFeed\change_items_status($user_id, $feed_id, Model\Item\STATUS_UNREAD, Model\Item\STATUS_READ);
+
+    $nb_items = Model\Item\count_by_status($user_id, Model\Item\STATUS_READ);
     Response\raw($nb_items);
 });
 
 // Mark item as read and redirect to the listing page
 Router\get_action('mark-item-read', function () {
-    $id = Request\param('id');
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $item_id = Request\param('id');
     $redirect = Request\param('redirect', 'unread');
     $offset = Request\int_param('offset', 0);
     $feed_id = Request\int_param('feed_id', 0);
 
-    Model\Item\set_read($id);
-    Response\redirect('?action='.$redirect.'&offset='.$offset.'&feed_id='.$feed_id.'#item-'.$id);
+    Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_READ);
+    Response\redirect('?action='.$redirect.'&offset='.$offset.'&feed_id='.$feed_id.'#item-'.$item_id);
 });
 
 // Mark item as unread and redirect to the listing page
 Router\get_action('mark-item-unread', function () {
-    $id = Request\param('id');
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $item_id = Request\param('id');
     $redirect = Request\param('redirect', 'history');
     $offset = Request\int_param('offset', 0);
     $feed_id = Request\int_param('feed_id', 0);
 
-    Model\Item\set_unread($id);
-    Response\redirect('?action='.$redirect.'&offset='.$offset.'&feed_id='.$feed_id.'#item-'.$id);
+    Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_UNREAD);
+    Response\redirect('?action='.$redirect.'&offset='.$offset.'&feed_id='.$feed_id.'#item-'.$item_id);
 });
 
 // Mark item as removed and redirect to the listing page
 Router\get_action('mark-item-removed', function () {
-    $id = Request\param('id');
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $item_id = Request\param('id');
     $redirect = Request\param('redirect', 'history');
     $offset = Request\int_param('offset', 0);
     $feed_id = Request\int_param('feed_id', 0);
 
-    Model\Item\set_removed($id);
+    Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_REMOVED);
     Response\redirect('?action='.$redirect.'&offset='.$offset.'&feed_id='.$feed_id);
 });
 
 Router\post_action('latest-feeds-items', function () {
-    $items = Model\Item\get_latest_feeds_items();
-    $nb_unread_items = Model\Item\count_by_status('unread');
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $items = Model\Item\get_latest_feeds_items($user_id);
+    $nb_unread_items = Model\Item\count_by_status($user_id, 'unread');
 
     $feeds = array_reduce($items, function ($result, $item) {
         $result[$item['id']] = array(

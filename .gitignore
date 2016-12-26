@@ -17,6 +17,7 @@ Thumbs.db
 .nbproject
 nbproject
 config.php
+!app/helpers/*
 !app/models/*
 !app/controllers/*
 !app/templates/*

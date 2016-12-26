@@ -39,16 +39,6 @@
 
                 <?php echo Miniflux\Helper\form_checkbox('remember_me', t('Remember Me'), 1) ?><br/>
 
-                <?php if (ENABLE_MULTIPLE_DB && count($databases) > 1): ?>
-                <div id="database-selector">
-                    <h4><?php echo t('Select another database') ?></h4>
-                    <?php foreach ($databases as $filename => $dbname): ?>
-                        <?php echo Miniflux\Helper\form_radio('database', $dbname, $filename, ($current_database === $filename)) ?>
-                    <?php endforeach ?>
-                </div>
-                <?php endif ?>
-
-
                 <div class="form-actions">
                     <input type="submit" value="<?php echo t('Sign in') ?>" class="btn btn-blue"/>
                 </div>

@@ -29,13 +29,13 @@
 
     <?php echo Miniflux\Helper\form_checkbox('enabled', t('Activated'), 1, $values['enabled']) ?><br />
 
-    <?php echo Miniflux\Helper\form_label(t('Groups'), 'groups'); ?>
+    <?php echo Miniflux\Helper\form_label(t('Groups'), 'group_name'); ?>
 
     <div id="grouplist">
         <?php foreach ($groups as $group): ?>
             <?php echo Miniflux\Helper\form_checkbox('feed_group_ids[]', $group['title'], $group['id'], in_array($group['id'], $values['feed_group_ids']), 'hide') ?>
         <?php endforeach ?>
-        <?php echo Miniflux\Helper\form_text('create_group', $values, array(), array('placeholder="'.t('add a new group').'"')) ?>
+        <?php echo Miniflux\Helper\form_text('group_name', $values, array(), array('placeholder="'.t('add a new group').'"')) ?>
     </div>
 
     <div class="form-actions">

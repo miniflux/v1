@@ -24,7 +24,7 @@
 
     <?php if ($feed['parsing_error']): ?>
         <p class="alert alert-error">
-            <?php echo tne('An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!','<a href="?action=console">','</a>') ?>
+            <?php echo t('An error occurred during the last check. You could enable the debug mode to have more information.') ?>
         </p>
     <?php endif; ?>
 

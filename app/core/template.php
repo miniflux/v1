@@ -2,6 +2,8 @@
 
 namespace Miniflux\Template;
 
+use Miniflux\Model;
+
 const PATH = 'app/templates/';
 
 // Template\load('template_name', ['bla' => 'value']);
@@ -30,5 +32,8 @@ function load()
 
 function layout($template_name, array $template_args = array(), $layout_name = 'layout')
 {
-    return load($layout_name, $template_args + array('content_for_layout' => load($template_name, $template_args)));
+    return load(
+        $layout_name,
+        $template_args + array('content_for_layout' => load($template_name, $template_args))
+    );
 }

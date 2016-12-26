@@ -6,7 +6,7 @@
     data-item-bookmark="<?php echo $item['bookmark'] ?>"
     <?php echo $hide ? 'data-hide="true"' : '' ?>
     >
-    <h2 <?php echo Miniflux\Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>>
+    <h2 <?php echo Miniflux\Helper\rtl($item) ?>>
         <span class="item-icons">
             <a
                 class="bookmark-icon"
@@ -70,16 +70,16 @@
                 <a href="<?php echo $item['url'] ?>" class="original" rel="noreferrer" target="_blank" <?php echo ($original_marks_read) ? 'data-action="mark-read"' : '' ?>><?php echo t('original link') ?></a>
             </li>
         <?php endif ?>
-        <?php if ($item['enclosure']): ?>
+        <?php if ($item['enclosure_url']): ?>
             <li>
             <?php if (strpos($item['enclosure_type'], 'video/') === 0): ?>
-                <a href="<?php echo $item['enclosure'] ?>" class="video-enclosure" rel="noreferrer" target="_blank"><?php echo t('attachment') ?></a>
+                <a href="<?php echo $item['enclosure_url'] ?>" class="video-enclosure" rel="noreferrer" target="_blank"><?php echo t('attachment') ?></a>
             <?php elseif(strpos($item['enclosure_type'], 'audio/') === 0): ?>
-                <a href="<?php echo $item['enclosure'] ?>" class="audio-enclosure" rel="noreferrer" target="_blank"><?php echo t('attachment') ?></a>
+                <a href="<?php echo $item['enclosure_url'] ?>" class="audio-enclosure" rel="noreferrer" target="_blank"><?php echo t('attachment') ?></a>
             <?php elseif(strpos($item['enclosure_type'], 'image/') === 0): ?>
-                <a href="<?php echo $item['enclosure'] ?>" class="image-enclosure" rel="noreferrer" target="_blank"><?php echo t('attachment') ?></a>
+                <a href="<?php echo $item['enclosure_url'] ?>" class="image-enclosure" rel="noreferrer" target="_blank"><?php echo t('attachment') ?></a>
             <?php else: ?>
-                <a href="<?php echo $item['enclosure'] ?>" class="enclosure" rel="noreferrer" target="_blank"><?php echo t('attachment') ?></a>
+                <a href="<?php echo $item['enclosure_url'] ?>" class="enclosure" rel="noreferrer" target="_blank"><?php echo t('attachment') ?></a>
             <?php endif ?>
             </li>
         <?php endif ?>
@@ -87,9 +87,9 @@
         <?php echo Miniflux\Template\load('status_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset)) ?>
     </ul>
     <?php if ($display_mode === 'full'): ?>
-        <div class="preview-full-content" <?php echo Miniflux\Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>><?php echo $item['content'] ?></div>
+        <div class="preview-full-content" <?php echo Miniflux\Helper\rtl($item) ?>><?php echo $item['content'] ?></div>
     <?php elseif ($display_mode === 'summaries'): ?>
-        <p class="preview" <?php echo Miniflux\Helper\is_rtl($item) ? 'dir="rtl"' : 'dir="ltr"' ?>><?php echo Miniflux\Helper\escape(Miniflux\Helper\summary(strip_tags($item['content']), 50, 300)) ?></p>
+        <p class="preview" <?php echo Miniflux\Helper\rtl($item) ?>><?php echo Miniflux\Helper\escape(Miniflux\Helper\summary(strip_tags($item['content']), 50, 300)) ?></p>
     <?php else: ?>
         <p class="no-preview"></p>
     <?php endif ?>

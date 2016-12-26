@@ -18,8 +18,8 @@ define('FAVICON_URL_PATH', 'data/favicons');
 // DB_FILENAME => default value is db.sqlite (default database filename)
 define('DB_FILENAME', 'db.sqlite');
 
-// ENABLE_MULTIPLE_DB => default value is true (multiple users support)
-define('ENABLE_MULTIPLE_DB', true);
+// Enable/disable debug mode
+define('DEBUG_MODE', false);
 
 // DEBUG_FILENAME => default is data/debug.log
 define('DEBUG_FILENAME', DATA_DIRECTORY.'/debug.log');
@@ -48,3 +48,6 @@ define('ENABLE_AUTO_UPDATE', true);
 // SUBSCRIPTION_CONCURRENT_REQUESTS => number of concurrent feeds to refresh at once
 // Reduce this number on systems with limited processing power
 define('SUBSCRIPTION_CONCURRENT_REQUESTS', 5);
+
+// Allow the cronjob to be accessible from the browser
+define('ENABLE_CRONJOB_HTTP_ACCESS', true);

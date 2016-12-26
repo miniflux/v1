@@ -3,157 +3,177 @@
 namespace Miniflux\Model\Item;
 
 use PicoDb\Database;
-use PicoFeed\Logging\Logger;
-use Miniflux\Handler\Service;
-use Miniflux\Model\Config;
+use Miniflux\Model\Feed;
 use Miniflux\Model\Group;
 use Miniflux\Handler;
+use Miniflux\Helper;
+use PicoFeed\Parser\Parser;
 
-// Get all items without filtering
-function get_all()
+const TABLE          = 'items';
+const STATUS_UNREAD  = 'unread';
+const STATUS_READ    = 'read';
+const STATUS_REMOVED = 'removed';
+
+function change_item_status($user_id, $item_id, $status)
+{
+    if (! in_array($status, array(STATUS_READ, STATUS_UNREAD, STATUS_REMOVED))) {
+        return false;
+    }
+
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->eq('id', $item_id)
+        ->save(array('status' => $status));
+}
+
+function change_items_status($user_id, $current_status, $new_status)
+{
+    if (! in_array($new_status, array(STATUS_READ, STATUS_UNREAD, STATUS_REMOVED))) {
+        return false;
+    }
+
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->eq('status', $current_status)
+        ->save(array('status' => $new_status));
+}
+
+function change_item_ids_status($user_id, array $item_ids, $status)
+{
+    if (! in_array($status, array(STATUS_READ, STATUS_UNREAD, STATUS_REMOVED))) {
+        return false;
+    }
+
+    if (empty($item_ids)) {
+        return false;
+    }
+
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->in('id', $item_ids)
+        ->save(array('status' => $status));
+}
+
+function update_feed_items($user_id, $feed_id, array $items, $rtl = false)
+{
+    $items_in_feed = array();
+    $db = Database::getInstance('db');
+    $db->startTransaction();
+
+    foreach ($items as $item) {
+        if ($item->getId() && $item->getUrl()) {
+            $item_id = get_item_id_from_checksum($feed_id, $item->getId());
+            $values = array(
+                'title'          => $item->getTitle(),
+                'url'            => $item->getUrl(),
+                'updated'        => $item->getDate()->getTimestamp(),
+                'author'         => $item->getAuthor(),
+                'content'        => Helper\bool_config('nocontent') ? '' : $item->getContent(),
+                'enclosure_url'  => $item->getEnclosureUrl(),
+                'enclosure_type' => $item->getEnclosureType(),
+                'language'       => $item->getLanguage(),
+                'rtl'            => $rtl || Parser::isLanguageRTL($item->getLanguage()) ? 1 : 0,
+            );
+
+            if ($item_id > 0) {
+                $db
+                    ->table(TABLE)
+                    ->eq('user_id', $user_id)
+                    ->eq('feed_id', $feed_id)
+                    ->eq('id', $item_id)
+                    ->update($values);
+            } else {
+                $values['checksum'] = $item->getId();
+                $values['user_id'] = $user_id;
+                $values['feed_id'] = $feed_id;
+                $values['status'] = STATUS_UNREAD;
+                $item_id = $db->table(TABLE)->persist($values);
+            }
+
+            $items_in_feed[] = $item_id;
+        }
+    }
+
+    cleanup_feed_items($feed_id, $items_in_feed);
+    $db->closeTransaction();
+}
+
+function cleanup_feed_items($feed_id, array $items_in_feed)
+{
+    if (! empty($items_in_feed)) {
+        $db = Database::getInstance('db');
+
+        $removed_items = $db
+            ->table(TABLE)
+            ->columns('id')
+            ->notIn('id', $items_in_feed)
+            ->eq('status', STATUS_REMOVED)
+            ->eq('feed_id', $feed_id)
+            ->desc('updated')
+            ->findAllByColumn('id');
+
+        // Keep a buffer of 2 items
+        // It's workaround for buggy feeds (cache issue with some Wordpress plugins)
+        if (is_array($removed_items)) {
+            $items_to_remove = array_slice($removed_items, 2);
+
+            if (! empty($items_to_remove)) {
+                // Handle the case when there is a huge number of items to remove
+                // Sqlite have a limit of 1000 sql variables by default
+                // Avoid the error message "too many SQL variables"
+                // We remove old items by batch of 500 items
+                $chunks = array_chunk($items_to_remove, 500);
+
+                foreach ($chunks as $chunk) {
+                    $db->table(TABLE)
+                        ->in('id', $chunk)
+                        ->eq('status', STATUS_REMOVED)
+                        ->eq('feed_id', $feed_id)
+                        ->remove();
+                }
+            }
+        }
+    }
+}
+
+function get_item_id_from_checksum($feed_id, $checksum)
+{
+    return (int) Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('feed_id', $feed_id)
+        ->eq('checksum', $checksum)
+        ->findOneColumn('id');
+}
+
+function get_item($user_id, $item_id)
 {
     return Database::getInstance('db')
         ->table('items')
-        ->columns(
-            'items.id',
-            'items.title',
-            'items.updated',
-            'items.url',
-            'items.enclosure',
-            'items.enclosure_type',
-            'items.bookmark',
-            'items.feed_id',
-            'items.status',
-            'items.content',
-            'items.language',
-            'feeds.site_url',
-            'feeds.title AS feed_title',
-            'feeds.rtl'
-        )
-        ->join('feeds', 'id', 'feed_id')
-        ->in('status', array('read', 'unread'))
-        ->orderBy('updated', 'desc')
-        ->findAll();
-}
-
-// Get everthing since date (timestamp)
-function get_all_since($timestamp)
-{
-    return Database::getInstance('db')
-        ->table('items')
-        ->columns(
-            'items.id',
-            'items.title',
-            'items.updated',
-            'items.url',
-            'items.enclosure',
-            'items.enclosure_type',
-            'items.bookmark',
-            'items.feed_id',
-            'items.status',
-            'items.content',
-            'items.language',
-            'feeds.site_url',
-            'feeds.title AS feed_title',
-            'feeds.rtl'
-        )
-        ->join('feeds', 'id', 'feed_id')
-        ->in('status', array('read', 'unread'))
-        ->gte('updated', $timestamp)
-        ->orderBy('updated', 'desc')
-        ->findAll();
-}
-
-function get_latest_feeds_items()
-{
-    return Database::getInstance('db')
-        ->table('feeds')
-        ->columns(
-            'feeds.id',
-            'MAX(items.updated) as updated',
-            'items.status'
-        )
-        ->join('items', 'feed_id', 'id')
-        ->groupBy('feeds.id')
-        ->orderBy('feeds.id')
-        ->findAll();
-}
-
-// Get a list of [item_id => status,...]
-function get_all_status()
-{
-    return Database::getInstance('db')
-        ->hashtable('items')
-        ->in('status', array('read', 'unread'))
-        ->orderBy('updated', 'desc')
-        ->getAll('id', 'status');
-}
-
-// Get all items by status
-function get_all_by_status($status, $feed_ids = array(), $offset = null, $limit = null, $order_column = 'updated', $order_direction = 'desc')
-{
-    return Database::getInstance('db')
-        ->table('items')
-        ->columns(
-            'items.id',
-            'items.title',
-            'items.updated',
-            'items.url',
-            'items.enclosure',
-            'items.enclosure_type',
-            'items.bookmark',
-            'items.feed_id',
-            'items.status',
-            'items.content',
-            'items.language',
-            'items.author',
-            'feeds.site_url',
-            'feeds.title AS feed_title',
-            'feeds.rtl'
-        )
-        ->join('feeds', 'id', 'feed_id')
-        ->eq('status', $status)
-        ->in('feed_id', $feed_ids)
-        ->orderBy($order_column, $order_direction)
-        ->offset($offset)
-        ->limit($limit)
-        ->findAll();
-}
-
-// Get the number of items per status
-function count_by_status($status, $feed_ids = array())
-{
-    return Database::getInstance('db')
-        ->table('items')
-        ->eq('status', $status)
-        ->in('feed_id', $feed_ids)
-        ->count();
-}
-
-// Get one item by id
-function get($id)
-{
-    return Database::getInstance('db')
-        ->table('items')
-        ->eq('id', $id)
+        ->eq('user_id', $user_id)
+        ->eq('id', $item_id)
         ->findOne();
 }
 
-// Get item naviguation (next/prev items)
-function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $feed_id = null, $group_id = null)
+function get_item_nav($user_id, array $item, $status = array(STATUS_UNREAD), $bookmark = array(1, 0), $feed_id = null, $group_id = null)
 {
     $query = Database::getInstance('db')
-        ->table('items')
+        ->table(TABLE)
         ->columns('id', 'status', 'title', 'bookmark')
-        ->neq('status', 'removed')
-        ->orderBy('updated', Config\get('items_sorting_direction'));
+        ->neq('status', STATUS_REMOVED)
+        ->eq('user_id', $user_id)
+        ->orderBy('updated', Helper\config('items_sorting_direction'))
+        ->desc('id')
+    ;
 
     if ($feed_id) {
         $query->eq('feed_id', $feed_id);
     }
 
     if ($group_id) {
-        $query->in('feed_id', Group\get_feeds_by_group($group_id));
+        $query->in('feed_id', Group\get_feed_ids_by_group($group_id));
     }
 
     $items = $query->findAll();
@@ -199,240 +219,149 @@ function get_nav($item, $status = array('unread'), $bookmark = array(1, 0), $fee
     );
 }
 
-// Change item status to removed and clear content
-function set_removed($id)
+function get_items_by_status($user_id, $status, $feed_ids = array(), $offset = null, $limit = null, $order_column = 'updated', $order_direction = 'desc')
 {
     return Database::getInstance('db')
         ->table('items')
-        ->eq('id', $id)
-        ->save(array('status' => 'removed', 'content' => ''));
+        ->columns(
+            'items.id',
+            'items.checksum',
+            'items.title',
+            'items.updated',
+            'items.url',
+            'items.enclosure_url',
+            'items.enclosure_type',
+            'items.bookmark',
+            'items.feed_id',
+            'items.status',
+            'items.content',
+            'items.language',
+            'items.rtl',
+            'items.author',
+            'feeds.site_url',
+            'feeds.title AS feed_title'
+        )
+        ->join('feeds', 'id', 'feed_id')
+        ->eq('items.user_id', $user_id)
+        ->eq('items.status', $status)
+        ->in('items.feed_id', $feed_ids)
+        ->orderBy($order_column, $order_direction)
+        ->offset($offset)
+        ->limit($limit)
+        ->findAll();
 }
 
-// Change item status to read
-function set_read($id)
+function get_items($user_id, $since_id = null, array $item_ids = array(), $limit = 50)
 {
-    return Database::getInstance('db')
+    $query = Database::getInstance('db')
         ->table('items')
-        ->eq('id', $id)
-        ->save(array('status' => 'read'));
-}
+        ->columns(
+            'items.id',
+            'items.checksum',
+            'items.title',
+            'items.updated',
+            'items.url',
+            'items.enclosure_url',
+            'items.enclosure_type',
+            'items.bookmark',
+            'items.feed_id',
+            'items.status',
+            'items.content',
+            'items.language',
+            'items.rtl',
+            'items.author',
+            'feeds.site_url',
+            'feeds.title AS feed_title'
+        )
+        ->join('feeds', 'id', 'feed_id')
+        ->eq('items.user_id', $user_id)
+        ->neq('items.status', STATUS_REMOVED)
+        ->limit($limit)
+        ->asc('items.id');
 
-// Change item status to unread
-function set_unread($id)
-{
-    return Database::getInstance('db')
-        ->table('items')
-        ->eq('id', $id)
-        ->save(array('status' => 'unread'));
-}
-
-// Change item status to "read", "unread" or "removed"
-function set_status($status, array $items)
-{
-    if (! in_array($status, array('read', 'unread', 'removed'))) {
-        return false;
+    if ($since_id !== null) {
+        $query->gt('items.id', $since_id);
+    } elseif (! empty($item_ids)) {
+        $query->in('items.id', $item_ids);
     }
 
-    return Database::getInstance('db')
-        ->table('items')
-        ->in('id', $items)
-        ->save(array('status' => $status));
+    return $query->findAll();
 }
 
-// Mark all unread items as read
-function mark_all_as_read()
+function get_item_ids_by_status($user_id, $status)
 {
     return Database::getInstance('db')
         ->table('items')
-        ->eq('status', 'unread')
-        ->save(array('status' => 'read'));
+        ->eq('user_id', $user_id)
+        ->eq('status', $status)
+        ->findAllByColumn('id');
 }
 
-// Mark all read items to removed
-function mark_all_as_removed()
+function get_latest_feeds_items($user_id)
 {
     return Database::getInstance('db')
-        ->table('items')
-        ->eq('status', 'read')
-        ->eq('bookmark', 0)
-        ->save(array('status' => 'removed', 'content' => ''));
+        ->table(Feed\TABLE)
+        ->columns(
+            'feeds.id',
+            'MAX(items.updated) as updated',
+            'items.status'
+        )
+        ->join(TABLE, 'feed_id', 'id')
+        ->eq('feeds.user_id', $user_id)
+        ->groupBy('feeds.id')
+        ->orderBy('feeds.id')
+        ->findAll();
 }
 
-// Mark all read items to removed after X days
-function autoflush_read()
+function count_by_status($user_id, $status, $feed_ids = array())
 {
-    $autoflush = (int) Config\get('autoflush');
+    $query = Database::getInstance('db')
+        ->table('items')
+        ->eq('user_id', $user_id)
+        ->in('feed_id', $feed_ids);
+
+    if (is_array($status)) {
+        $query->in('status', $status);
+    } else {
+        $query->eq('status', $status);
+    }
+
+    return $query->count();
+}
+
+function autoflush_read($user_id)
+{
+    $autoflush = Helper\int_config('autoflush');
 
     if ($autoflush > 0) {
-
-        // Mark read items removed after X days
         Database::getInstance('db')
-            ->table('items')
+            ->table(TABLE)
+            ->eq('user_id', $user_id)
             ->eq('bookmark', 0)
-            ->eq('status', 'read')
+            ->eq('status', STATUS_READ)
             ->lt('updated', strtotime('-'.$autoflush.'day'))
-            ->save(array('status' => 'removed', 'content' => ''));
+            ->save(array('status' => STATUS_REMOVED, 'content' => ''));
     } elseif ($autoflush === -1) {
-
-        // Mark read items removed immediately
         Database::getInstance('db')
-            ->table('items')
+            ->table(TABLE)
+            ->eq('user_id', $user_id)
             ->eq('bookmark', 0)
-            ->eq('status', 'read')
-            ->save(array('status' => 'removed', 'content' => ''));
+            ->eq('status', STATUS_READ)
+            ->save(array('status' => STATUS_REMOVED, 'content' => ''));
     }
 }
 
-// Mark all unread items to removed after X days
-function autoflush_unread()
+function autoflush_unread($user_id)
 {
-    $autoflush = (int) Config\get('autoflush_unread');
+    $autoflush = Helper\int_config('autoflush_unread');
 
     if ($autoflush > 0) {
-
-        // Mark read items removed after X days
         Database::getInstance('db')
-            ->table('items')
+            ->table(TABLE)
+            ->eq('user_id', $user_id)
             ->eq('bookmark', 0)
-            ->eq('status', 'unread')
+            ->eq('status', STATUS_UNREAD)
             ->lt('updated', strtotime('-'.$autoflush.'day'))
-            ->save(array('status' => 'removed', 'content' => ''));
+            ->save(array('status' => STATUS_REMOVED, 'content' => ''));
     }
-}
-
-// Update all items
-function update_all($feed_id, array $items)
-{
-    $nocontent = (bool) Config\get('nocontent');
-
-    $items_in_feed = array();
-
-    $db = Database::getInstance('db');
-    $db->startTransaction();
-
-    foreach ($items as $item) {
-        Logger::setMessage('Item => '.$item->getId().' '.$item->getUrl());
-
-        // Item parsed correctly?
-        if ($item->getId() && $item->getUrl()) {
-            Logger::setMessage('Item parsed correctly');
-
-            // Get item record in database, if any
-            $itemrec = $db
-                ->table('items')
-                ->columns('enclosure')
-                ->eq('id', $item->getId())
-                ->findOne();
-
-            // Insert a new item
-            if ($itemrec === null) {
-                Logger::setMessage('Item added to the database');
-
-                $db->table('items')->save(array(
-                    'id' => $item->getId(),
-                    'title' => $item->getTitle(),
-                    'url' => $item->getUrl(),
-                    'updated' => $item->getDate()->getTimestamp(),
-                    'author' => $item->getAuthor(),
-                    'content' => $nocontent ? '' : $item->getContent(),
-                    'status' => 'unread',
-                    'feed_id' => $feed_id,
-                    'enclosure' => $item->getEnclosureUrl(),
-                    'enclosure_type' => $item->getEnclosureType(),
-                    'language' => $item->getLanguage(),
-                ));
-            } elseif (! $itemrec['enclosure'] && $item->getEnclosureUrl()) {
-                Logger::setMessage('Update item enclosure');
-
-                $db->table('items')->eq('id', $item->getId())->save(array(
-                    'status' => 'unread',
-                    'enclosure' => $item->getEnclosureUrl(),
-                    'enclosure_type' => $item->getEnclosureType(),
-                ));
-            } else {
-                Logger::setMessage('Item already in the database');
-            }
-
-            // Items inside this feed
-            $items_in_feed[] = $item->id;
-        }
-    }
-
-    // Cleanup old items
-    cleanup($feed_id, $items_in_feed);
-
-    $db->closeTransaction();
-}
-
-// Remove from the database items marked as "removed"
-// and not present inside the feed
-function cleanup($feed_id, array $items_in_feed)
-{
-    if (! empty($items_in_feed)) {
-        $db = Database::getInstance('db');
-
-        $removed_items = $db
-            ->table('items')
-            ->columns('id')
-            ->notIn('id', $items_in_feed)
-            ->eq('status', 'removed')
-            ->eq('feed_id', $feed_id)
-            ->desc('updated')
-            ->findAllByColumn('id');
-
-        // Keep a buffer of 2 items
-        // It's workaround for buggy feeds (cache issue with some Wordpress plugins)
-        if (is_array($removed_items)) {
-            $items_to_remove = array_slice($removed_items, 2);
-
-            if (! empty($items_to_remove)) {
-                $nb_items = count($items_to_remove);
-                Logger::setMessage('There is '.$nb_items.' items to remove');
-
-                // Handle the case when there is a huge number of items to remove
-                // Sqlite have a limit of 1000 sql variables by default
-                // Avoid the error message "too many SQL variables"
-                // We remove old items by batch of 500 items
-                $chunks = array_chunk($items_to_remove, 500);
-
-                foreach ($chunks as $chunk) {
-                    $db->table('items')
-                        ->in('id', $chunk)
-                        ->eq('status', 'removed')
-                        ->eq('feed_id', $feed_id)
-                        ->remove();
-                }
-            }
-        }
-    }
-}
-
-// Download item content
-function download_contents($item_id)
-{
-    $item = get($item_id);
-    $content = Handler\Scraper\download_contents($item['url']);
-
-    if (! empty($content)) {
-        if (! Config\get('nocontent')) {
-            Database::getInstance('db')
-                ->table('items')
-                ->eq('id', $item['id'])
-                ->save(array('content' => $content));
-        }
-
-        Config\write_debug();
-
-        return array(
-            'result' => true,
-            'content' => $content
-        );
-    }
-
-    Config\write_debug();
-
-    return array(
-        'result' => false,
-        'content' => ''
-    );
 }

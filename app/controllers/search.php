@@ -1,39 +1,40 @@
 <?php
 
+namespace Miniflux\Controller;
+
+use Miniflux\Helper;
 use Miniflux\Router;
 use Miniflux\Response;
 use Miniflux\Request;
+use Miniflux\Session\SessionStorage;
 use Miniflux\Template;
-use Miniflux\Helper;
 use Miniflux\Model;
 
-// Display search results page
 Router\get_action('search', function() {
-
+    $user_id = SessionStorage::getInstance()->getUserId();
     $text = Request\param('text', '');
     $offset = Request\int_param('offset', 0);
 
     $items = array();
     $nb_items = 0;
     if ($text) {
-        $items = Model\Search\get_all_items($text, $offset, Model\Config\get('items_per_page'));
-        $nb_items = Model\Search\count_items($text);
+        $items = Model\ItemSearch\get_all_items($user_id, $text, $offset, Helper\config('items_per_page'));
+        $nb_items = Model\ItemSearch\count_items($user_id, $text);
     }
 
     Response\html(Template\layout('search', array(
-        'favicons' => Model\Favicon\get_item_favicons($items),
-        'original_marks_read' => Model\Config\get('original_marks_read'),
+        'favicons' => Model\Favicon\get_items_favicons($items),
+        'original_marks_read' => Helper\config('original_marks_read'),
         'text' => $text,
         'items' => $items,
         'order' => '',
         'direction' => '',
-        'display_mode' => Model\Config\get('items_display_mode'),
-        'item_title_link' => Model\Config\get('item_title_link'),
+        'display_mode' => Helper\config('items_display_mode'),
+        'item_title_link' => Helper\config('item_title_link'),
         'group_id' => array(),
         'nb_items' => $nb_items,
-        'nb_unread_items' => Model\Item\count_by_status('unread'),
         'offset' => $offset,
-        'items_per_page' => Model\Config\get('items_per_page'),
+        'items_per_page' => Helper\config('items_per_page'),
         'nothing_to_read' => Request\int_param('nothing_to_read'),
         'menu' => 'search',
         'title' => t('Search').' ('.$nb_items.')'

@@ -1,10 +1,12 @@
 <?php
 
+namespace Miniflux\Controller;
+
 use Miniflux\Router;
 use Miniflux\Response;
 use Miniflux\Request;
-use Miniflux\Session;
-use Miniflux\Template;
+use Miniflux\Session\SessionManager;
+use Miniflux\Session\SessionStorage;
 use Miniflux\Helper;
 use Miniflux\Model;
 use Miniflux\Translator;
@@ -12,39 +14,22 @@ use Miniflux\Handler;
 
 // Called before each action
 Router\before(function ($action) {
-    Session\open(BASE_URL_DIRECTORY, SESSION_SAVE_PATH, 0);
-
-    // Select the requested database either from post param database or from the
-    // session variable. If it fails, logout to destroy session and
-    // 'remember me' cookie
-    if (Request\value('database') !== null && ! Model\Database\select(Request\value('database'))) {
-        Model\User\logout();
-        Response\redirect('?action=login');
-    } elseif (! empty($_SESSION['database'])) {
-        if (! Model\Database\select($_SESSION['database'])) {
-            Model\User\logout();
-            Response\redirect('?action=login');
-        }
-    }
+    SessionManager::open(BASE_URL_DIRECTORY, SESSION_SAVE_PATH, 0);
 
     // These actions are considered to be safe even for unauthenticated users
-    $safe_actions = array('login', 'bookmark-feed', 'select-db', 'logout', 'notfound');
-
-    if (! Model\User\is_loggedin() && ! in_array($action, $safe_actions)) {
+    $safe_actions = array('login', 'bookmark-feed', 'logout', 'notfound');
+    if (! SessionStorage::getInstance()->isLogged() && ! in_array($action, $safe_actions)) {
         if (! Model\RememberMe\authenticate()) {
-            Model\User\logout();
             Response\redirect('?action=login');
         }
-    } elseif (Model\RememberMe\has_cookie()) {
-        Model\RememberMe\refresh();
     }
 
     // Load translations
-    $language = Model\Config\get('language') ?: 'en_US';
+    $language = Helper\config('language', 'en_US');
     Translator\load($language);
 
     // Set timezone
-    date_default_timezone_set(Model\Config\get('timezone') ?: 'UTC');
+    date_default_timezone_set(Helper\config('timezone', 'UTC'));
 
     // HTTP secure headers
     Response\csp(array(
@@ -64,13 +49,53 @@ Router\before(function ($action) {
     }
 });
 
-// Show help
-Router\get_action('show-help', function () {
-    Response\html(Template\load('show_help'));
-});
-
 // Image proxy (avoid SSL mixed content warnings)
 Router\get_action('proxy', function () {
     Handler\Proxy\download(rawurldecode(Request\param('url')));
     exit;
 });
+
+function items_list($status)
+{
+    $order = Request\param('order', 'updated');
+    $direction = Request\param('direction', Helper\config('items_sorting_direction'));
+    $offset = Request\int_param('offset', 0);
+    $group_id = Request\int_param('group_id', null);
+    $nb_items_page = Helper\config('items_per_page');
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $feed_ids = array();
+
+    if ($group_id !== null) {
+        $feed_ids = Model\Group\get_feed_ids_by_group($group_id);
+    }
+
+    $items = Model\Item\get_items_by_status(
+        $user_id,
+        $status,
+        $feed_ids,
+        $offset,
+        $nb_items_page,
+        $order,
+        $direction
+    );
+
+    $nb_items = Model\Item\count_by_status($user_id, $status, $feed_ids);
+    $nb_unread_items = Model\Item\count_by_status($user_id, $status);
+
+    return array(
+        'nothing_to_read'     => Request\int_param('nothing_to_read'),
+        'favicons'            => Model\Favicon\get_items_favicons($items),
+        'original_marks_read' => Helper\bool_config('original_marks_read'),
+        'display_mode'        => Helper\config('items_display_mode'),
+        'item_title_link'     => Helper\config('item_title_link'),
+        'items_per_page'      => $nb_items_page,
+        'offset'              => $offset,
+        'direction'           => $direction,
+        'order'               => $order,
+        'items'               => $items,
+        'nb_items'            => $nb_items,
+        'nb_unread_items'     => $nb_unread_items,
+        'group_id'            => $group_id,
+        'groups'              => Model\Group\get_all($user_id),
+    );
+}

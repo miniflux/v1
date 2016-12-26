@@ -13,7 +13,7 @@
     },
     "require": {
         "fguillot/simple-validator": "v1.0.0",
-        "fguillot/json-rpc": "v1.2.1",
+        "fguillot/json-rpc": "v1.2.3",
         "fguillot/picodb": "v1.0.14 ",
         "fguillot/picofeed": "v0.1.25",
         "pda/pheanstalk": "v3.1.0",
@@ -28,6 +28,7 @@
         "files": [
             "app/schemas/sqlite.php",
             "app/helpers/app.php",
+            "app/helpers/config.php",
             "app/helpers/csrf.php",
             "app/helpers/favicon.php",
             "app/helpers/form.php",
@@ -40,6 +41,8 @@
             "app/core/template.php",
             "app/handlers/scraper.php",
             "app/handlers/service.php",
+            "app/handlers/feed.php",
+            "app/handlers/item.php",
             "app/handlers/opml.php",
             "app/handlers/proxy.php",
             "app/models/config.php",
@@ -51,7 +54,6 @@
             "app/models/item_group.php",
             "app/models/bookmark.php",
             "app/models/auto_update.php",
-            "app/models/database.php",
             "app/models/remember_me.php",
             "app/models/group.php",
             "app/models/favicon.php",

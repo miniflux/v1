@@ -1,11 +1,12 @@
 <?php
 
-use PicoFeed\Parser\MalformedXmlException;
+namespace Miniflux\Controller;
+
+use Miniflux\Session\SessionStorage;
 use Miniflux\Validator;
 use Miniflux\Router;
 use Miniflux\Response;
 use Miniflux\Request;
-use Miniflux\Session;
 use Miniflux\Template;
 use Miniflux\Helper;
 use Miniflux\Handler;
@@ -13,25 +14,26 @@ use Miniflux\Model;
 
 // Refresh all feeds, used when Javascript is disabled
 Router\get_action('refresh-all', function () {
-    Model\Feed\refresh_all();
-    Session\flash(t('Your subscriptions are updated'));
+    $user_id = SessionStorage::getInstance()->getUserId();
+    Handler\Feed\update_feeds($user_id);
+    SessionStorage::getInstance()->setFlashErrorMessage(t('Your subscriptions are updated'));
     Response\redirect('?action=unread');
 });
 
 // Edit feed form
 Router\get_action('edit-feed', function () {
-    $id = Request\int_param('feed_id');
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $feed_id = Request\int_param('feed_id');
 
-    $values = Model\Feed\get($id);
+    $values = Model\Feed\get_feed($user_id, $feed_id);
     $values += array(
-        'feed_group_ids' => Model\Group\get_feed_group_ids($id)
+        'feed_group_ids' => Model\Group\get_feed_group_ids($feed_id)
     );
 
     Response\html(Template\layout('edit_feed', array(
         'values' => $values,
         'errors' => array(),
-        'nb_unread_items' => Model\Item\count_by_status('unread'),
-        'groups' => Model\Group\get_all(),
+        'groups' => Model\Group\get_all($user_id),
         'menu' => 'feeds',
         'title' => t('Edit subscription')
     )));
@@ -39,32 +41,32 @@ Router\get_action('edit-feed', function () {
 
 // Submit edit feed form
 Router\post_action('edit-feed', function () {
+    $user_id = SessionStorage::getInstance()->getUserId();
     $values = Request\values();
     $values += array(
         'enabled' => 0,
         'download_content' => 0,
         'rtl' => 0,
         'cloak_referrer' => 0,
+        'parsing_error' => 0,
         'feed_group_ids' => array(),
-        'create_group' => ''
     );
 
     list($valid, $errors) = Validator\Feed\validate_modification($values);
 
     if ($valid) {
-        if (Model\Feed\update($values)) {
-            Session\flash(t('Your subscription has been updated.'));
+        if (Model\Feed\update_feed($user_id, $values['id'], $values)) {
+            SessionStorage::getInstance()->setFlashMessage(t('Your subscription has been updated.'));
             Response\redirect('?action=feeds');
         } else {
-            Session\flash_error(t('Unable to edit your subscription.'));
+            SessionStorage::getInstance()->setFlashErrorMessage(t('Unable to edit your subscription.'));
         }
     }
 
     Response\html(Template\layout('edit_feed', array(
         'values' => $values,
         'errors' => $errors,
-        'nb_unread_items' => Model\Item\count_by_status('unread'),
-        'groups' => Model\Group\get_all(),
+        'groups' => Model\Group\get_all($user_id),
         'menu' => 'feeds',
         'title' => t('Edit subscription')
     )));
@@ -72,11 +74,11 @@ Router\post_action('edit-feed', function () {
 
 // Confirmation box to remove a feed
 Router\get_action('confirm-remove-feed', function () {
-    $id = Request\int_param('feed_id');
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $feed_id = Request\int_param('feed_id');
 
     Response\html(Template\layout('confirm_remove_feed', array(
-        'feed' => Model\Feed\get($id),
-        'nb_unread_items' => Model\Item\count_by_status('unread'),
+        'feed' => Model\Feed\get_feed($user_id, $feed_id),
         'menu' => 'feeds',
         'title' => t('Confirmation')
     )));
@@ -84,12 +86,13 @@ Router\get_action('confirm-remove-feed', function () {
 
 // Remove a feed
 Router\get_action('remove-feed', function () {
-    $id = Request\int_param('feed_id');
+    $user_id = SessionStorage::getInstance()->getUserId();
+    $feed_id = Request\int_param('feed_id');
 
-    if ($id && Model\Feed\remove($id)) {
-        Session\flash(t('This subscription has been removed successfully.'));
+    if (Model\Feed\remove_feed($user_id, $feed_id)) {
+        SessionStorage::getInstance()->setFlashMessage(t('This subscription has been removed successfully.'));
     } else {
-        Session\flash_error(t('Unable to remove this subscription.'));
+        SessionStorage::getInstance()->setFlashErrorMessage(t('Unable to remove this subscription.'));
     }
 
     Response\redirect('?action=feeds');
@@ -97,40 +100,43 @@ Router\get_action('remove-feed', function () {
 
 // Refresh one feed and redirect to unread items
 Router\get_action('refresh-feed', function () {
+    $user_id = SessionStorage::getInstance()->getUserId();
     $feed_id = Request\int_param('feed_id');
     $redirect = Request\param('redirect', 'unread');
 
-    Model\Feed\refresh($feed_id);
+    Handler\Feed\update_feed($user_id, $feed_id);
     Response\redirect('?action='.$redirect.'&feed_id='.$feed_id);
 });
 
 // Ajax call to refresh one feed
 Router\post_action('refresh-feed', function () {
+    $user_id = SessionStorage::getInstance()->getUserId();
     $feed_id = Request\int_param('feed_id', 0);
 
     Response\json(array(
         'feed_id' => $feed_id,
-        'result' => Model\Feed\refresh($feed_id),
-        'items_count' => Model\Feed\count_items($feed_id),
+        'result' => Handler\Feed\update_feed($user_id, $feed_id),
+        'items_count' => Model\ItemFeed\count_items_by_status($user_id, $feed_id),
     ));
 });
 
 // Display all feeds
 Router\get_action('feeds', function () {
+    $user_id = SessionStorage::getInstance()->getUserId();
     $nothing_to_read = Request\int_param('nothing_to_read');
-    $nb_unread_items = Model\Item\count_by_status('unread');
+    $nb_unread_items = Model\Item\count_by_status($user_id, 'unread');
+    $feeds = Model\Feed\get_feeds_with_items_count($user_id);
 
-    // possible with remember me function
     if ($nothing_to_read === 1 && $nb_unread_items > 0) {
         Response\redirect('?action=unread');
     }
 
     Response\html(Template\layout('feeds', array(
-        'favicons' => Model\Favicon\get_all_favicons(),
-        'feeds' => Model\Feed\get_all_item_counts(),
+        'favicons' => Model\Favicon\get_feeds_favicons($feeds),
+        'feeds' => $feeds,
         'nothing_to_read' => $nothing_to_read,
         'nb_unread_items' => $nb_unread_items,
-        'nb_failed_feeds' => Model\Feed\count_failed_feeds(),
+        'nb_failed_feeds' => Model\Feed\count_failed_feeds($user_id),
         'menu' => 'feeds',
         'title' => t('Subscriptions')
     )));
@@ -138,21 +144,21 @@ Router\get_action('feeds', function () {
 
 // Display form to add one feed
 Router\get_action('add', function () {
+    $user_id = SessionStorage::getInstance()->getUserId();
     $values = array(
         'download_content' => 0,
-        'rtl' => 0,
-        'cloak_referrer' => 0,
-        'create_group' => '',
-        'feed_group_ids' => array()
+        'rtl'              => 0,
+        'cloak_referrer'   => 0,
+        'create_group'     => '',
+        'feed_group_ids'   => array(),
     );
 
     Response\html(Template\layout('add', array(
         'values' => $values + array('csrf' => Helper\generate_csrf()),
         'errors' => array(),
-        'nb_unread_items' => Model\Item\count_by_status('unread'),
-        'groups' => Model\Group\get_all(),
-        'menu' => 'feeds',
-        'title' => t('New subscription')
+        'groups' => Model\Group\get_all($user_id),
+        'menu'   => 'feeds',
+        'title'  => t('New subscription'),
     )));
 });
 
@@ -162,100 +168,49 @@ Router\action('subscribe', function () {
         $values = Request\values();
         Helper\check_csrf_values($values);
         $url = isset($values['url']) ? $values['url'] : '';
+        $user_id = SessionStorage::getInstance()->getUserId();
     } else {
-        $values = array();
         $url = Request\param('url');
         $token = Request\param('token');
+        $user = Model\User\get_user_by_token('bookmarklet_token', $token);
+        $values = array();
 
-        if ($token !== Model\Config\get('bookmarklet_token')) {
-            Response\text('Access Forbidden', 403);
+        if (empty($user)) {
+            Response\text('Unauthorized', 401);
         }
+
+        $user_id = $user['id'];
     }
 
     $values += array(
-        'url' => trim($url),
+        'url'              => trim($url),
         'download_content' => 0,
-        'rtl' => 0,
-        'cloak_referrer' => 0,
-        'create_group' => '',
-        'feed_group_ids' => array()
+        'rtl'              => 0,
+        'cloak_referrer'   => 0,
+        'feed_group_ids'   => array(),
     );
 
-    try {
-        $feed_id = Model\Feed\create(
-            $values['url'],
-            $values['download_content'],
-            $values['rtl'],
-            $values['cloak_referrer'],
-            $values['feed_group_ids'],
-            $values['create_group']
-        );
-    } catch (UnexpectedValueException $e) {
-        $error_message = t('This subscription already exists.');
-    } catch (PicoFeed\Client\InvalidCertificateException $e) {
-        $error_message = t('Invalid SSL certificate.');
-    } catch (PicoFeed\Client\InvalidUrlException $e) {
-        $error_message = $e->getMessage();
-    } catch (PicoFeed\Client\MaxRedirectException $e) {
-        $error_message = t('Maximum number of HTTP redirections exceeded.');
-    } catch (PicoFeed\Client\MaxSizeException $e) {
-        $error_message = t('The content size exceeds to maximum allowed size.');
-    } catch (PicoFeed\Client\TimeoutException $e) {
-        $error_message = t('Connection timeout.');
-    } catch (PicoFeed\Parser\MalformedXmlException $e) {
-        $error_message = t('Feed is malformed.');
-    } catch (PicoFeed\Reader\SubscriptionNotFoundException $e) {
-        $error_message = t('Unable to find a subscription.');
-    } catch (PicoFeed\Reader\UnsupportedFeedFormatException $e) {
-        $error_message = t('Unable to detect the feed format.');
-    }
+    list($feed_id, $error_message) = Handler\Feed\create_feed(
+        $user_id,
+        $values['url'],
+        $values['download_content'],
+        $values['rtl'],
+        $values['cloak_referrer'],
+        $values['feed_group_ids'],
+        $values['groups']
+    );
 
-    Model\Config\write_debug();
-
-    if (isset($feed_id) && $feed_id !== false) {
-        Session\flash(t('Subscription added successfully.'));
+    if ($feed_id >= 1) {
+        SessionStorage::getInstance()->setFlashMessage(t('Subscription added successfully.'));
         Response\redirect('?action=feed-items&feed_id='.$feed_id);
     } else {
-        if (! isset($error_message)) {
-            $error_message = t('Error occured.');
-        }
-
-        Session\flash_error($error_message);
+        SessionStorage::getInstance()->setFlashErrorMessage($error_message);
     }
 
     Response\html(Template\layout('add', array(
         'values' => $values + array('csrf' => Helper\generate_csrf()),
-        'nb_unread_items' => Model\Item\count_by_status('unread'),
-        'groups' => Model\Group\get_all(),
-        'menu' => 'feeds',
-        'title' => t('Subscriptions')
+        'groups' => Model\Group\get_all($user_id),
+        'menu'   => 'feeds',
+        'title'  => t('Subscriptions'),
     )));
-});
-
-// OPML export
-Router\get_action('export', function () {
-    Response\force_download('feeds.opml');
-    Response\xml(Handler\Opml\export_all_feeds());
-});
-
-// OPML import form
-Router\get_action('import', function () {
-    Response\html(Template\layout('import', array(
-        'errors' => array(),
-        'nb_unread_items' => Model\Item\count_by_status('unread'),
-        'menu' => 'feeds',
-        'title' => t('OPML Import')
-    )));
-});
-
-// OPML importation
-Router\post_action('import', function () {
-    try {
-        Model\Feed\import_opml(Request\file_content('file'));
-        Session\flash(t('Your feeds have been imported.'));
-        Response\redirect('?action=feeds');
-    } catch (MalformedXmlException $e) {
-        Session\flash_error(t('Unable to import your OPML file.').' ('.$e->getMessage().')');
-        Response\redirect('?action=import');
-    }
 });

@@ -11,7 +11,6 @@
 </div>
 
 <form method="post" action="?action=subscribe" autocomplete="off">
-
     <?php echo Miniflux\Helper\form_hidden('csrf', $values) ?>
 
     <?php echo Miniflux\Helper\form_label(t('Website or Feed URL'), 'url') ?>
@@ -23,13 +22,13 @@
 
     <p class="form-help"><?php echo t('Downloading full content is slower because Miniflux grab the content from the original website. You should use that for subscriptions that display only a summary. This feature doesn\'t work with all websites.') ?></p>
 
-    <?php echo Miniflux\Helper\form_label(t('Groups'), 'groups'); ?>
+    <?php echo Miniflux\Helper\form_label(t('Groups'), 'group_name'); ?>
 
     <div id="grouplist">
         <?php foreach ($groups as $group): ?>
             <?php echo Miniflux\Helper\form_checkbox('feed_group_ids[]', $group['title'], $group['id'], in_array($group['id'], $values['feed_group_ids']), 'hide') ?>
         <?php endforeach ?>
-        <?php echo Miniflux\Helper\form_text('create_group', $values, array(), array('placeholder="'.t('add a new group').'"')) ?>
+        <?php echo Miniflux\Helper\form_text('group_name', $values, array(), array('placeholder="'.t('add a new group').'"')) ?>
     </div>
 
     <div class="form-actions">

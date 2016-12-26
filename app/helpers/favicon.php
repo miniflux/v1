@@ -22,7 +22,7 @@ function favicon_extension($type)
 function favicon(array $favicons, $feed_id)
 {
     if (! empty($favicons[$feed_id])) {
-        return '<img src="'.FAVICON_URL_PATH.'/'.$favicons[$feed_id]['hash'].favicon_extension($favicons[$feed_id]['type']).'" class="favicon"/>';
+        return '<img src="'.FAVICON_URL_PATH.'/'.$favicons[$feed_id]['hash'].favicon_extension($favicons[$feed_id]['type']).'" class="favicon">';
     }
 
     return '';

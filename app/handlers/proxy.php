@@ -3,7 +3,6 @@
 namespace Miniflux\Handler\Proxy;
 
 use Miniflux\Helper;
-use Miniflux\Model\Config;
 use PicoFeed\Client\ClientException;
 use PicoFeed\Config\Config as PicoFeedConfig;
 use PicoFeed\Filter\Filter;
@@ -51,15 +50,14 @@ function rewrite_html($html, $website, $proxy_images, $cloak_referrer)
 function download($url)
 {
     try {
-        if ((bool) Config\get('debug_mode')) {
+        if (DEBUG_MODE) {
             Logger::enable();
         }
 
         $client = Client::getInstance();
-        $client->setUserAgent(Config\HTTP_USER_AGENT);
+        $client->setUserAgent(HTTP_USER_AGENT);
         $client->enablePassthroughMode();
         $client->execute($url);
-    } catch (ClientException $e) {}
-
-    Config\write_debug();
+    } catch (ClientException $e) {
+    }
 }

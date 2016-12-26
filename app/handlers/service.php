@@ -2,24 +2,24 @@
 
 namespace Miniflux\Handler\Service;
 
+use Miniflux\Model;
+use Miniflux\Helper;
 use PicoFeed\Client\Client;
 use PicoFeed\Client\ClientException;
-use Miniflux\Model\Config;
-use Miniflux\Model\Item;
 
-function sync($item_id)
+function sync($user_id, $item_id)
 {
-    $item = Item\get($item_id);
+    $item = Model\Item\get_item($user_id, $item_id);
 
-    if ((bool) Config\get('pinboard_enabled')) {
+    if (Helper\bool_config('pinboard_enabled')) {
         pinboard_sync($item);
     }
 
-    if ((bool) Config\get('instapaper_enabled')) {
+    if (Helper\bool_config('instapaper_enabled')) {
         instapaper_sync($item);
     }
 
-    if ((bool) Config\get('wallabag_enabled')) {
+    if (Helper\bool_config('wallabag_enabled')) {
         wallabag_sync($item);
     }
 }
@@ -27,8 +27,8 @@ function sync($item_id)
 function instapaper_sync(array $item)
 {
     $params = array(
-        'username' => Config\get('instapaper_username'),
-        'password' => Config\get('instapaper_password'),
+        'username' => Helper\config('instapaper_username'),
+        'password' => Helper\config('instapaper_password'),
         'url' => $item['url'],
         'title' => $item['title'],
     );
@@ -47,11 +47,11 @@ function instapaper_sync(array $item)
 function pinboard_sync(array $item)
 {
     $params = array(
-        'auth_token' => Config\get('pinboard_token'),
+        'auth_token' => Helper\config('pinboard_token'),
         'format' => 'json',
         'url' => $item['url'],
         'description' => $item['title'],
-        'tags' => Config\get('pinboard_tags'),
+        'tags' => Helper\config('pinboard_tags'),
     );
 
     $url = 'https://api.pinboard.in/v1/posts/add?'.http_build_query($params);
@@ -79,7 +79,7 @@ function wallabag_has_url($url)
     if ($token === false) {
         return false;
     }
-    $apiUrl = rtrim(Config\get('wallabag_url'), '\/') . '/api/entries/exists.json?url=' . urlencode($url);
+    $apiUrl = rtrim(Helper\config('wallabag_url'), '\/') . '/api/entries/exists.json?url=' . urlencode($url);
     $headers = array('Authorization: Bearer ' . $token);
     $response = api_get_call($apiUrl, $headers);
     if ($response !== false) {
@@ -94,7 +94,7 @@ function wallabag_add_item($url, $title)
     if ($token === false) {
         return false;
     }
-    $apiUrl = rtrim(Config\get('wallabag_url'), '\/') . '/api/entries.json';
+    $apiUrl = rtrim(Helper\config('wallabag_url'), '\/') . '/api/entries.json';
     $headers = array('Authorization: Bearer ' . $token);
     $data = array(
         'url' => $url,
@@ -112,13 +112,13 @@ function wallabag_get_access_token()
     if (!empty($_SESSION['wallabag_access_token'])) {
         return $_SESSION['wallabag_access_token'];
     }
-    $url = rtrim(Config\get('wallabag_url'), '\/') . '/oauth/v2/token';
+    $url = rtrim(Helper\config('wallabag_url'), '\/') . '/oauth/v2/token';
     $data = array(
         'grant_type' => 'password',
-        'client_id' => Config\get('wallabag_client_id'),
-        'client_secret' => Config\get('wallabag_client_secret'),
-        'username' => Config\get('wallabag_username'),
-        'password' => Config\get('wallabag_password')
+        'client_id' => Helper\config('wallabag_client_id'),
+        'client_secret' => Helper\config('wallabag_client_secret'),
+        'username' => Helper\config('wallabag_username'),
+        'password' => Helper\config('wallabag_password')
     );
     $response = api_post_call($url, $data);
     if ($response !== false) {
@@ -135,7 +135,7 @@ function api_get_call($url, array $headers = array())
 {
     try {
         $client = Client::getInstance();
-        $client->setUserAgent(Config\HTTP_USER_AGENT);
+        $client->setUserAgent(HTTP_USER_AGENT);
         if ($headers) {
             $client->setHeaders($headers);
         }

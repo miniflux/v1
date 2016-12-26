@@ -1,9 +1,28 @@
 <?php
 
 use Miniflux\Helper;
+use Miniflux\Model;
+use Miniflux\Session\SessionStorage;
+
+require_once __DIR__.'/BaseTest.php';
 
 class HelperTest extends BaseTest
 {
+    public function testConfig()
+    {
+        SessionStorage::getInstance()->setUser(array('id' => 1, 'user_id' => 1, 'username' => 'admin', 'is_admin' => 1));
+
+        $this->assertNull(Helper\config('option'));
+        $this->assertSame('default', Helper\config('option', 'default'));
+
+        $this->assertTrue(Model\Config\save(1, array('option1' => '1', 'option2' => '0')));
+
+        $this->assertTrue(Helper\bool_config('option1'));
+        $this->assertFalse(Helper\bool_config('option2'));
+        $this->assertFalse(Helper\bool_config('option3'));
+        $this->assertTrue(Helper\bool_config('option4', true));
+    }
+
     public function testGenerateToken()
     {
         $token1 = Helper\generate_token();

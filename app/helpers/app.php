@@ -2,6 +2,8 @@
 
 namespace Miniflux\Helper;
 
+use PicoFeed\Logging\Logger;
+
 function escape($value)
 {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false);
@@ -43,7 +45,11 @@ function get_current_base_url()
 {
     $url = is_secure_connection() ? 'https://' : 'http://';
     $url .= $_SERVER['HTTP_HOST'];
-    $url .= $_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443 ? '' : ':'.$_SERVER['SERVER_PORT'];
+
+    if (strpos($_SERVER['HTTP_HOST'], ':') === false) {
+        $url .= $_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443 ? '' : ':'.$_SERVER['SERVER_PORT'];
+    }
+
     $url .= str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])) !== '/' ? str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])).'/' : '/';
 
     return $url;
@@ -52,4 +58,10 @@ function get_current_base_url()
 function is_secure_connection()
 {
     return ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+}
+
+function write_debug_file() {
+    if (DEBUG_MODE) {
+        file_put_contents(DEBUG_FILENAME, implode(PHP_EOL, Logger::getMessages()), FILE_APPEND|LOCK_EX);
+    }
 }

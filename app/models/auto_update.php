@@ -48,8 +48,6 @@ function is_excluded_path($path, array $exclude_list)
 // Synchronize 2 directories (copy/remove files)
 function synchronize($source_directory, $destination_directory)
 {
-    Config\debug('[SYNCHRONIZE] '.$source_directory.' to '.$destination_directory);
-
     $src_files = get_files_list($source_directory);
     $dst_files = get_files_list($destination_directory);
 
@@ -59,7 +57,6 @@ function synchronize($source_directory, $destination_directory)
     foreach ($remove_files as $file) {
         if ($file !== '.htaccess') {
             $destination_file = $destination_directory.DIRECTORY_SEPARATOR.$file;
-            Config\debug('[REMOVE] '.$destination_file);
 
             if (! @unlink($destination_file)) {
                 return false;
@@ -72,8 +69,6 @@ function synchronize($source_directory, $destination_directory)
         $directory = $destination_directory.DIRECTORY_SEPARATOR.dirname($file);
 
         if (! is_dir($directory)) {
-            Config\debug('[MKDIR] '.$directory);
-
             if (! @mkdir($directory, 0755, true)) {
                 return false;
             }
@@ -81,8 +76,6 @@ function synchronize($source_directory, $destination_directory)
 
         $source_file = $source_directory.DIRECTORY_SEPARATOR.$file;
         $destination_file = $destination_directory.DIRECTORY_SEPARATOR.$file;
-
-        Config\debug('[COPY] '.$source_file.' to '.$destination_file);
 
         if (! @copy($source_file, $destination_file)) {
             return false;
@@ -96,9 +89,6 @@ function synchronize($source_directory, $destination_directory)
 function uncompress_archive($url, $download_directory = AUTO_UPDATE_DOWNLOAD_DIRECTORY, $archive_directory = AUTO_UPDATE_ARCHIVE_DIRECTORY)
 {
     $archive_file = $download_directory.DIRECTORY_SEPARATOR.'update.zip';
-
-    Config\debug('[DOWNLOAD] '.$url);
-
     if (($data = @file_get_contents($url)) === false) {
         return false;
     }
@@ -106,8 +96,6 @@ function uncompress_archive($url, $download_directory = AUTO_UPDATE_DOWNLOAD_DIR
     if (@file_put_contents($archive_file, $data) === false) {
         return false;
     }
-
-    Config\debug('[UNZIP] '.$archive_file);
 
     $zip = new ZipArchive;
 
@@ -124,8 +112,6 @@ function uncompress_archive($url, $download_directory = AUTO_UPDATE_DOWNLOAD_DIR
 // Remove all files for a given directory
 function cleanup_directory($directory)
 {
-    Config\debug('[CLEANUP] '.$directory);
-
     $dir = new DirectoryIterator($directory);
 
     foreach ($dir as $fileinfo) {
@@ -133,7 +119,6 @@ function cleanup_directory($directory)
             $filename = $fileinfo->getRealPath();
 
             if ($fileinfo->isFile()) {
-                Config\debug('[REMOVE] '.$filename);
                 @unlink($filename);
             } else {
                 cleanup_directory($filename);
@@ -165,14 +150,10 @@ function find_archive_root($base_directory = AUTO_UPDATE_ARCHIVE_DIRECTORY)
     }
 
     if (empty($directory)) {
-        Config\debug('[FIND ARCHIVE] No directory found');
         return false;
     }
 
-    $path = $base_directory.DIRECTORY_SEPARATOR.$directory;
-    Config\debug('[FIND ARCHIVE] '.$path);
-
-    return $path;
+    return $base_directory.DIRECTORY_SEPARATOR.$directory;
 }
 
 // Check if everything is setup correctly

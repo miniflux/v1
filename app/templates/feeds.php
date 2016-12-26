@@ -18,7 +18,7 @@
 <?php else: ?>
 
     <?php if ($nb_failed_feeds > 0): ?>
-        <p class="alert alert-error"><?php echo tne('An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!', '<a href="?action=console">', '</a>') ?></p>
+        <p class="alert alert-error"><?php echo t('An error occurred during the last check. You could enable the debug mode to have more information.') ?></p>
     <?php elseif ($nothing_to_read): ?>
         <p class="alert alert-info"><?php echo tne('Nothing to read, do you want to %supdate your subscriptions%s?','<a href="?action=refresh-all" data-action="refresh-all">','</a>') ?></p>
     <?php endif ?>

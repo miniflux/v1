@@ -24,26 +24,26 @@ class ResponseBuilder
     /**
      * Payload ID
      *
-     * @access private
+     * @access protected
      * @var mixed
      */
-    private $id;
+    protected $id;
 
     /**
      * Payload ID
      *
-     * @access private
+     * @access protected
      * @var mixed
      */
-    private $result;
+    protected $result;
 
     /**
      * Payload error code
      *
-     * @access private
+     * @access protected
      * @var integer
      */
-    private $errorCode;
+    protected $errorCode;
 
     /**
      * Payload error message
@@ -51,41 +51,41 @@ class ResponseBuilder
      * @access private
      * @var string
      */
-    private $errorMessage;
+    protected $errorMessage;
 
     /**
      * Payload error data
      *
-     * @access private
+     * @access protected
      * @var mixed
      */
-    private $errorData;
+    protected $errorData;
 
     /**
      * HTTP Headers
      *
-     * @access private
+     * @access protected
      * @var array
      */
-    private $headers = array(
+    protected $headers = array(
         'Content-Type' => 'application/json',
     );
 
     /**
      * HTTP status
      *
-     * @access private
+     * @access protected
      * @var string
      */
-    private $status;
+    protected $status;
 
     /**
      * Exception
      *
-     * @access private
+     * @access protected
      * @var ResponseException
      */
-    private $exception;
+    protected $exception;
 
     /**
      * Get new object instance
@@ -212,7 +212,14 @@ class ResponseBuilder
      */
     public function build()
     {
-        $encodedResponse = json_encode($this->buildResponse());
+        $options = 0;
+        if (defined('JSON_UNESCAPED_SLASHES')) {
+            $options |= JSON_UNESCAPED_SLASHES;
+        }
+        if (defined('JSON_UNESCAPED_UNICODE')) {
+            $options |= JSON_UNESCAPED_UNICODE;
+        }
+        $encodedResponse = json_encode($this->buildResponse(), $options);
         JsonEncodingValidator::validate();
 
         return $encodedResponse;
@@ -240,10 +247,10 @@ class ResponseBuilder
     /**
      * Build response payload
      *
-     * @access private
+     * @access protected
      * @return array
      */
-    private function buildResponse()
+    protected function buildResponse()
     {
         $response = array('jsonrpc' => '2.0');
         $this->handleExceptions();
@@ -261,10 +268,10 @@ class ResponseBuilder
     /**
      * Build response error payload
      *
-     * @access private
+     * @access protected
      * @return array
      */
-    private function buildErrorResponse()
+    protected function buildErrorResponse()
     {
         $response = array(
             'code' => $this->errorCode,
@@ -281,42 +288,46 @@ class ResponseBuilder
     /**
      * Transform exceptions to JSON-RPC errors
      *
-     * @access private
+     * @access protected
      */
-    private function handleExceptions()
+    protected function handleExceptions()
     {
-        if ($this->exception instanceof InvalidJsonFormatException) {
+        try {
+            if ($this->exception instanceof Exception) {
+                throw $this->exception;
+            }
+        } catch (InvalidJsonFormatException $e) {
             $this->errorCode = -32700;
             $this->errorMessage = 'Parse error';
             $this->id = null;
-        } elseif ($this->exception instanceof InvalidJsonRpcFormatException) {
+        } catch (InvalidJsonRpcFormatException $e) {
             $this->errorCode = -32600;
             $this->errorMessage = 'Invalid Request';
             $this->id = null;
-        } elseif ($this->exception instanceof BadFunctionCallException) {
+        } catch (BadFunctionCallException $e) {
             $this->errorCode = -32601;
             $this->errorMessage = 'Method not found';
-        } elseif ($this->exception instanceof InvalidArgumentException) {
+        } catch (InvalidArgumentException $e) {
             $this->errorCode = -32602;
             $this->errorMessage = 'Invalid params';
-        } elseif ($this->exception instanceof ResponseEncodingFailureException) {
+        } catch (ResponseEncodingFailureException $e) {
             $this->errorCode = -32603;
             $this->errorMessage = 'Internal error';
             $this->errorData = $this->exception->getMessage();
-        } elseif ($this->exception instanceof AuthenticationFailureException) {
+        } catch (AuthenticationFailureException $e) {
             $this->errorCode = 401;
             $this->errorMessage = 'Unauthorized';
             $this->status = 'HTTP/1.0 401 Unauthorized';
             $this->withHeader('WWW-Authenticate', 'Basic realm="JsonRPC"');
-        } elseif ($this->exception instanceof AccessDeniedException) {
+        } catch (AccessDeniedException $e) {
             $this->errorCode = 403;
             $this->errorMessage = 'Forbidden';
             $this->status = 'HTTP/1.0 403 Forbidden';
-        } elseif ($this->exception instanceof ResponseException) {
+        } catch (ResponseException $e) {
             $this->errorCode = $this->exception->getCode();
             $this->errorMessage = $this->exception->getMessage();
             $this->errorData = $this->exception->getData();
-        } elseif ($this->exception instanceof Exception) {
+        } catch (Exception $e) {
             $this->errorCode = $this->exception->getCode();
             $this->errorMessage = $this->exception->getMessage();
         }

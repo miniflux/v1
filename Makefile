@@ -1,9 +1,10 @@
+.PHONY: archive
 .PHONY: docker-image
 .PHONY: docker-push
 .PHONY: docker-destroy
 .PHONY: docker-run
-.PHONY: archive
 .PHONY: js
+.PHONY: unit-test-sqlite
 
 JS_FILE = assets/js/all.js
 CONTAINER = miniflux
@@ -36,3 +37,6 @@ $(JS_FILE): assets/js/app.js \
 # Build a new archive: make archive version=1.2.3 dst=/tmp
 archive:
 	@ git archive --format=zip --prefix=miniflux/ v${version} -o ${dst}/miniflux-${version}.zip
+
+unit-test-sqlite:
+	@ ./vendor/bin/phpunit -c tests/phpunit.unit.xml

@@ -85,6 +85,14 @@ class HttpClient
     private $verifySslCertificate = true;
 
     /**
+     * SSL client certificate
+     *
+     * @access private
+     * @var string
+     */
+    private $sslLocalCert;
+
+    /**
      * Callback called before the doing the request
      *
      * @access private
@@ -209,6 +217,18 @@ class HttpClient
     }
 
     /**
+     * Assign a certificate to use TLS
+     *
+     * @access public
+     * @return $this
+     */
+    public function withSslLocalCert($path)
+    {
+        $this->sslLocalCert = $path;
+        return $this;
+    }
+
+    /**
      * Assign a callback before the request
      *
      * @access public
@@ -293,7 +313,7 @@ class HttpClient
             $headers[] = 'Cookie: '.implode('; ', $cookies);
         }
 
-        return stream_context_create(array(
+        $options = array(
             'http' => array(
                 'method' => 'POST',
                 'protocol_version' => 1.1,
@@ -307,7 +327,13 @@ class HttpClient
                 'verify_peer' => $this->verifySslCertificate,
                 'verify_peer_name' => $this->verifySslCertificate,
             )
-        ));
+        );
+
+        if ($this->sslLocalCert !== null) {
+            $options['ssl']['local_cert'] = $this->sslLocalCert;
+        }
+
+        return stream_context_create($options);
     }
 
     /**

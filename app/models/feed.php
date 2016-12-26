@@ -2,251 +2,65 @@
 
 namespace Miniflux\Model\Feed;
 
-use UnexpectedValueException;
-use Miniflux\Model\Config;
 use Miniflux\Model\Item;
 use Miniflux\Model\Group;
-use Miniflux\Model\Favicon;
-use Miniflux\Helper;
 use PicoDb\Database;
-use PicoFeed\Reader\Reader;
-use PicoFeed\PicoFeedException;
-use PicoFeed\Serialization\SubscriptionListParser;
+use PicoFeed\Parser\Feed;
 
-const LIMIT_ALL = -1;
+const STATUS_ACTIVE   = 1;
+const STATUS_INACTIVE = 0;
+const TABLE           = 'feeds';
 
-// Update feed information
-function update(array $values)
+function create($user_id, Feed $feed, $etag, $last_modified, $rtl = false, $scraper = false, $cloak_referrer = false)
 {
-    Database::getInstance('db')->startTransaction();
-
-    $result = Database::getInstance('db')
-            ->table('feeds')
-            ->eq('id', $values['id'])
-            ->save(array(
-                'title' => $values['title'],
-                'site_url' => $values['site_url'],
-                'feed_url' => $values['feed_url'],
-                'enabled' => $values['enabled'],
-                'rtl' => $values['rtl'],
-                'download_content' => $values['download_content'],
-                'cloak_referrer' => $values['cloak_referrer'],
-                'parsing_error' => 0,
-            ));
-
-    if ($result) {
-        if (! Group\update_feed_groups($values['id'], $values['feed_group_ids'], $values['create_group'])) {
-            Database::getInstance('db')->cancelTransaction();
-            $result = false;
-        }
-    }
-
-    Database::getInstance('db')->closeTransaction();
-
-    return $result;
-}
-
-// Import OPML file
-function import_opml($content)
-{
-    $subscriptionList = SubscriptionListParser::create($content)->parse();
-
-    $db = Database::getInstance('db');
-    $db->startTransaction();
-
-    foreach ($subscriptionList->subscriptions as $subscription) {
-        if (! $db->table('feeds')->eq('feed_url', $subscription->getFeedUrl())->exists()) {
-            $db->table('feeds')->insert(array(
-                'title' => $subscription->getTitle(),
-                'site_url' => $subscription->getSiteUrl(),
-                'feed_url' => $subscription->getFeedUrl(),
-            ));
-
-            if ($subscription->getCategory() !== '') {
-                $feed_id = $db->getLastId();
-                $group_id = Group\get_group_id($subscription->getCategory());
-
-                if (empty($group_id)) {
-                    $group_id = Group\create($subscription->getCategory());
-                }
-
-                Group\add($feed_id, array($group_id));
-            }
-        }
-    }
-
-    $db->closeTransaction();
-    Config\write_debug();
-
-    return true;
-}
-
-// Add a new feed from an URL
-function create($url, $enable_grabber = false, $force_rtl = false, $cloak_referrer = false, $group_ids = array(), $create_group = '')
-{
-    $feed_id = false;
-
     $db = Database::getInstance('db');
 
-    // Discover the feed
-    $reader = new Reader(Config\get_reader_config());
-    $resource = $reader->discover($url);
-
-    // Feed already there
-    if ($db->table('feeds')->eq('feed_url', $resource->getUrl())->count()) {
-        throw new UnexpectedValueException;
+    if ($db->table('feeds')->eq('user_id', $user_id)->eq('feed_url', $feed->getFeedUrl())->exists()) {
+        return -1;
     }
 
-    // Parse the feed
-    $parser = $reader->getParser(
-        $resource->getUrl(),
-        $resource->getContent(),
-        $resource->getEncoding()
-    );
+    $feed_id = $db
+        ->table(TABLE)
+        ->persist(array(
+            'user_id'          => $user_id,
+            'title'            => $feed->getTitle(),
+            'site_url'         => $feed->getSiteUrl(),
+            'feed_url'         => $feed->getFeedUrl(),
+            'download_content' => $scraper ? 1 : 0,
+            'rtl'              => $rtl ? 1 : 0,
+            'etag'             => $etag,
+            'last_modified'    => $last_modified,
+            'last_checked'     => time(),
+            'cloak_referrer'   => $cloak_referrer ? 1 : 0,
+        ));
 
-    if ($enable_grabber) {
-        $parser->enableContentGrabber();
-    }
-
-    $feed = $parser->execute();
-
-    // Save the feed
-    $result = $db->table('feeds')->save(array(
-        'title' => $feed->getTitle(),
-        'site_url' => $feed->getSiteUrl(),
-        'feed_url' => $feed->getFeedUrl(),
-        'download_content' => $enable_grabber ? 1 : 0,
-        'rtl' => $force_rtl ? 1 : 0,
-        'last_modified' => $resource->getLastModified(),
-        'last_checked' => time(),
-        'etag' => $resource->getEtag(),
-        'cloak_referrer' => $cloak_referrer ? 1 : 0,
-    ));
-
-    if ($result) {
-        $feed_id = $db->getLastId();
-
-        Group\update_feed_groups($feed_id, $group_ids, $create_group);
-        Item\update_all($feed_id, $feed->getItems());
-        Favicon\create_feed_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
+    if ($feed_id !== false) {
+        Item\update_feed_items($user_id, $feed_id, $feed->getItems(), $rtl);
     }
 
     return $feed_id;
 }
 
-// Refresh all feeds
-function refresh_all($limit = LIMIT_ALL)
-{
-    foreach (get_ids($limit) as $feed_id) {
-        refresh($feed_id);
-    }
-
-    // Auto-vacuum for people using the cronjob
-    Database::getInstance('db')->getConnection()->exec('VACUUM');
-
-    return true;
-}
-
-// Refresh one feed
-function refresh($feed_id)
-{
-    try {
-        $feed = get($feed_id);
-
-        if (empty($feed)) {
-            return false;
-        }
-
-        $reader = new Reader(Config\get_reader_config());
-
-        $resource = $reader->download(
-            $feed['feed_url'],
-            $feed['last_modified'],
-            $feed['etag']
-        );
-
-        // Update the `last_checked` column each time, HTTP cache or not
-        update_last_checked($feed_id);
-
-        // Feed modified
-        if ($resource->isModified()) {
-            $parser = $reader->getParser(
-                $resource->getUrl(),
-                $resource->getContent(),
-                $resource->getEncoding()
-            );
-
-            if ($feed['download_content']) {
-                $parser->enableContentGrabber();
-
-                // Don't fetch previous items, only new one
-                $parser->setGrabberIgnoreUrls(
-                    Database::getInstance('db')->table('items')->eq('feed_id', $feed_id)->findAllByColumn('url')
-                );
-            }
-
-            $feed = $parser->execute();
-
-            update_cache($feed_id, $resource->getLastModified(), $resource->getEtag());
-
-            Item\update_all($feed_id, $feed->getItems());
-            Favicon\create_feed_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
-        }
-
-        update_parsing_error($feed_id, 0);
-        Config\write_debug();
-
-        return true;
-    } catch (PicoFeedException $e) {
-    }
-
-    update_parsing_error($feed_id, 1);
-    Config\write_debug();
-
-    return false;
-}
-
-// Get the list of feeds ID to refresh
-function get_ids($limit = LIMIT_ALL)
-{
-    $query = Database::getInstance('db')->table('feeds')->eq('enabled', 1)->asc('last_checked');
-
-    if ($limit !== LIMIT_ALL) {
-        $query->limit((int) $limit);
-    }
-
-    return $query->findAllByColumn('id');
-}
-
-// get number of feeds with errors
-function count_failed_feeds()
+function get_feeds($user_id)
 {
     return Database::getInstance('db')
-        ->table('feeds')
-        ->eq('parsing_error', '1')
-        ->count();
-}
-
-// Get all feeds
-function get_all()
-{
-    return Database::getInstance('db')
-        ->table('feeds')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
         ->asc('title')
         ->findAll();
 }
 
-// Get all feeds with the number unread/total items in the order failed, working, disabled
-function get_all_item_counts()
+function get_feeds_with_items_count($user_id)
 {
     return Database::getInstance('db')
-        ->table('feeds')
+        ->table(TABLE)
         ->columns(
             'feeds.*',
             'SUM(CASE WHEN items.status IN ("unread") THEN 1 ELSE 0 END) as "items_unread"',
             'SUM(CASE WHEN items.status IN ("read", "unread") THEN 1 ELSE 0 END) as "items_total"'
-          )
+        )
         ->join('items', 'feed_id', 'id')
+        ->eq('feeds.user_id', $user_id)
         ->groupBy('feeds.id')
         ->desc('feeds.parsing_error')
         ->desc('feeds.enabled')
@@ -254,98 +68,94 @@ function get_all_item_counts()
         ->findAll();
 }
 
-// Get unread/total count for one feed
-function count_items($feed_id)
+function get_feed_ids($user_id, $limit = null)
 {
-    $counts = Database::getInstance('db')
-        ->table('items')
-        ->columns('status', 'count(*) as item_count')
-        ->in('status', array('read', 'unread'))
-        ->eq('feed_id', $feed_id)
-        ->groupBy('status')
-        ->findAll();
+    $query = Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->eq('enabled', STATUS_ACTIVE)
+        ->asc('last_checked')
+        ->asc('id');
 
-    $result = array(
-        'items_unread' => 0,
-        'items_total' => 0,
-    );
-
-    foreach ($counts as &$count) {
-        if ($count['status'] === 'unread') {
-            $result['items_unread'] = (int) $count['item_count'];
-        }
-
-        $result['items_total'] += $count['item_count'];
+    if ($limit !== null) {
+        $query->limit($limit);
     }
 
-    return $result;
+    return $query->findAllByColumn('id');
 }
 
-// Get one feed
-function get($feed_id)
+function get_feed($user_id, $feed_id)
 {
     return Database::getInstance('db')
-        ->table('feeds')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
         ->eq('id', $feed_id)
         ->findOne();
 }
 
-// Update parsing error column
-function update_parsing_error($feed_id, $value)
+function update_feed($user_id, $feed_id, array $values)
 {
-    Database::getInstance('db')->table('feeds')->eq('id', $feed_id)->save(array('parsing_error' => $value));
+    $db = Database::getInstance('db');
+    $db->startTransaction();
+
+    $feed = $values;
+    unset($feed['id']);
+    unset($feed['group_name']);
+    unset($feed['feed_group_ids']);
+
+    $result = Database::getInstance('db')
+            ->table('feeds')
+            ->eq('user_id', $user_id)
+            ->eq('id', $feed_id)
+            ->save($feed);
+
+    if ($result) {
+        if (isset($values['feed_group_ids']) && isset($values['group_name']) &&
+            ! Group\update_feed_groups($user_id, $values['id'], $values['feed_group_ids'], $values['group_name'])) {
+            $db->cancelTransaction();
+            return false;
+        }
+
+        $db->closeTransaction();
+        return true;
+    }
+
+    $db->cancelTransaction();
+    return false;
 }
 
-// Update last check date
-function update_last_checked($feed_id)
+function change_feed_status($user_id, $feed_id, $status = STATUS_ACTIVE)
 {
-    Database::getInstance('db')
-        ->table('feeds')
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
         ->eq('id', $feed_id)
-        ->save(array(
-            'last_checked' => time()
-        ));
+        ->save((array('enabled' => $status)));
 }
 
-// Update Etag and last Modified columns
-function update_cache($feed_id, $last_modified, $etag)
+function remove_feed($user_id, $feed_id)
 {
-    Database::getInstance('db')
-        ->table('feeds')
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
         ->eq('id', $feed_id)
-        ->save(array(
-            'last_modified' => $last_modified,
-            'etag'          => $etag
-        ));
+        ->remove();
 }
 
-// Remove one feed
-function remove($feed_id)
+function count_failed_feeds($user_id)
 {
-    Group\remove_all($feed_id);
-
-    // Items are removed by a sql constraint
-    $result = Database::getInstance('db')->table('feeds')->eq('id', $feed_id)->remove();
-    Favicon\purge_favicons();
-    return $result;
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->eq('parsing_error', 1)
+        ->count();
 }
 
-// Remove all feeds
-function remove_all()
+function count_feeds($user_id)
 {
-    $result = Database::getInstance('db')->table('feeds')->remove();
-    Favicon\purge_favicons();
-    return $result;
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->count();
 }
 
-// Enable a feed (activate refresh)
-function enable($feed_id)
-{
-    return Database::getInstance('db')->table('feeds')->eq('id', $feed_id)->save((array('enabled' => 1)));
-}
-
-// Disable feed
-function disable($feed_id)
-{
-    return Database::getInstance('db')->table('feeds')->eq('id', $feed_id)->save((array('enabled' => 0)));
-}

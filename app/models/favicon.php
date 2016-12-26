@@ -2,44 +2,38 @@
 
 namespace Miniflux\Model\Favicon;
 
-use Miniflux\Model\Config;
-use Miniflux\Model\Group;
 use Miniflux\Helper;
+use Miniflux\Model;
 use PicoDb\Database;
 use PicoFeed\Reader\Favicon;
 
-// Create a favicons
+const TABLE      = 'favicons';
+const JOIN_TABLE = 'favicons_feeds';
+
 function create_feed_favicon($feed_id, $site_url, $icon_link)
 {
-    if (has_favicon($feed_id)) {
-        return true;
-    }
-
-    $favicon = fetch($feed_id, $site_url, $icon_link);
-
+    $favicon = fetch_favicon($feed_id, $site_url, $icon_link);
     if ($favicon === false) {
         return false;
     }
 
-    $favicon_id = store($favicon->getType(), $favicon->getContent());
-
+    $favicon_id = store_favicon($favicon->getType(), $favicon->getContent());
     if ($favicon_id === false) {
         return false;
     }
 
     return Database::getInstance('db')
-            ->table('favicons_feeds')
-            ->save(array(
-                'feed_id' => $feed_id,
-                'favicon_id' => $favicon_id
-            ));
+        ->table(JOIN_TABLE)
+        ->save(array(
+            'feed_id'    => $feed_id,
+            'favicon_id' => $favicon_id
+        ));
 }
 
-// Download a favicon
-function fetch($feed_id, $site_url, $icon_link)
+function fetch_favicon($feed_id, $site_url, $icon_link)
 {
-    if (Config\get('favicons') == 1 && ! has_favicon($feed_id)) {
-        $favicon = new Favicon;
+    if (Helper\bool_config('favicons') && ! has_favicon($feed_id)) {
+        $favicon = new Favicon();
         $favicon->find($site_url, $icon_link);
         return $favicon;
     }
@@ -47,145 +41,125 @@ function fetch($feed_id, $site_url, $icon_link)
     return false;
 }
 
-// Store the favicon (only if it does not exist yet)
-function store($type, $icon)
+function store_favicon($mime_type, $blob)
 {
-    if ($icon === '') {
+    if (empty($blob)) {
         return false;
     }
 
-    $hash = sha1($icon);
-
+    $hash = sha1($blob);
     $favicon_id = get_favicon_id($hash);
 
     if ($favicon_id) {
         return $favicon_id;
     }
 
-    $file = $hash.Helper\favicon_extension($type);
-
-    if (file_put_contents(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$file, $icon) === false) {
+    $file = $hash.Helper\favicon_extension($mime_type);
+    if (file_put_contents(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$file, $blob) === false) {
         return false;
     }
 
-    $saved = Database::getInstance('db')
-            ->table('favicons')
-            ->save(array(
-                'hash' => $hash,
-                'type' => $type
-            ));
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->persist(array(
+            'hash' => $hash,
+            'type' => $mime_type
+        ));
+}
 
-    if ($saved === false) {
-        return false;
-    }
-
-    return get_favicon_id($hash);
+function get_favicon_data_url($filename, $mime_type)
+{
+    $blob = base64_encode(file_get_contents(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$filename));
+    return sprintf('data:%s;base64,%s', $mime_type, $blob);
 }
 
 function get_favicon_id($hash)
 {
     return Database::getInstance('db')
-          ->table('favicons')
-          ->eq('hash', $hash)
-          ->findOneColumn('id');
+        ->table(TABLE)
+        ->eq('hash', $hash)
+        ->findOneColumn('id');
 }
 
-// Delete the favicon
-function delete_favicon($favicon)
+function delete_favicon(array $favicon)
 {
     unlink(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$favicon['hash'].Helper\favicon_extension($favicon['type']));
+
     Database::getInstance('db')
-        ->table('favicons')
+        ->table(TABLE)
         ->eq('hash', $favicon['hash'])
         ->remove();
 }
 
-// Purge orphaned favicons from database
-function purge_favicons()
-{
-    $favicons = Database::getInstance('db')
-                ->table('favicons')
-                ->columns(
-                    'favicons.type',
-                    'favicons.hash',
-                    'favicons_feeds.feed_id'
-                )
-                ->join('favicons_feeds', 'favicon_id', 'id')
-                ->isNull('favicons_feeds.feed_id')
-                ->findAll();
-
-    foreach ($favicons as $favicon) {
-        delete_favicon($favicon);
-    }
-}
-
-// Return true if the feed has a favicon
 function has_favicon($feed_id)
 {
-    return Database::getInstance('db')->table('favicons_feeds')->eq('feed_id', $feed_id)->count() === 1;
+    return Database::getInstance('db')
+        ->table(JOIN_TABLE)
+        ->eq('feed_id', $feed_id)
+        ->exists();
 }
 
-// Get favicons for those feeds
-function get_favicons(array $feed_ids)
+function get_favicons_by_feed_ids(array $feed_ids)
 {
-    if (Config\get('favicons') == 0) {
-        return array();
-    }
-
     $result = array();
 
-    foreach ($feed_ids as $feed_id) {
-        $result[$feed_id] = Database::getInstance('db')
-              ->table('favicons')
-              ->columns(
-                  'favicons.type',
-                  'favicons.hash'
-              )
-              ->join('favicons_feeds', 'favicon_id', 'id')
-              ->eq('favicons_feeds.feed_id', $feed_id)
-              ->findOne();
+    if (! Helper\bool_config('favicons')) {
+        return $result;
+    }
+
+    $favicons = Database::getInstance('db')
+        ->table(TABLE)
+        ->columns(
+            'favicons.type',
+            'favicons.hash',
+            'favicons_feeds.feed_id'
+        )
+        ->join('favicons_feeds', 'favicon_id', 'id')
+        ->in('favicons_feeds.feed_id', $feed_ids)
+        ->findAll();
+
+    foreach ($favicons as $favicon) {
+        $result[$favicon['feed_id']] = $favicon;
     }
 
     return $result;
 }
 
-// Get all favicons for a list of items
-function get_item_favicons(array $items)
+function get_items_favicons(array $items)
 {
     $feed_ids = array();
 
     foreach ($items as $item) {
-        $feed_ids[$item['feed_id']] = $item['feed_id'];
+        $feed_ids[] = $item['feed_id'];
     }
 
-    return get_favicons($feed_ids);
+    return get_favicons_by_feed_ids(array_unique($feed_ids));
 }
 
-// Get all favicons
-function get_all_favicons()
+function get_feeds_favicons(array $feeds)
 {
-    if (Config\get('favicons') == 0) {
-        return array();
+    $feed_ids = array();
+
+    foreach ($feeds as $feed) {
+        $feed_ids[] = $feed['id'];
     }
 
-    $result = Database::getInstance('db')
-            ->table('favicons')
-            ->columns(
-                'favicons_feeds.feed_id',
-                'favicons.type',
-                'favicons.hash'
-            )
-            ->join('favicons_feeds', 'favicon_id', 'id')
-            ->findAll();
+    return get_favicons_by_feed_ids($feed_ids);
+}
 
-    $map = array();
+function get_favicons_with_data_url($user_id)
+{
+    $favicons = Database::getInstance('db')
+        ->table(TABLE)
+        ->columns(JOIN_TABLE.'.feed_id', TABLE.'.file', TABLE.'.type')
+        ->join(JOIN_TABLE, 'favicon_id', 'id', TABLE)
+        ->join(Model\Feed\TABLE, 'id', 'feed_id')
+        ->eq(Model\Feed\TABLE.'.user_id', $user_id)
+        ->findAll();
 
-    foreach ($result as $row) {
-        $map[$row['feed_id']] = array(
-        "type" => $row['type'],
-        "hash" => $row['hash']
-      );
+    foreach ($favicons as &$favicon) {
+        $favicon['url'] = get_favicon_data_url($favicon['file'], $favicon['mime_type']);
     }
 
-    return $map;
+    return $favicons;
 }

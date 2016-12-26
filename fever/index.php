@@ -4,9 +4,10 @@ require __DIR__.'/../app/common.php';
 
 use Miniflux\Handler;
 use Miniflux\Model;
-use Miniflux\Model\Feed;
-use Miniflux\Model\Group;
-use PicoDb\Database;
+
+register_shutdown_function(function () {
+    Miniflux\Helper\write_debug_file();
+});
 
 // Route handler
 function route($name, Closure $callback = null)
@@ -31,37 +32,27 @@ function response(array $response)
 // Fever authentication
 function auth()
 {
-    if (! empty($_GET['database'])) {
-        // Return unauthorized if the requested database could not be found
-        if (! Model\Database\select($_GET['database'])) {
-            return array(
-                'api_version' => 3,
-                'auth' => 0,
-            );
-        }
-    }
-
-    $credentials = Database::getInstance('db')->hashtable('settings')->get('username', 'fever_token');
-    $api_key = md5($credentials['username'].':'.$credentials['fever_token']);
+    $api_key = isset($_POST['api_key']) && ctype_alnum($_POST['api_key']) ? $_POST['api_key'] : null;
+    $user = Model\User\get_user_by_token('fever_api_key', $api_key);
+    $authenticated = $user !== null;
 
     $response = array(
         'api_version' => 3,
-        'auth' => (int) (isset($_POST['api_key']) && (strcasecmp($_POST['api_key'],  $api_key) === 0)),
+        'auth' => (int) $authenticated,
         'last_refreshed_on_time' => time(),
     );
 
-    return $response;
+    return array($user, $authenticated, $response);
 }
 
 // Call: ?api&groups
 route('groups', function () {
+    list($user, $authenticated, $response) = auth();
 
-    $response = auth();
-
-    if ($response['auth']) {
-        $response['groups'] = Group\get_all();
+    if ($authenticated) {
+        $response['groups'] = Model\Group\get_all($user['id']);
         $response['feeds_groups'] = array();
-        $group_map = Group\get_map();
+        $group_map = Model\Group\get_groups_feed_ids($user['id']);
 
         foreach ($group_map as $group_id => $feed_ids) {
             $response['feeds_groups'][] = array(
@@ -76,14 +67,13 @@ route('groups', function () {
 
 // Call: ?api&feeds
 route('feeds', function () {
+    list($user, $authenticated, $response) = auth();
 
-    $response = auth();
-
-    if ($response['auth']) {
+    if ($authenticated) {
         $response['feeds'] = array();
         $response['feeds_groups'] = array();
 
-        $feeds = Feed\get_all();
+        $feeds = Model\Feed\get_feeds($user['id']);
 
         foreach ($feeds as $feed) {
             $response['feeds'][] = array(
@@ -97,7 +87,7 @@ route('feeds', function () {
             );
         }
 
-        $group_map = Group\get_map();
+        $group_map = Model\Group\get_groups_feed_ids($user['id']);
         foreach ($group_map as $group_id => $feed_ids) {
             $response['feeds_groups'][] = array(
                 'group_id' => $group_id,
@@ -111,24 +101,16 @@ route('feeds', function () {
 
 // Call: ?api&favicons
 route('favicons', function () {
+    list($user, $authenticated, $response) = auth();
 
-    $response = auth();
-
-    if ($response['auth']) {
-        $favicons = Database::getInstance('db')
-            ->table('favicons')
-            ->columns(
-                'feed_id',
-                'file',
-                'type'
-            )
-            ->findAll();
-
+    if ($authenticated) {
+        $favicons = Model\Favicon\get_favicons_with_data_url($user['id']);
         $response['favicons'] = array();
+
         foreach ($favicons as $favicon) {
             $response['favicons'][] = array(
                 'id' => (int) $favicon['feed_id'],
-                'data' => 'data:'.$favicon['type'].';base64,'.base64_encode(file_get_contents(FAVICON_DIRECTORY.DIRECTORY_SEPARATOR.$favicon['file']))
+                'data' => $favicon['url'],
             );
         }
     }
@@ -138,39 +120,17 @@ route('favicons', function () {
 
 // Call: ?api&items
 route('items', function () {
+    list($user, $authenticated, $response) = auth();
 
-    $response = auth();
-
-    if ($response['auth']) {
-        $query = Database::getInstance('db')
-                        ->table('items')
-                        ->columns(
-                            'rowid',
-                            'feed_id',
-                            'title',
-                            'author',
-                            'content',
-                            'url',
-                            'updated',
-                            'status',
-                            'bookmark'
-                        )
-                        ->limit(50)
-                        ->neq('status', 'removed');
-
-        if (isset($_GET['since_id']) && is_numeric($_GET['since_id'])) {
-            $items = $query->gt('rowid', $_GET['since_id'])
-                           ->asc('rowid');
-        } elseif (! empty($_GET['with_ids'])) {
-            $query->in('rowid', explode(',', $_GET['with_ids']));
-        }
-
-        $items = $query->findAll();
+    if ($authenticated) {
+        $since_id = isset($_GET['since_id']) && ctype_digit($_GET['since_id']) ? $_GET['since_id'] : null;
+        $item_ids = ! empty($_GET['with_ids']) ? explode(',', $_GET['with_ids']) : array();
+        $items = Model\Item\get_items($user['id'], $since_id, $item_ids);
         $response['items'] = array();
 
         foreach ($items as $item) {
             $response['items'][] = array(
-                'id' => (int) $item['rowid'],
+                'id' => (int) $item['id'],
                 'feed_id' => (int) $item['feed_id'],
                 'title' => $item['title'],
                 'author' => $item['author'],
@@ -182,10 +142,10 @@ route('items', function () {
             );
         }
 
-        $response['total_items'] = Database::getInstance('db')
-                                        ->table('items')
-                                        ->neq('status', 'removed')
-                                        ->count();
+        $response['total_items'] = Model\Item\count_by_status(
+            $user['id'],
+            array(Model\Item\STATUS_READ, Model\Item\STATUS_UNREAD)
+        );
     }
 
     response($response);
@@ -193,10 +153,9 @@ route('items', function () {
 
 // Call: ?api&links
 route('links', function () {
+    list(, $authenticated, $response) = auth();
 
-    $response = auth();
-
-    if ($response['auth']) {
+    if ($authenticated) {
         $response['links'] = array();
     }
 
@@ -205,15 +164,10 @@ route('links', function () {
 
 // Call: ?api&unread_item_ids
 route('unread_item_ids', function () {
+    list($user, $authenticated, $response) = auth();
 
-    $response = auth();
-
-    if ($response['auth']) {
-        $item_ids = Database::getInstance('db')
-                    ->table('items')
-                    ->eq('status', 'unread')
-                    ->findAllByColumn('rowid');
-
+    if ($authenticated) {
+        $item_ids = Model\Item\get_item_ids_by_status($user['id'], Model\Item\STATUS_UNREAD);
         $response['unread_item_ids'] = implode(',', $item_ids);
     }
 
@@ -222,15 +176,10 @@ route('unread_item_ids', function () {
 
 // Call: ?api&saved_item_ids
 route('saved_item_ids', function () {
+    list($user, $authenticated, $response) = auth();
 
-    $response = auth();
-
-    if ($response['auth']) {
-        $item_ids = Database::getInstance('db')
-                    ->table('items')
-                    ->eq('bookmark', 1)
-                    ->findAllByColumn('rowid');
-
+    if ($authenticated) {
+        $item_ids = Model\Bookmark\get_bookmarked_item_ids($user['id']);
         $response['saved_item_ids'] = implode(',', $item_ids);
     }
 
@@ -239,30 +188,20 @@ route('saved_item_ids', function () {
 
 // handle write items
 route('write_items', function () {
+    list($user, $authenticated, $response) = auth();
 
-    $response = auth();
-
-    if ($response['auth']) {
-        $query = Database::getInstance('db')
-                    ->table('items')
-                    ->eq('rowid', $_POST['id']);
+    if ($authenticated && ctype_digit($_POST['id'])) {
+        $item_id = $_POST['id'];
 
         if ($_POST['as'] === 'saved') {
-            $query->update(array('bookmark' => 1));
-
-            // Send bookmark to third-party services if enabled
-            $item_id = Database::getInstance('db')
-                            ->table('items')
-                            ->eq('rowid', $_POST['id'])
-                            ->findOneColumn('id');
-
-            Handler\Service\sync($item_id);
+            Model\Bookmark\set_flag($user['id'], $item_id, 1);
+            Handler\Service\sync($user['id'], $item_id);
         } elseif ($_POST['as'] === 'unsaved') {
-            $query->update(array('bookmark' => 0));
+            Model\Bookmark\set_flag($user['id'], $item_id, 0);
         } elseif ($_POST['as'] === 'read') {
-            $query->update(array('status' => 'read'));
+            Model\Item\change_item_status($user['id'], $item_id, Model\Item\STATUS_READ);
         } elseif ($_POST['as'] === 'unread') {
-            $query->update(array('status' => 'unread'));
+            Model\Item\change_item_status($user['id'], $item_id, Model\Item\STATUS_UNREAD);
         }
     }
 
@@ -271,15 +210,16 @@ route('write_items', function () {
 
 // handle write feeds
 route('write_feeds', function () {
+    list($user, $authenticated, $response) = auth();
 
-    $response = auth();
-
-    if ($response['auth']) {
-        Database::getInstance('db')
-            ->table('items')
-            ->eq('feed_id', $_POST['id'])
-            ->lte('updated', $_POST['before'])
-            ->update(array('status' => 'read'));
+    if ($authenticated && ctype_digit($_POST['id']) && ctype_digit($_POST['before'])) {
+        Model\ItemFeed\change_items_status(
+            $user['id'],
+            $_POST['id'],
+            Model\Item\STATUS_UNREAD,
+            Model\Item\STATUS_READ,
+            $_POST['before']
+        );
     }
 
     response($response);
@@ -287,19 +227,16 @@ route('write_feeds', function () {
 
 // handle write groups
 route('write_groups', function () {
+    list($user, $authenticated, $response) = auth();
 
-    $response = auth();
-
-    if ($response['auth']) {
-        $db = Database::getInstance('db')
-                ->table('items')
-                ->lte('updated', $_POST['before']);
-
-        if ($_POST['id'] > 0) {
-            $db->in('feed_id', Model\Group\get_feeds_by_group($_POST['id']));
-        }
-
-        $db->update(array('status' => 'read'));
+    if ($authenticated && ctype_digit($_POST['id']) && ctype_digit($_POST['before'])) {
+        Model\ItemGroup\change_items_status(
+            $user['id'],
+            $_POST['id'],
+            Model\Item\STATUS_UNREAD,
+            Model\Item\STATUS_READ,
+            $_POST['before']
+        );
     }
 
     response($response);
@@ -320,4 +257,5 @@ if (! empty($_POST['mark']) && ! empty($_POST['as'])
     }
 }
 
-response(auth());
+list(, , $response) = auth();
+response($response);

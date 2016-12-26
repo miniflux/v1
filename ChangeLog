@@ -1,0 +1,18 @@
+Version 1.2.0 (unreleased)
+-------------
+
+* Major change to the database structure to have a single database for multiple users
+* Web access token for the cronjob
+* New config parameter to disable web access for the cronjob
+* Debug mode parameter is moved to the config file
+* The console web page have been removed
+* New API methods (not backward compatible)
+* Fever API tokens are longer than before
+* Add support for Wallabag service
+* Add unit tests
+
+Migration procedure from 1.1.x to 1.2.0:
+
+To import your old database to the new database format, use this script:
+
+    php scripts/migrate-db.php --sqlite-db=/path/to/my/db.sqlite --admin==1

@@ -24,3 +24,14 @@ function dt()
 {
     return call_user_func_array('\Miniflux\Translator\datetime', func_get_args());
 }
+
+function get_cli_option($option, array $options)
+{
+    $value = null;
+
+    if (! empty($options[$option]) && ctype_digit($options[$option])) {
+        $value = (int) $options[$option];
+    }
+
+    return $value;
+}

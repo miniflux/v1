@@ -2,6 +2,8 @@
 
 use Miniflux\Request;
 
+require_once __DIR__.'/BaseTest.php';
+
 class RequestTest extends BaseTest
 {
     public function testGetIpAddress()

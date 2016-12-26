@@ -29,7 +29,7 @@
         </nav>
         <?php endif ?>
 
-        <h1 <?php echo Miniflux\Helper\is_rtl($item + array('rtl' => $feed['rtl'])) ? 'dir="rtl"' : 'dir="ltr"' ?>>
+        <h1 <?php echo Miniflux\Helper\rtl($item) ?>>
             <a href="<?php echo $item['url'] ?>" rel="noreferrer" target="_blank" class="original"><?php echo Miniflux\Helper\escape($item['title']) ?></a>
         </h1>
 
@@ -54,9 +54,9 @@
             <li class="hide-mobile">
                 <span title="<?php echo dt('%e %B %Y %k:%M', $item['updated']) ?>"><?php echo Miniflux\Helper\relative_time($item['updated']) ?></span>
             </li>
-            <?php if ($item['enclosure']): ?>
+            <?php if ($item['enclosure_url']): ?>
             <li>
-                <a href="<?php echo $item['enclosure'] ?>" rel="noreferrer" target="_blank"><?php echo t('attachment') ?></a>
+                <a href="<?php echo $item['enclosure_url'] ?>" rel="noreferrer" target="_blank"><?php echo t('attachment') ?></a>
             </li>
             <?php endif ?>
             <li class="hide-mobile">
@@ -74,24 +74,24 @@
             <?php endif; ?>
         </ul>
 
-        <div id="item-content" <?php echo Miniflux\Helper\is_rtl($item + array('rtl' => $feed['rtl']))  ? 'dir="rtl"' : 'dir="ltr"' ?>>
+        <div id="item-content" <?php echo Miniflux\Helper\rtl($item) ?>>
 
-            <?php if ($item['enclosure']): ?>
+            <?php if ($item['enclosure_url']): ?>
                 <?php if (strpos($item['enclosure_type'], 'audio') !== false): ?>
                 <div id="item-content-enclosure">
                     <audio controls>
-                        <source src="<?php echo $item['enclosure'] ?>" type="<?php echo $item['enclosure_type'] ?>">
+                        <source src="<?php echo $item['enclosure_url'] ?>" type="<?php echo $item['enclosure_type'] ?>">
                     </audio>
                 </div>
                 <?php elseif (strpos($item['enclosure_type'], 'video') !== false): ?>
                 <div id="item-content-enclosure">
                     <video controls>
-                        <source src="<?php echo $item['enclosure'] ?>" type="<?php echo $item['enclosure_type'] ?>">
+                        <source src="<?php echo $item['enclosure_url'] ?>" type="<?php echo $item['enclosure_type'] ?>">
                     </video>
                 </div>
                 <?php elseif (strpos($item['enclosure_type'], 'image') !== false && $item['content'] === ''): ?>
                 <div id="item-content-enclosure">
-                    <img src="<?php echo $item['enclosure'] ?>" alt="enclosure"/>
+                    <img src="<?php echo $item['enclosure_url'] ?>" alt="enclosure"/>
                 </div>
                 <?php endif ?>
             <?php endif ?>

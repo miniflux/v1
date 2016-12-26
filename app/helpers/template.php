@@ -2,7 +2,17 @@
 
 namespace Miniflux\Helper;
 
-use Miniflux\Model\Config;
+use Miniflux\Session\SessionStorage;
+
+function get_user_id()
+{
+    return SessionStorage::getInstance()->getUserId();
+}
+
+function is_admin()
+{
+    return SessionStorage::getInstance()->isAdmin();
+}
 
 function flash($type, $html)
 {
@@ -16,14 +26,18 @@ function flash($type, $html)
     return $data;
 }
 
-function is_rtl(array $item)
+function rtl(array $item)
 {
-    return ! empty($item['rtl']) || \PicoFeed\Parser\Parser::isLanguageRTL($item['language']);
+    if ($item['rtl'] == 1) {
+        return 'dir="rtl"';
+    }
+
+    return 'dir="ltr"';
 }
 
 function css()
 {
-    $theme = Config\get('theme');
+    $theme = config('theme');
 
     if ($theme !== 'original') {
         $css_file = THEME_DIRECTORY.'/'.$theme.'/css/app.css';

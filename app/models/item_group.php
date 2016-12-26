@@ -2,28 +2,27 @@
 
 namespace Miniflux\Model\ItemGroup;
 
-use PicoDb\Database;
+use Miniflux\Model\Item;
 use Miniflux\Model\Group;
+use PicoDb\Database;
 
-function mark_all_as_read($group_id)
+function change_items_status($user_id, $group_id, $current_status, $new_status, $before = null)
 {
-    $feed_ids = Group\get_feeds_by_group($group_id);
+    $feed_ids = Group\get_feed_ids_by_group($group_id);
 
-    return Database::getInstance('db')
-        ->table('items')
-        ->eq('status', 'unread')
-        ->in('feed_id', $feed_ids)
-        ->update(array('status' => 'read'));
-}
+    if (empty($feed_ids)) {
+        return false;
+    }
 
-function mark_all_as_removed($group_id)
-{
-    $feed_ids = Group\get_feeds_by_group($group_id);
+    $query = Database::getInstance('db')
+        ->table(Item\TABLE)
+        ->eq('user_id', $user_id)
+        ->eq('status', $current_status)
+        ->in('feed_id', $feed_ids);
 
-    return Database::getInstance('db')
-        ->table('items')
-        ->eq('status', 'read')
-        ->eq('bookmark', 0)
-        ->in('feed_id', $feed_ids)
-        ->save(array('status' => 'removed', 'content' => ''));
+    if ($before !== null) {
+        $query->lte('updated', $before);
+    }
+
+    return $query->update(array('status' => $new_status));
 }

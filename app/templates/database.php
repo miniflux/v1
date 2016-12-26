@@ -17,11 +17,6 @@
             <li><?php echo t('Database size:') ?> <strong><?php echo Miniflux\Helper\format_bytes($db_size) ?></strong></li>
             <li><a href="?action=optimize-db&amp;csrf=<?php echo $csrf ?>"><?php echo t('Optimize the database') ?></a> <?php echo t('(VACUUM command)') ?></li>
             <li><a href="?action=download-db&amp;csrf=<?php echo $csrf ?>"><?php echo t('Download the entire database') ?></a> <?php echo t('(Gzip compressed Sqlite file)') ?></li>
-            <?php if (ENABLE_MULTIPLE_DB): ?>
-            <li>
-                <a href="?action=new-db"><?php echo t('Add a new database (new user)') ?></a>
-            </li>
-            <?php endif ?>
         </ul>
     </div>
 </section>

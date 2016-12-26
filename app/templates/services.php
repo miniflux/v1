@@ -3,9 +3,12 @@
     <nav>
         <ul>
             <li><a href="?action=config"><?php echo t('general') ?></a></li>
+            <li><a href="?action=profile"><?php echo t('profile') ?></a></li>
+            <?php if (Miniflux\Helper\is_admin()): ?>
+                <li><a href="?action=users"><?php echo t('users') ?></a></li>
+            <?php endif ?>
             <li class="active"><a href="?action=services"><?php echo t('external services') ?></a></li>
             <li><a href="?action=api"><?php echo t('api') ?></a></li>
-            <li><a href="?action=database"><?php echo t('database') ?></a></li>
             <li><a href="?action=help"><?php echo t('help') ?></a></li>
             <li><a href="?action=about"><?php echo t('about') ?></a></li>
         </ul>

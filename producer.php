@@ -13,11 +13,19 @@ $options = getopt('', array(
     'limit::',
 ));
 
-$limit = ! empty($options['limit']) && ctype_digit($options['limit']) ? (int) $options['limit'] : Model\Feed\LIMIT_ALL;
+$limit = get_cli_option('limit', $options);
 $connection = new Pheanstalk(BEANSTALKD_HOST);
 
-foreach (Model\Feed\get_ids($limit) as $feed_id) {
-    $connection
-        ->useTube(BEANSTALKD_QUEUE)
-        ->put($feed_id, Pheanstalk::DEFAULT_PRIORITY, Pheanstalk::DEFAULT_DELAY, BEANSTALKD_TTL);
+foreach (Model\User\get_all_users() as $user) {
+    foreach (Model\Feed\get_feed_ids($user['id'], $limit) as $feed_id) {
+        $payload = serialize(array(
+            'feed_id' => $feed_id,
+            'user_id' => $user['id'],
+        ));
+
+        $connection
+            ->useTube(BEANSTALKD_QUEUE)
+            ->put($payload, Pheanstalk::DEFAULT_PRIORITY, Pheanstalk::DEFAULT_DELAY, BEANSTALKD_TTL);
+    }
 }
+

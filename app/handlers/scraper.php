@@ -3,13 +3,13 @@
 namespace Miniflux\Handler\Scraper;
 
 use PicoFeed\Scraper\Scraper;
-use Miniflux\Model\Config;
+use Miniflux\Handler;
 
-function download_contents($url)
+function download_content($url)
 {
     $contents = '';
 
-    $scraper = new Scraper(Config\get_reader_config());
+    $scraper = new Scraper(Handler\Feed\get_reader_config());
     $scraper->setUrl($url);
     $scraper->execute();
 

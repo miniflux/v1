@@ -1,8 +1,13 @@
 <?php
 
+namespace Miniflux\Controller;
+
+use Miniflux\Session\SessionManager;
+use Miniflux\Session\SessionStorage;
 use Miniflux\Validator;
 use Miniflux\Router;
 use Miniflux\Response;
+use Miniflux\Model\RememberMe;
 use Miniflux\Request;
 use Miniflux\Template;
 use Miniflux\Helper;
@@ -10,13 +15,15 @@ use Miniflux\Model;
 
 // Logout and destroy session
 Router\get_action('logout', function () {
-    Model\User\logout();
+    SessionStorage::getInstance()->flush();
+    SessionManager::close();
+    RememberMe\destroy();
     Response\redirect('?action=login');
 });
 
 // Display form login
 Router\get_action('login', function () {
-    if (Model\User\is_loggedin()) {
+    if (SessionStorage::getInstance()->isLogged()) {
         Response\redirect('?action=unread');
     }
 
@@ -25,8 +32,6 @@ Router\get_action('login', function () {
         'values' => array(
             'csrf' => Helper\generate_csrf(),
         ),
-        'databases' => Model\Database\get_list(),
-        'current_database' => Model\Database\select()
     )));
 });
 
@@ -43,7 +48,5 @@ Router\post_action('login', function () {
     Response\html(Template\load('login', array(
         'errors' => $errors,
         'values' => $values + array('csrf' => Helper\generate_csrf()),
-        'databases' => Model\Database\get_list(),
-        'current_database' => Model\Database\select()
     )));
 });
