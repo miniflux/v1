@@ -26,10 +26,10 @@ class FeedModelTest extends BaseTest
         $this->assertEquals('feed url', $subscription['feed_url']);
         $this->assertEquals('etag', $subscription['etag']);
         $this->assertEquals('last modified', $subscription['last_modified']);
-        $this->assertEquals('0', $subscription['download_content']);
-        $this->assertEquals('0', $subscription['rtl']);
-        $this->assertEquals('0', $subscription['cloak_referrer']);
-        $this->assertEquals('1', $subscription['enabled']);
+        $this->assertFalse((bool) $subscription['download_content']);
+        $this->assertFalse((bool) $subscription['rtl']);
+        $this->assertFalse((bool) $subscription['cloak_referrer']);
+        $this->assertTrue((bool) $subscription['enabled']);
     }
 
     public function testGetAll()

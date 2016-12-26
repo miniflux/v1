@@ -7,17 +7,20 @@ use Miniflux\Session\SessionStorage;
 
 function config($parameter, $default = null)
 {
-    $session = SessionStorage::getInstance();
-    $cache = $session->getConfig();
     $value = null;
+    $session = SessionStorage::getInstance();
 
-    if (empty($cache)) {
-        $cache = Model\Config\get_all($session->getUserId());
-        $session->setConfig($cache);
-    }
+    if ($session->isLogged()) {
+        $cache = $session->getConfig();
 
-    if (array_key_exists($parameter, $cache)) {
-        $value = $cache[$parameter];
+        if (empty($cache)) {
+            $cache = Model\Config\get_all($session->getUserId());
+            $session->setConfig($cache);
+        }
+
+        if (array_key_exists($parameter, $cache)) {
+            $value = $cache[$parameter];
+        }
     }
 
     if ($value === null) {

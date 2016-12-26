@@ -12,20 +12,18 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        SessionStorage::getInstance()->flush();
+        if (DB_DRIVER === 'postgres') {
+            $pdo = new PDO('pgsql:host='.DB_HOSTNAME, DB_USERNAME, DB_PASSWORD);
+            $pdo->exec('DROP DATABASE '.DB_NAME);
+            $pdo->exec('CREATE DATABASE '.DB_NAME.' WITH OWNER '.DB_USERNAME);
+            $pdo = null;
+        }
 
         PicoDb\Database::setInstance('db', function () {
-            $db = new PicoDb\Database(array(
-                'driver'   => 'sqlite',
-                'filename' => DB_FILENAME,
-            ));
-
-            $db->getStatementHandler()->withLogging();
-            if (! $db->schema('\Miniflux\Schema')->check(Miniflux\Schema\VERSION)) {
-                var_dump($db->getLogMessages());
-            }
-            return $db;
+            return Miniflux\Database\get_connection();
         });
+
+        SessionStorage::getInstance()->flush();
     }
 
     public function tearDown()

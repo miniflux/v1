@@ -8,13 +8,13 @@ class ComposerStaticInitfd7e8d436e1dc450edc3153ac8bc31b4
 {
     public static $files = array (
         'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
-        '1c6478a893aa3a9ae898668d7af7b441' => __DIR__ . '/../..' . '/app/schemas/sqlite.php',
         'f0aaf41fd213d5a97cf56c060c89445c' => __DIR__ . '/../..' . '/app/helpers/app.php',
         '640b6eca1c41bc50addc30eb8c8e3b5b' => __DIR__ . '/../..' . '/app/helpers/config.php',
         '5d8e3de7e01942090f1b7b4dbdfb5577' => __DIR__ . '/../..' . '/app/helpers/csrf.php',
         '3f7c6586b45b98746d18450089390313' => __DIR__ . '/../..' . '/app/helpers/favicon.php',
         'e96e91c85d691b966391981f72a31834' => __DIR__ . '/../..' . '/app/helpers/form.php',
         'b8d3001d29a919647064eeaec3f6551e' => __DIR__ . '/../..' . '/app/helpers/template.php',
+        'a79069799c6e73d978adffa1caf9894d' => __DIR__ . '/../..' . '/app/core/database.php',
         '7793918f03299c5c8c900e412e166b4f' => __DIR__ . '/../..' . '/app/core/translator.php',
         '69d59b59e8b15a53cc782e283523018d' => __DIR__ . '/../..' . '/app/core/request.php',
         '3fd802226a33a97ae29d1f8315ff66a9' => __DIR__ . '/../..' . '/app/core/response.php',

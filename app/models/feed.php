@@ -46,26 +46,42 @@ function get_feeds($user_id)
     return Database::getInstance('db')
         ->table(TABLE)
         ->eq('user_id', $user_id)
+        ->desc('parsing_error')
+        ->desc('enabled')
         ->asc('title')
         ->findAll();
 }
 
 function get_feeds_with_items_count($user_id)
 {
-    return Database::getInstance('db')
-        ->table(TABLE)
-        ->columns(
-            'feeds.*',
-            'SUM(CASE WHEN items.status IN ("unread") THEN 1 ELSE 0 END) as "items_unread"',
-            'SUM(CASE WHEN items.status IN ("read", "unread") THEN 1 ELSE 0 END) as "items_total"'
-        )
-        ->join('items', 'feed_id', 'id')
-        ->eq('feeds.user_id', $user_id)
-        ->groupBy('feeds.id')
-        ->desc('feeds.parsing_error')
-        ->desc('feeds.enabled')
-        ->asc('feeds.title')
+    $feeds_count = array();
+    $feeds = get_feeds($user_id);
+    $feed_items = Database::getInstance('db')
+        ->table(Item\TABLE)
+        ->columns('feed_id', 'status', 'count(*) as nb')
+        ->eq('user_id', $user_id)
+        ->neq('status', Item\STATUS_REMOVED)
+        ->groupBy('feed_id', 'status')
         ->findAll();
+
+    foreach ($feed_items as $row) {
+        if (! isset($feeds_count[$row['feed_id']])) {
+            $feeds_count[$row['feed_id']] = array('unread' => 0, 'total' => 0);
+        }
+
+        if ($row['status'] === 'unread') {
+            $feeds_count[$row['feed_id']]['unread'] = $row['nb'];
+        }
+
+        $feeds_count[$row['feed_id']]['total'] += $row['nb'];
+    }
+
+    foreach ($feeds as &$feed) {
+        $feed['items_unread'] = isset($feeds_count[$feed['id']]) ? $feeds_count[$feed['id']]['unread'] : 0;
+        $feed['items_total'] = isset($feeds_count[$feed['id']]) ? $feeds_count[$feed['id']]['total'] : 0;
+    }
+
+    return $feeds;
 }
 
 function get_feed_ids($user_id, $limit = null)

@@ -26,13 +26,13 @@
     },
     "autoload": {
         "files": [
-            "app/schemas/sqlite.php",
             "app/helpers/app.php",
             "app/helpers/config.php",
             "app/helpers/csrf.php",
             "app/helpers/favicon.php",
             "app/helpers/form.php",
             "app/helpers/template.php",
+            "app/core/database.php",
             "app/core/translator.php",
             "app/core/request.php",
             "app/core/response.php",

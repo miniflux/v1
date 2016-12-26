@@ -1,7 +1,7 @@
 Miniflux.Item = (function() {
 
     // timestamp of the latest item per feed ever seen
-    var latest_feeds_items = [];
+    var latest_feeds_items = {};
 
     // indicator for new unread items
     var unreadItems = false;
@@ -362,27 +362,24 @@ Miniflux.Item = (function() {
                 var first_run = (latest_feeds_items.length === 0);
                 var current_unread = false;
                 var response = JSON.parse(this.responseText);
+                var last_items_timestamps = response['last_items_timestamps'];
 
-                for (var feed_id in response['feeds']) {
-                    var current_feed = response['feeds'][feed_id];
+                for (var i = 0; i < last_items_timestamps.length; i++) {
+                    var current_feed = last_items_timestamps[i];
+                    var feed_id = current_feed.feed_id;
 
-                    if (! latest_feeds_items.hasOwnProperty(feed_id) || current_feed.time > latest_feeds_items[feed_id]) {
-                        Miniflux.App.Log('feed ' + feed_id + ': New item(s)');
-                        latest_feeds_items[feed_id] = current_feed.time;
-
-                        if (current_feed.status === 'unread') {
-                            Miniflux.App.Log('feed ' + feed_id + ': New unread item(s)');
-                            current_unread = true;
-                        }
+                    if (! latest_feeds_items.hasOwnProperty(feed_id) || current_feed.updated > latest_feeds_items[feed_id]) {
+                        latest_feeds_items[feed_id] = current_feed.updated;
+                        current_unread = true;
                     }
                 }
 
                 Miniflux.App.Log('first_run: ' + first_run + ', current_unread: ' + current_unread + ', response.nbUnread: ' + response['nbUnread'] + ', nbUnreadItems: ' + nbUnreadItems);
 
-                if (! document.hidden && (response['nbUnread'] !== nbUnreadItems || unreadItems)) {
+                if (! document.hidden && (response['nb_unread_items'] !== nbUnreadItems || unreadItems)) {
                     Miniflux.App.Log('Counter changed! Updating unread counter.');
                     unreadItems = false;
-                    nbUnreadItems = response['nbUnread'];
+                    nbUnreadItems = response['nb_unread_items'];
                     updateCounters();
                 }
                 else if (document.hidden && ! first_run && current_unread) {
@@ -397,7 +394,7 @@ Miniflux.Item = (function() {
                 Miniflux.App.Log('unreadItems: ' + unreadItems);
             };
 
-            request.open("POST", "?action=latest-feeds-items", true);
+            request.open("GET", "?action=latest-feeds-items", true);
             request.send();
         }
     };

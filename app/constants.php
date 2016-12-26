@@ -13,7 +13,13 @@ defined('DATA_DIRECTORY') or define('DATA_DIRECTORY', ROOT_DIRECTORY.DIRECTORY_S
 defined('FAVICON_DIRECTORY') or define('FAVICON_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'favicons');
 defined('FAVICON_URL_PATH') or define('FAVICON_URL_PATH', 'data/favicons');
 
+defined('DB_DRIVER') or define('DB_DRIVER', 'sqlite');
 defined('DB_FILENAME') or define('DB_FILENAME', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'db.sqlite');
+defined('DB_HOSTNAME') or define('DB_HOSTNAME', 'localhost');
+defined('DB_PORT') or define('DB_PORT', null);
+defined('DB_NAME') or define('DB_NAME', 'miniflux');
+defined('DB_USERNAME') or define('DB_USERNAME', '');
+defined('DB_PASSWORD') or define('DB_PASSWORD', '');
 
 defined('DEBUG_MODE') or define('DEBUG_MODE', false);
 defined('DEBUG_FILENAME') or define('DEBUG_FILENAME', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'debug.log');

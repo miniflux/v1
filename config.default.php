@@ -7,7 +7,7 @@ define('HTTP_TIMEOUT', '20');
 define('HTTP_MAX_RESPONSE_SIZE', 2097152);
 
 // DATA_DIRECTORY => default is data (writable directory)
-define('DATA_DIRECTORY', __DIR__.'/data');
+define('DATA_DIRECTORY', 'data');
 
 // FAVICON_DIRECTORY => default is favicons (writable directory)
 define('FAVICON_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'favicons');
@@ -15,8 +15,17 @@ define('FAVICON_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'favicons');
 // FAVICON_URL_PATH => default is data/favicons/
 define('FAVICON_URL_PATH', 'data/favicons');
 
-// DB_FILENAME => default value is db.sqlite (default database filename)
-define('DB_FILENAME', 'db.sqlite');
+// Database driver: "sqlite" or "postgres", default is sqlite
+define('DB_DRIVER', 'sqlite');
+
+// Database connection parameters when Postgres is used
+define('DB_HOSTNAME', 'localhost');
+define('DB_NAME', 'miniflux');
+define('DB_USERNAME', 'postgres');
+define('DB_PASSWORD', '');
+
+// DB_FILENAME => database file when Sqlite is used
+define('DB_FILENAME', DATA_DIRECTORY.'/db.sqlite');
 
 // Enable/disable debug mode
 define('DEBUG_MODE', false);

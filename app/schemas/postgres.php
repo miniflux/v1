@@ -9,61 +9,61 @@ const VERSION = 1;
 
 function version_1(PDO $pdo)
 {
-    $pdo->exec('CREATE TABLE users (
-        id INTEGER PRIMARY KEY,
-        username TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL,
-        is_admin INTEGER DEFAULT 0,
-        last_login INTEGER,
-        api_token TEXT NOT NULL UNIQUE,
-        bookmarklet_token TEXT NOT NULL UNIQUE,
-        cronjob_token TEXT NOT NULL UNIQUE,
-        feed_token TEXT NOT NULL UNIQUE,
-        fever_token TEXT NOT NULL UNIQUE,
-        fever_api_key TEXT NOT NULL UNIQUE
-    )');
+    $pdo->exec("CREATE TABLE users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(50) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
+        is_admin BOOLEAN DEFAULT FALSE,
+        last_login BIGINT,
+        api_token VARCHAR(255) NOT NULL UNIQUE,
+        bookmarklet_token VARCHAR(255) NOT NULL UNIQUE,
+        cronjob_token VARCHAR(255) NOT NULL UNIQUE,
+        feed_token VARCHAR(255) NOT NULL UNIQUE,
+        fever_token VARCHAR(255) NOT NULL UNIQUE,
+        fever_api_key VARCHAR(255) NOT NULL UNIQUE
+    )");
 
     $pdo->exec('CREATE TABLE user_settings (
         "user_id" INTEGER NOT NULL,
-        "key" TEXT NOT NULL,
+        "key" VARCHAR(255) NOT NULL,
         "value" TEXT NOT NULL,
         PRIMARY KEY("user_id", "key"),
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
     )');
 
     $pdo->exec('CREATE TABLE feeds (
-        id INTEGER PRIMARY KEY,
+        id BIGSERIAL PRIMARY KEY,
         user_id INTEGER NOT NULL,
-        feed_url TEXT NOT NULL,
-        site_url TEXT,
-        title TEXT COLLATE NOCASE NOT NULL,
-        last_checked INTEGER DEFAULT 0,
-        last_modified TEXT,
-        etag TEXT,
-        enabled INTEGER DEFAULT 1,
-        download_content INTEGER DEFAULT 0,
-        parsing_error INTEGER DEFAULT 0,
-        rtl INTEGER DEFAULT 0,
-        cloak_referrer INTEGER DEFAULT 0,
+        feed_url VARCHAR(255) NOT NULL,
+        site_url VARCHAR(255),
+        title VARCHAR(255) NOT NULL,
+        last_checked BIGINT DEFAULT 0,
+        last_modified VARCHAR(255),
+        etag VARCHAR(255),
+        enabled BOOLEAN DEFAULT TRUE,
+        download_content BOOLEAN DEFAULT FALSE,
+        parsing_error BOOLEAN DEFAULT FALSE,
+        rtl BOOLEAN DEFAULT FALSE,
+        cloak_referrer BOOLEAN DEFAULT FALSE,
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
         UNIQUE(user_id, feed_url)
     )');
 
     $pdo->exec('CREATE TABLE items (
-        id INTEGER PRIMARY KEY,
+        id BIGSERIAL PRIMARY KEY,
         user_id INTEGER NOT NULL,
-        feed_id INTEGER NOT NULL,
-        checksum TEXT NOT NULL,
-        status TEXT NOT NULL,
+        feed_id BIGINT NOT NULL,
+        checksum VARCHAR(255) NOT NULL,
+        status VARCHAR(10) NOT NULL,
         bookmark INTEGER DEFAULT 0,
-        url TEXT NOT NULL,
-        title TEXT COLLATE NOCASE NOT NULL,
-        author TEXT,
+        url VARCHAR(255) NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        author VARCHAR(255),
         content TEXT,
-        updated INTEGER,
-        enclosure_url TEXT,
-        enclosure_type TEXT,
-        language TEXT,
+        updated BIGINT,
+        enclosure_url VARCHAR(255),
+        enclosure_type VARCHAR(50),
+        language VARCHAR(50),
         rtl INTEGER DEFAULT 0,
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
         FOREIGN KEY(feed_id) REFERENCES feeds(id) ON DELETE CASCADE,
@@ -71,15 +71,15 @@ function version_1(PDO $pdo)
     )');
 
     $pdo->exec('CREATE TABLE "groups" (
-        id INTEGER PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         user_id INTEGER NOT NULL,
-        title TEXT COLLATE NOCASE NOT NULL,
+        title VARCHAR(255) NOT NULL,
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
         UNIQUE(user_id, title)
     )');
 
     $pdo->exec('CREATE TABLE "feeds_groups" (
-        feed_id INTEGER NOT NULL,
+        feed_id BIGINT NOT NULL,
         group_id INTEGER NOT NULL,
         PRIMARY KEY(feed_id, group_id),
         FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE CASCADE,
@@ -87,13 +87,13 @@ function version_1(PDO $pdo)
     )');
 
     $pdo->exec('CREATE TABLE favicons (
-        id INTEGER PRIMARY KEY,
-        hash TEXT UNIQUE,
-        type TEXT
+        id SERIAL PRIMARY KEY,
+        hash VARCHAR(255) UNIQUE,
+        type VARCHAR(50)
     )');
 
     $pdo->exec('CREATE TABLE "favicons_feeds" (
-        feed_id INTEGER NOT NULL,
+        feed_id BIGINT NOT NULL,
         favicon_id INTEGER NOT NULL,
         PRIMARY KEY(feed_id, favicon_id),
         FOREIGN KEY(favicon_id) REFERENCES favicons(id) ON DELETE CASCADE,
@@ -101,14 +101,14 @@ function version_1(PDO $pdo)
     )');
 
     $pdo->exec('CREATE TABLE remember_me (
-        id INTEGER PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         user_id INTEGER NOT NULL,
-        ip TEXT,
-        user_agent TEXT,
-        token TEXT,
-        sequence TEXT,
-        expiration INTEGER,
-        date_creation INTEGER,
+        ip VARCHAR(255),
+        user_agent VARCHAR(255),
+        token VARCHAR(255),
+        sequence VARCHAR(255),
+        expiration BIGINT,
+        date_creation BIGINT,
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
     )');
 

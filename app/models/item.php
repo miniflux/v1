@@ -297,19 +297,18 @@ function get_item_ids_by_status($user_id, $status)
         ->findAllByColumn('id');
 }
 
-function get_latest_feeds_items($user_id)
+function get_latest_unread_items_timestamps($user_id)
 {
     return Database::getInstance('db')
-        ->table(Feed\TABLE)
+        ->table(TABLE)
         ->columns(
-            'feeds.id',
-            'MAX(items.updated) as updated',
-            'items.status'
+            'feed_id',
+            'MAX(updated) as updated'
         )
-        ->join(TABLE, 'feed_id', 'id')
-        ->eq('feeds.user_id', $user_id)
-        ->groupBy('feeds.id')
-        ->orderBy('feeds.id')
+        ->eq('user_id', $user_id)
+        ->eq('status', STATUS_UNREAD)
+        ->groupBy('feed_id')
+        ->desc('updated')
         ->findAll();
 }
 

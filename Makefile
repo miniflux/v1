@@ -5,6 +5,7 @@
 .PHONY: docker-run
 .PHONY: js
 .PHONY: unit-test-sqlite
+.PHONY: unit-test-postgres
 
 JS_FILE = assets/js/all.js
 CONTAINER = miniflux
@@ -39,4 +40,8 @@ archive:
 	@ git archive --format=zip --prefix=miniflux/ v${version} -o ${dst}/miniflux-${version}.zip
 
 unit-test-sqlite:
-	@ ./vendor/bin/phpunit -c tests/phpunit.unit.xml
+	@ ./vendor/bin/phpunit -c tests/phpunit.unit.sqlite.xml
+
+unit-test-postgres:
+	@ ./vendor/bin/phpunit -c tests/phpunit.unit.postgres.xml
+

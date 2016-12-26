@@ -27,7 +27,7 @@ class ItemModelTest extends BaseTest
         $this->assertEquals('', $item['enclosure_type']);
         $this->assertEquals('', $item['language']);
 
-        $item = Model\Item\get_item(2, 'ID 1');
+        $item = Model\Item\get_item(2, 1);
         $this->assertNull($item);
     }
 

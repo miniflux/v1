@@ -7,13 +7,13 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'e40631d46120a9c38ea139981f8dab26' => $vendorDir . '/ircmaxell/password-compat/lib/password.php',
-    '1c6478a893aa3a9ae898668d7af7b441' => $baseDir . '/app/schemas/sqlite.php',
     'f0aaf41fd213d5a97cf56c060c89445c' => $baseDir . '/app/helpers/app.php',
     '640b6eca1c41bc50addc30eb8c8e3b5b' => $baseDir . '/app/helpers/config.php',
     '5d8e3de7e01942090f1b7b4dbdfb5577' => $baseDir . '/app/helpers/csrf.php',
     '3f7c6586b45b98746d18450089390313' => $baseDir . '/app/helpers/favicon.php',
     'e96e91c85d691b966391981f72a31834' => $baseDir . '/app/helpers/form.php',
     'b8d3001d29a919647064eeaec3f6551e' => $baseDir . '/app/helpers/template.php',
+    'a79069799c6e73d978adffa1caf9894d' => $baseDir . '/app/core/database.php',
     '7793918f03299c5c8c900e412e166b4f' => $baseDir . '/app/core/translator.php',
     '69d59b59e8b15a53cc782e283523018d' => $baseDir . '/app/core/request.php',
     '3fd802226a33a97ae29d1f8315ff66a9' => $baseDir . '/app/core/response.php',

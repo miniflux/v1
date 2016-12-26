@@ -197,7 +197,7 @@ Router\action('subscribe', function () {
         $values['rtl'],
         $values['cloak_referrer'],
         $values['feed_group_ids'],
-        $values['groups']
+        $values['group_name']
     );
 
     if ($feed_id >= 1) {

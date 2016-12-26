@@ -222,21 +222,13 @@ Router\get_action('mark-item-removed', function () {
     Response\redirect('?action='.$redirect.'&offset='.$offset.'&feed_id='.$feed_id);
 });
 
-Router\post_action('latest-feeds-items', function () {
+Router\get_action('latest-feeds-items', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
-    $items = Model\Item\get_latest_feeds_items($user_id);
+    $items_timestamps = Model\Item\get_latest_unread_items_timestamps($user_id);
     $nb_unread_items = Model\Item\count_by_status($user_id, 'unread');
 
-    $feeds = array_reduce($items, function ($result, $item) {
-        $result[$item['id']] = array(
-            'time' => $item['updated'] ?: 0,
-            'status' => $item['status']
-        );
-        return $result;
-    }, array());
-
     Response\json(array(
-        'feeds' => $feeds,
-        'nbUnread' => $nb_unread_items
+        'last_items_timestamps' => $items_timestamps,
+        'nb_unread_items' => $nb_unread_items
     ));
 });

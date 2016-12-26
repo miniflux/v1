@@ -16,4 +16,5 @@ before_script:
   - composer install
 
 script:
-  - ./vendor/bin/phpunit -c tests/phpunit.unit.xml
+  - ./vendor/bin/phpunit -c tests/phpunit.unit.sqlite.xml
+  - ./vendor/bin/phpunit -c tests/phpunit.unit.postgres.xml
