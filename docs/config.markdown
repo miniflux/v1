@@ -106,4 +106,10 @@ define('SUBSCRIPTION_CONCURRENT_REQUESTS', 5);
 
 // Allow the cronjob to be accessible from the browser
 define('ENABLE_CRONJOB_HTTP_ACCESS', true);
+
+// Enable/disable HTTP header X-Frame-Options
+define('ENABLE_XFRAME', true);
+
+// Enable/disable HSTS HTTP header
+define('ENABLE_HSTS', true);
 ```

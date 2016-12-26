@@ -40,9 +40,12 @@ Router\before(function ($action) {
         'referrer' => 'no-referrer',
     ));
 
-    Response\xframe();
     Response\xss();
     Response\nosniff();
+
+    if (ENABLE_XFRAME) {
+        Response\xframe();
+    }
 
     if (ENABLE_HSTS && Helper\is_secure_connection()) {
         Response\hsts();
