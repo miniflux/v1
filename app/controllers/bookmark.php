@@ -17,7 +17,7 @@ use PicoFeed\Syndication\AtomItemBuilder;
 // Ajax call to add or remove a bookmark
 Router\post_action('bookmark', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
-    $item_id = Request\param('id');
+    $item_id = Request\int_param('id');
     $value = Request\int_param('value');
 
     if ($value == 1) {
@@ -34,7 +34,7 @@ Router\post_action('bookmark', function () {
 // Add new bookmark
 Router\get_action('bookmark', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
-    $item_id = Request\param('id');
+    $item_id = Request\int_param('id');
     $menu = Request\param('menu');
     $redirect = Request\param('redirect', 'unread');
     $offset = Request\int_param('offset', 0);

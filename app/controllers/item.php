@@ -34,7 +34,7 @@ Router\get_action('unread', function () {
 // Show item
 Router\get_action('show', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
-    $item_id = Request\param('id');
+    $item_id = Request\int_param('id');
     $menu = Request\param('menu');
     $item = Model\Item\get_item($user_id, $item_id);
     $feed = Model\Feed\get_feed($user_id, $item['feed_id']);
@@ -108,7 +108,7 @@ Router\get_action('feed-items', function () {
 // Ajax call to download an item (fetch the full content from the original website)
 Router\post_action('download-item', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
-    $item_id = Request\param('id');
+    $item_id = Request\int_param('id');
 
     $item = Model\Item\get_item($user_id, $item_id);
     $feed = Model\Feed\get_feed($user_id, $item['feed_id']);
@@ -127,7 +127,7 @@ Router\post_action('download-item', function () {
 // Ajax call to mark item read
 Router\post_action('mark-item-read', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
-    $item_id = Request\param('id');
+    $item_id = Request\int_param('id');
     Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_READ);
     Response\json(array('Ok'));
 });
@@ -135,7 +135,7 @@ Router\post_action('mark-item-read', function () {
 // Ajax call to mark item as removed
 Router\post_action('mark-item-removed', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
-    $item_id = Request\param('id');
+    $item_id = Request\int_param('id');
     Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_REMOVED);
     Response\json(array('Ok'));
 });
@@ -143,7 +143,7 @@ Router\post_action('mark-item-removed', function () {
 // Ajax call to mark item unread
 Router\post_action('mark-item-unread', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
-    $item_id = Request\param('id');
+    $item_id = Request\int_param('id');
     Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_UNREAD);
     Response\json(array('Ok'));
 });
@@ -189,7 +189,7 @@ Router\post_action('mark-feed-as-read', function () {
 // Mark item as read and redirect to the listing page
 Router\get_action('mark-item-read', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
-    $item_id = Request\param('id');
+    $item_id = Request\int_param('id');
     $redirect = Request\param('redirect', 'unread');
     $offset = Request\int_param('offset', 0);
     $feed_id = Request\int_param('feed_id', 0);
@@ -201,7 +201,7 @@ Router\get_action('mark-item-read', function () {
 // Mark item as unread and redirect to the listing page
 Router\get_action('mark-item-unread', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
-    $item_id = Request\param('id');
+    $item_id = Request\int_param('id');
     $redirect = Request\param('redirect', 'history');
     $offset = Request\int_param('offset', 0);
     $feed_id = Request\int_param('feed_id', 0);
@@ -213,7 +213,7 @@ Router\get_action('mark-item-unread', function () {
 // Mark item as removed and redirect to the listing page
 Router\get_action('mark-item-removed', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
-    $item_id = Request\param('id');
+    $item_id = Request\int_param('id');
     $redirect = Request\param('redirect', 'history');
     $offset = Request\int_param('offset', 0);
     $feed_id = Request\int_param('feed_id', 0);
