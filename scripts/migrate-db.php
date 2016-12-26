@@ -81,6 +81,7 @@ function copy_settings(PDO $db, $user_id,  array $settings)
         'feed_token',
         'fever_token',
         'debug_mode',
+        'auto_update_url',
     );
 
     $rq = $db->prepare('INSERT INTO user_settings ("user_id", "key", "value") VALUES (?, ?, ?)');

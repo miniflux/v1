@@ -6,6 +6,7 @@ Version 1.2.0 (unreleased)
 * New config parameter to disable web access for the cronjob
 * Debug mode parameter is moved to the config file
 * The console web page have been removed
+* Remove automatic software update from the user interface
 * New API methods (not backward compatible)
 * Fever API tokens are longer than before
 * Add support for Wallabag service

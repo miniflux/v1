@@ -11,27 +11,6 @@ use Miniflux\Template;
 use Miniflux\Helper;
 use Miniflux\Model;
 
-// Confirmation box before auto-update
-Router\get_action('confirm-auto-update', function () {
-    Response\html(Template\layout('confirm_auto_update', array(
-        'menu' => 'config',
-        'title' => t('Confirmation')
-    )));
-});
-
-// Auto-update
-Router\get_action('auto-update', function () {
-    if (ENABLE_AUTO_UPDATE) {
-        if (Model\AutoUpdate\execute(Helper\config('auto_update_url'))) {
-            SessionStorage::getInstance()->setFlashMessage(t('Miniflux is updated!'));
-        } else {
-            SessionStorage::getInstance()->setFlashErrorMessage(t('Unable to update Miniflux, check the console for errors.'));
-        }
-    }
-
-    Response\redirect('?action=config');
-});
-
 // Re-generate tokens
 Router\get_action('generate-tokens', function () {
     $user_id = SessionStorage::getInstance()->getUserId();

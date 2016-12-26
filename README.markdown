@@ -28,8 +28,7 @@ Features
 - Keeps history of read items
 - Import/Export of OPML feeds
 - Themes
-- Auto-update from the user interface
-- Multiple databases (each user has his own database)
+- Multiple users
 - Image proxy to avoid mixed content warnings with HTTPS
 
 Requirements

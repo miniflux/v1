@@ -34,7 +34,6 @@ return array(
     'c0f7d31e45ab3b885f3f3567be6b8cda' => $baseDir . '/app/models/item_feed.php',
     'c9e2906d32a129f63c98d210037c227b' => $baseDir . '/app/models/item_group.php',
     '546998ee103e300ad614144f30a1de8e' => $baseDir . '/app/models/bookmark.php',
-    'd06207bd4580f7e9250cf39d0d648fc5' => $baseDir . '/app/models/auto_update.php',
     'ee585b658e324609d721bc6f959e85c8' => $baseDir . '/app/models/remember_me.php',
     'fc49fda782025f9f73852265b1fa7760' => $baseDir . '/app/models/group.php',
     '785cebb801997d40232b8337459f1606' => $baseDir . '/app/models/favicon.php',

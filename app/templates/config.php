@@ -29,11 +29,6 @@
         <?php echo Miniflux\Helper\form_label(t('Theme'), 'theme') ?>
         <?php echo Miniflux\Helper\form_select('theme', $theme_options, $values, $errors) ?><br/>
 
-        <?php if (ENABLE_AUTO_UPDATE): ?>
-            <?php echo Miniflux\Helper\form_label(t('Auto-Update URL'), 'auto_update_url') ?>
-            <?php echo Miniflux\Helper\form_text('auto_update_url', $values, $errors) ?><br/>
-        <?php endif ?>
-
         <?php echo Miniflux\Helper\form_checkbox('image_proxy', t('Enable image proxy'), 1, isset($values['image_proxy']) && $values['image_proxy'] == 1) ?>
         <div class="form-help"><?php echo t('Avoid mixed content warnings with HTTPS') ?></div>
     </div>
@@ -81,8 +76,5 @@
 <section class="panel panel-danger">
 <ul>
     <li><a href="?action=generate-tokens&amp;csrf=<?php echo $values['csrf'] ?>"><?php echo t('Generate new tokens') ?></a> (<?php echo t('Miniflux API') ?>, <?php echo t('Fever API') ?>, <?php echo t('Bookmarklet') ?>, <?php echo t('Bookmark RSS Feed') ?>)</li>
-<?php if (ENABLE_AUTO_UPDATE): ?>
-    <li><a href="?action=confirm-auto-update"><?php echo t('Update Miniflux') ?></a> (<?php echo t('Don\'t forget to backup your database') ?>)</li>
-<?php endif ?>
 </ul>
 </section>

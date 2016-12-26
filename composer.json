@@ -53,7 +53,6 @@
             "app/models/item_feed.php",
             "app/models/item_group.php",
             "app/models/bookmark.php",
-            "app/models/auto_update.php",
             "app/models/remember_me.php",
             "app/models/group.php",
             "app/models/favicon.php",
