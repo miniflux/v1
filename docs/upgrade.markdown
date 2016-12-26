@@ -1,6 +1,8 @@
 Upgrade to a new version
 ========================
 
+Before to do anything, **you must backup your data!**
+
 ### From the archive (stable version)
 
 1. Close your session (logout)

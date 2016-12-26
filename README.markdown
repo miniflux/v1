@@ -11,7 +11,6 @@ Features
 - Host almost anywhere
 - Readability (CSS optimized for readability, responsive design, compatible with mobile and tablet devices)
 - Easy setup => **copy and paste the source code and you are done!**
-- Use a lightweight Sqlite database instead of Mysql or Postgresql
 - Remove Feedburner Ads and analytic trackers (1x1 pixels)
 - Open external links inside a new tab with a `rel="noreferrer"` attribute
 - Use secure HTTP headers (only external images and Youtube/Vimeo/Dailymotion videos are allowed)
@@ -22,7 +21,7 @@ Features
 - Full article download for feeds that display only a summary
 - Bookmarks
 - Groups for categorization of feeds (like folders or tags)
-- Send your favorite articles to Pinboard and Instapaper
+- Send your favorite articles to Pinboard, Instapaper or Wallabag
 - Enclosure support (videos and podcasts)
 - Feed updates via a cronjob or with the user interface with one click
 - Keeps history of read items
@@ -49,7 +48,6 @@ Documentation
 - [Cronjob](docs/cronjob.markdown)
 - [Advanced configuration](docs/config.markdown)
 - [Full article download](docs/full-article-download.markdown)
-- [Multiple users](docs/multiple-users.markdown)
 - [Translations](docs/translations.markdown)
 - [Themes](docs/themes.markdown)
 - [Json-RPC API](docs/json-rpc-api.markdown)

@@ -1,14 +1,16 @@
-Cronjob
-=======
+Background Job (cronjob)
+========================
 
 The cronjob is a background task to update your feeds automatically.
+
+Command line usage
+------------------
 
 Technically, you just need to be inside the directory `miniflux` and run the script `cronjob.php`.
 
 
 Parameters          | Type                           | Value
 --------------------|--------------------------------|-----------------------------
---database          | optional                       | Database filename, default is db.sqlite (ex: db2.sqlite)
 --limit             | optional                       | number of feeds
 --call-interval     | optional, excluded by --limit, require --update-interval | time in minutes < update interval time
 --update-interval   | optional, excluded by --limit, require --call-interval   | time in minutes >= call interval time
@@ -29,6 +31,13 @@ crontab -e
 * */4 * * *  cd /path/to/miniflux && php cronjob.php --call-interval=4 --update-interval=60 >/dev/null 2>&1
 ```
 
-Note: cronjob.php can also be called from the web, in this case specify the options as GET variables.
+Web usage
+---------
 
-Example: <http://yourpersonalserver/miniflux/cronjob.php?call-interval=4&update-interval=60>
+The cronjob script can also be called from the web, in this case specify the options as GET variables.
+
+Example: <http://yourpersonalserver/miniflux/cronjob.php?call-interval=4&update-interval=60&token=XXX>
+
+- The cronjob URL is visible on the page **preferences > about**.
+- The access is protected by a private token.
+- You can disable the web cronjob by changing the config parameter `ENABLE_CRONJOB_HTTP_ACCESS` to `false`.

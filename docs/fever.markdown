@@ -2,7 +2,7 @@ Fever API
 =========
 
 Miniflux support the [Fever API](http://feedafever.com/api).
-That means you can use mobile applications compatible with Fever.
+That means you can use any mobile applications that is compatible with Fever.
 
 This feature has been tested with the following apps:
 
@@ -10,7 +10,6 @@ This feature has been tested with the following apps:
 - [Reeder 2](http://reederapp.com/) (iOS and OS X)
 - [Reeder 3](http://reederapp.com/) (OS X)
 - [ReadKit](http://readkitapp.com/) (OS X)
-
 
 Configuration
 -------------
@@ -21,13 +20,6 @@ All information are available from the page **preferences > api**.
 - URL: http://your_miniflux_url/fever/
 - Username: Your username
 - Password: random (visible on the settings page)
-
-Multiple databases/users
-------------------------
-
-Multiple databases can be used with the Fever API if you have Apache and `mod_rewrite` enabled.
-
-The Fever URL becomes `http://your_miniflux_url/fever/mydatabase.sqlite/`.
 
 Notes
 -----

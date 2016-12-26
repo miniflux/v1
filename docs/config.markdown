@@ -1,4 +1,4 @@
-Configuration parameters
+Configuration Parameters
 ========================
 
 How do I override application variables?
@@ -9,11 +9,46 @@ These parameters are defined with PHP constants.
 
 To override them, rename the file `config.default.php` to `config.php`.
 
-Actually, the following constants can be overrided:
+Database configuration
+----------------------
+
+By default, Miniflux uses Sqlite but Postgres is also supported.
+
+### Sqlite configuration
+
+You could change the default location of the Sqlite file by changing the default values:
 
 ```php
-<?php
+define('DB_DRIVER', 'sqlite');
+define('DB_FILENAME', DATA_DIRECTORY.'/db.sqlite');
+```
 
+### Postgres configuration
+
+Miniflux will creates the schema automatically but not the database itself:
+
+```sql
+CREATE DATABASE miniflux;
+```
+
+The `config.php` have to be modified as well:
+
+```php
+define('DB_DRIVER', 'postgres');
+
+// Replace these values:
+define('DB_HOSTNAME', 'localhost');
+define('DB_NAME', 'miniflux');
+define('DB_USERNAME', 'my postgres user');
+define('DB_PASSWORD', 'my secret password');
+```
+
+List of parameters
+------------------
+
+Actually, the following constants can be overridden:
+
+```php
 // HTTP_TIMEOUT => default value is 20 seconds (Maximum time to fetch a feed)
 define('HTTP_TIMEOUT', '20');
 
@@ -21,7 +56,7 @@ define('HTTP_TIMEOUT', '20');
 define('HTTP_MAX_RESPONSE_SIZE', 2097152);
 
 // DATA_DIRECTORY => default is data (writable directory)
-define('DATA_DIRECTORY', __DIR__.'/data');
+define('DATA_DIRECTORY', 'data');
 
 // FAVICON_DIRECTORY => default is favicons (writable directory)
 define('FAVICON_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'favicons');
@@ -29,11 +64,20 @@ define('FAVICON_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'favicons');
 // FAVICON_URL_PATH => default is data/favicons/
 define('FAVICON_URL_PATH', 'data/favicons');
 
-// DB_FILENAME => default value is db.sqlite (default database filename)
-define('DB_FILENAME', 'db.sqlite');
+// Database driver: "sqlite" or "postgres", default is sqlite
+define('DB_DRIVER', 'sqlite');
 
-// ENABLE_MULTIPLE_DB => default value is true (multiple users support)
-define('ENABLE_MULTIPLE_DB', true);
+// Database connection parameters when Postgres is used
+define('DB_HOSTNAME', 'localhost');
+define('DB_NAME', 'miniflux');
+define('DB_USERNAME', 'postgres');
+define('DB_PASSWORD', '');
+
+// DB_FILENAME => database file when Sqlite is used
+define('DB_FILENAME', DATA_DIRECTORY.'/db.sqlite');
+
+// Enable/disable debug mode
+define('DEBUG_MODE', false);
 
 // DEBUG_FILENAME => default is data/debug.log
 define('DEBUG_FILENAME', DATA_DIRECTORY.'/debug.log');
@@ -59,4 +103,7 @@ define('PROXY_PASSWORD', '');
 // SUBSCRIPTION_CONCURRENT_REQUESTS => number of concurrent feeds to refresh at once
 // Reduce this number on systems with limited processing power
 define('SUBSCRIPTION_CONCURRENT_REQUESTS', 5);
+
+// Allow the cronjob to be accessible from the browser
+define('ENABLE_CRONJOB_HTTP_ACCESS', true);
 ```
