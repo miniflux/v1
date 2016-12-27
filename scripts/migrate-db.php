@@ -137,7 +137,7 @@ function copy_items(PDO $db, $user_id, array $feed_ids, array $items)
             $item['bookmark'] ?: 0,
             $item['url'],
             $item['title'],
-            mb_strlen($item['author']) < 255 ? $item['author'] : '',
+            $item['author'],
             $item['content'],
             $item['updated'] ?: 0,
             $item['enclosure'],

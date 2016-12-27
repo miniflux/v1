@@ -58,7 +58,7 @@ function version_1(PDO $pdo)
         bookmark INTEGER DEFAULT 0,
         url TEXT NOT NULL,
         title TEXT NOT NULL,
-        author VARCHAR(255),
+        author TEXT,
         content TEXT,
         updated BIGINT,
         enclosure_url TEXT,
