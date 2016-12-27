@@ -20,6 +20,7 @@
         <tr>
             <th><?php echo t('Username') ?></th>
             <th><?php echo t('Administrator') ?></th>
+            <th><?php echo t('Last Login') ?></th>
             <th><?php echo t('Action') ?></th>
         </tr>
     <?php foreach ($users as $user): ?>
@@ -27,7 +28,12 @@
             <td>
                 <?php echo Miniflux\Helper\escape($user['username']) ?>
             </td>
-            <td><?php echo $user['is_admin'] ? t('Yes') : t('No') ?></td>
+            <td>
+                <?php echo $user['is_admin'] ? t('Yes') : t('No') ?>
+            </td>
+            <td>
+                <?php echo $user['last_login'] ? dt('%e %B %Y %k:%M', $user['last_login']) : t('Never') ?>
+            </td>
             <td>
                 <?php if (Miniflux\Helper\get_user_id() != $user['id']): ?>
                     <a href="?action=edit-user&amp;user_id=<?php echo $user['id'] ?>"><?php echo t('Edit') ?></a> -
