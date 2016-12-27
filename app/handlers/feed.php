@@ -43,12 +43,18 @@ function fetch_feed($url, $download_content = false, $etag = '', $last_modified 
         $error_message = t('The content size exceeds to maximum allowed size.');
     } catch (PicoFeed\Client\TimeoutException $e) {
         $error_message = t('Connection timeout.');
+    } catch (PicoFeed\Client\ForbiddenException $e) {
+        $error_message = t('Not allowed to fetch feed.');
+    } catch (PicoFeed\Client\UnauthorizedException $e) {
+        $error_message = t('Not allowed to fetch feed.');
     } catch (PicoFeed\Parser\MalformedXmlException $e) {
         $error_message = t('Feed is malformed.');
     } catch (PicoFeed\Reader\SubscriptionNotFoundException $e) {
         $error_message = t('Unable to find a subscription.');
     } catch (PicoFeed\Reader\UnsupportedFeedFormatException $e) {
         $error_message = t('Unable to detect the feed format.');
+    } catch (PicoFeed\PicoFeedException $e) {
+        $error_message = $e->getMessage();
     }
 
     return array($feed, $resource, $error_message);
