@@ -58,7 +58,7 @@ function create_user(PDO $db, array $settings, $is_admin)
         $settings['username'],
         $settings['password'],
         $is_admin,
-        $settings['last_login'],
+        isset($settings['last_login']) ? $settings['last_login'] : 0,
         $settings['api_token'],
         $settings['bookmarklet_token'],
         Helper\generate_token(),
@@ -88,7 +88,7 @@ function copy_settings(PDO $db, $user_id,  array $settings)
 
     foreach ($settings as $key => $value) {
         if (! in_array($key, $exclude_keys)) {
-            $rq->execute(array($user_id, $key, $value));
+            $rq->execute(array($user_id, $key, $value ?: ''));
         }
     }
 }
@@ -108,10 +108,10 @@ function copy_feeds(PDO $db, $user_id, array $feeds)
             $feed['feed_url'],
             $feed['site_url'],
             $feed['title'],
-            $feed['enabled'],
-            $feed['download_content'],
-            $feed['rtl'],
-            $feed['cloak_referrer'],
+            $feed['enabled'] ?: 1,
+            $feed['download_content'] ?: 0,
+            $feed['rtl'] ?: 0,
+            $feed['cloak_referrer'] ?: 0,
         ));
 
         $feed_ids[$feed['id']] = $db->lastInsertId();
@@ -134,12 +134,12 @@ function copy_items(PDO $db, $user_id, array $feed_ids, array $items)
             $feed_ids[$item['feed_id']],
             $item['id'],
             $item['status'],
-            $item['bookmark'],
+            $item['bookmark'] ?: 0,
             $item['url'],
             $item['title'],
-            $item['author'],
+            mb_strlen($item['author']) < 255 ? $item['author'] : '',
             $item['content'],
-            $item['updated'],
+            $item['updated'] ?: 0,
             $item['enclosure'],
             $item['enclosure_type'],
             $item['language'],
@@ -232,11 +232,22 @@ $favicons_feeds = get_table($src, 'favicons_feeds');
 try {
     $dst->beginTransaction();
 
+    echo '* Create user'.PHP_EOL;
     $user_id = create_user($dst, $settings, $is_admin);
+
+    echo '* Copy user settings'.PHP_EOL;
     copy_settings($dst, $user_id, $settings);
+
+    echo '* Copy feeds'.PHP_EOL;
     $feed_ids = copy_feeds($dst, $user_id, $feeds);
+
+    echo '* Copy items'.PHP_EOL;
     copy_items($dst, $user_id, $feed_ids, $items);
+
+    echo '* Copy favicons'.PHP_EOL;
     copy_favicons($dst, $feed_ids, $favicons, $favicons_feeds);
+
+    echo '* Copy groups'.PHP_EOL;
     copy_groups($dst, $user_id, $feed_ids, $groups, $feeds_groups);
 
     $dst->commit();
