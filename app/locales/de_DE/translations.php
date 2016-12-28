@@ -218,7 +218,6 @@ return array(
     'Avoid mixed content warnings with HTTPS' => 'Vermeidet Warnungen wegen gemischtem Inhalt bei HTTPS',
     'Download favicons' => 'Favicons herunterladen',
     'general' => 'allgemein',
-    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'Fehler bei der letzten Aktualisierung. Aktualisiere den Feed manuell und prüfe die %sKonsole%s anschließend auf Fehler!',
     'Refresh interval in minutes for unread counter' => 'Ungelesen-Anzahl aktualisieren (in minuten)',
     'Nothing to show. Enable the debug mode to see log messages.' => 'Keine Daten verfügbar. Schalte den Debug-Modus ein, um Log-Nachrichten zu sehen.',
     'Enable debug mode' => 'Debug-Modus einschalten',
@@ -244,4 +243,5 @@ return array(
     // 'Send bookmarks to Wallabag' => '',
     // 'Wallabag username' => '',
     // 'Wallabag password' => '',
+    // 'An error occurred during the last check: "%s".' => '',
 );

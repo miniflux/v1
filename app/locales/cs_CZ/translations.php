@@ -218,7 +218,6 @@ return array(
     'Avoid mixed content warnings with HTTPS' => 'Vyhne se varování o pomíchaném obsahu s HTTPS',
     'Download favicons' => 'Stahovat favicony',
     'general' => 'základní',
-    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'Nastala chyba při poslední kontrole. Obnovte zdroj ručně a poté zkontrolujte %skonzoli%s na chyby!',
     'Refresh interval in minutes for unread counter' => 'Obnovovací interval v minutách pro počítadlo nepřečtených',
     'Nothing to show. Enable the debug mode to see log messages.' => 'Není co ukázat. Povolte ladící režim pro zobrazení záznamů.',
     'Enable debug mode' => 'Povolit ladící režim',
@@ -244,4 +243,5 @@ return array(
     'Send bookmarks to Wallabag' => 'Poslat záložky na Wallabag',
     'Wallabag username' => 'Wallabag uživatelské jmnéno',
     'Wallabag password' => 'Wallabah heslo',
+    // 'An error occurred during the last check: "%s".' => '',
 );

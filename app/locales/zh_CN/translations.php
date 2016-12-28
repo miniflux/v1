@@ -218,7 +218,6 @@ return array(
     'Avoid mixed content warnings with HTTPS' => '避免HTTPS包含HTTP内容的警告',
     'Download favicons' => '下载站标',
     'general' => '通用',
-    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => '在最近一次检查中发生了错误，手动刷新这个订阅源并检查[%s控制台%s]错误信息！',
     'Refresh interval in minutes for unread counter' => '未读计数刷新间隔时间（分钟）',
     'Nothing to show. Enable the debug mode to see log messages.' => '没有可以显示的，开启调试模式以便查看日志',
     'Enable debug mode' => '开启调试模式',
@@ -244,4 +243,5 @@ return array(
     'Send bookmarks to Wallabag' => '把书签发送到Wallabag',
     'Wallabag username' => 'Wallabag用户名',
     'Wallabag password' => 'Wallabag密码',
+    // 'An error occurred during the last check: "%s".' => '',
 );

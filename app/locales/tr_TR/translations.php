@@ -218,7 +218,6 @@ return array(
     'Avoid mixed content warnings with HTTPS' => 'HTTP veya HTTPS bağlantı kullanan içeriklerde önerilmez',
     'Download favicons' => 'İnternet sitesi ikonlarını (favicon) indir',
     'general' => 'genel',
-    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'Son kontrol sırasında bir hata oluştu. Akışı elle yenileyin ve daha sonra hataları %skonsol%s üzerinde kontrol edin!',
     'Refresh interval in minutes for unread counter' => 'Okunmayanlar için dakika cinsinden yenileme aralığı',
     'Nothing to show. Enable the debug mode to see log messages.' => 'Gösterilecek bir şey yok. Hata ayıklama modunu aktifleştirerek hata mesajlarını görebilirsin.',
     'Enable debug mode' => 'Hata ayıklama modunu etkinleştir',
@@ -244,4 +243,5 @@ return array(
     // 'Send bookmarks to Wallabag' => '',
     // 'Wallabag username' => '',
     // 'Wallabag password' => '',
+    // 'An error occurred during the last check: "%s".' => '',
 );

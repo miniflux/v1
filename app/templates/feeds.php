@@ -17,9 +17,7 @@
 
 <?php else: ?>
 
-    <?php if ($nb_failed_feeds > 0): ?>
-        <p class="alert alert-error"><?php echo t('An error occurred during the last check. You could enable the debug mode to have more information.') ?></p>
-    <?php elseif ($nothing_to_read): ?>
+    <?php if ($nothing_to_read): ?>
         <p class="alert alert-info"><?php echo tne('Nothing to read, do you want to %supdate your subscriptions%s?','<a href="?action=refresh-all" data-action="refresh-all">','</a>') ?></p>
     <?php endif ?>
 
@@ -51,7 +49,7 @@
                     <?php endif ?>
 
                     <span class="feed-parsing-error">
-                            <?php echo t('(error occurred during the last check)') ?>
+                            <?php echo t('An error occurred during the last check: "%s".', $feed['parsing_error_message']) ?>
                     </span>
 
                 <?php endif ?>

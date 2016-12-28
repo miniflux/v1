@@ -218,7 +218,6 @@ return array(
     'Avoid mixed content warnings with HTTPS' => 'Избегавај упозорења о помешаном садржају када се користи HTTPS',
     'Download favicons' => 'Скидај иконице веб сајтова',
     'general' => 'опште',
-    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'Дошло је до грењке током последње провере. Освежите feed ручно и проверите %sконзолу%s после тога!',
     'Refresh interval in minutes for unread counter' => 'Број минута после којих се освежава бројач непрочитаних ставки',
     'Nothing to show. Enable the debug mode to see log messages.' => 'Овде нема ничег. Активирајте мод за дебаговање да бисте видели поруке дневника.',
     'Enable debug mode' => 'Активирај мод за дебаговање',
@@ -244,4 +243,5 @@ return array(
     // 'Send bookmarks to Wallabag' => '',
     // 'Wallabag username' => '',
     // 'Wallabag password' => '',
+    // 'An error occurred during the last check: "%s".' => '',
 );

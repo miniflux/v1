@@ -105,19 +105,21 @@ function update_feed($user_id, $feed_id)
 
     if (! empty($error_message)) {
         Model\Feed\update_feed($user_id, $feed_id, array(
-            'last_checked' => time(),
-            'parsing_error' => 1,
+            'last_checked'          => time(),
+            'parsing_error'         => 1,
+            'parsing_error_message' => $error_message,
         ));
 
         return false;
     } else {
 
         Model\Feed\update_feed($user_id, $feed_id, array(
-            'feed_url'      => $resource->getUrl(),
-            'etag'          => $resource->getEtag(),
-            'last_modified' => $resource->getLastModified(),
-            'last_checked'  => time(),
-            'parsing_error' => 0,
+            'feed_url'              => $resource->getUrl(),
+            'etag'                  => $resource->getEtag(),
+            'last_modified'         => $resource->getLastModified(),
+            'last_checked'          => time(),
+            'parsing_error'         => 0,
+            'parsing_error_message' => '',
         ));
     }
 

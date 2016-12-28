@@ -5,7 +5,12 @@ namespace Miniflux\Schema;
 use PDO;
 use Miniflux\Helper;
 
-const VERSION = 1;
+const VERSION = 2;
+
+function version_2(PDO $pdo)
+{
+    $pdo->exec('ALTER TABLE feeds ADD COLUMN parsing_error_message TEXT');
+}
 
 function version_1(PDO $pdo)
 {

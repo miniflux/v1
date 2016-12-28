@@ -218,7 +218,6 @@ return array(
     'Avoid mixed content warnings with HTTPS' => 'Избегайте передупреждений о смешанном содержимом в HTTPS',
     'Download favicons' => 'Скачивать иконки сайтов',
     'general' => 'общие',
-    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => 'Во время последней проверки возникла ошибка. Обновите канал вручную, а потом проверьте %sconsole%s на наличие ошибок!',
     'Refresh interval in minutes for unread counter' => 'Интервал обновления счетчика непрочитанных статей в минутах',
     'Nothing to show. Enable the debug mode to see log messages.' => 'Пока ничего нет. Включите отладочный режим, чтобы увидеть сообщения.',
     'Enable debug mode' => 'Включить отладочный режим',
@@ -244,4 +243,5 @@ return array(
     'Send bookmarks to Wallabag' => 'Отправлять закладки в Wallabag',
     'Wallabag username' => 'Имя пользователя Wallabag',
     'Wallabag password' => 'Пароль Wallabag',
+    // 'An error occurred during the last check: "%s".' => '',
 );

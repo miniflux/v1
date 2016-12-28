@@ -24,7 +24,7 @@
 
     <?php if ($feed['parsing_error']): ?>
         <p class="alert alert-error">
-            <?php echo t('An error occurred during the last check. You could enable the debug mode to have more information.') ?>
+            <?php echo t('An error occurred during the last check: "%s".', $feed['parsing_error_message']) ?>
         </p>
     <?php endif; ?>
 

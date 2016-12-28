@@ -218,7 +218,6 @@ return array(
     'Avoid mixed content warnings with HTTPS' => 'لتجنب التحذيرات الخاصة بـ HTTPS',
     'Download favicons' => 'تحميل أيقونة الموقع الإلكتروني',
     'general' => 'عام',
-    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => '%sconsole%s يوجد خطأ أثناء عملية التحديث!! .. قم بالتحديث يدوياً ثم إذهب إلى نافذة لفحص إشعارات الخطأ',
     'Refresh interval in minutes for unread counter' => ':الفترة الزمنية بالدقائق لتحديث عداد العناوين الغير مقروءه',
     'Nothing to show. Enable the debug mode to see log messages.' => 'لا يوجد ما يمكن عرضه. قم بتفعيل خيار التصحيح ',
     'Enable debug mode' => 'تفعيل وضح التصحيح',
@@ -244,4 +243,5 @@ return array(
     // 'Send bookmarks to Wallabag' => '',
     // 'Wallabag username' => '',
     // 'Wallabag password' => '',
+    // 'An error occurred during the last check: "%s".' => '',
 );

@@ -519,7 +519,7 @@ nav .active a {
     visibility: visible;
     color: #000;
     font-size: 0.7em;
-    font-weight: normal;
+    font-weight: bold;
 }
 
 .items article {

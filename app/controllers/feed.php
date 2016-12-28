@@ -44,12 +44,13 @@ Router\post_action('edit-feed', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
     $values = Request\values();
     $values += array(
-        'enabled' => 0,
-        'download_content' => 0,
-        'rtl' => 0,
-        'cloak_referrer' => 0,
-        'parsing_error' => 0,
-        'feed_group_ids' => array(),
+        'enabled'               => 0,
+        'download_content'      => 0,
+        'rtl'                   => 0,
+        'cloak_referrer'        => 0,
+        'parsing_error'         => 0,
+        'parsing_error_message' => '',
+        'feed_group_ids'        => array(),
     );
 
     list($valid, $errors) = Validator\Feed\validate_modification($values);

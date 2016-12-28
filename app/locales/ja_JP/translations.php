@@ -220,7 +220,6 @@ return array(
     'Avoid mixed content warnings with HTTPS' => 'HTTPSとHTTPの混合コンテンツの警告を回避',
     'Download favicons' => 'faviconをダウンロード',
     'general' => '一般',
-    'An error occurred during the last check. Refresh the feed manually and check the %sconsole%s for errors afterwards!' => '最後のチェック中にエラーが発生しました。手動でフィードを更新し、エラーを%sコンソール%sで確認してください。',
     'Refresh interval in minutes for unread counter' => '未読数の更新間隔（分単位）',
     'Nothing to show. Enable the debug mode to see log messages.' => '表示するものが何もありません。ログメッセージを表示するにはデバッグモードを有効にします。',
     'Enable debug mode' => 'デバッグモードを有効化',
@@ -246,4 +245,5 @@ return array(
     // 'Send bookmarks to Wallabag' => '',
     // 'Wallabag username' => '',
     // 'Wallabag password' => '',
+    // 'An error occurred during the last check: "%s".' => '',
 );
