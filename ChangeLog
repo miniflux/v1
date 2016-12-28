@@ -9,6 +9,7 @@ Version 1.2.0 (unreleased)
 * Remove automatic software update from the user interface
 * New API methods (not backward compatible)
 * Fever API tokens are longer than before
+* Always update feed URL to avoid useless redirections for futures requests
 * Add support for Wallabag service
 * Add unit tests
 

@@ -113,9 +113,10 @@ function update_feed($user_id, $feed_id)
     } else {
 
         Model\Feed\update_feed($user_id, $feed_id, array(
-            'etag' => $resource->getEtag(),
+            'feed_url'      => $resource->getUrl(),
+            'etag'          => $resource->getEtag(),
             'last_modified' => $resource->getLastModified(),
-            'last_checked' => time(),
+            'last_checked'  => time(),
             'parsing_error' => 0,
         ));
     }

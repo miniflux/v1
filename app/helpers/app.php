@@ -65,6 +65,6 @@ function write_debug_file() {
     if (DEBUG_MODE) {
         $feed_logs = Logger::getMessages();
         $db_logs = Database::getInstance('db')->getLogMessages();
-        file_put_contents(DEBUG_FILENAME, implode(PHP_EOL, array_merge($feed_logs, $db_logs)), FILE_APPEND|LOCK_EX);
+        file_put_contents(DEBUG_FILENAME, implode(PHP_EOL, $feed_logs + $db_logs), FILE_APPEND|LOCK_EX);
     }
 }
