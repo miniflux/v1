@@ -40,8 +40,10 @@ Router\get_action('show', function () {
     $feed = Model\Feed\get_feed($user_id, $item['feed_id']);
     $group_id = Request\int_param('group_id', null);
 
-    Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_READ);
-    $item['status'] = 'read';
+    if ($item['status'] !== Model\Item\STATUS_READ) {
+        Model\Item\change_item_status($user_id, $item_id, Model\Item\STATUS_READ);
+        $item['status'] = Model\Item\STATUS_READ;
+    }
 
     switch ($menu) {
         case 'unread':
