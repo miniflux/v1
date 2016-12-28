@@ -104,10 +104,12 @@ function update_feed($user_id, $feed_id)
     );
 
     if (! empty($error_message)) {
+        $error_count = $subscription['parsing_error'] + 1;
         Model\Feed\update_feed($user_id, $feed_id, array(
             'last_checked'          => time(),
-            'parsing_error'         => 1,
+            'parsing_error'         => $error_count,
             'parsing_error_message' => $error_message,
+            'enabled'               => $error_count > SUBSCRIPTION_DISABLE_THRESHOLD_ERROR ? 0 : 1,
         ));
 
         return false;

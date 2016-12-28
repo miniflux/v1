@@ -22,7 +22,7 @@
         </ul>
     </div>
 
-    <?php if ($feed['parsing_error']): ?>
+    <?php if ($feed['parsing_error'] > 0): ?>
         <p class="alert alert-error">
             <?php echo t('An error occurred during the last check: "%s".', $feed['parsing_error_message']) ?>
         </p>

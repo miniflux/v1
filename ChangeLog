@@ -12,6 +12,7 @@ Version 1.2.0 (unreleased)
 * Always update feed URL to avoid useless redirections for futures requests
 * Add support for Wallabag service
 * Show last parsing error message in user interface
+* Disable automatically a feed after too many failures
 * Add unit tests
 
 Migration procedure from 1.1.x to 1.2.0:

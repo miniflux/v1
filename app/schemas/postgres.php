@@ -47,7 +47,7 @@ function version_1(PDO $pdo)
         etag VARCHAR(255),
         enabled BOOLEAN DEFAULT TRUE,
         download_content BOOLEAN DEFAULT FALSE,
-        parsing_error BOOLEAN DEFAULT FALSE,
+        parsing_error INTEGER DEFAULT 0,
         rtl BOOLEAN DEFAULT FALSE,
         cloak_referrer BOOLEAN DEFAULT FALSE,
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,

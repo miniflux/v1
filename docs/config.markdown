@@ -104,6 +104,9 @@ define('PROXY_PASSWORD', '');
 // Reduce this number on systems with limited processing power
 define('SUBSCRIPTION_CONCURRENT_REQUESTS', 5);
 
+// Disable automatically a feed after X parsing failure
+define('SUBSCRIPTION_DISABLE_THRESHOLD_ERROR', 10);
+
 // Allow the cronjob to be accessible from the browser
 define('ENABLE_CRONJOB_HTTP_ACCESS', true);
 

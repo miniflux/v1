@@ -23,7 +23,7 @@
 
     <section class="items">
     <?php foreach ($feeds as $feed): ?>
-        <article data-feed-id="<?php echo $feed['id'] ?>" <?php echo (! $feed['enabled']) ? 'data-feed-disabled="1"' : '' ?> <?php echo ($feed['parsing_error']) ? 'data-feed-error="1"' : '' ?>>
+        <article data-feed-id="<?php echo $feed['id'] ?>" <?php echo (! $feed['enabled']) ? 'data-feed-disabled="1"' : '' ?> <?php echo $feed['parsing_error'] > 0 ? 'data-feed-error="1"' : '' ?>>
             <h2>
                 <?php if (! $feed['enabled']): ?>
                     <span title="<?php echo t('Subscription disabled') ?>">✖</span>
