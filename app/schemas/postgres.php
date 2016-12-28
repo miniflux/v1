@@ -130,4 +130,7 @@ function version_1(PDO $pdo)
         $fever_token,
         md5('admin:'.$fever_token),
     ));
+
+    $pdo->exec('CREATE INDEX items_user_status_idx ON items(user_id, status)');
+    $pdo->exec('CREATE INDEX items_user_feed_idx ON items(user_id, feed_id)');
 }

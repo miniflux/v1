@@ -11,6 +11,10 @@ function get_connection()
     $db = new PicoDb\Database(get_connection_parameters());
     $db->getStatementHandler()->withLogging();
 
+    if (DEBUG_MODE) {
+        $db->getStatementHandler()->withStopWatch();
+    }
+
     if ($db->schema('\Miniflux\Schema')->check(Schema\VERSION)) {
         return $db;
     } else {

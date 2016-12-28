@@ -2,6 +2,7 @@
 
 namespace Miniflux\Helper;
 
+use PicoDb\Database;
 use PicoFeed\Logging\Logger;
 
 function escape($value)
@@ -62,6 +63,8 @@ function is_secure_connection()
 
 function write_debug_file() {
     if (DEBUG_MODE) {
-        file_put_contents(DEBUG_FILENAME, implode(PHP_EOL, Logger::getMessages()), FILE_APPEND|LOCK_EX);
+        $feed_logs = Logger::getMessages();
+        $db_logs = Database::getInstance('db')->getLogMessages();
+        file_put_contents(DEBUG_FILENAME, implode(PHP_EOL, array_merge($feed_logs, $db_logs)), FILE_APPEND|LOCK_EX);
     }
 }
