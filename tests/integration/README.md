@@ -114,4 +114,5 @@ In case of unsuccessful tests, you will find screenshots from the failed website
 
 Limitations
 -----------
+
 As the webdrivers using javascript to execute the tests within the browsers, it is not possible to disable javascript and tests the non-javascript fall-back functionality.

@@ -3,7 +3,7 @@ Json-RPC API
 
 The Miniflux API is a way to interact programatically with your feeds, items, bookmarks and other data.
 
-Developers can use this API to make a desktop or a mobile client on Android, iOS, etc...
+Developers can use this API to make desktop or mobile clients.
 
 Protocol
 --------
@@ -20,23 +20,20 @@ Credentials
 -----------
 
 The first step is to retrieve API credentials and the URL endpoint.
-
-Under the web user interface of Miniflux, go to the menu **preferences**, scroll down until you reach the API section.
+They are available in **preferences > api**.
 
 You must have these information:
 
-- API endpoint: `https://username.miniflux.net/jsonrpc.php`
+- API endpoint: `https://your_domain.tld/jsonrpc.php`
 - API username: `username`
-- API token: `swB3/nSo1CB1X2F` (random token)
+- API token: `XXXXXX` (random token)
 
-The API username is the same as your login username and the API token is generated automatically during the database creation.
+The API username is the same as your login username and the API token is generated automatically.
 
 Authentication
 --------------
 
 The API use the HTTP Basic Authentication scheme described in [RFC2617](http://www.ietf.org/rfc/rfc2617.txt).
-
-Based on the above example, the username is "demo" and the password is the "API token" (swB3/nSo1CB1X2F).
 
 Examples
 --------
@@ -45,986 +42,664 @@ Examples
 
 ```bash
 curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "feed.create", "params": {"url": "http://images.apple.com/main/rss/hotnews/hotnews.rss"}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
+-u "username:password" \
+-d '{"jsonrpc": "2.0", "method": "createFeed", "params": {"url": "http://images.apple.com/main/rss/hotnews/hotnews.rss"}, "id": 1}' \
+https://localhost/jsonrpc.php
 ```
 
-Success output:
+Success response:
 
 ```json
-{"jsonrpc":"2.0","id":1,"result":6}
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": 6
+}
 ```
 
 The `feed_id` is 6.
 
-Error output:
+Error response:
 
-{"jsonrpc":"2.0","id":1,"result":false}
-
-### Example with PHP
-
-I developed a very simple [JSON-RPC client/server PHP library](https://github.com/fguillot/JsonRPC).
-Here is an example to fetch all bookmarks.
-
-```php
-use JsonRPC\Client;
-
-$client = new Client('https://demo.miniflux.net/jsonrpc.php');
-$client->authentication('demo', 'swB3/nSo1CB1X2F');
-
-$result = $client->execute('item.bookmark.list');
-print_r($result);
-```
-
-Output:
-
-```php
-Array
-(
-    [0] => Array
-        (
-            [id] => be1403d8
-            [title] => Data Structures for PHP Devs: Heaps
-            [updated] => 1374503433
-            [url] => http://phpmaster.com/data-structures-3/
-            [status] => read
-            [site_url] => http://phpmaster.com
-            [feed_title] => PHP Master
-        )
-
-    [1] => Array
-        (
-            [id] => 49c2f23c
-            [title] => Has Mozilla Lost Its Values?
-            [updated] => 1374171372
-            [url] => https://www.iab.net/iablog/2013/07/has-mozilla-lost-its-values.html
-            [status] => read
-            [site_url] => https://lobste.rs/
-            [feed_title] => lobste.rs
-        )
-)
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": false
+}
 ```
 
 Procedures
 ----------
 
-### app.version
+### getVersion
 
-Get the application version.
+- Purpose: **Get application version**
+- Parameters: none
+- Result on success: **version**
 
-- **Arguments:** None
-- **Return:** Software version
-
-Request:
-
-```bash
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "app.version", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Request example:
 
 ```json
 {
-  "jsonrpc":"2.0",
-  "id":1,
-  "result": {
-    "version":"master"
+  "jsonrpc": "2.0",
+  "method": "getVersion",
+  "id": 304873928
+}
+```
+
+Response example:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": "master",
+    "id": 304873928
+}
+```
+
+### createUser
+
+- Purpose: **Create new user** (accessible only by administrators)
+- Parameters:
+    - **username** (string)
+    - **password** (string)
+    - **is_admin** (boolean, optional)
+- Result on success: **user_id**
+- Result on failure: **false**
+
+Request example:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "createUser",
+  "id": 97055228,
+  "params": {
+    "username": "api_test",
+    "password": "test123"
   }
 }
 ```
 
-### feed.list
-
-Get the list of subscriptions.
-
-- **Arguments:** None
-- **Return on success:** List of feeds
-- **Return on failure:** false
-
-Request:
-
-```bash
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "feed.list", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Response example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : [
-      { "download_content" : "0",
-        "enabled" : "1",
-        "etag" : null,
-        "feed_url" : "http://www.lemonde.fr/rss/une.xml",
-        "id" : "1",
-        "last_checked" : null,
-        "last_modified" : null,
-        "parsing_error" : "0",
-        "site_url" : "http://www.lemonde.fr/rss/une.xml",
-        "title" : "Le Monde.fr - Actualité à la Une",
-        "feed_group_ids" : [
-          "1",
-          "2"
-        ]
-      },
-      { "download_content" : "1",
-        "enabled" : "1",
-        "etag" : null,
-        "feed_url" : "http://www.futura-sciences.com/rss/actualites.xml",
-        "id" : "6",
-        "last_checked" : null,
-        "last_modified" : null,
-        "parsing_error" : "0",
-        "site_url" : "http://www.futura-sciences.com",
-        "title" : "Les dernières actualités de Futura-Sciences",
-        "feed_group_ids" : [
-          "3"
-        ]
-      },
-      { "download_content" : "0",
-        "enabled" : "1",
-        "etag" : null,
-        "feed_url" : "http://www.mac4ever.com/rss/actu",
-        "id" : "2",
-        "last_checked" : null,
-        "last_modified" : null,
-        "parsing_error" : "0",
-        "site_url" : "http://www.mac4ever.com/actu",
-        "title" : "Mac4Ever.com - Actualité",
-        "feed_group_ids" : []
-      },
-      ...
-    ]
+{
+    "jsonrpc": "2.0",
+    "result": 2,
+    "id": 97055228
 }
 ```
 
-### feed.info
 
-Fetch one subscription
+### getUserByUsername
 
-- **Arguments:** feed_id (integer)
-- **Return on success:** Key-value pair
-- **Return on failure:** false
+- Purpose: **Get user** (accessible only by administrators)
+- Parameters:
+    - **username** (string)
+- Result on success: **user object**
+- Result on failure: **false|null**
 
-Request:
+Request example:
 
-```bash
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "feed.info", "params": {"feed_id": 1}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : [
-    {
-      "download_content" : "0",
-      "enabled" : "1",
-      "etag" : null,
-      "feed_url" : "http://www.lemonde.fr/rss/une.xml",
-      "id" : "1",
-      "last_checked" : null,
-      "last_modified" : null,
-      "parsing_error" : "0",
-      "site_url" : "http://www.lemonde.fr/rss/une.xml",
-      "title" : "Le Monde.fr - Actualité à la Une",
-      "feed_group_ids" : [
-        "1",
-        "2"
-      ]
-    }
+{
+  "jsonrpc": "2.0",
+  "method": "getUserByUsername",
+  "id": 1456121566,
+  "params": [
+    "api_test"
   ]
 }
 ```
 
-### feed.create
-
-Add a new subscription (synchronous operation).
-
-- **Arguments:** url (string)
-- **Return on success:** feed_id (integer)
-- **Return on failure:** false
-
-Request:
-
-```bash
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "feed.create", "params": {"url": "http://images.apple.com/main/rss/hotnews/hotnews.rss"}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Response example:
 
 ```json
-{"jsonrpc":"2.0","id":1,"result":6}
-```
-
-### feed.delete
-
-Remove one subscription.
-
-- **Arguments:** feed_id (integer)
-- **Return on success:** true
-- **Return on failure:** false
-
-Request:
-
-```bash
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "feed.delete", "params": {"feed_id": 5}, id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result": true
-}
-```
-
-### feed.delete_all
-
-Remove all subscriptions.
-
-- **Arguments:** None
-- **Return on success:** true
-- **Return on failure:** false
-
-Request:
-
-```bash
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "feed.delete_all", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : true
-}
-```
-
-### feed.update
-
-Refresh one subscription (synchronous operation).
-
-- **Arguments:** feed_id (integer)
-- **Return on success:** true
-- **Return on failure:** false
-
-Request:
-
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "feed.update", "params": {"feed_id": 1}, id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : true
-}
-```
-
-### group.list
-
-Get the list of groups.
-
-- **Arguments:** None
-- **Return on success:** List of groups
-- **Return on failure:** false
-
-Request:
-
-```bash
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "group.list", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : [
-      { "id" : "1",
-        "title" : "Tech"
-      },
-      { "id" : "2",
-        "title" : "Hardware"
-      },
-      { "id" : "3",
-        "title" : "Software"
-      },
-      ...
-    ]
-}
-```
-
-### item.feed.list
-
-Get all items for a specific feed.
-
-- **Arguments:** feed_id, offset = null, limit = null (integer)
-- **Return on success:** List of items
-- **Return on failure:** false
-
-Request:
-
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.feed.list", "params": {"feed_id": 1}, id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : [
-    {
-        "bookmark" : "0",
-        "content" : "&lt;p&gt;La fermeture de quatre usines affecte 1 250 salariés, soit 30 % des effectifs de la marque en Espagne.&lt;/p&gt;",
-        "feed_id" : "1",
-        "id" : "bcc94722",
-        "site_url" : "http://www.lemonde.fr/rss/une.xml",
-        "status" : "unread",
-        "title" : "Des milliers de manifestants à Madrid contre la fermeture d'usines Coca-Cola",
-        "updated" : "1392486765",
-        "url" : "http://www.lemonde.fr/europe/article/2014/02/15/des-milliers-de-manifestants-a-madrid-contre-la-fermeture-d-usines-coca-cola_4367428_3214.html#xtor=RSS-3208"
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "id": "2",
+        "username": "api_test",
+        "password": "$2y$10$FOzlRrLoHRI3Xj4YuV8z5O1jI4CKda61reX.g.Fm4ctYMijpOhTGu",
+        "is_admin": "0",
+        "last_login": null,
+        "api_token": "398c293808aaed9cf2be45cf8e4fa303be5cdbbf6c4a55fece6b585c6a6c",
+        "bookmarklet_token": "965e9049138e4e78c398dc369fc4ec529226055c6fd77a3d4119bc3a1b5e",
+        "cronjob_token": "a4f6e1f5fd655c7365ebddcaf1dfd5782669186ed85a788d8e52b8230399",
+        "feed_token": "62ed60fb75616d3f81a938206449a20fe30f0bf9db9bf0b93259821f5938",
+        "fever_token": "59253f797b3b1885e31449fa97e9348c127e4e10e4eea959a2555c1b3a1e",
+        "fever_api_key": "5e379736d05847f87c37a7d2f57ed234"
     },
-    {
-        "bookmark" : "0",
-        "content" : "&lt;p&gt;Le Français a passé samedi la barre des 6,16 mètres, dépassant ainsi le saut de l'Ukrainien à 6,15 mètres atteint en 1993.&lt;/p&gt;",
-        "feed_id" : "1",
-        "id" : "c659783b",
-        "site_url" : "http://www.lemonde.fr/rss/une.xml",
-        "status" : "unread",
-        "title" : "Saut à la perche : Lavillenie bat le record du monde de Bubka",
-        "updated" : "1392486633",
-        "url" : "http://www.lemonde.fr/sport/article/2014/02/15/saut-a-la-perche-lavillenie-bat-le-record-du-monde-de-bubka_4367434_3242.html#xtor=RSS-3208"
+    "id": 1456121566
+}
+```
+
+
+### getFeeds
+
+- Purpose: **Get all subscriptions**
+- Parameters: none
+- Result on success: **list of feed objects**
+- Result on failure: **false**
+
+Request example:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "getFeeds",
+  "id": 1189414818
+}
+```
+
+Response example:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "id": "1",
+            "user_id": "1",
+            "feed_url": "https:\/\/miniflux.net\/feed",
+            "site_url": "https:\/\/miniflux.net\/",
+            "title": "Miniflux",
+            "last_checked": "1483053994",
+            "last_modified": "Sun, 31 Jul 2016 16:54:32 GMT",
+            "etag": "W\/\"bdc7a83fd61620b778da350991501757\"",
+            "enabled": "1",
+            "download_content": "0",
+            "parsing_error": "0",
+            "rtl": "0",
+            "cloak_referrer": "0",
+            "parsing_error_message": null,
+            "expiration": "1483226794",
+            "groups": [
+                {
+                    "id": "1",
+                    "title": "open source software"
+                }
+            ]
+        }
+    ],
+    "id": 1189414818
+}
+```
+
+### getFeed
+
+- Purpose: **Get one subscription**
+- Parameters:
+    - **feed_id** (integer)
+- Result on success: **feed object**
+- Result on failure: **null**
+
+Request example:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "getFeed",
+  "id": 912101777,
+  "params": [
+    1
+  ]
+}
+```
+
+Response example:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "id": "1",
+        "user_id": "1",
+        "feed_url": "https:\/\/miniflux.net\/feed",
+        "site_url": "https:\/\/miniflux.net\/",
+        "title": "Miniflux",
+        "last_checked": "1483053994",
+        "last_modified": "Sun, 31 Jul 2016 16:54:32 GMT",
+        "etag": "W\/\"bdc7a83fd61620b778da350991501757\"",
+        "enabled": "1",
+        "download_content": "0",
+        "parsing_error": "0",
+        "rtl": "0",
+        "cloak_referrer": "0",
+        "parsing_error_message": null,
+        "expiration": "1483226794",
+        "groups": [
+            {
+                "id": "1",
+                "title": "open source software"
+            }
+        ]
     },
-    ...
+    "id": 912101777
+}
+```
+
+### createFeed
+
+- Purpose: **Add new subscription**
+- Parameters:
+    - **url** (string)
+    - **download_content** (boolean, optional)
+    - **rtl** (boolean, optional)
+    - **group_name** (string, optional)
+- Result on success: **feed_id**
+- Result on failure: **false**
+
+Request example:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "createFeed",
+  "id": 315813488,
+  "params": {
+    "url": "https://miniflux.net/feed",
+    "group_name": "open source software"
+  }
+}
+```
+
+Response example:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": 1,
+    "id": 315813488
+}
+```
+
+### removeFeed
+
+- Purpose: **Create new user**
+- Parameters:
+    - **feed_id** (integer)
+- Result on success: **true**
+- Result on failure: **false**
+
+Request example:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "removeFeed",
+  "id": 1793804609,
+  "params": [
+    1
   ]
 }
 ```
 
-### item.feed.count
-
-Count all items for a specific feed.
-
-- **Arguments:** feed_id (integer)
-- **Return on success:** Number of items (integer)
-- **Return on failure:** false
-
-Request:
-
-```bash
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.feed.count", "params": {"feed_id": 1}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Response example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : 25
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 1793804609
 }
 ```
 
-### item.bookmark.list
+### refreshFeed
 
-Get all bookmarks.
+- Purpose: **Refresh subscription** (synchronous call)
+- Parameters:
+    - **feed_id** (integer)
+- Result on success: **true**
+- Result on failure: **false**
 
-- **Arguments:** offset = null, limit = null (integer)
-- **Return on success:** List of items
-- **Return on failure:** false
-
-Request:
-
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.bookmark.list", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Request example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : [
-    {
-        "bookmark" : "1",
-        "content" : "La fermeture de quatre usines affecte 1 250 salariés, soit 30 % des effectifs de la marque en Espagne.",
-        "feed_id" : "1",
-        "feed_title" : "Le Monde.fr - Actualité à la Une",
-        "id" : "bcc94722",
-        "site_url" : "http://www.lemonde.fr/rss/une.xml",
-        "status" : "unread",
-        "title" : "Des milliers de manifestants à Madrid contre la fermeture d'usines Coca-Cola",
-        "updated" : "1392486765",
-        "url" : "http://www.lemonde.fr/europe/article/2014/02/15/des-milliers-de-manifestants-a-madrid-contre-la-fermeture-d-usines-coca-cola_4367428_3214.html#xtor=RSS-3208"
-      },
-      ...
+{
+  "jsonrpc": "2.0",
+  "method": "refreshFeed",
+  "id": 181234449,
+  "params": [
+    1
   ]
 }
 ```
 
-### item.bookmark.count
-
-Count the number of bookmarks.
-
-- **Arguments:** Nothing
-- **Return on success:** Number of items (integer)
-- **Return on failure:** false
-
-Request:
+Response example:
 
 ```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.bookmark.count", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : 3
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 181234449
 }
 ```
 
-### item.bookmark.create
+### getItems
 
-Add a new bookmark.
+- Purpose: **Get list o items**
+- Parameters:
+    - **since_id** (integer, optional) Returns only feeds from this item id
+    - **item_ids** ([]integer, optional) Returns only items in this list
+    - **limit** (integer, optional, default=50) Change number of items returned
+- Result on success: **list of item objects**
+- Result on failure: **false**
 
-- **Arguments:** item_id
-- **Return on success:** true
-- **Return on failure:** false
-
-Request:
-
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.bookmark.create", "params": {"item_id": "1fd17ad3"}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Request example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : true
+{
+  "jsonrpc": "2.0",
+  "method": "getItems",
+  "id": 84429548,
+  "params": {
+    "since_id": 2
+  }
 }
 ```
 
-### item.bookmark.delete
-
-Remove a bookmark.
-
-- **Arguments:** item_id
-- **Return on success:** 1 (integer)
-- **Return on failure:** false
-
-Request:
+Response example:
 
 ```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.bookmark.delete", "params": {"item_id": "1fd17ad3"}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : true
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "id": "3",
+            "checksum": "7f4b791f",
+            "title": "Miniflux 1.1.8 released",
+            "updated": "1442016000",
+            "url": "https:\/\/miniflux.net\/news\/version-1.1.8",
+            "enclosure_url": "",
+            "enclosure_type": "",
+            "bookmark": "0",
+            "feed_id": "1",
+            "status": "unread",
+            "content": "<ul>\n<li>Add feed groups (tags)<\/li>\n<li>Add custom rules directory support<\/li>\n<li>Add no referrer policy in meta tags and content security directives<\/li>\n<li>Update of PicoFeed with new scraper rules<\/li>\n<li>Enable Strict-Transport-Security header for HTTPS<\/li>\n<li>Change CSP directives to allow data url (Fix issue with Firefox 40)<\/li>\n<li>Toggle text direction for full content preview as well<\/li>\n<li>Add Russian translation<\/li>\n<li>Updated Czech translation<\/li>\n<li>Mark items on page 2+ read as well<\/li>\n<li>Allow to override the maximum feed size limit<\/li>\n<li>Added a config option to select how many concurrent refreshes are done on the subscription page<\/li>\n<li>Catch exceptions for image proxy<\/li>\n<li>Improve CSS for preview full content<\/li>\n<li>Minor feed edit dialog improvements<\/li>\n<li>Expose all feed errors to the frontend when adding a subscription<\/li>\n<li>Keep selected options on feed adding error<\/li>\n<li>Fix bug when the summery helper doesn&#039;t contains whitespace<\/li>\n<li>Fix Fever API bug: enable send bookmark to third-party services<\/li>\n<\/ul>\n<p><strong>Thanks to all contributors!<\/strong><\/p>\n<p><a href=\"https:\/\/miniflux.net\/miniflux-1.1.8.zip\" rel=\"noreferrer\" target=\"_blank\">Download archive<\/a><\/p>",
+            "language": "",
+            "rtl": "0",
+            "author": "Fr\u00e9d\u00e9ric Guillot",
+            "site_url": "https:\/\/miniflux.net\/",
+            "feed_title": "Miniflux"
+        },
+        [..]
+    ],
+    "id":84429548
 }
 ```
 
-### item.list_unread
+### getItem
 
-Get all unread items.
+- Purpose: **Fetch one item**
+- Parameters:
+    - **item_id** (integer)
+- Result on success: **item object**
+- Result on failure: **null**
 
-- **Arguments:** offset = null, limit = null (integer)
-- **Return on success:** List of items
-- **Return on failure:** false
-
-Request:
-
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.list_unread", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Request example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : [
-      {
-        "bookmark" : "0",
-        "content" : "La fermeture de quatre usines affecte 1 250 salariés, soit 30 % des effectifs de la marque en Espagne.",
-        "feed_id" : "1",
-        "feed_title" : "Le Monde.fr - Actualité à la Une",
-        "id" : "bcc94722",
-        "site_url" : "http://www.lemonde.fr/rss/une.xml",
-        "status" : "unread",
-        "title" : "Des milliers de manifestants à Madrid contre la fermeture d'usines Coca-Cola",
-        "updated" : "1392486765",
-        "url" : "http://www.lemonde.fr/europe/article/2014/02/15/des-milliers-de-manifestants-a-madrid-contre-la-fermeture-d-usines-coca-cola_4367428_3214.html#xtor=RSS-3208"
-      },
-      ...
+{
+  "jsonrpc": "2.0",
+  "method": "getItem",
+  "id": 1323079112,
+  "params": [
+    1
   ]
 }
 ```
 
-### item.count_unread
-
-Count all unread items.
-
-- **Arguments:** Nothing
-- **Return on success:** Number of items (integer)
-- **Return on failure:** false
-
-Request:
+Response example:
 
 ```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.count_unread", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : 18
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "id": "1",
+        "user_id": "1",
+        "feed_id": "1",
+        "checksum": "a86e22e4",
+        "status": "unread",
+        "bookmark": "0",
+        "url": "https:\/\/miniflux.net\/news\/version-1.1.10",
+        "title": "Miniflux 1.1.10 released",
+        "author": "Fr\u00e9d\u00e9ric Guillot",
+        "content": "<p>Here are the main changes of this version:<\/p>\n<ul>\n<li>Code cleanup<\/li>\n<li>Do not use anymore Closure compiler for Javascript<\/li>\n<li>Added the possibility to swipe to archive an item on mobile devices<\/li>\n<li>Make the whole menu row clickable on small screens<\/li>\n<li>Add API methods for groups<\/li>\n<li>Added Beanstalkd producer\/worker<\/li>\n<li>Use HTTP_HOST instead of SERVER_NAME to guess hostname<\/li>\n<li>Run php-cs-fixer on the code base<\/li>\n<li>Add sorting direction link to the history section<\/li>\n<li>Make read\/bookmark icons more usable in mobile view<\/li>\n<li>Record last login timestamp in the database<\/li>\n<li>Add japanese language<\/li>\n<li>Replace help window by layer<\/li>\n<li>Create automatically the favicon directory if missing<\/li>\n<li>Add group filter to history and bookmarks section<\/li>\n<li>Dependencies update<\/li>\n<\/ul>\n<p><strong>Thanks to all contributors!<\/strong><\/p>\n<p><a href=\"https:\/\/miniflux.net\/miniflux-1.1.10.zip\" rel=\"noreferrer\" target=\"_blank\">Download archive<\/a><\/p>",
+        "updated": "1469923200",
+        "enclosure_url": "",
+        "enclosure_type": "",
+        "language": "",
+        "rtl": "0"
+    },
+    "id": 1323079112
 }
 ```
 
-### item.list_read
+### changeItemsStatus
 
-Get all read items.
+- Purpose: **Mark items as read/unread**
+- Parameters:
+    - **item_ids** ([]integer)
+    - **status** (string, possible values: read or unread)
+- Result on success: **true**
+- Result on failure: **false**
 
-- **Arguments:** offset = null, limit = null (integer)
-- **Return on success:** List of items
-- **Return on failure:** false
-
-Request:
-
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.list_read", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Request example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" :
-    {
-        "bookmark" : "0",
-        "content" : "La fermeture de quatre usines affecte 1 250 salariés, soit 30 % des effectifs de la marque en Espagne.",
-        "feed_id" : "1",
-        "feed_title" : "Le Monde.fr - Actualité à la Une",
-        "id" : "bcc94722",
-        "site_url" : "http://www.lemonde.fr/rss/une.xml",
-        "status" : "read",
-        "title" : "Des milliers de manifestants à Madrid contre la fermeture d'usines Coca-Cola",
-        "updated" : "1392486765",
-        "url" : "http://www.lemonde.fr/europe/article/2014/02/15/des-milliers-de-manifestants-a-madrid-contre-la-fermeture-d-usines-coca-cola_4367428_3214.html#xtor=RSS-3208"
-      },
-      ...
+{
+  "jsonrpc": "2.0",
+  "method": "changeItemsStatus",
+  "id": 155789655,
+  "params": [
+    [1],
+    "read"
+  ]
 }
 ```
 
-### item.count_read
-
-Count all read items.
-
-- **Arguments:** Nothing
-- **Return on success:** Number of items (integer)
-- **Return on failure:** false
-
-Request:
+Response example:
 
 ```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.count_read", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : 254
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 155789655
 }
 ```
 
-### item.info
+### addBookmark
 
-Fetch one item.
+- Purpose: **Mark item as bookmark**
+- Parameters:
+    - **item_id** (integer)
+- Result on success: **true**
+- Result on failure: **false**
 
-- **Arguments:** item_id
-- **Return on success:** Key-value pair
-- **Return on failure:** false
-
-Request:
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.info", "params": {"item_id": "bcc94722"}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Request example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : {
-      "author" : "",
-      "bookmark" : "1",
-      "content" : "La fermeture de quatre usines affecte 1 250 salariés, soit 30 % des effectifs de la marque en Espagne.",
-      "feed_id" : "1",
-      "id" : "bcc94722",
-      "status" : "unread",
-      "title" : "Des milliers de manifestants à Madrid contre la fermeture d'usines Coca-Cola",
-      "updated" : "1392486765",
-      "url" : "http://www.lemonde.fr/europe/article/2014/02/15/des-milliers-de-manifestants-a-madrid-contre-la-fermeture-d-usines-coca-cola_4367428_3214.html#xtor=RSS-3208"
-    }
+{
+  "jsonrpc": "2.0",
+  "method": "addBookmark",
+  "id": 791748350,
+  "params": [
+    1
+  ]
 }
 ```
 
-### item.delete
-
-Remove one item.
-
-- **Arguments:** item_id
-- **Return on success:** true
-- **Return on failure:** false
-
-Request:
+Response example:
 
 ```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.delete", "params": {"item_id": "bcc94722"}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : true
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 791748350
 }
 ```
 
-### item.mark_as_read
+### removeBookmark
 
-Mark an item as read.
+- Purpose: **Mark item as not bookmarked**
+- Parameters:
+    - **item_id** (integer)
+- Result on success: **true**
+- Result on failure: **false**
 
-- **Arguments:** item_id
-- **Return on success:** true
-- **Return on failure:** false
-
-Request:
-
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.mark_as_read", "params": {"item_id": "1fd17ad3"}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Request example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : true
+{
+  "jsonrpc": "2.0",
+  "method": "removeBookmark",
+  "id": 16893793,
+  "params": [
+    1
+  ]
 }
 ```
 
-### item.mark_as_unread
-
-Mark an item as unread.
-
-- **Arguments:** item_id
-- **Return on success:** true
-- **Return on failure: **false
-
-Request:
+Response example:
 
 ```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.mark_as_read", "params": {"item_id": "1fd17ad3"}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : true
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 16893793
 }
 ```
 
-### item.flush
+### getGroups
 
-Flush all read items.
+- Purpose: **Get list of groups**
+- Parameters: none
+- Result on success: **list of group objects**
+- Result on failure: **false**
 
-- **Arguments:** Nothing
-- **Return on success:** true
-- **Return on failure:** false
-
-Request:
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.flush", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Request example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : true
+{
+  "jsonrpc": "2.0",
+  "method": "getGroups",
+  "id": 1922098828
 }
 ```
 
-### item.mark_all_as_read
-
-Mark all unread items as read.
-
-- **Arguments:** Nothing
-- **Return on success:** true
-- **Return on failure:** false
-
-Request:
+Response example:
 
 ```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.mark_all_as_read", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
-
-```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : true
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "id": "1",
+            "user_id": "1",
+            "title": "open source software"
+        }
+    ],
+    "id": 1922098828
 }
 ```
 
-### item.set_list_status
+### createGroup
 
-Change the status of a list of item id.
+- Purpose: **Add new group**
+- Parameters:
+    - **title** (string)
+- Result on success: **group_id**
+- Result on failure: **false**
 
-- **Arguments:** status (read, unread or removed), items (list of item id: ["id-1", "id-2", ...])
-- **Return on success:** true
-- **Return on failure:** false
-
-Request:
-
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.set_list_status", "params": {"status": "unread", "items": ["1fd17ad3", "bcc94722"]}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Request example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : true
+{
+  "jsonrpc": "2.0",
+  "method": "createGroup",
+  "id": 924207274,
+  "params": [
+    "foobar"
+  ]
 }
 ```
 
-### item.get_all
-
-Get all items (unread and read)
-
-- **Arguments:** Nothing
-- **Return on success:** List of items
-- **Return on failure:** false
-
-Request:
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.get_all", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Response example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : [
-      {
-        "bookmark" : "0",
-        "content" : "&lt;p&gt;Le comportement de molécules biologiques importantes est probablement différent dans un milieu ...&lt;/p&gt;",
-        "feed_id" : "6",
-        "feed_title" : "Les dernières actualités de Futura-Sciences",
-        "id" : "947c27f1",
-        "site_url" : "http://www.futura-sciences.com",
-        "status" : "read",
-        "title" : "Des bulles de graphène piègent des moélcules sous le microscope",
-        "updated" : "1392467820",
-        "url" : "http://www.futura-sciences.com/magazines/matiere/infos/actu/d/physique-bulles-graphene-piegent-moelcules-sous-microscope-52264/#xtor=RSS-8"
-      },
-      ...
-    ]
+{
+    "jsonrpc": "2.0",
+    "result": 2,
+    "id": 924207274
 }
 ```
 
-### item.get_all_status
+### setFeedGroups
 
-Get all items status (unread and read)
+- Purpose: **Assign/Unassign groups to a subscription**
+- Parameters:
+    - **feed_id** (integer)
+    - **group_ids** ([]integer)
+- Result on success: **true**
+- Result on failure: **false**
 
-- **Arguments:** Nothing
-- **Return on success:** List of items id and the status
-- **Return on failure:** false
-
-Request:
-
-```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.get_all_status", "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
-```
-
-Response:
+Request example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : {
-      "02043706" : "unread",
-      "03b2f912" : "read",
-      "087619e5" : "unread",
-      "0a05d7f2" : "read",
-      "0ab36a48" : "read",
-      "0d55fd54" : "read",
-      "0f64bd6d" : "read",
-      "0fff2adc" : "unread",
-      "10fc26ac" : "unread",
-      ....
-    }
+{
+  "jsonrpc": "2.0",
+  "method": "setFeedGroups",
+  "id": 594627291,
+  "params": [
+    1,
+    [2, 3]
+  ]
 }
 ```
 
-### item.get_all_since
-
-Get all items since a date (unread and read)
-
-- **Arguments:** Unix timestamp
-- **Return on success:** List of items
-- **Return on failure:** false
-
-Request:
+Response example:
 
 ```json
-curl \
--u "demo:swB3/nSo1CB1X2F" \
--d '{"jsonrpc": "2.0", "method": "item.get_all_since", "params": {"timestamp": 1392467820}, "id": 1}' \
-https://demo.miniflux.net/jsonrpc.php
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 594627291
+}
 ```
 
-Response:
+### getFavicons
+
+- Purpose: **Get list of favicons**
+- Parameters: none
+- Result on success: **list of favicon objects**
+- Result on failure: **false**
+
+Request example:
 
 ```json
-{ "id" : 1,
-  "jsonrpc" : "2.0",
-  "result" : [
-      {
-        "bookmark" : "0",
-        "content" : "&lt;p&gt;...&lt;/p&gt;",
-        "feed_id" : "6",
-        "feed_title" : "Les dernières actualités de Futura-Sciences",
-        "id" : "dccc2a20",
-        "site_url" : "http://www.futura-sciences.com",
-        "status" : "read",
-        "title" : "Curiosity a franchi avec succès la dune de Dingo Gap",
-        "updated" : "1392475200",
-        "url" : "http://www.futura-sciences.com/magazines/espace/infos/actu/d/astronautique-curiosity-franchi-succes-dune-dingo-gap-52289/#xtor=RSS-8"
-      },
-      {
-        "bookmark" : "0",
-        "content" : "&lt;p&gt;...&lt;/p&gt;",
-        "feed_id" : "6",
-        "feed_title" : "Les dernières actualités de Futura-Sciences",
-        "id" : "947c27f1",
-        "site_url" : "http://www.futura-sciences.com",
-        "status" : "read",
-        "title" : "Des bulles de graphène piègent des moélcules sous le microscope",
-        "updated" : "1392467820",
-        "url" : "http://www.futura-sciences.com/magazines/matiere/infos/actu/d/physique-bulles-graphene-piegent-moelcules-sous-microscope-52264/#xtor=RSS-8"
-      },
-      ...
-    ]
+{
+  "jsonrpc": "2.0",
+  "method": "getFavicons",
+  "id": 1029539064
+}
+```
+
+Response example:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "feed_id": "1",
+            "hash": "bec82599c771aea672bea5a9a2988f150a849390",
+            "type": "image\/png",
+            "data_url": "data:image\/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAGJwAABicBTVTYxwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAALMSURBVHic7Zo7a1RRFIW\/I8YXaBBEJRJEU8RqQBBBQRBEWxHBwlZUsLRWUFBsA4L4G4IY0TaF2PhEEQwmhuADJIkRUUOMr2RZ3Em8mcxkzrkPtjhnwS7msveadT\/Ofc44SbSyllkHsFYEYB3AWhGAdQBrRQDWAawVAVgHsFYEYB3AWhGAdQBrLS\/L2Dm3CdgFbK3WDPC6Wi8kjWX03QBUgG3AdmAN8LFaT4CnCnjEdbW9zrk+YL3n\/AVJd2vmDwKngMNAW4O538BNoEfSfa+gzu0DzgBHl\/AFGAN6gcuSPjQ1lrSggHFAnnUsNdcO3AiYnas7wNraHCnfLcC9DL6TwNlGvvP+RQAAdgIjGULO1XOgs06WQ8BEDl8BPVRXeikAgK4CQgp4B7SnchwnOW\/k9RVwviwAp4HBgkIKuJ5aUd8K9P0JVMoA8LnAkAJmgSPA24J9BfTXA1DvKjAObOT\/k4BuScPpjWXcCM0Co8CnErynSFbHTIZZB5xYtDXnIZCuCeAkqUsa0AlcyeiXrtvAnpTvamA\/8CbQ50HR54C5egV0LHEtv5hj588t4dsBvA\/wmgbaigbwneTYanyzkayELDvf2\/RGBi4FelaKBnC1Wciq70Cg7y+gy8O3O9D3QHq+iJPgNc++R4G+\/ZJGPPqGSU68vlqX\/pAXwKCkl569XwK9b\/k0SZoleRL0VaEAngX0TgZ6Pw7obf7U91cr0x\/yAhgK6A0BIMB3ZUFyq5tJeQGELL2vAb1TkqYD+lcF9C5QXgAhO\/WjJF\/I8WYrL4CQnfoXfBep5V+KRgDWAawVAVgHsFYEYB3AWhGAdQBrRQDWAawVAVgHsFYEYB3AWi0PoN6Po3uBFZ7zA5ImvL7Iuc3ADk\/faUkPPXtxzu0m+a+Qj4Ykjc7P1gJoNbX8IRABWAewVgRgHcBaEYB1AGtFANYBrBUBWAewVssD+AMBy6wzsaDiAwAAAABJRU5ErkJggg=="
+        }
+    ],
+    "id": 1029539064
 }
 ```

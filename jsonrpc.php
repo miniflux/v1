@@ -162,7 +162,7 @@ $procedureHandler->withCallback('createGroup', function ($title) {
 });
 
 // Add/Update groups for a feed
-$procedureHandler->withCallback('setFeedGroups', function ($feed_id, $group_ids) {
+$procedureHandler->withCallback('setFeedGroups', function ($feed_id, array $group_ids) {
     $user_id = SessionStorage::getInstance()->getUserId();
     return Model\Group\update_feed_groups($user_id, $feed_id, $group_ids);
 });

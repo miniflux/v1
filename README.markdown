@@ -8,7 +8,7 @@ Miniflux is a minimalist and web-based RSS reader.
 Features
 --------
 
-- Host almost anywhere
+- Self-hosted
 - Readability (CSS optimized for readability, responsive design, compatible with mobile and tablet devices)
 - Easy setup => **copy and paste the source code and you are done!**
 - Remove Feedburner Ads and analytic trackers (1x1 pixels)
@@ -23,7 +23,7 @@ Features
 - Groups for categorization of feeds (like folders or tags)
 - Send your favorite articles to Pinboard, Instapaper or Wallabag
 - Enclosure support (videos and podcasts)
-- Feed updates via a cronjob or with the user interface with one click
+- Feed updates via a cronjob or with the user interface in one click
 - Keeps history of read items
 - Import/Export of OPML feeds
 - Themes
@@ -43,6 +43,7 @@ Requirements
 Documentation
 -------------
 
+- [ChangeLog](https://github.com/miniflux/miniflux/blob/master/ChangeLog)
 - [Installation](docs/installation.markdown)
 - [Upgrade to a new version](docs/upgrade.markdown)
 - [Cronjob](docs/cronjob.markdown)
@@ -54,7 +55,6 @@ Documentation
 - [Fever API](docs/fever.markdown)
 - [Run Miniflux with Docker](docs/docker.markdown)
 - [FAQ](docs/faq.markdown)
-- [Tests](docs/tests.markdown)
 
 License
 -------
