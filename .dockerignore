@@ -11,5 +11,6 @@ config.php
 composer.json
 composer.lock
 CONTRIBUTORS.md
+docker-compose.yml
 Makefile
 README.markdown

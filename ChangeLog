@@ -15,6 +15,7 @@ Version 1.2.0 (unreleased)
 * Disable automatically a feed after too many failures
 * Add support for Expires and Cache-Control headers (HTTP cache)
 * Update Docker image to Ubuntu 16.04 and PHP 7.0
+* Add Docker compose file
 * Add unit tests
 
 Migration procedure from 1.1.x to 1.2.0:

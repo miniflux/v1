@@ -15,6 +15,18 @@ docker run -d --name miniflux -p 80:80 -t miniflux/miniflux:latest
 
 The tag **latest** is the **development version** of Miniflux, use at your own risk.
 
+Use Docker Compose
+------------------
+
+The Git repository contains a `docker-compose.yml` file, so you can run easily Miniflux:
+
+```bash
+docker-compose up -d
+```
+
+- By default, the service listen on port 80
+- A named volume is created to store your data on the host machine
+
 Build your own image
 --------------------
 
@@ -27,5 +39,3 @@ Run container from the image:
 ```bash
 docker run -p 80:80 --name miniflux <yourname/imagename>
 ```
-
-You can also mount the volume `/var/www/html/data` to save the data on the host machine (this folder must have write access from the container web server user).

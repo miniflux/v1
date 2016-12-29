@@ -1,0 +1,11 @@
+version: '2'
+services:
+  miniflux:
+    image: miniflux/miniflux:latest
+    ports:
+     - "80:80"
+    volumes:
+     - miniflux_data:/var/www/html/data
+volumes:
+  miniflux_data:
+    driver: local
