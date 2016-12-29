@@ -1,8 +1,7 @@
-#!/usr/bin/env php
 <?php
 
 $reference_lang = 'fr_FR';
-$reference_file = 'app/locales/'.$reference_lang.'/translations.php';
+$reference_file = __DIR__.'/../app/locales/'.$reference_lang.'/translations.php';
 $reference = include $reference_file;
 
 

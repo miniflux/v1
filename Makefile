@@ -6,6 +6,8 @@
 .PHONY: js
 .PHONY: unit-test-sqlite
 .PHONY: unit-test-postgres
+.PHONY: sync-locales
+.PHONY: find-locales
 
 JS_FILE = assets/js/all.js
 CONTAINER = miniflux
@@ -45,3 +47,8 @@ unit-test-sqlite:
 unit-test-postgres:
 	@ ./vendor/bin/phpunit -c tests/phpunit.unit.postgres.xml
 
+sync-locales:
+	@ php scripts/sync-locales.php
+
+find-locales:
+	@ php scripts/find-locales.php

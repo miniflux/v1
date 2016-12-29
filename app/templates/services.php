@@ -47,13 +47,13 @@
     <div class="options">
         <?php echo Miniflux\Helper\form_checkbox('wallabag_enabled', t('Send bookmarks to Wallabag'), 1, isset($values['wallabag_enabled']) && $values['wallabag_enabled'] == 1) ?><br />
 
-        <?php echo Miniflux\Helper\form_label(t('Wallabag URL'), 'wallabag_url') ?>
+        <?php echo Miniflux\Helper\form_label(t('Wallabag API URL'), 'wallabag_url') ?>
         <?php echo Miniflux\Helper\form_text('wallabag_url', $values, $errors) ?><br/>
 
-        <?php echo Miniflux\Helper\form_label(t('Wallabag client_id'), 'wallabag_client_id') ?>
+        <?php echo Miniflux\Helper\form_label(t('Wallabag Client ID'), 'wallabag_client_id') ?>
         <?php echo Miniflux\Helper\form_text('wallabag_client_id', $values, $errors) ?><br/>
 
-        <?php echo Miniflux\Helper\form_label(t('Wallabag client_secret'), 'wallabag_client_secret') ?>
+        <?php echo Miniflux\Helper\form_label(t('Wallabag Client Secret'), 'wallabag_client_secret') ?>
         <?php echo Miniflux\Helper\form_text('wallabag_client_secret', $values, $errors) ?><br/>
 
         <?php echo Miniflux\Helper\form_label(t('Wallabag username'), 'wallabag_username') ?>

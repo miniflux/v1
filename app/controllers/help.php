@@ -15,7 +15,7 @@ Router\get_action('help', function () {
     Response\html(Template\layout('help', array(
         'config' => Model\Config\get_all($user_id),
         'menu' => 'config',
-        'title' => t('Preferences')
+        'title' => t('Help')
     )));
 });
 
