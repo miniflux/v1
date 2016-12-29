@@ -25,7 +25,9 @@ script:
   - ./vendor/bin/phpunit -c tests/phpunit.unit.sqlite.xml
   - ./vendor/bin/phpunit -c tests/phpunit.unit.postgres.xml
   - ./vendor/bin/phpunit -c tests/phpunit.functional.sqlite.xml
-  - cp ./tests/ci/config.postgres.php $TRAVIS_BUILD_DIR/config.php && ./vendor/bin/phpunit -c tests/phpunit.functional.postgres.xml
+  - cp ./tests/ci/config.postgres.php $TRAVIS_BUILD_DIR/config.php
+  - ./vendor/bin/phpunit -c tests/phpunit.functional.postgres.xml tests/functional/ApiTest.php
+  - ./vendor/bin/phpunit -c tests/phpunit.functional.postgres.xml tests/functional/FeverApiTest.php
 
 after_failure:
   - cat apache_error.log

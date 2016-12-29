@@ -16,7 +16,7 @@ Version 1.2.0 (unreleased)
 * Add support for Expires and Cache-Control headers (HTTP cache)
 * Update Docker image to Ubuntu 16.04 and PHP 7.0
 * Add Docker compose file
-* Add functional tests (Json-RPC API)
+* Add functional tests (Json-RPC API and Fever API)
 * Add unit tests
 
 Migration procedure from 1.1.x to 1.2.0:

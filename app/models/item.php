@@ -294,6 +294,7 @@ function get_item_ids_by_status($user_id, $status)
         ->table('items')
         ->eq('user_id', $user_id)
         ->eq('status', $status)
+        ->asc('id')
         ->findAllByColumn('id');
 }
 

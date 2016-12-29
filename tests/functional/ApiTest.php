@@ -1,7 +1,5 @@
 <?php
 
-use JsonRPC\Client;
-
 require_once __DIR__.'/BaseApiTest.php';
 
 class ApiTest extends BaseApiTest
@@ -191,17 +189,5 @@ class ApiTest extends BaseApiTest
     public function testDeleteFeed()
     {
         $this->assertTrue($this->getApiClient()->removeFeed(1));
-    }
-
-    protected function getApiClient(array $user = array())
-    {
-        if (empty($user)) {
-            $user = $this->adminUser;
-        }
-
-        $apiUserClient = new Client(API_URL);
-        $apiUserClient->authentication($user['username'], $user['api_token']);
-
-        return $apiUserClient;
     }
 }

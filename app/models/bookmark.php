@@ -56,6 +56,7 @@ function get_bookmarked_item_ids($user_id)
         ->table(Model\Item\TABLE)
         ->eq('user_id', $user_id)
         ->eq('bookmark', 1)
+        ->asc('id')
         ->findAllByColumn('id');
 }
 

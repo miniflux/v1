@@ -50,11 +50,20 @@ route('groups', function () {
     list($user, $authenticated, $response) = auth();
 
     if ($authenticated) {
-        $response['groups'] = Model\Group\get_all($user['id']);
+        $response['groups'] = array();
         $response['feeds_groups'] = array();
-        $group_map = Model\Group\get_groups_feed_ids($user['id']);
 
-        foreach ($group_map as $group_id => $feed_ids) {
+        $groups = Model\Group\get_all($user['id']);
+        $feed_groups = Model\Group\get_groups_feed_ids($user['id']);
+
+        foreach ($groups as $group) {
+            $response['groups'][] = array(
+                'id'    => $group['id'],
+                'title' => $group['title'],
+            );
+        }
+
+        foreach ($feed_groups as $group_id => $feed_ids) {
             $response['feeds_groups'][] = array(
                 'group_id' => $group_id,
                 'feed_ids' => implode(',', $feed_ids)
@@ -102,7 +111,6 @@ route('feeds', function () {
 // Call: ?api&favicons
 route('favicons', function () {
     list($user, $authenticated, $response) = auth();
-
     if ($authenticated) {
         $favicons = Model\Favicon\get_favicons_with_data_url($user['id']);
         $response['favicons'] = array();
@@ -110,7 +118,7 @@ route('favicons', function () {
         foreach ($favicons as $favicon) {
             $response['favicons'][] = array(
                 'id' => (int) $favicon['feed_id'],
-                'data' => $favicon['url'],
+                'data' => $favicon['data_url'],
             );
         }
     }
