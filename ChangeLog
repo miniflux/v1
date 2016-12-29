@@ -14,6 +14,7 @@ Version 1.2.0 (unreleased)
 * Show last parsing error message in user interface
 * Disable automatically a feed after too many failures
 * Add support for Expires and Cache-Control headers (HTTP cache)
+* Update Docker image to Ubuntu 16.04 and PHP 7.0
 * Add unit tests
 
 Migration procedure from 1.1.x to 1.2.0:

@@ -2,7 +2,14 @@
 .git
 .gitignore
 .github
+.gitattributes
 .dockerignore
 .travis.yml
 tests
 scripts
+config.php
+composer.json
+composer.lock
+CONTRIBUTORS.md
+Makefile
+README.markdown
