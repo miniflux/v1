@@ -61,6 +61,17 @@ class UserModelTest extends BaseTest
         $this->assertNotEquals('test', $user['password']);
     }
 
+    public function testCreateUserWithTrailingSpaces()
+    {
+        $this->assertEquals(2, Model\User\create_user('foobar ', ' test'));
+
+        $user = Model\User\get_user_by_id(2);
+        $this->assertEquals(2, $user['id']);
+        $this->assertEquals('foobar', $user['username']);
+        $this->assertEquals(0, $user['is_admin']);
+        $this->assertTrue(password_verify('test', $user['password']));
+    }
+
     public function testRemoveUser()
     {
         $this->assertEquals(2, Model\User\create_user('foobar', 'test'));

@@ -9,6 +9,8 @@ const TABLE = 'users';
 
 function create_user($username, $password, $is_admin = false)
 {
+    $username = trim($username);
+    $password = trim($password);
     list($fever_token, $fever_api_key) = generate_fever_api_key($username);
 
     return Database::getInstance('db')
