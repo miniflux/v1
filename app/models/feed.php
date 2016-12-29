@@ -6,13 +6,14 @@ use Miniflux\Model\Favicon;
 use Miniflux\Model\Item;
 use Miniflux\Model\Group;
 use PicoDb\Database;
+use PicoDb\SQLException;
 use PicoFeed\Parser\Feed;
 
 const STATUS_ACTIVE   = 1;
 const STATUS_INACTIVE = 0;
 const TABLE           = 'feeds';
 
-function create($user_id, Feed $feed, $etag, $last_modified, $rtl = false, $scraper = false, $cloak_referrer = false)
+function create($user_id, Feed $feed, $etag, $last_modified, $expiration = 0, $rtl = false, $scraper = false, $cloak_referrer = false)
 {
     $db = Database::getInstance('db');
 
@@ -32,6 +33,7 @@ function create($user_id, Feed $feed, $etag, $last_modified, $rtl = false, $scra
             'etag'             => $etag,
             'last_modified'    => $last_modified,
             'last_checked'     => time(),
+            'expiration'       => $expiration,
             'cloak_referrer'   => $cloak_referrer ? 1 : 0,
         ));
 
@@ -85,12 +87,17 @@ function get_feeds_with_items_count($user_id)
     return $feeds;
 }
 
-function get_feed_ids($user_id, $limit = null)
+function get_feed_ids_to_refresh($user_id, $limit = null, $expiration = 0)
 {
+    if ($expiration === 0) {
+        $expiration = time();
+    }
+
     $query = Database::getInstance('db')
         ->table(TABLE)
         ->eq('user_id', $user_id)
         ->eq('enabled', STATUS_ACTIVE)
+        ->lte('expiration', $expiration)
         ->asc('last_checked')
         ->asc('id');
 
@@ -113,29 +120,33 @@ function get_feed($user_id, $feed_id)
 function update_feed($user_id, $feed_id, array $values)
 {
     $db = Database::getInstance('db');
-    $db->startTransaction();
 
-    $feed = $values;
-    unset($feed['id']);
-    unset($feed['group_name']);
-    unset($feed['feed_group_ids']);
+    try {
+        $db->startTransaction();
 
-    $result = Database::getInstance('db')
-            ->table('feeds')
-            ->eq('user_id', $user_id)
-            ->eq('id', $feed_id)
-            ->save($feed);
+        $feed = $values;
+        unset($feed['id']);
+        unset($feed['group_name']);
+        unset($feed['feed_group_ids']);
 
-    if ($result) {
-        if (isset($values['feed_group_ids']) && isset($values['group_name']) &&
-            ! Group\update_feed_groups($user_id, $values['id'], $values['feed_group_ids'], $values['group_name'])) {
-            $db->cancelTransaction();
-            return false;
+        $result = Database::getInstance('db')
+                ->table('feeds')
+                ->eq('user_id', $user_id)
+                ->eq('id', $feed_id)
+                ->update($feed);
+
+        if ($result) {
+            if (isset($values['feed_group_ids']) && isset($values['group_name']) &&
+                ! Group\update_feed_groups($user_id, $values['id'], $values['feed_group_ids'], $values['group_name'])) {
+                $db->cancelTransaction();
+                return false;
+            }
+
+            $db->closeTransaction();
+            return true;
         }
 
-        $db->closeTransaction();
-        return true;
-    }
+    } catch (SQLException $e) {}
 
     $db->cancelTransaction();
     return false;

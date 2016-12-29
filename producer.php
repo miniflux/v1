@@ -17,7 +17,7 @@ $limit = get_cli_option('limit', $options);
 $connection = new Pheanstalk(BEANSTALKD_HOST);
 
 foreach (Model\User\get_all_users() as $user) {
-    foreach (Model\Feed\get_feed_ids($user['id'], $limit) as $feed_id) {
+    foreach (Model\Feed\get_feed_ids_to_refresh($user['id'], $limit) as $feed_id) {
         $payload = serialize(array(
             'feed_id' => $feed_id,
             'user_id' => $user['id'],

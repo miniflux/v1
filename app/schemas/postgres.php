@@ -5,7 +5,12 @@ namespace Miniflux\Schema;
 use PDO;
 use Miniflux\Helper;
 
-const VERSION = 2;
+const VERSION = 3;
+
+function version_3(PDO $pdo)
+{
+    $pdo->exec('ALTER TABLE feeds ADD COLUMN expiration BIGINT DEFAULT 0');
+}
 
 function version_2(PDO $pdo)
 {

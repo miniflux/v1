@@ -64,13 +64,22 @@ class FeedModelTest extends BaseTest
         $feed->setTitle('Some feed');
         $feed->setFeedUrl('another feed url');
         $feed->setSiteUrl('site url');
-        $this->assertEquals(2, Model\Feed\create(1, $feed, 'etag', 'last modified'));
+        $this->assertEquals(2, Model\Feed\create(1, $feed, 'etag', 'last modified', time()));
 
-        $feed_ids = Model\Feed\get_feed_ids(1);
-        $this->assertEquals(array(1, 2), $feed_ids);
+        $feed = new Feed();
+        $feed->setTitle('Some feed');
+        $feed->setFeedUrl('some other feed url');
+        $feed->setSiteUrl('site url');
+        $this->assertEquals(3, Model\Feed\create(1, $feed, 'etag', 'last modified', strtotime('-1 week')));
 
-        $feed_ids = Model\Feed\get_feed_ids(1, 1);
+        $feed_ids = Model\Feed\get_feed_ids_to_refresh(1);
+        $this->assertEquals(array(1, 2, 3), $feed_ids);
+
+        $feed_ids = Model\Feed\get_feed_ids_to_refresh(1, 1);
         $this->assertEquals(array(1), $feed_ids);
+
+        $feed_ids = Model\Feed\get_feed_ids_to_refresh(1, null, strtotime('-2 days'));
+        $this->assertEquals(array(1, 3), $feed_ids);
     }
 
     public function testGetFeedWithItemsCount()

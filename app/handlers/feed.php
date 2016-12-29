@@ -71,6 +71,7 @@ function create_feed($user_id, $url, $download_content = false, $rtl = false, $c
             $feed,
             $resource->getEtag(),
             $resource->getLastModified(),
+            $resource->getExpiration()->getTimestamp(),
             $rtl,
             $download_content,
             $cloak_referrer
@@ -120,6 +121,7 @@ function update_feed($user_id, $feed_id)
             'etag'                  => $resource->getEtag(),
             'last_modified'         => $resource->getLastModified(),
             'last_checked'          => time(),
+            'expiration'            => $resource->getExpiration()->getTimestamp(),
             'parsing_error'         => 0,
             'parsing_error_message' => '',
         ));
@@ -135,7 +137,7 @@ function update_feed($user_id, $feed_id)
 
 function update_feeds($user_id, $limit = null)
 {
-    foreach (Model\Feed\get_feed_ids($user_id, $limit) as $feed_id) {
+    foreach (Model\Feed\get_feed_ids_to_refresh($user_id, $limit) as $feed_id) {
         update_feed($user_id, $feed_id);
     }
 }
