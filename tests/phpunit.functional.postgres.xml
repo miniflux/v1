@@ -1,0 +1,10 @@
+<phpunit stopOnError="true" stopOnFailure="true" colors="true">
+    <testsuites>
+        <testsuite name="Miniflux Postgres Functional Tests">
+            <directory>functional</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <const name="API_URL" value="http://127.0.0.1/jsonrpc.php" />
+    </php>
+</phpunit>

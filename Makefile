@@ -41,6 +41,10 @@ $(JS_FILE): assets/js/app.js \
 archive:
 	@ git archive --format=zip --prefix=miniflux/ v${version} -o ${dst}/miniflux-${version}.zip
 
+functional-test-sqlite:
+	@ rm -f data/db.sqlite
+	@ ./vendor/bin/phpunit -c tests/phpunit.functional.sqlite.xml
+
 unit-test-sqlite:
 	@ ./vendor/bin/phpunit -c tests/phpunit.unit.sqlite.xml
 

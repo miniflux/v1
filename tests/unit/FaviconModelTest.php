@@ -131,12 +131,12 @@ class FaviconModelTest extends BaseTest
         $this->assertEquals(1, $favicons[0]['feed_id']);
         $this->assertEquals('57978a20204f7af6967571041c79d907a8a8072c', $favicons[0]['hash']);
         $this->assertEquals('image/png', $favicons[0]['type']);
-        $this->assertEquals('data:image/png;base64,YmluYXJ5IGRhdGE=', $favicons[0]['url']);
+        $this->assertEquals('data:image/png;base64,YmluYXJ5IGRhdGE=', $favicons[0]['data_url']);
 
         $this->assertEquals(2, $favicons[1]['feed_id']);
         $this->assertEquals('36242b50974c41478569d66616346ee5f2ad7b6e', $favicons[1]['hash']);
         $this->assertEquals('image/gif', $favicons[1]['type']);
-        $this->assertEquals('data:image/gif;base64,c29tZSBiaW5hcnkgZGF0YQ==', $favicons[1]['url']);
+        $this->assertEquals('data:image/gif;base64,c29tZSBiaW5hcnkgZGF0YQ==', $favicons[1]['data_url']);
     }
 
     public function testGetItemsFavicons()

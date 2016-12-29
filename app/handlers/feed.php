@@ -84,7 +84,7 @@ function create_feed($user_id, $url, $download_content = false, $rtl = false, $c
         } else {
             fetch_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
 
-            if (! empty($feed_group_ids)) {
+            if (! empty($feed_group_ids) || ! empty($group_name)) {
                 Model\Group\update_feed_groups($user_id, $feed_id, $feed_group_ids, $group_name);
             }
         }

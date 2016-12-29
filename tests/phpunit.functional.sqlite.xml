@@ -1,0 +1,11 @@
+<phpunit stopOnError="true" stopOnFailure="true" colors="true">
+    <testsuites>
+        <testsuite name="Miniflux Sqlite Functional Tests">
+            <directory>functional</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <const name="API_URL" value="http://127.0.0.1/jsonrpc.php" />
+        <const name="DB_FILENAME" value="data/db.sqlite" />
+    </php>
+</phpunit>

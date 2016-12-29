@@ -141,7 +141,7 @@ function get_favicons_with_data_url($user_id)
         ->findAll();
 
     foreach ($favicons as &$favicon) {
-        $favicon['url'] = get_favicon_data_url($favicon['hash'], $favicon['type']);
+        $favicon['data_url'] = get_favicon_data_url($favicon['hash'], $favicon['type']);
     }
 
     return $favicons;

@@ -2,7 +2,7 @@ git:
   depth: 3
 
 language: php
-sudo: false
+sudo: required
 
 php:
   - 7.0
@@ -10,11 +10,23 @@ php:
   - 5.5
   - 5.4
   - 5.3
-  - hhvm
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y apache2 libapache2-mod-fastcgi
+
+install:
+  - composer install
 
 before_script:
-  - composer install
+  - ./tests/ci/install.sh
 
 script:
   - ./vendor/bin/phpunit -c tests/phpunit.unit.sqlite.xml
   - ./vendor/bin/phpunit -c tests/phpunit.unit.postgres.xml
+  - ./vendor/bin/phpunit -c tests/phpunit.functional.sqlite.xml
+  - cp ./tests/ci/config.postgres.php $TRAVIS_BUILD_DIR/config.php && ./vendor/bin/phpunit -c tests/phpunit.functional.postgres.xml
+
+after_failure:
+  - cat apache_error.log
+  - cat apache_access.log

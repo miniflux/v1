@@ -2,12 +2,14 @@
 
 require __DIR__.'/app/common.php';
 
+use JsonRPC\Exception\AccessDeniedException;
 use JsonRPC\Exception\AuthenticationFailureException;
 use JsonRPC\MiddlewareInterface;
 use JsonRPC\Server;
 use Miniflux\Handler;
 use Miniflux\Model;
 use Miniflux\Session\SessionStorage;
+use Miniflux\Validator;
 
 class AuthMiddleware implements MiddlewareInterface
 {
@@ -28,7 +30,37 @@ $procedureHandler = $server->getProcedureHandler();
 
 // Get version
 $procedureHandler->withCallback('getVersion', function () {
-    return array('version' => APP_VERSION);
+    return APP_VERSION;
+});
+
+// Create user
+$procedureHandler->withCallback('createUser', function ($username, $password, $is_admin = false) {
+    if (! SessionStorage::getInstance()->isAdmin()) {
+        throw new AccessDeniedException('Reserved to administrators');
+    }
+
+    $values = array(
+        'username' => $username,
+        'password' => $password,
+        'confirmation' => $password,
+    );
+
+    list($valid) = Validator\User\validate_creation($values);
+
+    if ($valid) {
+        return Model\User\create_user($username, $password, $is_admin);
+    }
+
+    return false;
+});
+
+// Get user
+$procedureHandler->withCallback('getUserByUsername', function ($username) {
+    if (! SessionStorage::getInstance()->isAdmin()) {
+        throw new AccessDeniedException('Reserved to administrators');
+    }
+
+    return Model\User\get_user_by_username($username);
 });
 
 // Get all feeds
@@ -46,13 +78,27 @@ $procedureHandler->withCallback('getFeeds', function () {
 // Get one feed
 $procedureHandler->withCallback('getFeed', function ($feed_id) {
     $user_id = SessionStorage::getInstance()->getUserId();
-    return Model\Feed\get_feed($user_id, $feed_id);
+    $feed = Model\Feed\get_feed($user_id, $feed_id);
+
+    if (! empty($feed)) {
+        $feed['groups'] = Model\Group\get_feed_groups($feed['id']);
+    }
+
+    return $feed;
 });
 
 // Add a new feed
-$procedureHandler->withCallback('createFeed', function ($url) {
+$procedureHandler->withCallback('createFeed', function ($url, $download_content = false, $rtl = false, $group_name = null) {
     $user_id = SessionStorage::getInstance()->getUserId();
-    list($feed_id,) = Handler\Feed\create_feed($user_id, $url);
+    list($feed_id,) = Handler\Feed\create_feed(
+        $user_id,
+        $url,
+        $download_content,
+        $rtl,
+        false,
+        array(),
+        $group_name
+    );
 
     if ($feed_id > 0) {
         return $feed_id;
@@ -62,7 +108,7 @@ $procedureHandler->withCallback('createFeed', function ($url) {
 });
 
 // Delete a feed
-$procedureHandler->withCallback('deleteFeed', function ($feed_id) {
+$procedureHandler->withCallback('removeFeed', function ($feed_id) {
     $user_id = SessionStorage::getInstance()->getUserId();
     return Model\Feed\remove_feed($user_id, $feed_id);
 });
@@ -74,9 +120,9 @@ $procedureHandler->withCallback('refreshFeed', function ($feed_id) {
 });
 
 // Get all items
-$procedureHandler->withCallback('getItems', function ($since_id = null, array $item_ids = array(), $offset = 50) {
+$procedureHandler->withCallback('getItems', function ($since_id = null, array $item_ids = array(), $limit = 50) {
     $user_id = SessionStorage::getInstance()->getUserId();
-    return Model\Item\get_items($user_id, $since_id, $item_ids, $offset);
+    return Model\Item\get_items($user_id, $since_id, $item_ids, $limit);
 });
 
 // Get one item
