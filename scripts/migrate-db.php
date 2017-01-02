@@ -22,6 +22,7 @@ $src_file = $options['sqlite-db'];
 $is_admin = isset($options['admin']) ? (int) $options['admin'] : 0;
 
 $src = new PDO('sqlite:' . $src_file);
+$src->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $dst = PicoDb\Database::getInstance('db')->getConnection();
 
 
@@ -251,6 +252,7 @@ try {
     copy_groups($dst, $user_id, $feed_ids, $groups, $feeds_groups);
 
     $dst->commit();
+    echo $user_id.PHP_EOL;
 } catch (PDOException $e) {
     $dst->rollBack();
     echo $e->getMessage().PHP_EOL;
