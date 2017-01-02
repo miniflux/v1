@@ -32,9 +32,12 @@ if (! function_exists('dom_import_simplexml')) {
     die('PHP extension required: DOM');
 }
 
-// Check PDO Sqlite
-if (! extension_loaded('pdo_sqlite')) {
+if (DB_DRIVER === 'sqlite' && ! extension_loaded('pdo_sqlite')) {
     die('PHP extension required: pdo_sqlite');
+}
+
+if (DB_DRIVER === 'postgres' && ! extension_loaded('pdo_pgsql')) {
+    die('PHP extension required: pdo_pgsql');
 }
 
 // Check extension: mbstring (simpleValidator)
