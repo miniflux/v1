@@ -9,10 +9,11 @@ use PicoDb;
 function get_connection()
 {
     $db = new PicoDb\Database(get_connection_parameters());
-    $db->getStatementHandler()->withLogging();
 
     if (DEBUG_MODE) {
-        $db->getStatementHandler()->withStopWatch();
+        $db->getStatementHandler()
+            ->withLogging()
+            ->withStopWatch();
     }
 
     if ($db->schema('\Miniflux\Schema')->check(Schema\VERSION)) {
@@ -20,7 +21,7 @@ function get_connection()
     } else {
         $errors = $db->getLogMessages();
         $nb_errors = count($errors);
-        $last_error = isset($errors[$nb_errors - 1]) ? $errors[$nb_errors - 1] : 'Unknown SQL error';
+        $last_error = isset($errors[$nb_errors - 1]) ? $errors[$nb_errors - 1] : 'Enable debug mode to have more information';
         throw new RuntimeException('Unable to migrate the database schema: '.$last_error);
     }
 }
