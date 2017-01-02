@@ -132,6 +132,36 @@ Response example:
 }
 ```
 
+### removeUser
+
+- Purpose: **Remove a user** (accessible only by administrators)
+- Parameters:
+    - **user_id** (integer)
+- Result on success: **true**
+- Result on failure: **false**
+
+Request example:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "removeUser",
+  "id": 2109613284,
+  "params": [
+    3
+  ]
+}
+```
+
+Response example:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 2109613284
+}
+```
 
 ### getUserByUsername
 

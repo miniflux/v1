@@ -45,6 +45,17 @@ class ApiTest extends BaseApiTest
         $this->getApiClient($user)->getUserByUsername('admin');
     }
 
+    public function testRemoveUser()
+    {
+        $userId = $this->getApiClient()->createUser(array(
+            'username' => 'api_test2',
+            'password' => 'test123',
+        ));
+
+        $this->assertNotFalse($userId);
+        $this->assertTrue($this->getApiClient()->removeUser($userId));
+    }
+
     public function testCreateFeed()
     {
         $this->assertNotFalse($this->getApiClient()->createFeed(array(

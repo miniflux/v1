@@ -63,6 +63,15 @@ $procedureHandler->withCallback('getUserByUsername', function ($username) {
     return Model\User\get_user_by_username($username);
 });
 
+// Remove user
+$procedureHandler->withCallback('removeUser', function ($user_id) {
+    if (! SessionStorage::getInstance()->isAdmin()) {
+        throw new AccessDeniedException('Reserved to administrators');
+    }
+
+    return Model\User\remove_user($user_id);
+});
+
 // Get all feeds
 $procedureHandler->withCallback('getFeeds', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
