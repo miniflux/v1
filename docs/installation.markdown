@@ -1,6 +1,14 @@
 Installation instructions
 =========================
 
+Requirements
+------------
+
+- PHP >= 5.3.3 (PHP 7.x recommended)
+- PHP extensions: ctype, dom, hash, iconv, json, xml, mbstring, pdq_sqlite/pdo_pgsql, pcre, session, SimpleXML (curl is recommended or set `allow_url_fopen=On`)
+- Sqlite 3 or Postgres >= 9.3
+- libxml2 >= 2.7.x
+
 Installation
 ------------
 

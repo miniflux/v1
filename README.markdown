@@ -30,21 +30,11 @@ Features
 - Multiple users
 - Image proxy to avoid mixed content warnings with HTTPS
 
-Requirements
-------------
-
-- Recent version of libxml2 >= 2.7.x (version 2.6.32 on Debian Lenny is not supported anymore)
-- PHP >= 5.3.3
-- PHP XML extensions (SimpleXML and DOM)
-- PHP Sqlite extension
-- cURL extension for PHP or Stream Context with `allow_url_fopen=On`
-- Iconv and mbstring extensions
-
 Documentation
 -------------
 
 - [ChangeLog](https://github.com/miniflux/miniflux/blob/master/ChangeLog)
-- [Installation](docs/installation.markdown)
+- [Installation and Requirements](docs/installation.markdown)
 - [Upgrade to a new version](docs/upgrade.markdown)
 - [Cronjob](docs/cronjob.markdown)
 - [Advanced configuration](docs/config.markdown)
