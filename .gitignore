@@ -8,6 +8,7 @@ Thumbs.db
 .*.swp
 *~
 *.lock
+!composer.lock
 .idea
 .buildpath
 .project

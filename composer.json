@@ -12,6 +12,8 @@
         "optimize-autoloader": true
     },
     "require": {
+        "php" : ">=5.3.3",
+        "ext-mbstring" : "*",
         "fguillot/simple-validator": "v1.0.0",
         "fguillot/json-rpc": "v1.2.3",
         "fguillot/picodb": "v1.0.14 ",

@@ -21,8 +21,6 @@ Dockerfile export-ignore
 **/README.* export-ignore
 
 # composer files
-composer.json export-ignore
-composer.lock export-ignore
 vendor/composer/installed.json export-ignore
 
 # binaries

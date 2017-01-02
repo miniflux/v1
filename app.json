@@ -1,0 +1,8 @@
+{
+  "name": "Miniflux",
+  "description": "Minimalist RSS Reader",
+  "repository": "https://github.com/miniflux/miniflux",
+  "logo": "https://raw.githubusercontent.com/miniflux/miniflux/master/assets/img/touch-icon-ipad-retina.png",
+  "keywords": ["rss", "feed", "atom", "minimalist", "miniflux"],
+  "addons": ["heroku-postgresql:hobby-dev"]
+}
