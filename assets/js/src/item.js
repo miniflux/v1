@@ -284,7 +284,9 @@ Miniflux.Item = (function() {
         },
         OpenOriginal: function(item) {
             var link = item.querySelector("a.original");
-            if (link) simulateMouseClick(link)
+            if (link) {
+                simulateMouseClick(link);
+            }
         },
         DownloadContent: function(item) {
             var container = document.getElementById("download-item");
@@ -299,9 +301,9 @@ Miniflux.Item = (function() {
                 var response = JSON.parse(request.responseText);
                 container.className = "";
 
-                if (response['result']) {
+                if (response.result) {
                     var content = document.getElementById("item-content");
-                    if (content) content.innerHTML = response['content'];
+                    if (content) content.innerHTML = response.content;
 
                     container.innerHTML = container.getAttribute("data-after-message");
                 }
@@ -344,7 +346,7 @@ Miniflux.Item = (function() {
                 var tag = document.querySelector(tags[i]);
 
                 if (tag) {
-                    tag.dir = tag.dir == "" ? "rtl" : "";
+                    tag.dir = tag.dir === "" ? "rtl" : "";
                 }
             }
         },
@@ -359,10 +361,10 @@ Miniflux.Item = (function() {
 
             var request = new XMLHttpRequest();
             request.onload = function() {
-                var first_run = (latest_feeds_items.length === 0);
+                var first_run = latest_feeds_items.length === 0;
                 var current_unread = false;
                 var response = JSON.parse(this.responseText);
-                var last_items_timestamps = response['last_items_timestamps'];
+                var last_items_timestamps = response.last_items_timestamps;
 
                 for (var i = 0; i < last_items_timestamps.length; i++) {
                     var current_feed = last_items_timestamps[i];
@@ -374,12 +376,12 @@ Miniflux.Item = (function() {
                     }
                 }
 
-                Miniflux.App.Log('first_run: ' + first_run + ', current_unread: ' + current_unread + ', response.nbUnread: ' + response['nbUnread'] + ', nbUnreadItems: ' + nbUnreadItems);
+                Miniflux.App.Log('first_run: ' + first_run + ', current_unread: ' + current_unread + ', response.nbUnread: ' + response.nbUnread + ', nbUnreadItems: ' + nbUnreadItems);
 
-                if (! document.hidden && (response['nb_unread_items'] !== nbUnreadItems || unreadItems)) {
+                if (! document.hidden && (response.nb_unread_items !== nbUnreadItems || unreadItems)) {
                     Miniflux.App.Log('Counter changed! Updating unread counter.');
                     unreadItems = false;
-                    nbUnreadItems = response['nb_unread_items'];
+                    nbUnreadItems = response.nb_unread_items;
                     updateCounters();
                 }
                 else if (document.hidden && ! first_run && current_unread) {

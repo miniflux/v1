@@ -22,7 +22,7 @@
         <link rel="apple-touch-icon" sizes="144x144" href="assets/img/touch-icon-ipad-retina.png">
 
         <link href="<?php echo Miniflux\Helper\css() ?>" rel="stylesheet" media="screen">
-        <script type="text/javascript" src="assets/js/all.js?<?php echo filemtime('assets/js/all.js') ?>" defer></script>
+        <script type="text/javascript" src="assets/js/app.min.js?<?php echo filemtime('assets/js/app.min.js') ?>" defer></script>
     </head>
     <body>
         <header>

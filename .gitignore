@@ -17,6 +17,7 @@ Thumbs.db
 *.sublime-workspace
 .nbproject
 nbproject
+node_modules
 config.php
 !app/helpers/*
 !app/models/*

@@ -114,9 +114,12 @@ Miniflux.Nav = (function() {
         },
         ToggleMenuMore: function () {
             var menu = document.getElementById("menu-more");
-            menu.hasAttribute("class")
-                ? menu.removeAttribute("class")
-                : menu.setAttribute("class", "hide");
+
+            if (menu.hasAttribute("class")) {
+                menu.removeAttribute("class");
+            } else {
+                menu.setAttribute("class", "hide");
+            }
         },
         IsListing: isListing
     };

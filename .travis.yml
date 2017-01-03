@@ -20,8 +20,10 @@ install:
 
 before_script:
   - ./tests/ci/install.sh
+  - npm install
 
 script:
+  - ./node_modules/.bin/jshint assets/js/src/*.js
   - ./vendor/bin/phpunit -c tests/phpunit.unit.sqlite.xml
   - ./vendor/bin/phpunit -c tests/phpunit.unit.postgres.xml
   - ./vendor/bin/phpunit -c tests/phpunit.functional.sqlite.xml

@@ -9,7 +9,7 @@
 .PHONY: sync-locales
 .PHONY: find-locales
 
-JS_FILE = assets/js/all.js
+JS_FILE = assets/js/app.min.js
 CONTAINER = miniflux
 IMAGE = miniflux/miniflux
 TAG = latest
@@ -28,13 +28,14 @@ docker-run:
 
 js: $(JS_FILE)
 
-$(JS_FILE): assets/js/app.js \
-    assets/js/feed.js \
-    assets/js/item.js \
-    assets/js/event.js \
-    assets/js/nav.js
-	@ echo "/* AUTO GENERATED FILE, DO NOT MODIFY THIS FILE, USE 'make js' */" > $@
-	@ cat $^ >> $@
+$(JS_FILE): assets/js/src/app.js \
+	assets/js/src/feed.js \
+	assets/js/src/item.js \
+	assets/js/src/event.js \
+	assets/js/src/nav.js
+	@ yarn install || npm install
+	@ ./node_modules/.bin/jshint assets/js/src/*.js
+	@ cat $^ | node_modules/.bin/uglifyjs - > $@
 	@ echo "Miniflux.App.Run();" >> $@
 
 # Build a new archive: make archive version=1.2.3 dst=/tmp

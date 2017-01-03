@@ -12,5 +12,7 @@ composer.json
 composer.lock
 CONTRIBUTORS.md
 docker-compose.yml
+node_modules
+package.json
 Makefile
 README.markdown

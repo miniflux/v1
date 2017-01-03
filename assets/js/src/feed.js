@@ -6,6 +6,8 @@ Miniflux.Feed = (function() {
     // Number of concurrent requests when updating all feeds
     var queue_length = 5;
 
+    var updateInterval = null;
+
     return {
         Update: function(feed, callback) {
             var itemsCounter = feed.querySelector("span.items-count");
@@ -25,8 +27,8 @@ Miniflux.Feed = (function() {
                 if (lastChecked) lastChecked.innerHTML = lastChecked.getAttribute("data-after-update");
 
                 var response = JSON.parse(this.responseText);
-                if (response['result']) {
-                    itemsCounter.innerHTML = response['items_count']['items_unread'] + "/" + response['items_count']['items_total'];
+                if (response.result) {
+                    itemsCounter.innerHTML = response.items_count.items_unread + "/" + response.items_count.items_total;
                 } else {
                     feed.setAttribute("data-feed-error", "1");
                 }
@@ -50,22 +52,22 @@ Miniflux.Feed = (function() {
                 queue_length = nb_concurrent_requests;
             }
 
-            var interval = setInterval(function() {
+            updateInterval = setInterval(function() {
                 while (feeds.length > 0 && queue.length < queue_length) {
                     var feed = feeds.shift();
                     queue.push(parseInt(feed.getAttribute('data-feed-id'), 10));
-
-                    Miniflux.Feed.Update(feed, function(response) {
-                        var index = queue.indexOf(response['feed_id']);
-                        if (index >= 0) queue.splice(index, 1);
-
-                        if (feeds.length === 0 && queue.length === 0) {
-                            clearInterval(interval);
-                            Miniflux.Item.CheckForUpdates();
-                        }
-                    });
+                    Miniflux.Feed.Update(feed, Miniflux.Feed.OnFeedUpdated);
                 }
             }, 100);
+        },
+        OnFeedUpdated: function(response) {
+            var index = queue.indexOf(response.feed_id);
+            if (index >= 0) queue.splice(index, 1);
+
+            if (feeds.length === 0 && queue.length === 0) {
+                clearInterval(updateInterval);
+                Miniflux.Item.CheckForUpdates();
+            }
         }
     };
 })();

@@ -10,7 +10,7 @@ Miniflux.Event = (function() {
 
         // Do not handle events when there is a focus in form fields
         var target = e.target || e.srcElement;
-        return !!(target.tagName === 'INPUT' || target.tagName === 'TEXTAREA');
+        return target.tagName === 'INPUT' || target.tagName === 'TEXTAREA';
     }
 
     return {
@@ -58,22 +58,34 @@ Miniflux.Event = (function() {
                             Miniflux.Feed.UpdateAll(e.target.getAttribute("data-concurrent-requests"));
                             break;
                         case 'refresh-feed':
-                            currentItem && Miniflux.Feed.Update(currentItem);
+                            if (currentItem) {
+                                Miniflux.Feed.Update(currentItem);
+                            }
                             break;
                         case 'mark-read':
-                            currentItem && Miniflux.Item.MarkAsRead(currentItem);
+                            if (currentItem) {
+                                Miniflux.Item.MarkAsRead(currentItem);
+                            }
                             break;
                         case 'mark-unread':
-                            currentItem && Miniflux.Item.MarkAsUnread(currentItem);
+                            if (currentItem) {
+                                Miniflux.Item.MarkAsUnread(currentItem);
+                            }
                             break;
                         case 'mark-removed':
-                            currentItem && Miniflux.Item.MarkAsRemoved(currentItem);
+                            if (currentItem) {
+                                Miniflux.Item.MarkAsRemoved(currentItem);
+                            }
                             break;
                         case 'bookmark':
-                            currentItem && Miniflux.Item.SwitchBookmark(currentItem);
+                            if (currentItem) {
+                                Miniflux.Item.SwitchBookmark(currentItem);
+                            }
                             break;
                         case 'download-item':
-                            currentItem && Miniflux.Item.DownloadContent(currentItem);
+                            if (currentItem) {
+                                Miniflux.Item.DownloadContent(currentItem);
+                            }
                             break;
                         case 'mark-feed-read':
                             var feed_id = document.getElementById('listing').getAttribute('data-feed-id');
@@ -150,7 +162,9 @@ Miniflux.Event = (function() {
                     switch (e.key || e.which) {
                         case 'd':
                         case 100:
-                            currentItem && Miniflux.Item.DownloadContent(currentItem);
+                            if (currentItem) {
+                                Miniflux.Item.DownloadContent(currentItem);
+                            }
                             break;
                         case 'p':
                         case 112:
@@ -166,19 +180,27 @@ Miniflux.Event = (function() {
                             break;
                         case 'v':
                         case 118:
-                            currentItem && Miniflux.Item.OpenOriginal(currentItem);
+                            if (currentItem) {
+                                Miniflux.Item.OpenOriginal(currentItem);
+                            }
                             break;
                         case 'o':
                         case 111:
-                            currentItem && Miniflux.Item.Show(currentItem);
+                            if (currentItem) {
+                                Miniflux.Item.Show(currentItem);
+                            }
                             break;
                         case 'm':
                         case 109:
-                            currentItem && Miniflux.Item.SwitchStatus(currentItem);
+                            if (currentItem) {
+                                Miniflux.Item.SwitchStatus(currentItem);
+                            }
                             break;
                         case 'f':
                         case 102:
-                            currentItem && Miniflux.Item.SwitchBookmark(currentItem);
+                            if (currentItem) {
+                                Miniflux.Item.SwitchBookmark(currentItem);
+                            }
                             break;
                         case 'h':
                         case 104:
@@ -261,8 +283,10 @@ Miniflux.Event = (function() {
         ListenTouchEvents: function() {
             var touches = null;
             var resetTouch = function () {
-              touches && touches.element && (touches.element.style.opacity = 1);
-              touches && touches.element && (touches.element.style.transform = "");
+              if (touches && touches.element) {
+                  touches.element.style.opacity = 1;
+                  touches.element.style.transform = "";
+              }
               touches = {
                 "touchstart": {"x":-1, "y":-1},
                 "touchmove" : {"x":-1, "y":-1},
@@ -274,7 +298,7 @@ Miniflux.Event = (function() {
             };
             var horizontalSwipe = function () {
               if((touches.touchstart.x > -1 && touches.touchmove.x > -1 &&
-                ((touches.touchmove.x - touches.touchstart.x) > 30 | touches.swipestarted) &&
+                ((touches.touchmove.x - touches.touchstart.x) > 30 || touches.swipestarted) &&
                  Math.abs(touches.touchmove.y - touches.touchstart.y) < 75)) {
                      touches.swipestarted = true;
                      return touches.touchmove.x - touches.touchstart.x;
@@ -334,7 +358,9 @@ Miniflux.Event = (function() {
                           element = getTouchElement();
                           swipedistance = horizontalSwipe();
                           if(swipedistance > 75) {
-                              element && Miniflux.Item.MarkAsRead(element);
+                              if (element) {
+                                  Miniflux.Item.MarkAsRead(element);
+                              }
                               if(!element.getAttribute("data-hide")){
                                   resetTouch();
                               }
