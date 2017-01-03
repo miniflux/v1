@@ -7,6 +7,7 @@ Miniflux.Feed = (function() {
     var queue_length = 5;
 
     var updateInterval = null;
+    var feeds = [];
 
     return {
         Update: function(feed, callback) {
@@ -45,14 +46,14 @@ Miniflux.Feed = (function() {
             request.send();
         },
         UpdateAll: function(nb_concurrent_requests) {
-            var feeds = Array.prototype.slice.call(document.querySelectorAll("article:not([data-feed-disabled])"));
+            feeds = Array.prototype.slice.call(document.querySelectorAll("article:not([data-feed-disabled])"));
 
             // Check if a custom amount of concurrent requests was defined
             if (nb_concurrent_requests) {
                 queue_length = nb_concurrent_requests;
             }
 
-            updateInterval = setInterval(function() {
+            updateInterval = setInterval(function () {
                 while (feeds.length > 0 && queue.length < queue_length) {
                     var feed = feeds.shift();
                     queue.push(parseInt(feed.getAttribute('data-feed-id'), 10));
