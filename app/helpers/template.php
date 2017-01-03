@@ -47,7 +47,7 @@ function css()
         }
     }
 
-    return 'assets/css/app.css?version='.filemtime('assets/css/app.css');
+    return 'assets/css/app.min.css?version='.filemtime('assets/css/app.min.css');
 }
 
 function format_bytes($size, $precision = 2)

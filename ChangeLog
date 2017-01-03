@@ -19,6 +19,7 @@ Version 1.2.0 (unreleased)
 * Add functional tests (Json-RPC API and Fever API)
 * Add unit tests
 * Minify Javascript and add automated syntax check on the CI
+* Minify CSS
 
 Migration procedure from 1.1.x to 1.2.0:
 
