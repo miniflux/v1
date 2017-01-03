@@ -90,7 +90,7 @@ class FaviconModelTest extends BaseTest
         $this->assertCreateFeed($this->buildFeed());
 
         self::$functions
-            ->expects($this->any())
+            ->expects($this->once())
             ->method('file_put_contents')
             ->with(
                 $this->stringEndsWith('data/favicons/57978a20204f7af6967571041c79d907a8a8072c.png'),

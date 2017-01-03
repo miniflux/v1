@@ -31,6 +31,15 @@ function store_favicon($mime_type, $blob)
     }
 
     $hash = sha1($blob);
+    $favicon_id = Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('hash', $hash)
+        ->findOneColumn('id');
+
+    if ($favicon_id) {
+        return $favicon_id;
+    }
+
     if (file_put_contents(get_favicon_filename($hash, $mime_type), $blob) === false) {
         return false;
     }
