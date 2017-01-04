@@ -32,6 +32,7 @@ Router\post_action('profile', function () {
         $new_password = empty($values['password']) ? null : $values['password'];
         if (Model\User\update_user($user_id, $values['username'], $new_password)) {
             SessionStorage::getInstance()->setFlashMessage(t('Your preferences are updated.'));
+            SessionStorage::getInstance()->setUser(Model\User\get_user_by_id($user_id));
         } else {
             SessionStorage::getInstance()->setFlashErrorMessage(t('Unable to update your preferences.'));
         }
