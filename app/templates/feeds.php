@@ -49,7 +49,7 @@
                     <?php endif ?>
 
                     <span class="feed-parsing-error">
-                            <?php echo t('An error occurred during the last check: "%s".', $feed['parsing_error_message']) ?>
+                        <?php echo t('An error occurred during the last check: "%s".', $feed['parsing_error_message']) ?>
                     </span>
 
                 <?php endif ?>

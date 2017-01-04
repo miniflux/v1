@@ -115,8 +115,9 @@ Router\post_action('refresh-feed', function () {
     $feed_id = Request\int_param('feed_id', 0);
 
     Response\json(array(
-        'feed_id' => $feed_id,
-        'result' => Handler\Feed\update_feed($user_id, $feed_id),
+        'feed_id'     => $feed_id,
+        'result'      => Handler\Feed\update_feed($user_id, $feed_id),
+        'feed'        => Model\Feed\get_feed($user_id, $feed_id),
         'items_count' => Model\ItemFeed\count_items_by_status($user_id, $feed_id),
     ));
 });

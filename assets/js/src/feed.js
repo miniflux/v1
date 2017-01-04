@@ -25,13 +25,20 @@ Miniflux.Feed = (function() {
                 feed.removeAttribute("data-feed-error");
 
                 var lastChecked = feed.querySelector(".feed-last-checked");
-                if (lastChecked) lastChecked.innerHTML = lastChecked.getAttribute("data-after-update");
+                if (lastChecked) {
+                    lastChecked.innerHTML = lastChecked.getAttribute("data-after-update");
+                }
 
                 var response = JSON.parse(this.responseText);
                 if (response.result) {
                     itemsCounter.innerHTML = response.items_count.items_unread + "/" + response.items_count.items_total;
                 } else {
                     feed.setAttribute("data-feed-error", "1");
+
+                    var errorMessageElement = feed.querySelector(".feed-parsing-error");
+                    if (errorMessageElement) {
+                        errorMessageElement.innerHTML = response.feed.parsing_error_message;
+                    }
                 }
 
                 if (callback) {
