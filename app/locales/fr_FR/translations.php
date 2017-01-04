@@ -251,4 +251,7 @@ return array(
     'Edit' => 'Modifier',
     'The user id required' => 'L\'ID de l\'utilisateur est obligatoire',
     'The username must be unique' => 'Le nom d\'utilisateur doit être unique',
+    'Current Password' => 'Mot de passe actuel',
+    'New Password' => 'Nouveau mot de passe',
+    'Wrong password' => 'Mauvais mot de passe',
 );

@@ -23,13 +23,16 @@
             <?php echo Miniflux\Helper\form_hidden('id', $values) ?>
 
             <?php echo Miniflux\Helper\form_label(t('Username'), 'username') ?>
-            <?php echo Miniflux\Helper\form_text('username', $values, $errors, array('required')) ?><br/>
+            <?php echo Miniflux\Helper\form_text('username', $values, $errors, array('required')) ?>
 
-            <?php echo Miniflux\Helper\form_label(t('Password'), 'password') ?>
-            <?php echo Miniflux\Helper\form_password('password', $values, $errors) ?><br/>
+            <?php echo Miniflux\Helper\form_label(t('Current Password'), 'current_password') ?>
+            <?php echo Miniflux\Helper\form_password('current_password', $values, $errors, array('required')) ?>
+
+            <?php echo Miniflux\Helper\form_label(t('New Password'), 'password') ?>
+            <?php echo Miniflux\Helper\form_password('password', $values, $errors) ?>
 
             <?php echo Miniflux\Helper\form_label(t('Confirmation'), 'confirmation') ?>
-            <?php echo Miniflux\Helper\form_password('confirmation', $values, $errors) ?><br/>
+            <?php echo Miniflux\Helper\form_password('confirmation', $values, $errors) ?>
         </div>
 
         <div class="form-actions">

@@ -10,6 +10,26 @@ use PicoDb\Database;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
 
+function validate_profile_modification($user_id, array $values)
+{
+    list($result, $errors) = validate_modification($values);
+
+    if ($result) {
+        $user = UserModel\get_user_by_id($user_id);
+        $password = ! empty($values['current_password']) ? $values['current_password'] : '';
+
+        if (! password_verify($password, $user['password'])) {
+            $result = false;
+            $errors['current_password'][] = t('Wrong password');
+        }
+    }
+
+    return array(
+        $result,
+        $errors,
+    );
+}
+
 function validate_modification(array $values)
 {
     $v = new Validator($values, array(

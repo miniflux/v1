@@ -251,4 +251,7 @@ return array(
     'Edit' => 'Bearbeiten',
     'The user id required' => 'Die Benutzer-ID wird benötigt',
     'The username must be unique' => 'Der Benutzername muss einmalig sein',
+    // 'Current Password' => '',
+    // 'New Password' => '',
+    // 'Wrong password' => '',
 );

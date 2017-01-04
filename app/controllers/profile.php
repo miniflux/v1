@@ -26,7 +26,7 @@ Router\post_action('profile', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
     $values = Request\values();
     Helper\check_csrf_values($values);
-    list($valid, $errors) = Validator\User\validate_modification($values);
+    list($valid, $errors) = Validator\User\validate_profile_modification($user_id, $values);
 
     if ($valid) {
         $new_password = empty($values['password']) ? null : $values['password'];
