@@ -4,6 +4,7 @@ require __DIR__.'/../app/common.php';
 
 use Miniflux\Handler;
 use Miniflux\Model;
+use Miniflux\Session\SessionStorage;
 
 register_shutdown_function(function () {
     Miniflux\Helper\write_debug_file();
@@ -35,6 +36,10 @@ function auth()
     $api_key = isset($_POST['api_key']) && ctype_alnum($_POST['api_key']) ? $_POST['api_key'] : null;
     $user = Model\User\get_user_by_token('fever_api_key', $api_key);
     $authenticated = $user !== null;
+
+    if ($authenticated) {
+        SessionStorage::getInstance()->setUser($user);
+    }
 
     $response = array(
         'api_version' => 3,
