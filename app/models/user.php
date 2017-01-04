@@ -3,6 +3,7 @@
 namespace Miniflux\Model\User;
 
 use PicoDb\Database;
+use Miniflux\Model;
 use Miniflux\Helper;
 
 const TABLE = 'users';
@@ -43,6 +44,7 @@ function update_user($user_id, $username, $password = null, $is_admin = null)
 
     if ($password !== null) {
         $values['password'] = password_hash($password, PASSWORD_BCRYPT);
+        Model\RememberMe\remove_user_sessions($user_id);
     }
 
     if ($is_admin !== null) {

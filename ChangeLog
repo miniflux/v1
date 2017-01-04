@@ -14,6 +14,7 @@ Version 1.2.0 (unreleased)
 * Show last parsing error message in user interface
 * Disable automatically a feed after too many failures
 * Add support for Expires and Cache-Control headers (HTTP cache)
+* Flush all user remember me sessions when changing password
 * Update Docker image to Ubuntu 16.04 and PHP 7.0
 * Add Docker compose file
 * Add functional tests (Json-RPC API and Fever API)

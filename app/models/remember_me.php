@@ -87,6 +87,14 @@ function cleanup()
         ->remove();
 }
 
+function remove_user_sessions($user_id)
+{
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->remove();
+}
+
 function update($token)
 {
     $new_sequence = Helper\generate_token();
