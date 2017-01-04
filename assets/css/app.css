@@ -323,8 +323,8 @@ ul#grouplist li {
     color: #333;
     border: 1px solid #ccc;
     background: #efefef;
-    padding: 5px 15px;
-    font-size: 90%;
+    padding: 3px 8px;
+    font-size: 1.1em;
     cursor: pointer;
     border-radius: 2px;
 }
