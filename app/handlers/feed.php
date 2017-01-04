@@ -63,6 +63,7 @@ function fetch_feed($url, $download_content = false, $etag = '', $last_modified 
 function create_feed($user_id, $url, $download_content = false, $rtl = false, $cloak_referrer = false, array $feed_group_ids = array(), $group_name = null)
 {
     $feed_id = null;
+    $url = trim($url);
     list($feed, $resource, $error_message) = fetch_feed($url, $download_content);
 
     if ($feed !== null) {
