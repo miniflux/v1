@@ -1,7 +1,7 @@
 # used to remove files from deployment using `git archive`
 
 # version number
-common.php export-subst
+app/constants.php export-subst
 
 # git files
 .dockerignore export-ignore
