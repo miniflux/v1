@@ -1,5 +1,5 @@
-Version 1.2.0 (unreleased)
--------------
+Version 1.2.0 (Jan 5 2017)
+--------------------------
 
 * Major change to the database structure to have a single database for multiple users
 * Web access token for the cronjob
