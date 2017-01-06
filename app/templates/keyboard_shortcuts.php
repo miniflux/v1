@@ -19,5 +19,6 @@
         <li><?php echo t('Toggle RTL mode') ?> = <strong>z</strong></li>
         <li><?php echo t('Show help') ?> = <strong>?</strong></li>
         <li><?php echo t('Close help') ?> = <strong>q</strong></li>
+        <li><?php echo t('Search') ?> = <strong>/</strong></li>
     </ul>
 </div>

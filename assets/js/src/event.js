@@ -251,20 +251,10 @@ Miniflux.Event = (function() {
                     case 39:
                         Miniflux.Nav.SelectNextItem();
                         break;
-                }
-            };
-
-            document.onkeyup = function(e) {
-
-                if (isEventIgnored(e)) {
-                    return;
-                }
-
-                Miniflux.Event.lastEventType = "keyboard";
-
-                switch (e.key || e.which) {
                     case '/':
-                    case 47:
+                    case 191:
+                        e.preventDefault();
+                        e.stopPropagation();
                         Miniflux.Nav.ShowSearch();
                         break;
                 }
