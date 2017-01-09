@@ -82,8 +82,11 @@ define('DEBUG_MODE', false);
 // DEBUG_FILENAME => default is data/debug.log
 define('DEBUG_FILENAME', DATA_DIRECTORY.'/debug.log');
 
-// THEME_DIRECTORY => default is themes
+// Theme folder on the filesystem => default is themes
 define('THEME_DIRECTORY', 'themes');
+
+// Theme URL path => default is themes
+define('THEME_URL_PATH', 'themes');
 
 // SESSION_SAVE_PATH => default is empty (used to store session files in a custom directory)
 define('SESSION_SAVE_PATH', '');

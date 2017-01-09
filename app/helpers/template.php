@@ -41,9 +41,10 @@ function css()
 
     if ($theme !== 'original') {
         $css_file = THEME_DIRECTORY.'/'.$theme.'/css/app.css';
+        $css_url = THEME_URL_PATH.'/'.$theme.'/css/app.css';
 
         if (file_exists($css_file)) {
-            return $css_file.'?version='.filemtime($css_file);
+            return $css_url.'?version='.filemtime($css_file);
         }
     }
 
