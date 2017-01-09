@@ -26,6 +26,17 @@ $src->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $dst = PicoDb\Database::getInstance('db')->getConnection();
 
 
+function get_last_id(PDO $pdo)
+{
+    if (DB_DRIVER === 'postgres') {
+        $rq = $pdo->prepare('SELECT LASTVAL()');
+        $rq->execute();
+        return $rq->fetchColumn();
+    }
+
+    return $pdo->lastInsertId();
+}
+
 function get_settings(PDO $db)
 {
     $rq = $db->prepare('SELECT * FROM settings');
@@ -68,7 +79,7 @@ function create_user(PDO $db, array $settings, $is_admin)
         md5($settings['username'] . ':' . $settings['fever_token']),
     ));
 
-    return $db->lastInsertId();
+    return get_last_id($db);
 }
 
 function copy_settings(PDO $db, $user_id,  array $settings)
@@ -115,7 +126,7 @@ function copy_feeds(PDO $db, $user_id, array $feeds)
             isset($feed['cloak_referrer']) ? (int) $feed['cloak_referrer'] : 0,
         ));
 
-        $feed_ids[$feed['id']] = $db->lastInsertId();
+        $feed_ids[$feed['id']] = get_last_id($db);
     }
 
     return $feed_ids;
@@ -171,7 +182,7 @@ function copy_favicons(PDO $db, array $feed_ids, array $favicons, array $favicon
                 $favicon['type'],
             ));
 
-            $favicon_ids[$favicon['id']] = $db->lastInsertId();
+            $favicon_ids[$favicon['id']] = get_last_id($db);
         }
     }
 
@@ -205,7 +216,7 @@ function copy_groups(PDO $db, $user_id, array $feed_ids, array $groups, array $f
             $group['title'],
         ));
 
-        $group_ids[$group['id']] = $db->lastInsertId();
+        $group_ids[$group['id']] = get_last_id($db);
     }
 
     $rq = $db->prepare('INSERT INTO feeds_groups 
