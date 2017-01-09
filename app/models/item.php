@@ -24,20 +24,25 @@ function change_item_status($user_id, $item_id, $status)
         ->table(TABLE)
         ->eq('user_id', $user_id)
         ->eq('id', $item_id)
-        ->save(array('status' => $status));
+        ->update(array('status' => $status));
 }
 
-function change_items_status($user_id, $current_status, $new_status)
+function change_items_status($user_id, $current_status, $new_status, $before = null)
 {
     if (! in_array($new_status, array(STATUS_READ, STATUS_UNREAD, STATUS_REMOVED))) {
         return false;
     }
 
-    return Database::getInstance('db')
+    $query = Database::getInstance('db')
         ->table(TABLE)
         ->eq('user_id', $user_id)
-        ->eq('status', $current_status)
-        ->save(array('status' => $new_status));
+        ->eq('status', $current_status);
+
+    if ($before !== null) {
+        $query->lte('updated', $before);
+    }
+
+    return $query->update(array('status' => $new_status));
 }
 
 function change_item_ids_status($user_id, array $item_ids, $status)
@@ -54,7 +59,7 @@ function change_item_ids_status($user_id, array $item_ids, $status)
         ->table(TABLE)
         ->eq('user_id', $user_id)
         ->in('id', $item_ids)
-        ->save(array('status' => $status));
+        ->update(array('status' => $status));
 }
 
 function update_feed_items($user_id, $feed_id, array $items, $rtl = false)

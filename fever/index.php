@@ -243,13 +243,22 @@ route('write_groups', function () {
     list($user, $authenticated, $response) = auth();
 
     if ($authenticated && ctype_digit($_POST['id']) && ctype_digit($_POST['before'])) {
-        Model\ItemGroup\change_items_status(
-            $user['id'],
-            $_POST['id'],
-            Model\Item\STATUS_UNREAD,
-            Model\Item\STATUS_READ,
-            $_POST['before']
-        );
+        if ($_POST['id'] == 0) {
+            Model\Item\change_items_status(
+                $user['id'],
+                Model\Item\STATUS_UNREAD,
+                Model\Item\STATUS_READ,
+                $_POST['before']
+            );
+        } else {
+            Model\ItemGroup\change_items_status(
+                $user['id'],
+                $_POST['id'],
+                Model\Item\STATUS_UNREAD,
+                Model\Item\STATUS_READ,
+                $_POST['before']
+            );
+        }
     }
 
     response($response);
