@@ -29,10 +29,12 @@ $call_interval = get_cli_option('call-interval', $options);
 foreach (Model\User\get_all_users() as $user) {
     if ($update_interval !== null && $call_interval !== null && $limit === null && $update_interval >= $call_interval) {
         $feeds_count = Model\Feed\count_feeds($user['id']);
-        $limit = ceil($feeds_count / ($update_interval / $call_interval));
+        $current_limit = ceil($feeds_count / ($update_interval / $call_interval));
+    } else {
+        $current_limit = $limit;
     }
 
-    Handler\Feed\update_feeds($user['id'], $limit);
+    Handler\Feed\update_feeds($user['id'], $current_limit);
     Model\Item\autoflush_read($user['id']);
     Model\Item\autoflush_unread($user['id']);
     Miniflux\Helper\write_debug_file();
