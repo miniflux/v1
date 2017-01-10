@@ -19,7 +19,7 @@ function version_2(PDO $pdo)
 
 function version_1(PDO $pdo)
 {
-    $pdo->exec("CREATE TABLE users (
+    $pdo->exec('CREATE TABLE users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(50) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
@@ -31,13 +31,13 @@ function version_1(PDO $pdo)
         feed_token VARCHAR(255) NOT NULL UNIQUE,
         fever_token VARCHAR(255) NOT NULL UNIQUE,
         fever_api_key VARCHAR(255) NOT NULL UNIQUE
-    )");
+    )');
 
     $pdo->exec('CREATE TABLE user_settings (
-        "user_id" INT NOT NULL,
-        "key" VARCHAR(255) NOT NULL,
-        "value" TEXT NOT NULL,
-        PRIMARY KEY("user_id", "key"),
+        `user_id` INT NOT NULL,
+        `key` VARCHAR(255) NOT NULL,
+        `value` TEXT NOT NULL,
+        PRIMARY KEY(`user_id`, `key`),
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
     )');
 
@@ -80,7 +80,7 @@ function version_1(PDO $pdo)
         UNIQUE(feed_id, checksum)
     )');
 
-    $pdo->exec('CREATE TABLE "groups" (
+    $pdo->exec('CREATE TABLE `groups` (
         id INT AUTO_INCREMENT PRIMARY KEY, 
         user_id INT NOT NULL,
         title VARCHAR(255) NOT NULL,
@@ -88,7 +88,7 @@ function version_1(PDO $pdo)
         UNIQUE(user_id, title)
     )');
 
-    $pdo->exec('CREATE TABLE "feeds_groups" (
+    $pdo->exec('CREATE TABLE `feeds_groups` (
         feed_id BIGINT NOT NULL,
         group_id INT NOT NULL,
         PRIMARY KEY(feed_id, group_id),
@@ -102,7 +102,7 @@ function version_1(PDO $pdo)
         type VARCHAR(50)
     )');
 
-    $pdo->exec('CREATE TABLE "favicons_feeds" (
+    $pdo->exec('CREATE TABLE `favicons_feeds` (
         feed_id BIGINT NOT NULL,
         favicon_id INT NOT NULL,
         PRIMARY KEY(feed_id, favicon_id),
