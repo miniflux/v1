@@ -32,6 +32,10 @@ function get_last_id(PDO $pdo)
         $rq = $pdo->prepare('SELECT LASTVAL()');
         $rq->execute();
         return $rq->fetchColumn();
+    } elseif (DB_DRIVER === 'mysql') {
+        $rq = $pdo->prepare('SELECT LAST_INSERT_ID()');
+        $rq->execute();
+        return $rq->fetchColumn();
     }
 
     return $pdo->lastInsertId();

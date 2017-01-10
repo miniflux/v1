@@ -6,6 +6,7 @@
 .PHONY: js
 .PHONY: unit-test-sqlite
 .PHONY: unit-test-postgres
+.PHONY: unit-test-mysql
 .PHONY: sync-locales
 .PHONY: find-locales
 
@@ -58,6 +59,9 @@ unit-test-sqlite:
 
 unit-test-postgres:
 	@ ./vendor/bin/phpunit -c tests/phpunit.unit.postgres.xml
+
+unit-test-mysql:
+	@ ./vendor/bin/phpunit -c tests/phpunit.unit.mysql.xml
 
 sync-locales:
 	@ php scripts/sync-locales.php

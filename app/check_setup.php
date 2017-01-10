@@ -40,6 +40,10 @@ if (DB_DRIVER === 'postgres' && ! extension_loaded('pdo_pgsql')) {
     die('PHP extension required: pdo_pgsql');
 }
 
+if (DB_DRIVER === 'mysql' && ! extension_loaded('pdo_mysql')) {
+    die('PHP extension required: pdo_mysql');
+}
+
 // Check extension: mbstring (simpleValidator)
 if (! extension_loaded('mbstring')) {
     die('PHP extension required: mbstring');

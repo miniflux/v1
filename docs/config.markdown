@@ -12,7 +12,7 @@ To override them, rename the file `config.default.php` to `config.php`.
 Database configuration
 ----------------------
 
-By default, Miniflux uses Sqlite but Postgres is also supported.
+By default, Miniflux uses Sqlite but Postgres and mysql are also supported.
 
 ### Sqlite configuration
 
@@ -43,6 +43,26 @@ define('DB_USERNAME', 'my postgres user');
 define('DB_PASSWORD', 'my secret password');
 ```
 
+### MySQL configuration
+
+Miniflux will creates the schema automatically but not the database itself:
+
+```sql
+CREATE DATABASE miniflux;
+```
+
+The `config.php` have to be modified as well:
+
+```php
+define('DB_DRIVER', 'mysql');
+
+// Replace these values:
+define('DB_HOSTNAME', 'localhost');
+define('DB_NAME', 'miniflux');
+define('DB_USERNAME', 'my mysql user');
+define('DB_PASSWORD', 'my secret password');
+```
+
 List of parameters
 ------------------
 
@@ -64,10 +84,10 @@ define('FAVICON_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'favicons');
 // FAVICON_URL_PATH => default is data/favicons/
 define('FAVICON_URL_PATH', 'data/favicons');
 
-// Database driver: "sqlite" or "postgres", default is sqlite
+// Database driver: "sqlite", "postgres", or "mysql" default is sqlite
 define('DB_DRIVER', 'sqlite');
 
-// Database connection parameters when Postgres is used
+// Database connection parameters when Postgres or Mysql are used
 define('DB_HOSTNAME', 'localhost');
 define('DB_NAME', 'miniflux');
 define('DB_USERNAME', 'postgres');

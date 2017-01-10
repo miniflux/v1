@@ -38,6 +38,16 @@ function get_connection_parameters()
             'database' => DB_NAME,
             'port'     => DB_PORT,
         );
+    } elseif (DB_DRIVER === 'mysql') {
+        require_once __DIR__.'/../schemas/mysql.php';
+        $params = array(
+            'driver'   => 'mysql',
+            'hostname' => DB_HOSTNAME,
+            'username' => DB_USERNAME,
+            'password' => DB_PASSWORD,
+            'database' => DB_NAME,
+            'port'     => DB_PORT,
+        );
     } else {
         require_once __DIR__.'/../schemas/sqlite.php';
         $params = array(
