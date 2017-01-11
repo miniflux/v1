@@ -17,6 +17,11 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase
             $pdo->exec('DROP DATABASE '.DB_NAME);
             $pdo->exec('CREATE DATABASE '.DB_NAME.' WITH OWNER '.DB_USERNAME);
             $pdo = null;
+        } else if (DB_DRIVER === 'mysql') {
+            $pdo = new PDO('mysql:host='.DB_HOSTNAME, DB_USERNAME, DB_PASSWORD);
+            $pdo->exec('DROP DATABASE '.DB_NAME);
+            $pdo->exec('CREATE DATABASE '.DB_NAME.' WITH OWNER '.DB_USERNAME);
+            $pdo = null;
         }
 
         PicoDb\Database::setInstance('db', function () {

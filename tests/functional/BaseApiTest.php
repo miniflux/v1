@@ -16,6 +16,15 @@ abstract class BaseApiTest extends PHPUnit_Framework_TestCase
             $pdo->exec('DROP DATABASE '.DB_NAME);
             $pdo->exec('CREATE DATABASE '.DB_NAME.' WITH OWNER '.DB_USERNAME);
             $pdo = null;
+        } else if (DB_DRIVER === 'mysql') {
+            $pdo = new PDO('mysql:host='.DB_HOSTNAME, DB_USERNAME, DB_PASSWORD);
+            $stmt = $pdo->query("SELECT information_schema.processlist.id FROM information_schema.processlist WHERE information_schema.processlist.DB = '".DB_NAME."' AND id <> connection_id()");
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $pdo->exec('KILL '.$row['id']);
+            }
+            $pdo->exec('DROP DATABASE '.DB_NAME);
+            $pdo->exec('CREATE DATABASE '.DB_NAME.' WITH OWNER '.DB_USERNAME);
+            $pdo = null;
         } else if (file_exists(DB_FILENAME)) {
             unlink(DB_FILENAME);
         }
