@@ -28,10 +28,8 @@ script:
   - ./vendor/bin/phpunit -c tests/phpunit.unit.postgres.xml
   - ./vendor/bin/phpunit -c tests/phpunit.unit.mysql.xml
   - ./vendor/bin/phpunit -c tests/phpunit.functional.sqlite.xml
-  - cp ./tests/ci/config.postgres.php $TRAVIS_BUILD_DIR/config.php
   - ./vendor/bin/phpunit -c tests/phpunit.functional.postgres.xml tests/functional/ApiTest.php
   - ./vendor/bin/phpunit -c tests/phpunit.functional.postgres.xml tests/functional/FeverApiTest.php
-  - cp ./tests/ci/config.mysql.php $TRAVIS_BUILD_DIR/config.php
   - ./vendor/bin/phpunit -c tests/phpunit.functional.mysql.xml tests/functional/ApiTest.php
   - ./vendor/bin/phpunit -c tests/phpunit.functional.mysql.xml tests/functional/FeverApiTest.php
 
