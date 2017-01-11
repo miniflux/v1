@@ -8,6 +8,7 @@ fi
 
 echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 echo "always_populate_raw_post_data = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+echo "opcache.enable = 0" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
 
