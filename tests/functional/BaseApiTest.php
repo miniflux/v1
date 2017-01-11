@@ -23,7 +23,7 @@ abstract class BaseApiTest extends PHPUnit_Framework_TestCase
                 $pdo->exec('KILL '.$row['id']);
             }
             $pdo->exec('DROP DATABASE '.DB_NAME);
-            $pdo->exec('CREATE DATABASE '.DB_NAME.' WITH OWNER '.DB_USERNAME);
+            $pdo->exec('CREATE DATABASE '.DB_NAME);
             $pdo = null;
         } else if (file_exists(DB_FILENAME)) {
             unlink(DB_FILENAME);
