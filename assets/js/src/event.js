@@ -288,7 +288,7 @@ Miniflux.Event = (function() {
             };
             var horizontalSwipe = function () {
               if((touches.touchstart.x > -1 && touches.touchmove.x > -1 &&
-                ((touches.touchmove.x - touches.touchstart.x) > 30 || touches.swipestarted) &&
+                (Math.abs(touches.touchmove.x - touches.touchstart.x) > 30 || touches.swipestarted) &&
                  Math.abs(touches.touchmove.y - touches.touchstart.y) < 75)) {
                      touches.swipestarted = true;
                      return touches.touchmove.x - touches.touchstart.x;
@@ -314,15 +314,17 @@ Miniflux.Event = (function() {
                 touches.element = getTouchElement();
               }
               var swipedistance = horizontalSwipe();
-
-              if(swipedistance > 0) {
+              if(swipedistance !== 0) {
                   var element = getTouchElement();
                   if(!element) {resetTouch(); return;}
 
+                  var distance = Math.abs(swipedistance);
                   touches.element.style.opacity = 1 -
-                  ((swipedistance > 75) ? 0.9 : swipedistance/75 *0.9);
-                  touches.element.style.transform = "translateX("+
-                    (swipedistance > 75 ? 75 : swipedistance)+"px)";
+                  (distance > 75 ? 0.9 : distance / 75 * 0.9);
+
+                  var tx = swipedistance > 75 ? 75 :
+                    (swipedistance < -75 ? -75 : swipedistance);
+                  touches.element.style.transform = "translateX("+tx+"px)";
                   touches.element = element;
               }
               window.requestAnimationFrame(drawElement);
@@ -347,7 +349,7 @@ Miniflux.Event = (function() {
                           touches[e.type] = true;
                           element = getTouchElement();
                           swipedistance = horizontalSwipe();
-                          if(swipedistance > 75) {
+                          if(swipedistance > 75 || swipedistance < -75) {
                               if (element) {
                                   Miniflux.Item.MarkAsRead(element);
                               }
