@@ -20,7 +20,7 @@ class ItemModelTest extends BaseTest
         $this->assertEquals('some url', $item['url']);
         $this->assertEquals('some content', $item['content']);
         $this->assertEquals(Model\Item\STATUS_UNREAD, $item['status']);
-        $this->assertEquals(time(), $item['updated'], '', 1);
+        $this->assertEquals(time(), $item['updated'], '', 2);
         $this->assertEquals('', $item['author']);
         $this->assertEquals(0, $item['bookmark']);
         $this->assertEquals('', $item['enclosure_url']);

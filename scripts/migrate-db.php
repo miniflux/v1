@@ -23,17 +23,15 @@ $is_admin = isset($options['admin']) ? (int) $options['admin'] : 0;
 
 $src = new PDO('sqlite:' . $src_file);
 $src->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$dst = PicoDb\Database::getInstance('db')->getConnection();
+
+$db = PicoDb\Database::getInstance('db');
+$dst = $db->getConnection();
 
 
 function get_last_id(PDO $pdo)
 {
     if (DB_DRIVER === 'postgres') {
         $rq = $pdo->prepare('SELECT LASTVAL()');
-        $rq->execute();
-        return $rq->fetchColumn();
-    } elseif (DB_DRIVER === 'mysql') {
-        $rq = $pdo->prepare('SELECT LAST_INSERT_ID()');
         $rq->execute();
         return $rq->fetchColumn();
     }
@@ -86,7 +84,7 @@ function create_user(PDO $db, array $settings, $is_admin)
     return get_last_id($db);
 }
 
-function copy_settings(PDO $db, $user_id,  array $settings)
+function copy_settings(\PicoDb\Database $db, $user_id,  array $settings)
 {
     $exclude_keys = array(
         'username',
@@ -100,11 +98,13 @@ function copy_settings(PDO $db, $user_id,  array $settings)
         'auto_update_url',
     );
 
-    $rq = $db->prepare('INSERT INTO user_settings ("user_id", "key", "value") VALUES (?, ?, ?)');
-
     foreach ($settings as $key => $value) {
         if (! in_array($key, $exclude_keys)) {
-            $rq->execute(array($user_id, $key, $value ?: ''));
+            $db->table('user_settings')->insert(array(
+                'user_id' => $user_id,
+                'key'     => $key,
+                'value'   => $value ?: '',
+            ));
         }
     }
 }
@@ -252,7 +252,7 @@ try {
     $user_id = create_user($dst, $settings, $is_admin);
 
     echo '* Copy user settings'.PHP_EOL;
-    copy_settings($dst, $user_id, $settings);
+    copy_settings($db, $user_id, $settings);
 
     echo '* Copy feeds'.PHP_EOL;
     $feed_ids = copy_feeds($dst, $user_id, $feeds);

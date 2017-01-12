@@ -5,25 +5,15 @@ namespace Miniflux\Schema;
 use PDO;
 use Miniflux\Helper;
 
-const VERSION = 3;
-
-function version_3(PDO $pdo)
-{
-    $pdo->exec('ALTER TABLE feeds ADD COLUMN expiration BIGINT DEFAULT 0');
-}
-
-function version_2(PDO $pdo)
-{
-    $pdo->exec('ALTER TABLE feeds ADD COLUMN parsing_error_message VARCHAR(255)');
-}
+const VERSION = 1;
 
 function version_1(PDO $pdo)
 {
-    $pdo->exec('CREATE TABLE users (
+    $pdo->exec("CREATE TABLE users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(50) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
-        is_admin TINYINT(1) DEFAULT FALSE,
+        is_admin TINYINT(1) DEFAULT '0',
         last_login BIGINT,
         api_token VARCHAR(255) NOT NULL UNIQUE,
         bookmarklet_token VARCHAR(255) NOT NULL UNIQUE,
@@ -31,35 +21,37 @@ function version_1(PDO $pdo)
         feed_token VARCHAR(255) NOT NULL UNIQUE,
         fever_token VARCHAR(255) NOT NULL UNIQUE,
         fever_api_key VARCHAR(255) NOT NULL UNIQUE
-    )');
+    ) ENGINE=InnoDB CHARSET=utf8");
 
-    $pdo->exec('CREATE TABLE user_settings (
+    $pdo->exec("CREATE TABLE user_settings (
         `user_id` INT NOT NULL,
         `key` VARCHAR(255) NOT NULL,
         `value` TEXT NOT NULL,
         PRIMARY KEY(`user_id`, `key`),
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
-    )');
+    ) ENGINE=InnoDB CHARSET=utf8");
 
-    $pdo->exec('CREATE TABLE feeds (
+    $pdo->exec("CREATE TABLE feeds (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
         feed_url VARCHAR(255) NOT NULL,
         site_url VARCHAR(255),
         title VARCHAR(255) NOT NULL,
+        expiration BIGINT DEFAULT 0,
         last_checked BIGINT DEFAULT 0,
         last_modified VARCHAR(255),
         etag VARCHAR(255),
         enabled TINYINT(1) DEFAULT TRUE,
-        download_content TINYINT(1) DEFAULT FALSE,
+        download_content TINYINT(1) DEFAULT '0',
         parsing_error INT DEFAULT 0,
-        rtl TINYINT(1) DEFAULT FALSE,
-        cloak_referrer TINYINT(1) DEFAULT FALSE,
+        parsing_error_message VARCHAR(255),
+        rtl TINYINT(1) DEFAULT '0',
+        cloak_referrer TINYINT(1) DEFAULT '0',
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
         UNIQUE(user_id, feed_url)
-    )');
+    ) ENGINE=InnoDB CHARSET=utf8");
 
-    $pdo->exec('CREATE TABLE items (
+    $pdo->exec("CREATE TABLE items (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
         feed_id BIGINT NOT NULL,
@@ -69,48 +61,48 @@ function version_1(PDO $pdo)
         url TEXT NOT NULL,
         title TEXT NOT NULL,
         author TEXT,
-        content TEXT,
+        content LONGTEXT,
         updated BIGINT,
         enclosure_url TEXT,
         enclosure_type VARCHAR(50),
         language VARCHAR(50),
-        rtl TINYINT(1) DEFAULT FALSE,
+        rtl TINYINT(1) DEFAULT '0',
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
         FOREIGN KEY(feed_id) REFERENCES feeds(id) ON DELETE CASCADE,
         UNIQUE(feed_id, checksum)
-    )');
+    ) ENGINE=InnoDB CHARSET=utf8");
 
-    $pdo->exec('CREATE TABLE `groups` (
+    $pdo->exec("CREATE TABLE `groups` (
         id INT AUTO_INCREMENT PRIMARY KEY, 
         user_id INT NOT NULL,
         title VARCHAR(255) NOT NULL,
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
         UNIQUE(user_id, title)
-    )');
+    ) ENGINE=InnoDB CHARSET=utf8");
 
-    $pdo->exec('CREATE TABLE `feeds_groups` (
+    $pdo->exec("CREATE TABLE `feeds_groups` (
         feed_id BIGINT NOT NULL,
         group_id INT NOT NULL,
         PRIMARY KEY(feed_id, group_id),
         FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE CASCADE,
         FOREIGN KEY(feed_id) REFERENCES feeds(id) ON DELETE CASCADE
-    )');
+    ) ENGINE=InnoDB CHARSET=utf8");
 
-    $pdo->exec('CREATE TABLE favicons (
+    $pdo->exec("CREATE TABLE favicons (
         id INT AUTO_INCREMENT PRIMARY KEY,
         hash VARCHAR(255) UNIQUE,
         type VARCHAR(50)
-    )');
+    ) ENGINE=InnoDB CHARSET=utf8");
 
-    $pdo->exec('CREATE TABLE `favicons_feeds` (
+    $pdo->exec("CREATE TABLE `favicons_feeds` (
         feed_id BIGINT NOT NULL,
         favicon_id INT NOT NULL,
         PRIMARY KEY(feed_id, favicon_id),
         FOREIGN KEY(favicon_id) REFERENCES favicons(id) ON DELETE CASCADE,
         FOREIGN KEY(feed_id) REFERENCES feeds(id) ON DELETE CASCADE
-    )');
+    ) ENGINE=InnoDB CHARSET=utf8");
 
-    $pdo->exec('CREATE TABLE remember_me (
+    $pdo->exec("CREATE TABLE remember_me (
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
         ip VARCHAR(255),
@@ -120,7 +112,7 @@ function version_1(PDO $pdo)
         expiration BIGINT,
         date_creation BIGINT,
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
-    )');
+    ) ENGINE=InnoDB CHARSET=utf8");
 
     $fever_token = Helper\generate_token();
     $rq = $pdo->prepare('
