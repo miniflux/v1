@@ -5,7 +5,13 @@ namespace Miniflux\Schema;
 use PDO;
 use Miniflux\Helper;
 
-const VERSION = 3;
+const VERSION = 4;
+
+function version_4(PDO $pdo)
+{
+    $pdo->exec('ALTER TABLE feeds ALTER COLUMN feed_url TYPE TEXT');
+    $pdo->exec('ALTER TABLE feeds ALTER COLUMN site_url TYPE TEXT');
+}
 
 function version_3(PDO $pdo)
 {

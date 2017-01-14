@@ -43,8 +43,8 @@ function import_opml($user_id, $content)
     foreach ($subscriptionList->subscriptions as $subscription) {
         if (! $db->table('feeds')->eq('user_id', $user_id)->eq('feed_url', $subscription->getFeedUrl())->exists()) {
             $db->table('feeds')->insert(array(
-                'user_id' => $user_id,
-                'title' => $subscription->getTitle(),
+                'user_id'  => $user_id,
+                'title'    => $subscription->getTitle(),
                 'site_url' => $subscription->getSiteUrl(),
                 'feed_url' => $subscription->getFeedUrl(),
             ));

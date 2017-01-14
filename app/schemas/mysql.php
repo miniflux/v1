@@ -34,8 +34,8 @@ function version_1(PDO $pdo)
     $pdo->exec("CREATE TABLE feeds (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
-        feed_url VARCHAR(255) NOT NULL,
-        site_url VARCHAR(255),
+        feed_url TEXT NOT NULL,
+        site_url TEXT,
         title VARCHAR(255) NOT NULL,
         expiration BIGINT DEFAULT 0,
         last_checked BIGINT DEFAULT 0,
