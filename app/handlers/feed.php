@@ -157,8 +157,9 @@ function fetch_favicon($feed_id, $site_url, $icon_link)
 {
     if (Helper\bool_config('favicons') && ! Model\Favicon\has_favicon($feed_id)) {
         $favicon = new Favicon();
+        $icon_url = $favicon->find($site_url, $icon_link);
 
-        if ($favicon->find($site_url, $icon_link)) {
+        if (! empty($icon_url)) {
             Model\Favicon\create_feed_favicon($feed_id, $favicon->getType(), $favicon->getContent());
         }
     }
