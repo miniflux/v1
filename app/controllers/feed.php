@@ -127,20 +127,20 @@ Router\get_action('feeds', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
     $nothing_to_read = Request\int_param('nothing_to_read');
     $nb_unread_items = Model\Item\count_by_status($user_id, 'unread');
-    $feeds = Model\Feed\get_feeds_with_items_count($user_id);
+    $feeds = Model\Feed\get_feeds_with_items_count_and_groups($user_id);
 
     if ($nothing_to_read === 1 && $nb_unread_items > 0) {
         Response\redirect('?action=unread');
     }
 
     Response\html(Template\layout('feeds', array(
-        'favicons' => Model\Favicon\get_feeds_favicons($feeds),
-        'feeds' => $feeds,
+        'favicons'        => Model\Favicon\get_feeds_favicons($feeds),
+        'feeds'           => $feeds,
         'nothing_to_read' => $nothing_to_read,
         'nb_unread_items' => $nb_unread_items,
         'nb_failed_feeds' => Model\Feed\count_failed_feeds($user_id),
-        'menu' => 'feeds',
-        'title' => t('Subscriptions')
+        'menu'            => 'feeds',
+        'title'           => t('Subscriptions'),
     )));
 });
 

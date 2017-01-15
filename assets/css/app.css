@@ -514,6 +514,29 @@ nav .active a {
     visibility: hidden;
 }
 
+.feed-groups li {
+    display: inline;
+    margin-left: 0;
+}
+
+.feed-groups li a:after {
+    content: ', ';
+}
+
+.feed-groups li:last-child a:after {
+    content: '';
+}
+
+.feed-groups a {
+    color: #333;
+}
+
+.items .feed-groups a:focus,
+.items .feed-groups a:hover {
+    color: #777;
+    text-decoration: none;
+}
+
 /* items listing */
 .items article[data-feed-error] .feed-parsing-error {
     visibility: visible;

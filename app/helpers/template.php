@@ -120,3 +120,9 @@ function relative_time($timestamp, $fallback_date_format = '%e %B %Y %k:%M')
 
     return \dt($fallback_date_format, $timestamp);
 }
+
+function link($label, $action, array $params = array())
+{
+    $params['action'] = $action;
+    return sprintf('<a href="?%s">%s</a>', http_build_query($params, '', '&amp;'), escape($label));
+}

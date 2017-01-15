@@ -51,6 +51,17 @@
                     <?php echo t('An error occurred during the last check: "%s".', $feed['parsing_error_message']) ?>
                 </span>
             </h2>
+
+            <?php if (! empty($feed['groups'])): ?>
+                <ul class="feed-groups">
+                    <?php foreach ($feed['groups'] as $group): ?>
+                        <li>
+                            <?php echo Miniflux\Helper\link($group['title'], 'unread', array('group_id' => $group['id'])) ?>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+            <?php endif ?>
+
             <ul class="item-menu">
                 <li>
                     <a href="<?php echo $feed['site_url'] ?>" rel="noreferrer" target="_blank"><?php echo Miniflux\Helper\get_host_from_url($feed['site_url']) ?></a>

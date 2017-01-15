@@ -104,7 +104,7 @@ class FeedModelTest extends BaseTest
         $feed->setSiteUrl('site url');
         $this->assertEquals(2, Model\Feed\create(1, $feed, 'etag', 'last modified'));
 
-        $feeds = Model\Feed\get_feeds_with_items_count(1);
+        $feeds = Model\Feed\get_feeds_with_items_count_and_groups(1);
         $this->assertCount(2, $feeds);
 
         $this->assertEquals(1, $feeds[0]['items_unread']);

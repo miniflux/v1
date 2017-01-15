@@ -55,7 +55,7 @@ function get_feeds($user_id)
         ->findAll();
 }
 
-function get_feeds_with_items_count($user_id)
+function get_feeds_with_items_count_and_groups($user_id)
 {
     $feeds_count = array();
     $feeds = get_feeds($user_id);
@@ -82,6 +82,7 @@ function get_feeds_with_items_count($user_id)
     foreach ($feeds as &$feed) {
         $feed['items_unread'] = isset($feeds_count[$feed['id']]) ? $feeds_count[$feed['id']]['unread'] : 0;
         $feed['items_total'] = isset($feeds_count[$feed['id']]) ? $feeds_count[$feed['id']]['total'] : 0;
+        $feed['groups'] = Group\get_feed_groups($feed['id']);
     }
 
     return $feeds;
