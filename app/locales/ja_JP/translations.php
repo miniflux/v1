@@ -256,4 +256,5 @@ return array(
     // 'Current Password' => '',
     // 'New Password' => '',
     // 'Wrong password' => '',
+    // 'Duplicated feed' => '',
 );

@@ -254,4 +254,5 @@ return array(
     'Current Password' => '当前密码',
     'New Password' => '新密码',
     'Wrong password' => '密码错误',
+    // 'Duplicated feed' => '',
 );

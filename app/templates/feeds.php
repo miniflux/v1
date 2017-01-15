@@ -12,9 +12,7 @@
 </div>
 
 <?php if (empty($feeds)): ?>
-
     <p class="alert alert-info"><?php echo t('No subscription') ?></p>
-
 <?php else: ?>
 
     <?php if ($nothing_to_read): ?>
@@ -47,12 +45,11 @@
                             <?php echo t('never updated after creation') ?>
                         </span>
                     <?php endif ?>
-
-                    <span class="feed-parsing-error">
-                        <?php echo t('An error occurred during the last check: "%s".', $feed['parsing_error_message']) ?>
-                    </span>
-
                 <?php endif ?>
+
+                <span class="feed-parsing-error">
+                    <?php echo t('An error occurred during the last check: "%s".', $feed['parsing_error_message']) ?>
+                </span>
             </h2>
             <ul class="item-menu">
                 <li>

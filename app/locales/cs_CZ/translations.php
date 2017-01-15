@@ -254,4 +254,5 @@ return array(
     'Current Password' => 'Aktuální heslo',
     'New Password' => 'Nové heslo',
     'Wrong password' => 'Špatné heslo',
+    // 'Duplicated feed' => '',
 );

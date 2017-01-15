@@ -98,6 +98,10 @@ function update_feed($user_id, $feed_id)
 {
     $subscription = Model\Feed\get_feed($user_id, $feed_id);
 
+    if ($subscription['enabled'] == 0) {
+        return false;
+    }
+
     list($feed, $resource, $error_message) = fetch_feed(
         $subscription['feed_url'],
         (bool) $subscription['download_content'],
@@ -115,8 +119,14 @@ function update_feed($user_id, $feed_id)
         ));
 
         return false;
+    } else if (Model\Feed\is_duplicated_feed($user_id, $feed_id, $resource->getUrl())) {
+        Model\Feed\update_feed($user_id, $feed_id, array(
+            'enabled'               => 0,
+            'last_checked'          => time(),
+            'parsing_error'         => 1,
+            'parsing_error_message' => t('Duplicated feed'),
+        ));
     } else {
-
         Model\Feed\update_feed($user_id, $feed_id, array(
             'feed_url'              => $resource->getUrl(),
             'etag'                  => $resource->getEtag(),

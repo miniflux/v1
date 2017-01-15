@@ -254,4 +254,5 @@ return array(
     'Current Password' => 'Mot de passe actuel',
     'New Password' => 'Nouveau mot de passe',
     'Wrong password' => 'Mauvais mot de passe',
+    'Duplicated feed' => 'Abonnement dupliqué',
 );

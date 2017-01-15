@@ -168,4 +168,27 @@ class FeedModelTest extends BaseTest
         $this->assertEquals(1, Model\Feed\create(1, $feed, 'etag', 'last modified'));
         $this->assertEquals(2, Model\Feed\create(2, $feed, 'etag', 'last modified'));
     }
+
+    public function testIsDuplicatedFeed()
+    {
+        $feed = new Feed();
+        $feed->setTitle('My feed');
+        $feed->setFeedUrl('feed url');
+        $feed->setSiteUrl('site url');
+
+        $this->assertEquals(1, Model\Feed\create(1, $feed, 'etag', 'last modified'));
+
+        $feed = new Feed();
+        $feed->setTitle('My feed');
+        $feed->setFeedUrl('another feed url');
+        $feed->setSiteUrl('site url');
+
+        $this->assertEquals(2, Model\Feed\create(1, $feed, 'etag', 'last modified'));
+
+        $this->assertFalse(Model\Feed\is_duplicated_feed(1, 1, 'feed url'));
+        $this->assertTrue(Model\Feed\is_duplicated_feed(1, 1, 'another feed url'));
+
+        $this->assertFalse(Model\Feed\is_duplicated_feed(1, 2, 'another feed url'));
+        $this->assertTrue(Model\Feed\is_duplicated_feed(1, 2, 'feed url'));
+    }
 }

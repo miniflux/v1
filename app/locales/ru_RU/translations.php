@@ -254,4 +254,5 @@ return array(
     'Current Password' => 'Текущий пароль',
     'New Password' => 'Новый пароль',
     'Wrong password' => 'Неверный пароль',
+    // 'Duplicated feed' => '',
 );

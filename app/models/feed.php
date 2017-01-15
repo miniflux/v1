@@ -117,6 +117,16 @@ function get_feed($user_id, $feed_id)
         ->findOne();
 }
 
+function is_duplicated_feed($user_id, $feed_id, $feed_url)
+{
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->neq('id', $feed_id)
+        ->eq('feed_url', $feed_url)
+        ->exists();
+}
+
 function update_feed($user_id, $feed_id, array $values)
 {
     $db = Database::getInstance('db');
