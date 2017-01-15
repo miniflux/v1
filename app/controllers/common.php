@@ -50,6 +50,12 @@ Router\before(function ($action) {
     if (ENABLE_HSTS && Helper\is_secure_connection()) {
         Response\hsts();
     }
+
+    if (SessionStorage::getInstance()->isLogged()) {
+        $user_id = SessionStorage::getInstance()->getUserId();
+        Model\Item\autoflush_read($user_id);
+        Model\Item\autoflush_unread($user_id);
+    }
 });
 
 // Image proxy (avoid SSL mixed content warnings)

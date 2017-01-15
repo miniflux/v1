@@ -13,11 +13,6 @@ use Miniflux\Model;
 
 // Display unread items
 Router\get_action('unread', function () {
-    $user_id = SessionStorage::getInstance()->getUserId();
-
-    Model\Item\autoflush_read($user_id);
-    Model\Item\autoflush_unread($user_id);
-
     $params = items_list(Model\Item\STATUS_UNREAD);
 
     if ($params['nb_unread_items'] === 0) {
