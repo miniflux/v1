@@ -240,7 +240,7 @@ return array(
     'Cronjob URL' => 'URL cronjobu',
     'Do you really want to remove this user: "%s"?' => 'Opravdu chcete odstranit tohoto uživatele: "%s"',
     'Administrator' => 'Administrátor',
-    '%e %B %Y %k:%M' => '%e %B %Y %k:%M',
+    '%e %B %Y %k:%M' => '%e. %B %Y %k:%M',
     'Wallabag' => 'Wallabag',
     'Wallabag API URL' => 'Wallabag API URL',
     'Wallabag Client ID' => 'Wallabag ID klienta',
