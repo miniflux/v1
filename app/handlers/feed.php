@@ -67,6 +67,9 @@ function create_feed($user_id, $url, $download_content = false, $rtl = false, $c
     list($feed, $resource, $error_message) = fetch_feed($url, $download_content);
 
     if ($feed !== null) {
+        // Feed URL defined in XML could be wrong
+        $feed->setFeedUrl($resource->getUrl());
+
         $feed_id = Model\Feed\create(
             $user_id,
             $feed,
