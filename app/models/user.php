@@ -104,6 +104,14 @@ function get_all_users()
         ->findAll();
 }
 
+function get_all_user_ids()
+{
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->asc('id')
+        ->findAllByColumn('id');
+}
+
 function get_user_by_id($user_id)
 {
     return Database::getInstance('db')
