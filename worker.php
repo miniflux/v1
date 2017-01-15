@@ -2,6 +2,7 @@
 
 use Miniflux\Handler;
 use Miniflux\Model;
+use Miniflux\Session\SessionStorage;
 use Pheanstalk\Pheanstalk;
 
 require __DIR__.'/app/common.php';
@@ -11,12 +12,16 @@ if (php_sapi_name() !== 'cli') {
 }
 
 $connection = new Pheanstalk(BEANSTALKD_HOST);
+$session = SessionStorage::getInstance();
 
 while ($job = $connection->reserveFromTube(BEANSTALKD_QUEUE)) {
     $payload = unserialize($job->getData());
     $start_time = microtime(true);
 
     echo 'Processing feed_id=', $payload['feed_id'], ' for user_id=', $payload['user_id'];
+
+    $session->flush();
+    $session->setUser(Model\User\get_user_by_id($payload['user_id']));
 
     Handler\Feed\update_feed($payload['user_id'], $payload['feed_id']);
     Model\Item\autoflush_read($payload['user_id']);
