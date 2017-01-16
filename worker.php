@@ -19,16 +19,22 @@ while ($job = $connection->reserveFromTube(BEANSTALKD_QUEUE)) {
     $start_time = microtime(true);
 
     echo 'Processing feed_id=', $payload['feed_id'], ' for user_id=', $payload['user_id'];
+    $user = Model\User\get_user_by_id($payload['user_id']);
 
-    $session->flush();
-    $session->setUser(Model\User\get_user_by_id($payload['user_id']));
+    if (empty($user)) {
+        echo ', user not found (removed?)'.PHP_EOL;
+    } else {
+        $session->flush();
+        $session->setUser($user);
 
-    Handler\Feed\update_feed($payload['user_id'], $payload['feed_id']);
-    Model\Item\autoflush_read($payload['user_id']);
-    Model\Item\autoflush_unread($payload['user_id']);
+        Handler\Feed\update_feed($payload['user_id'], $payload['feed_id']);
+        Model\Item\autoflush_read($payload['user_id']);
+        Model\Item\autoflush_unread($payload['user_id']);
 
-    echo ', duration='.(microtime(true) - $start_time).' seconds', PHP_EOL;
+        echo ', duration='.(microtime(true) - $start_time).' seconds', PHP_EOL;
 
-    Miniflux\Helper\write_debug_file();
+        Miniflux\Helper\write_debug_file();
+    }
+
     $connection->delete($job);
 }
