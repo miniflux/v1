@@ -10,7 +10,7 @@ use PicoFeed\Logging\Logger;
 use PicoFeed\Reader\Favicon;
 use PicoFeed\Reader\Reader;
 
-function fetch_feed($url, $download_content = false, $etag = '', $last_modified = '')
+function fetch_feed($url, $download_content = false, $etag = '', $last_modified = '', array $item_urls = array())
 {
     $error_message = '';
     $feed = null;
@@ -29,6 +29,7 @@ function fetch_feed($url, $download_content = false, $etag = '', $last_modified 
 
             if ($download_content) {
                 $parser->enableContentGrabber();
+                $parser->setGrabberIgnoreUrls($item_urls);
             }
 
             $feed = $parser->execute();
@@ -100,16 +101,22 @@ function create_feed($user_id, $url, $download_content = false, $rtl = false, $c
 function update_feed($user_id, $feed_id)
 {
     $subscription = Model\Feed\get_feed($user_id, $feed_id);
+    $item_urls = array();
 
     if ($subscription['enabled'] == 0) {
         return false;
+    }
+
+    if ($subscription['download_content']) {
+        $item_urls = Model\Item\get_item_urls($user_id, $feed_id);
     }
 
     list($feed, $resource, $error_message) = fetch_feed(
         $subscription['feed_url'],
         (bool) $subscription['download_content'],
         $subscription['etag'],
-        $subscription['last_modified']
+        $subscription['last_modified'],
+        $item_urls
     );
 
     if (! empty($error_message)) {
@@ -142,7 +149,7 @@ function update_feed($user_id, $feed_id)
     }
 
     if ($feed !== null) {
-        Model\Item\update_feed_items($user_id, $feed_id, $feed->getItems(), $subscription['rtl']);
+        Model\Item\update_feed_items($user_id, $feed_id, $feed->getItems(), $subscription['rtl'], $item_urls);
         fetch_favicon($feed_id, $feed->getSiteUrl(), $feed->getIcon());
     }
 

@@ -3,7 +3,6 @@
 namespace Miniflux\Model\Item;
 
 use PicoDb\Database;
-use Miniflux\Model\Feed;
 use Miniflux\Model\Group;
 use Miniflux\Handler;
 use Miniflux\Helper;
@@ -62,7 +61,7 @@ function change_item_ids_status($user_id, array $item_ids, $status)
         ->update(array('status' => $status));
 }
 
-function update_feed_items($user_id, $feed_id, array $items, $rtl = false)
+function update_feed_items($user_id, $feed_id, array $items, $rtl = false, array $ignore_urls = array())
 {
     $items_in_feed = array();
     $db = Database::getInstance('db');
@@ -71,6 +70,7 @@ function update_feed_items($user_id, $feed_id, array $items, $rtl = false)
     foreach ($items as $item) {
         if ($item->getId() && $item->getUrl()) {
             $item_id = get_item_id_from_checksum($feed_id, $item->getId());
+
             $values = array(
                 'title'          => $item->getTitle(),
                 'url'            => $item->getUrl(),
@@ -84,6 +84,10 @@ function update_feed_items($user_id, $feed_id, array $items, $rtl = false)
             );
 
             if ($item_id > 0) {
+                if (in_array($item->getUrl(), $ignore_urls)) {
+                    unset($values['content']);
+                }
+
                 $db
                     ->table(TABLE)
                     ->eq('user_id', $user_id)
@@ -227,7 +231,7 @@ function get_item_nav($user_id, array $item, $status = array(STATUS_UNREAD), $bo
 function get_items_by_status($user_id, $status, $feed_ids = array(), $offset = null, $limit = null, $order_column = 'updated', $order_direction = 'desc')
 {
     return Database::getInstance('db')
-        ->table('items')
+        ->table(TABLE)
         ->columns(
             'items.id',
             'items.checksum',
@@ -259,7 +263,7 @@ function get_items_by_status($user_id, $status, $feed_ids = array(), $offset = n
 function get_items($user_id, $since_id = null, array $item_ids = array(), $limit = 50)
 {
     $query = Database::getInstance('db')
-        ->table('items')
+        ->table(TABLE)
         ->columns(
             'items.id',
             'items.checksum',
@@ -296,11 +300,20 @@ function get_items($user_id, $since_id = null, array $item_ids = array(), $limit
 function get_item_ids_by_status($user_id, $status)
 {
     return Database::getInstance('db')
-        ->table('items')
+        ->table(TABLE)
         ->eq('user_id', $user_id)
         ->eq('status', $status)
         ->asc('id')
         ->findAllByColumn('id');
+}
+
+function get_item_urls($user_id, $feed_id)
+{
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->eq('feed_id', $feed_id)
+        ->findAllByColumn('url');
 }
 
 function get_latest_unread_items_timestamps($user_id)
@@ -321,7 +334,7 @@ function get_latest_unread_items_timestamps($user_id)
 function count_by_status($user_id, $status, $feed_ids = array())
 {
     $query = Database::getInstance('db')
-        ->table('items')
+        ->table(TABLE)
         ->eq('user_id', $user_id)
         ->in('feed_id', $feed_ids);
 
