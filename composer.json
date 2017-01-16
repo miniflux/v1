@@ -17,7 +17,7 @@
         "fguillot/simple-validator": "v1.0.0",
         "fguillot/json-rpc": "v1.2.3",
         "fguillot/picodb": "v1.0.14 ",
-        "fguillot/picofeed": "v0.1.30",
+        "fguillot/picofeed": "v0.1.31",
         "pda/pheanstalk": "v3.1.0",
         "ircmaxell/password-compat": "^1.0.4"
     },
