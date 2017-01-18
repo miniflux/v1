@@ -242,7 +242,7 @@ return array(
     'Administrator' => '管理员',
     '%e %B %Y %k:%M' => '%e %B %Y %k:%M',
     'Wallabag' => 'Wallabag',
-    'Wallabag API URL' => 'Wallabag API URL',
+    'Wallabag URL' => 'Wallabag URL',
     'Wallabag Client ID' => 'Wallabag 客户端 ID',
     'Wallabag Client Secret' => 'Wallabag 客户端 Secret',
     'Action' => '操作',
