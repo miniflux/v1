@@ -1,3 +1,35 @@
+Version 1.2.1 (Jan 18 2017)
+---------------------------
+
+New Features:
+
+* Mysql support
+* Offer the possibility to define different URL for themes folder
+
+Improvements:
+
+* Improve Xpath query for favicons
+* Handle the fact that a user can be removed but have feeds in queue (worker)
+* Do not download items each time for feeds with content scraper enabled
+* Background jobs are not loading user settings properly
+* Allow producer to be executed only for a given user
+* Always use real URL instead XML feed URL
+* Move autoflush calls
+* Display list of groups for each subscription
+* Disable automatically duplicated feeds
+* Increase url field size for Postgres
+* Left swiping also mark item as read on mobile
+* Make import script compatible with Postgresql
+* Allow different limits for users in cronjob
+* Update to PicoFeed v0.1.31
+* Update Czech translations
+* Update zh_CN translations
+* Update ru_RU translations
+
+Bug fixes:
+
+* Marking special group "Unread" as read through Fever API does not work
+
 Version 1.2.0 (Jan 5 2017)
 --------------------------
 
