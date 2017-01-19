@@ -244,7 +244,7 @@ return array(
     // 'Administrator' => '',
     // '%e %B %Y %k:%M' => '',
     // 'Wallabag' => '',
-    // 'Wallabag API URL' => '',
+    // 'Wallabag URL' => '',
     // 'Wallabag Client ID' => '',
     // 'Wallabag Client Secret' => '',
     // 'Action' => '',
