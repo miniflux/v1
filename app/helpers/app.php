@@ -44,16 +44,20 @@ function parse_app_version($refnames, $commithash)
 
 function get_current_base_url()
 {
-    $url = is_secure_connection() ? 'https://' : 'http://';
-    $url .= $_SERVER['HTTP_HOST'];
+    if(BASE_URL) {
+        $url = BASE_URL;
+        return rtrim($url, '/') . '/';
+    } else {
+        $url = is_secure_connection() ? 'https://' : 'http://';
+        $url .= $_SERVER['HTTP_HOST'];
 
-    if (strpos($_SERVER['HTTP_HOST'], ':') === false) {
-        $url .= $_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443 ? '' : ':'.$_SERVER['SERVER_PORT'];
+        if (strpos($_SERVER['HTTP_HOST'], ':') === false) {
+            $url .= $_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443 ? '' : ':'.$_SERVER['SERVER_PORT'];
+        }
+        $url .= str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])) !== '/' ? str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])).'/' : '/';
+
+        return $url;
     }
-
-    $url .= str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])) !== '/' ? str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])).'/' : '/';
-
-    return $url;
 }
 
 function is_secure_connection()

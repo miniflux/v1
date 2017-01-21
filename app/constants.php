@@ -24,6 +24,7 @@ defined('DB_PASSWORD') or define('DB_PASSWORD', '');
 defined('DEBUG_MODE') or define('DEBUG_MODE', false);
 defined('DEBUG_FILENAME') or define('DEBUG_FILENAME', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'debug.log');
 
+defined('BASE_URL') or define('BASE_URL', '');
 defined('THEME_DIRECTORY') or define('THEME_DIRECTORY', 'themes');
 defined('THEME_URL_PATH') or define('THEME_URL_PATH', 'themes');
 defined('SESSION_SAVE_PATH') or define('SESSION_SAVE_PATH', '');
