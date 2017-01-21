@@ -18,7 +18,7 @@ define('FAVICON_URL_PATH', 'data/favicons');
 // Database driver: "sqlite", "postgres", or "mysql" default is sqlite
 define('DB_DRIVER', 'sqlite');
 
-// Database connection parameters when Postgres is used
+// Database connection parameters when Postgres or MySQL is used
 define('DB_HOSTNAME', 'localhost');
 define('DB_NAME', 'miniflux');
 define('DB_USERNAME', 'postgres');
