@@ -4,7 +4,7 @@ defined('APP_VERSION') or define('APP_VERSION', Miniflux\Helper\parse_app_versio
 
 define('HTTP_USER_AGENT', 'Miniflux (https://miniflux.net)');
 defined('HTTP_TIMEOUT') or define('HTTP_TIMEOUT', 20);
-defined('HTTP_MAX_RESPONSE_SIZE') or define('HTTP_MAX_RESPONSE_SIZE', 2097152);
+defined('HTTP_MAX_RESPONSE_SIZE') or define('HTTP_MAX_RESPONSE_SIZE', 10485760);
 
 defined('BASE_URL_DIRECTORY') or define('BASE_URL_DIRECTORY', dirname($_SERVER['PHP_SELF']));
 defined('ROOT_DIRECTORY') or define('ROOT_DIRECTORY', implode(DIRECTORY_SEPARATOR, array(__DIR__, '..')));
