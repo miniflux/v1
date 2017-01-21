@@ -73,7 +73,7 @@ Router\get_action('bookmarks', function () {
         $feed_ids
     );
 
-    Response\html(Template\layout('bookmarks', array(
+    Response\html(Template\layout('bookmarks/items', array(
         'favicons' => Model\Favicon\get_items_favicons($items),
         'original_marks_read' => Helper\config('original_marks_read'),
         'order' => '',

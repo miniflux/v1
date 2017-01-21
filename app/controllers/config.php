@@ -26,7 +26,7 @@ Router\get_action('generate-tokens', function () {
 Router\get_action('config', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
 
-    Response\html(Template\layout('config', array(
+    Response\html(Template\layout('config/preferences', array(
         'errors' => array(),
         'values' => Model\Config\get_all($user_id) + array('csrf' => Helper\generate_csrf()),
         'languages' => Model\Config\get_languages(),
@@ -61,7 +61,7 @@ Router\post_action('config', function () {
         Response\redirect('?action=config');
     }
 
-    Response\html(Template\layout('config', array(
+    Response\html(Template\layout('config/preferences', array(
         'errors' => $errors,
         'values' => Model\Config\get_all($user_id) + array('csrf' => Helper\generate_csrf()),
         'languages' => Model\Config\get_languages(),

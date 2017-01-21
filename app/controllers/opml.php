@@ -19,7 +19,7 @@ Router\get_action('export', function () {
 
 // OPML import form
 Router\get_action('import', function () {
-    Response\html(Template\layout('import', array(
+    Response\html(Template\layout('config/import', array(
         'errors' => array(),
         'menu' => 'feeds',
         'title' => t('OPML Import')

@@ -14,7 +14,7 @@ use Miniflux\Validator;
 Router\get_action('profile', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
 
-    Response\html(Template\layout('profile', array(
+    Response\html(Template\layout('users/profile', array(
         'errors' => array(),
         'values' => Model\User\get_user_by_id_without_password($user_id) + array('csrf' => Helper\generate_csrf()),
         'menu' => 'config',
@@ -40,7 +40,7 @@ Router\post_action('profile', function () {
         Response\redirect('?action=profile');
     }
 
-    Response\html(Template\layout('profile', array(
+    Response\html(Template\layout('users/profile', array(
         'errors' => $errors,
         'values' => Model\User\get_user_by_id_without_password($user_id) + array('csrf' => Helper\generate_csrf()),
         'menu' => 'config',

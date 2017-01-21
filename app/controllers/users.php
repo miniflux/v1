@@ -16,7 +16,7 @@ Router\get_action('users', function () {
         Response\text('Access Forbidden', 403);
     }
 
-    Response\html(Template\layout('users', array(
+    Response\html(Template\layout('users/list', array(
         'users'      => Model\User\get_all_users(),
         'menu'       => 'config',
         'title'      => t('Users'),
@@ -28,7 +28,7 @@ Router\get_action('new-user', function () {
         Response\text('Access Forbidden', 403);
     }
 
-    Response\html(Template\layout('new_user', array(
+    Response\html(Template\layout('users/create', array(
         'values' => array('csrf' => Helper\generate_csrf()),
         'errors' => array(),
         'menu'   => 'config',
@@ -55,7 +55,7 @@ Router\post_action('new-user', function () {
         Response\redirect('?action=users');
     }
 
-    Response\html(Template\layout('new_user', array(
+    Response\html(Template\layout('users/create', array(
         'values' => $values + array('csrf' => Helper\generate_csrf()),
         'errors' => $errors,
         'menu'   => 'config',
@@ -74,7 +74,7 @@ Router\get_action('edit-user', function () {
         Response\redirect('?action=users');
     }
 
-    Response\html(Template\layout('edit_user', array(
+    Response\html(Template\layout('users/edit', array(
         'values' => $user + array('csrf' => Helper\generate_csrf()),
         'errors' => array(),
         'menu'   => 'config',
@@ -103,7 +103,7 @@ Router\post_action('edit-user', function () {
         Response\redirect('?action=users');
     }
 
-    Response\html(Template\layout('edit_user', array(
+    Response\html(Template\layout('users/edit', array(
         'values' => $values + array('csrf' => Helper\generate_csrf()),
         'errors' => $errors,
         'menu'   => 'config',
@@ -116,7 +116,7 @@ Router\get_action('confirm-remove-user', function () {
         Response\text('Access Forbidden', 403);
     }
 
-    Response\html(Template\layout('confirm_remove_user', array(
+    Response\html(Template\layout('users/remove', array(
         'user'       => Model\User\get_user_by_id_without_password(Request\int_param('user_id')),
         'csrf_token' => Helper\generate_csrf(),
         'menu'       => 'config',

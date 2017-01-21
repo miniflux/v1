@@ -20,7 +20,7 @@ Router\get_action('unread', function () {
         Response\redirect('?action='.$action.'&nothing_to_read=1');
     }
 
-    Response\html(Template\layout('unread_items', $params + array(
+    Response\html(Template\layout('unread/items', $params + array(
         'title' => 'Miniflux (' . $params['nb_items'] . ')',
         'menu'  => 'unread',
     )));
@@ -64,7 +64,7 @@ Router\get_action('show', function () {
         $item['enclosure_url'] = Handler\Proxy\rewrite_link($item['enclosure_url']);
     }
 
-    Response\html(Template\layout('show_item', array(
+    Response\html(Template\layout('item/show', array(
         'item' => $item,
         'feed' => $feed,
         'item_nav' => isset($nav) ? $nav : null,
@@ -85,7 +85,7 @@ Router\get_action('feed-items', function () {
     $items = Model\ItemFeed\get_all_items($user_id, $feed_id, $offset, Helper\config('items_per_page'), $order, $direction);
     $nb_items = Model\ItemFeed\count_items($user_id, $feed_id);
 
-    Response\html(Template\layout('feed_items', array(
+    Response\html(Template\layout('feeds/items', array(
         'favicons' => Model\Favicon\get_favicons_by_feed_ids(array($feed['id'])),
         'original_marks_read' => Helper\config('original_marks_read'),
         'order' => $order,

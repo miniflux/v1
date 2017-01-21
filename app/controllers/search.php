@@ -22,7 +22,7 @@ Router\get_action('search', function() {
         $nb_items = Model\ItemSearch\count_items($user_id, $text);
     }
 
-    Response\html(Template\layout('search', array(
+    Response\html(Template\layout('search/items', array(
         'favicons' => Model\Favicon\get_items_favicons($items),
         'original_marks_read' => Helper\config('original_marks_read'),
         'text' => $text,

@@ -30,7 +30,7 @@
 
     <section class="items" id="listing" data-feed-id="<?php echo $feed['id'] ?>">
         <?php foreach ($items as $item): ?>
-            <?php echo Miniflux\Template\load('item', array(
+            <?php echo Miniflux\Template\load('items/item', array(
                 'feed' => $feed,
                 'item' => $item,
                 'menu' => $menu,
@@ -47,7 +47,7 @@
             <a href="?action=mark-feed-as-read&amp;feed_id=<?php echo $feed['id'] ?>" data-action="mark-feed-read"><?php echo t('mark all as read') ?></a>
         </div>
 
-        <?php echo Miniflux\Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'feed_id' => $feed['id'])) ?>
+        <?php echo Miniflux\Template\load('items/paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'feed_id' => $feed['id'])) ?>
     </section>
 
 <?php endif ?>

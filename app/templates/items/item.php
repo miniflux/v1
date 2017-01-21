@@ -83,8 +83,8 @@
             <?php endif ?>
             </li>
         <?php endif ?>
-        <?php echo Miniflux\Template\load('bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset)) ?>
-        <?php echo Miniflux\Template\load('status_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset)) ?>
+        <?php echo Miniflux\Template\load('items/bookmark_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset)) ?>
+        <?php echo Miniflux\Template\load('items/status_links', array('item' => $item, 'menu' => $menu, 'offset' => $offset)) ?>
     </ul>
     <?php if ($display_mode === 'full'): ?>
         <div class="preview-full-content" <?php echo Miniflux\Helper\rtl($item) ?>><?php echo $item['content'] ?></div>

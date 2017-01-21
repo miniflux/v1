@@ -13,7 +13,7 @@ use Miniflux\Model;
 Router\get_action('history', function () {
     $params = items_list(Model\Item\STATUS_READ);
 
-    Response\html(Template\layout('history', $params + array(
+    Response\html(Template\layout('history/items', $params + array(
         'title' => t('History') . ' (' . $params['nb_items'] . ')',
         'menu'  => 'history',
     )));
@@ -23,7 +23,7 @@ Router\get_action('history', function () {
 Router\get_action('confirm-flush-history', function () {
     $group_id = Request\int_param('group_id');
     
-    Response\html(Template\layout('confirm_flush_items', array(
+    Response\html(Template\layout('history/flush', array(
         'group_id' => $group_id,
         'menu' => 'history',
         'title' => t('Confirmation')

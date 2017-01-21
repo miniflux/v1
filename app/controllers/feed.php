@@ -30,7 +30,7 @@ Router\get_action('edit-feed', function () {
         'feed_group_ids' => Model\Group\get_feed_group_ids($feed_id)
     );
 
-    Response\html(Template\layout('edit_feed', array(
+    Response\html(Template\layout('feeds/edit', array(
         'values' => $values,
         'errors' => array(),
         'groups' => Model\Group\get_all($user_id),
@@ -64,7 +64,7 @@ Router\post_action('edit-feed', function () {
         }
     }
 
-    Response\html(Template\layout('edit_feed', array(
+    Response\html(Template\layout('feeds/edit', array(
         'values' => $values,
         'errors' => $errors,
         'groups' => Model\Group\get_all($user_id),
@@ -78,7 +78,7 @@ Router\get_action('confirm-remove-feed', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
     $feed_id = Request\int_param('feed_id');
 
-    Response\html(Template\layout('confirm_remove_feed', array(
+    Response\html(Template\layout('feeds/remove', array(
         'feed' => Model\Feed\get_feed($user_id, $feed_id),
         'menu' => 'feeds',
         'title' => t('Confirmation')
@@ -133,7 +133,7 @@ Router\get_action('feeds', function () {
         Response\redirect('?action=unread');
     }
 
-    Response\html(Template\layout('feeds', array(
+    Response\html(Template\layout('feeds/list', array(
         'favicons'        => Model\Favicon\get_feeds_favicons($feeds),
         'feeds'           => $feeds,
         'nothing_to_read' => $nothing_to_read,
@@ -155,7 +155,7 @@ Router\get_action('add', function () {
         'feed_group_ids'   => array(),
     );
 
-    Response\html(Template\layout('add', array(
+    Response\html(Template\layout('feeds/create', array(
         'values' => $values + array('csrf' => Helper\generate_csrf()),
         'errors' => array(),
         'groups' => Model\Group\get_all($user_id),
@@ -209,7 +209,7 @@ Router\action('subscribe', function () {
         SessionStorage::getInstance()->setFlashErrorMessage($error_message);
     }
 
-    Response\html(Template\layout('add', array(
+    Response\html(Template\layout('feeds/create', array(
         'values' => $values + array('csrf' => Helper\generate_csrf()),
         'groups' => Model\Group\get_all($user_id),
         'menu'   => 'feeds',

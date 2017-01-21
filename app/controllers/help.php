@@ -12,15 +12,9 @@ use Miniflux\Template;
 Router\get_action('help', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
 
-    Response\html(Template\layout('help', array(
+    Response\html(Template\layout('config/help', array(
         'config' => Model\Config\get_all($user_id),
         'menu' => 'config',
         'title' => t('Help')
     )));
 });
-
-// Show help
-Router\get_action('show-help', function () {
-    Response\html(Template\load('show_help'));
-});
-

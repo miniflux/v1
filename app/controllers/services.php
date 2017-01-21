@@ -14,7 +14,7 @@ use Miniflux\Helper;
 Router\get_action('services', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
 
-    Response\html(Template\layout('services', array(
+    Response\html(Template\layout('config/services', array(
         'errors' => array(),
         'values' => Model\Config\get_all($user_id) + array('csrf' => Helper\generate_csrf()),
         'menu' => 'config',

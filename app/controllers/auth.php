@@ -27,7 +27,7 @@ Router\get_action('login', function () {
         Response\redirect('?action=unread');
     }
 
-    Response\html(Template\load('login', array(
+    Response\html(Template\load('auth/login', array(
         'errors' => array(),
         'values' => array(
             'csrf' => Helper\generate_csrf(),
@@ -45,7 +45,7 @@ Router\post_action('login', function () {
         Response\redirect('?action=unread');
     }
 
-    Response\html(Template\load('login', array(
+    Response\html(Template\load('auth/login', array(
         'errors' => $errors,
         'values' => $values + array('csrf' => Helper\generate_csrf()),
     )));

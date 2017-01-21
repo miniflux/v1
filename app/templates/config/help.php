@@ -15,7 +15,7 @@
     </nav>
 </div>
 <section>
-    <?php echo Miniflux\Template\load('keyboard_shortcuts') ?>
+    <?php echo Miniflux\Template\load('common/keyboard_shortcuts') ?>
 </section>
 <div class="page-section">
     <h2><?php echo t('Documentation') ?></h2>

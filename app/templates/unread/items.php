@@ -1,4 +1,4 @@
-<?php echo Miniflux\Template\load('search_form') ?>
+<?php echo Miniflux\Template\load('common/search') ?>
 
 <div class="page-header">
     <h2><?php echo t('Unread') ?><span id="page-counter"><?php echo isset($nb_items) ? $nb_items : '' ?></span></h2>
@@ -29,7 +29,7 @@
         <p class="alert alert-info"><?php echo t('Nothing to read') ?></p>
     <?php else: ?>
         <?php foreach ($items as $item): ?>
-            <?php echo Miniflux\Template\load('item', array(
+            <?php echo Miniflux\Template\load('items/item', array(
                 'item' => $item,
                 'menu' => $menu,
                 'offset' => $offset,
@@ -46,6 +46,6 @@
             <a href="?action=mark-all-read<?php echo $group_id === null ? '' : '&amp;group_id='.$group_id ?>"><?php echo t('mark all as read') ?></a>
         </div>
 
-        <?php echo Miniflux\Template\load('paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'group_id' => $group_id)) ?>
+        <?php echo Miniflux\Template\load('items/paging', array('menu' => $menu, 'nb_items' => $nb_items, 'items_per_page' => $items_per_page, 'offset' => $offset, 'order' => $order, 'direction' => $direction, 'group_id' => $group_id)) ?>
     <?php endif ?>
 </section>
