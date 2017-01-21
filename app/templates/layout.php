@@ -17,6 +17,6 @@
             <?php echo $content_for_layout ?>
         </section>
 
-        <?php echo Miniflux\Template\load('config/help_layer') ?>
+        <?php echo Miniflux\Template\load('common/help') ?>
     </body>
 </html>
