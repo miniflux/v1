@@ -47,7 +47,7 @@ function get_connection_parameters()
             'password' => DB_PASSWORD,
             'database' => DB_NAME,
             'port'     => DB_PORT,
-            'charset'  => 'utf8',
+            'charset'  => 'utf8mb4',
         );
     } else {
         require_once __DIR__.'/../schemas/sqlite.php';
