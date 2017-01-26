@@ -11,6 +11,7 @@
         <li><?php echo t('Previous item') ?> = <strong>p</strong> <?php echo t('or') ?> <strong>j</strong> <?php echo t('or') ?> <strong>&#9668;</strong></li>
         <li><?php echo t('Next item') ?> = <strong>n</strong> <?php echo t('or') ?> <strong>k</strong> <?php echo t('or') ?> <strong>&#9658;</strong></li>
         <li><?php echo t('Mark as read or unread') ?> = <strong>m</strong></li>
+        <li><?php echo t('Mark all unread items as read') ?> = <strong>A</strong></li>
         <li><?php echo t('Open original link') ?> = <strong>v</strong></li>
         <li><?php echo t('Open item') ?> = <strong>o</strong></li>
         <li><?php echo t('Bookmark item') ?> = <strong>f</strong></li>

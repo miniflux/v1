@@ -4,7 +4,7 @@ Miniflux.Event = (function() {
 
     function isEventIgnored(e)
     {
-        if (e.keyCode !== 63 && e.which !== 63 && (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)) {
+        if (e.keyCode !== 63 && e.which !== 63 && (e.ctrlKey || e.altKey || e.metaKey)) {
             return true;
         }
 
@@ -160,6 +160,12 @@ Miniflux.Event = (function() {
                     }();
 
                     switch (e.key || e.which) {
+                        case 'A':
+                        case 65:
+                            if (e.shiftKey) {
+                                window.location.href='?action=mark-all-read';
+                            }
+                            break;
                         case 'd':
                         case 100:
                             if (currentItem) {

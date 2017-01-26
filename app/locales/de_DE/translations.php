@@ -89,6 +89,7 @@ return array(
     'Previous item' => 'Vorheriger Eintrag',
     'Next item' => 'Nächster Eintrag',
     'Mark as read or unread' => 'Als gelesen oder ungelesen markieren',
+    'Mark all unread items as read' => 'Alle ungelesenen Einträge als gelesen markieren',
     'Open original link' => 'Original-Link öffnen',
     'Open item' => 'Eintrag öffnen',
     'About' => 'Über',
