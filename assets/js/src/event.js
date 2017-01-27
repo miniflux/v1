@@ -182,6 +182,7 @@ Miniflux.Event = (function() {
                         case 118:
                             if (currentItem) {
                                 Miniflux.Item.OpenOriginal(currentItem);
+                                Miniflux.Nav.SelectNextItem();
                             }
                             break;
                         case 'o':
