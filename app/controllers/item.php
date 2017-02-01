@@ -17,7 +17,10 @@ Router\get_action('unread', function () {
 
     if ($params['nb_unread_items'] === 0) {
         $action = Helper\config('redirect_nothing_to_read', 'feeds');
-        Response\redirect('?action='.$action.'&nothing_to_read=1');
+
+        if ($action !== 'nowhere') {
+            Response\redirect('?action='.$action.'&nothing_to_read=1');
+        }
     }
 
     Response\html(Template\layout('unread/items', $params + array(

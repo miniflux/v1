@@ -266,4 +266,6 @@ return array(
     // 'This field is required' => '',
     // 'This value must be an integer' => '',
     // 'This text is too long (max. %d)' => '',
+    // 'Mark all unread items as read' => '',
+    // 'Do not redirect me' => '',
 );

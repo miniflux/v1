@@ -144,6 +144,7 @@ function get_nothing_to_read_redirections()
         'feeds'     => t('Subscriptions'),
         'history'   => t('History'),
         'bookmarks' => t('Bookmarks'),
+        'nowhere'   => t('Do not redirect me'),
     );
 }
 

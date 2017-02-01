@@ -93,7 +93,7 @@ return array(
     'Open item' => 'Ouvrir un élément',
     'About' => 'A propos',
     'Miniflux version:' => 'Version de Miniflux :',
-    'Nothing to read' => 'Rien à lire',
+    'Nothing to read' => 'Il n\'y a rien à lire.',
     'mark all as read' => 'tout marquer comme lu',
     'original link' => 'lien original',
     'mark as read' => 'marquer comme lu',
@@ -266,4 +266,6 @@ return array(
     'This field is required' => 'Ce champ est requis',
     'This value must be an integer' => 'Cette valeur doit être un entier',
     'This text is too long (max. %d)' => 'Ce texte est trop long (max. %d)',
+    'Mark all unread items as read' => 'Marquer tous les éléments non lus comme lus',
+    'Do not redirect me' => 'Ne pas me rediriger'
 );
