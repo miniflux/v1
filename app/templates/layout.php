@@ -9,7 +9,7 @@
         <script type="text/javascript" src="assets/js/app.min.js?<?php echo filemtime('assets/js/app.min.js') ?>" defer></script>
     </head>
     <body>
-        <?php echo Miniflux\Template\load('common/menu') ?>
+        <?php echo Miniflux\Template\load('common/menu', array('menu' => isset($menu) ? $menu : '')) ?>
 
         <section class="page" data-item-page="<?= $menu ?>">
             <?php echo Miniflux\Helper\flash('flash_message', '<div class="alert alert-success">%s</div>') ?>
