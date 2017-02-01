@@ -4,6 +4,7 @@
         <ul>
             <li><a href="?action=add"><?php echo t('add') ?></a></li>
             <li class="active"><a href="?action=feeds"><?php echo t('feeds') ?></a></li>
+            <li><a href="?action=groups"><?php echo t('groups') ?></a></li>
             <li><a href="?action=import"><?php echo t('import') ?></a></li>
             <li><a href="?action=export"><?php echo t('export') ?></a></li>
             <li><a href="?action=refresh-all" data-action="refresh-all" data-concurrent-requests="<?php echo SUBSCRIPTION_CONCURRENT_REQUESTS ?>"><?php echo t('refresh all') ?></a></li>

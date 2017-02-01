@@ -16,6 +16,33 @@ function get_all($user_id)
         ->findAll();
 }
 
+function get_group($user_id, $group_id)
+{
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->eq('id', $group_id)
+        ->findOne();
+}
+
+function remove_group($user_id, $group_id)
+{
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->eq('id', $group_id)
+        ->remove();
+}
+
+function update_group($user_id, $group_id, $title)
+{
+    return Database::getInstance('db')
+        ->table(TABLE)
+        ->eq('user_id', $user_id)
+        ->eq('id', $group_id)
+        ->update(array('title' => $title));
+}
+
 function get_groups_feed_ids($user_id)
 {
     $result = array();

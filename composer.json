@@ -63,6 +63,7 @@
             "app/models/favicon.php",
             "app/validators/config.php",
             "app/validators/feed.php",
+            "app/validators/group.php",
             "app/validators/user.php"
         ],
         "classmap": [

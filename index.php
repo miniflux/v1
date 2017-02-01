@@ -18,6 +18,7 @@ Router\bootstrap(
     'bookmark',
     'config',
     'feed',
+    'groups',
     'help',
     'history',
     'item',

@@ -40,6 +40,7 @@ class ComposerStaticInitfc88bf644a3dc0d30b5792ad2fec7895
         '785cebb801997d40232b8337459f1606' => __DIR__ . '/../..' . '/app/models/favicon.php',
         'e348a7661429e81fa0e42efff1ebfe6e' => __DIR__ . '/../..' . '/app/validators/config.php',
         '679a0a7c75414c39298328823e0be180' => __DIR__ . '/../..' . '/app/validators/feed.php',
+        'c9b6df0c6d89508a97bc5c3af8a92707' => __DIR__ . '/../..' . '/app/validators/group.php',
         'eea04c7f459daa801618b71f49a8c470' => __DIR__ . '/../..' . '/app/validators/user.php',
     );
 

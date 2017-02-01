@@ -126,3 +126,9 @@ function link($label, $action, array $params = array())
     $params['action'] = $action;
     return sprintf('<a href="?%s">%s</a>', http_build_query($params, '', '&amp;'), escape($label));
 }
+
+function button($type, $label, $action, array $params = array())
+{
+    $params['action'] = $action;
+    return sprintf('<a href="?%s" class="btn btn-%s">%s</a>', http_build_query($params, '', '&amp;'), $type, escape($label));
+}
