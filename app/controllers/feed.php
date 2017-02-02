@@ -190,6 +190,7 @@ Router\action('subscribe', function () {
         'rtl'              => 0,
         'cloak_referrer'   => 0,
         'feed_group_ids'   => array(),
+        'group_name'       => '',
     );
 
     list($feed_id, $error_message) = Handler\Feed\create_feed(
