@@ -255,4 +255,5 @@ return array(
     'New Password' => 'Új jelszó',
     'Wrong password' => 'Rossz jelszó',
     'Duplicated feed' => 'Dupla feed',
+    'Do not redirect me' => 'Ne irányíts át'
 );
