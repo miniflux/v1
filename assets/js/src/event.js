@@ -338,6 +338,7 @@ Miniflux.Event = (function() {
             };
             var touchHandler = function (e) {
                 if (typeof e.touches != 'undefined' && e.touches.length <= 1) {
+                    Miniflux.Event.lastEventType = "touch";
                     var touch = e.touches[0];
                     var swipedistance = null;
                     var element = null;
