@@ -147,14 +147,6 @@ Miniflux.Item = (function() {
     {
         var pageHeading = null;
 
-        // redirect to unread if we're on a nothing to read page
-        if (window.location.href.indexOf('nothing_to_read=1') > -1 && nbUnreadItems > 0) {
-            window.location.href = '?action=unread';
-        } // reload to get a nothing to read page
-        else if (nbPageItems  === 0) {
-            window.location.reload();
-        }
-
         var pageCounterElement = document.getElementById("page-counter");
         if (pageCounterElement) pageCounterElement.textContent = nbPageItems || '';
 
