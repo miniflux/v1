@@ -10,7 +10,7 @@ define('HTTP_MAX_RESPONSE_SIZE', 2097152);
 define('BASE_URL', '');
 
 // DATA_DIRECTORY => default is data (writable directory)
-define('DATA_DIRECTORY', 'data');
+define('DATA_DIRECTORY', __DIR__.'/data');
 
 // FAVICON_DIRECTORY => default is favicons (writable directory)
 define('FAVICON_DIRECTORY', DATA_DIRECTORY.DIRECTORY_SEPARATOR.'favicons');
