@@ -3,8 +3,8 @@
 // HTTP_TIMEOUT => default value is 20 seconds (Maximum time to fetch a feed)
 define('HTTP_TIMEOUT', '20');
 
-// HTTP_MAX_RESPONSE_SIZE => Maximum accepted size of the response body in MB (default 2MB)
-define('HTTP_MAX_RESPONSE_SIZE', 2097152);
+// HTTP_MAX_RESPONSE_SIZE => Maximum accepted size of the response body in MB (default 10MB)
+define('HTTP_MAX_RESPONSE_SIZE', 10485760);
 
 // BASE_URL => URL that clients should access this instance of miniflux from
 define('BASE_URL', '');
