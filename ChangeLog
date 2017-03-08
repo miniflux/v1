@@ -1,3 +1,22 @@
+Version 1.2.2 (Mar 7 2017)
+--------------------------
+
+* Offer the possibility to edit/delete groups
+* Add option to not redirect user when having nothing to read
+* Add hotkey Shift+A to mark all items as read
+* Add Hungarian translation
+* Add config parameter to define base URL
+* Select next unread item when opening current item
+* Show bookmark/read icons for all screen resolutions
+* Supports utf8mb4 encoding for Mysql schema
+* Fix wrong default value in config.default.php
+* Avoid infinite redirects in unread/group page
+* Do not scroll back to the top of the page after touch events
+* Avoid PHP notice when adding invalid feed with bookmarklet
+* Increase default body size to 10MB
+* Update Russian, Serbian translation
+* Reorganize templates into sub-folders
+
 Version 1.2.1 (Jan 18 2017)
 ---------------------------
 
