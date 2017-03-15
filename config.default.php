@@ -72,3 +72,59 @@ define('ENABLE_XFRAME', true);
 
 // Enable/disable HSTS HTTP header
 define('ENABLE_HSTS', true);
+
+// Reading preferences
+
+// Remove automatically read items. Values:
+// 0 - Never
+// -1 - Immediately
+// 1 - After 1 day
+// 5 - After 5 days
+// 15 - After 15 days
+// 30 - After 30 days
+define('READING_REMOVE_READ_ITEMS', 15);
+
+// Remove automatically unread items. Values:
+// 0 - Never
+// 15 - After 15 days
+// 45 - After 45 days
+// 60 - After 60 days
+define('READING_REMOVE_UNREAD_ITEMS', 45);
+
+// Items per page. Values: 10, 20, 30, 50, 100, 150, 200, 250
+define('READING_ITEMS_PER_PAGE', 100);
+
+// Default sorting order for items. Values:
+// 'asc' - Older items first
+// 'desc' - Most recent first
+define('READING_SORTING_DIRECTION', 'desc');
+
+// Display items on lists. Values:
+// 'titles' - Titles
+// 'summaries' - Summaries
+// 'full' - Full contents
+define('READING_DISPLAY_MODE', 'summaries');
+
+// Item title link. Values:
+// 'original' - Original
+// 'full' - Full contents
+define('READING_ITEM_TITLE_LINK', 'full');
+
+// When there is nothing to read, redirect me to this page. Values:
+// 'feeds' - Subscriptions
+// 'history' - History
+// 'bookmarks' - Bookmarks
+// 'nowhere' - Do not redirect me
+define('READING_NOTHING_READ_REDIRECT', 'feeds');
+
+// Refresh interval in minutes for unread counter.
+define('READING_FRONTEND_UPDATECHECK_INTERVAL', 10);
+
+// Original link marks article as read. Values: 0, 1
+define('READING_ORIGINAL_MARKS_READ', 1);
+
+// Do not fetch the content of articles. Values: 0, 1
+define('READING_NOCONTENT', 0);
+
+// Download favicons.Values: 0, 1
+define('READING_FAVICONS', 1);
