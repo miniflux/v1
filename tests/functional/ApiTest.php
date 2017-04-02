@@ -101,6 +101,50 @@ class ApiTest extends BaseApiTest
         $this->assertNotEmpty($items[0]['url']);
     }
 
+    public function testGetItemsByStatusUnread()
+    {
+        $items = $this->getApiClient()->getItemsByStatus(array('status' => 'unread'));
+        $this->assertNotEmpty($items);
+        $this->assertEquals(1, $items[0]['id']);
+        $this->assertEquals(1, $items[0]['feed_id']);
+        $this->assertNotEmpty($items[0]['title']);
+        $this->assertNotEmpty($items[0]['author']);
+        $this->assertNotEmpty($items[0]['content']);
+        $this->assertNotEmpty($items[0]['url']);
+        $this->assertEquals('unread', $items[0]['status']);
+    }
+
+    public function testGetItemsByStatusRead()
+    {
+        $items = $this->getApiClient()->getItemsByStatus(array('status' => 'read'));
+        $this->assertEmpty($items);
+    }
+
+    public function testGetItemsByFeedIds()
+    {
+        $items = $this->getApiClient()->getItemsByStatus(array(
+          'status' => 'unread',
+          'feed_ids' => array(1)
+        ));
+        $this->assertNotEmpty($items);
+        $this->assertEquals(1, $items[0]['id']);
+        $this->assertEquals(1, $items[0]['feed_id']);
+        $this->assertNotEmpty($items[0]['title']);
+        $this->assertNotEmpty($items[0]['author']);
+        $this->assertNotEmpty($items[0]['content']);
+        $this->assertNotEmpty($items[0]['url']);
+        $this->assertEquals('unread', $items[0]['status']);
+    }
+
+    public function testGetItemsByFeedIdsNonExist()
+    {
+        $items = $this->getApiClient()->getItemsByStatus(array(
+          'status' => 'unread',
+          'feed_ids' => array(2)
+        ));
+        $this->assertEmpty($items);
+    }
+
     public function testGetItemsSinceId()
     {
         $items = $this->getApiClient()->getItems(array('since_id' => 2));

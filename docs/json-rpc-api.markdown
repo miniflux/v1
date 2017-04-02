@@ -410,7 +410,7 @@ Response example:
 
 ### getItems
 
-- Purpose: **Get list o items**
+- Purpose: **Get list of items**
 - Parameters:
     - **since_id** (integer, optional) Returns only feeds from this item id
     - **item_ids** ([]integer, optional) Returns only items in this list
@@ -427,6 +427,61 @@ Request example:
   "id": 84429548,
   "params": {
     "since_id": 2
+  }
+}
+```
+
+Response example:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "id": "3",
+            "checksum": "7f4b791f",
+            "title": "Miniflux 1.1.8 released",
+            "updated": "1442016000",
+            "url": "https:\/\/miniflux.net\/news\/version-1.1.8",
+            "enclosure_url": "",
+            "enclosure_type": "",
+            "bookmark": "0",
+            "feed_id": "1",
+            "status": "unread",
+            "content": "<ul>\n<li>Add feed groups (tags)<\/li>\n<li>Add custom rules directory support<\/li>\n<li>Add no referrer policy in meta tags and content security directives<\/li>\n<li>Update of PicoFeed with new scraper rules<\/li>\n<li>Enable Strict-Transport-Security header for HTTPS<\/li>\n<li>Change CSP directives to allow data url (Fix issue with Firefox 40)<\/li>\n<li>Toggle text direction for full content preview as well<\/li>\n<li>Add Russian translation<\/li>\n<li>Updated Czech translation<\/li>\n<li>Mark items on page 2+ read as well<\/li>\n<li>Allow to override the maximum feed size limit<\/li>\n<li>Added a config option to select how many concurrent refreshes are done on the subscription page<\/li>\n<li>Catch exceptions for image proxy<\/li>\n<li>Improve CSS for preview full content<\/li>\n<li>Minor feed edit dialog improvements<\/li>\n<li>Expose all feed errors to the frontend when adding a subscription<\/li>\n<li>Keep selected options on feed adding error<\/li>\n<li>Fix bug when the summery helper doesn&#039;t contains whitespace<\/li>\n<li>Fix Fever API bug: enable send bookmark to third-party services<\/li>\n<\/ul>\n<p><strong>Thanks to all contributors!<\/strong><\/p>\n<p><a href=\"https:\/\/miniflux.net\/miniflux-1.1.8.zip\" rel=\"noreferrer\" target=\"_blank\">Download archive<\/a><\/p>",
+            "language": "",
+            "rtl": "0",
+            "author": "Fr\u00e9d\u00e9ric Guillot",
+            "site_url": "https:\/\/miniflux.net\/",
+            "feed_title": "Miniflux"
+        },
+        [..]
+    ],
+    "id":84429548
+}
+```
+### getItemsByStatus
+
+- Purpose: **Get list of items by status**
+- Parameters:
+    - **status** (string)
+    - **feed_ids** ([]integer, optional) Returns only items from this list of feeds
+    - **offset** (integer, optional) Number of offset items (used for pagination)
+    - **limit** (integer, optional, default=50) Change number of items returned
+    - **order_column** (string, optional, default='updated') Order table column
+    - **order_direction** (string, optional, default='desc') Order direction
+- Result on success: **list of item objects**
+- Result on failure: **false**
+
+Request example:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "getItems",
+  "id": 84429548,
+  "params": {
+    "status": "unread"
   }
 }
 ```

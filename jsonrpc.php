@@ -134,6 +134,12 @@ $procedureHandler->withCallback('getItems', function ($since_id = null, array $i
     return Model\Item\get_items($user_id, $since_id, $item_ids, $limit);
 });
 
+// Get items by status
+$procedureHandler->withCallback('getItemsByStatus', function ($status, array $feed_ids = array(), $offset = null, $limit = 50, $order_column = 'updated', $order_direction = 'desc') {
+    $user_id = SessionStorage::getInstance()->getUserId();
+    return Model\Item\get_items_by_status($user_id, $status, $feed_ids, $offset, $limit, $order_column, $order_direction);
+});
+
 // Get one item
 $procedureHandler->withCallback('getItem', function ($item_id) {
     $user_id = SessionStorage::getInstance()->getUserId();
