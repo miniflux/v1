@@ -271,7 +271,8 @@ return array(
     'Last checked: ' => 'Dernière vérification : ',
     'Last modified: ' => 'Dernière modification : ',
     'Expiration date: ' => 'Date d\'expiration : ',
-    'ETag: ' => 'ETag',
+    'ETag: ' => 'ETag : ',
     'None' => 'Aucun/aucune',
     'Last parsing error: ' => 'Dernière erreur d\'analyse : ',
+    'Ignore expiration date' => 'Ignorer la date d\'expiration',
 );

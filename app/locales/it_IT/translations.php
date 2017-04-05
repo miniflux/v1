@@ -274,4 +274,5 @@ return array(
     // 'ETag: ' => '',
     // 'None' => '',
     // 'Last parsing error: ' => '',
+    // 'Ignore expiration date' => '',
 );
