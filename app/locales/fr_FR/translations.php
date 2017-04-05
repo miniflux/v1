@@ -267,5 +267,11 @@ return array(
     'This value must be an integer' => 'Cette valeur doit être un entier',
     'This text is too long (max. %d)' => 'Ce texte est trop long (max. %d)',
     'Mark all unread items as read' => 'Marquer tous les éléments non lus comme lus',
-    'Do not redirect me' => 'Ne pas me rediriger'
+    'Do not redirect me' => 'Ne pas me rediriger',
+    'Last checked: ' => 'Dernière vérification : ',
+    'Last modified: ' => 'Dernière modification : ',
+    'Expiration date: ' => 'Date d\'expiration : ',
+    'ETag: ' => 'ETag',
+    'None' => 'Aucun/aucune',
+    'Last parsing error: ' => 'Dernière erreur d\'analyse : ',
 );

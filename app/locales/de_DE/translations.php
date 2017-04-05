@@ -268,4 +268,10 @@ return array(
     'This text is too long (max. %d)' => 'Dieser Text ist zu lang (maximal %d)',
     'Mark all unread items as read' => 'Alle ungelesenen Einträge als gelesen markieren',
     'Do not redirect me' => 'Leite mich nicht weiter',
+    // 'Last checked: ' => '',
+    // 'Last modified: ' => '',
+    // 'Expiration date: ' => '',
+    // 'ETag: ' => '',
+    // 'None' => '',
+    // 'Last parsing error: ' => '',
 );

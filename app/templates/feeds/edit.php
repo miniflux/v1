@@ -44,6 +44,19 @@
         <?php echo t('or') ?> <a href="?action=feeds"><?php echo t('cancel') ?></a>
     </div>
 </form>
+
+<br>
+
+<div class="panel panel-default">
+    <ul>
+        <li><?= t('Last checked: ') ?> <?= empty($values['last_checked']) ? t('Never') : dt('%e %B %Y %k:%M', $values['last_checked']) ?></li>
+        <li><?= t('Last modified: ') ?> <?= empty($values['last_modified']) ? t('Never') : dt('%e %B %Y %k:%M', $values['last_modified']) ?></li>
+        <li><?= t('Expiration date: ') ?> <?= empty($values['expiration']) ? t('Never') : dt('%e %B %Y %k:%M', $values['expiration']) ?></li>
+        <li><?= t('ETag: ') ?> <?= empty($values['etag']) ? t('None') : \Miniflux\Helper\escape($values['etag']) ?></li>
+        <li><?= t('Last parsing error: ') ?> <?= empty($values['parsing_error_message']) ? t('None') : \Miniflux\Helper\escape($values['parsing_error_message']) ?></li>
+    </ul>
+</div>
+
 <div class="form-actions">
     <a href="?action=confirm-remove-feed&amp;feed_id=<?php echo $values['id'] ?>" class="btn btn-red"><?php echo t('Remove this feed') ?></a>
 </div>

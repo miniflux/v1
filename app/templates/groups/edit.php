@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h2><?php echo t('Edt group') ?></h2>
+    <h2><?php echo t('Edit group') ?></h2>
     <nav>
         <ul>
             <li><a href="?action=add"><?php echo t('add') ?></a></li>

@@ -268,4 +268,10 @@ return array(
     'This text is too long (max. %d)' => 'Слишком длинный текст (макс. %d)',
     'Mark all unread items as read' => 'Отменить как прочитанное все непрочитанные статьи',
     'Do not redirect me' => 'Не перенаправлять меня',
+    // 'Last checked: ' => '',
+    // 'Last modified: ' => '',
+    // 'Expiration date: ' => '',
+    // 'ETag: ' => '',
+    // 'None' => '',
+    // 'Last parsing error: ' => '',
 );
