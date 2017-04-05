@@ -22,13 +22,15 @@
     <?php echo Miniflux\Helper\form_label(t('Feed URL'), 'feed_url') ?>
     <?php echo Miniflux\Helper\form_text('feed_url', $values, $errors, array('required', 'placeholder="http://..."')) ?>
 
-    <?php echo Miniflux\Helper\form_checkbox('rtl', t('Force RTL mode (Right-to-left language)'), 1, $values['rtl']) ?><br />
+    <?php echo Miniflux\Helper\form_checkbox('rtl', t('Force RTL mode (Right-to-left language)'), 1, $values['rtl']) ?><br>
 
-    <?php echo Miniflux\Helper\form_checkbox('download_content', t('Download full content'), 1, $values['download_content']) ?><br />
+    <?php echo Miniflux\Helper\form_checkbox('download_content', t('Download full content'), 1, $values['download_content']) ?><br>
 
-    <?php echo Miniflux\Helper\form_checkbox('cloak_referrer', t('Cloak the image referrer'), 1, $values['cloak_referrer']) ?><br />
+    <?php echo Miniflux\Helper\form_checkbox('cloak_referrer', t('Cloak the image referrer'), 1, $values['cloak_referrer']) ?><br>
 
-    <?php echo Miniflux\Helper\form_checkbox('enabled', t('Activated'), 1, $values['enabled']) ?><br />
+    <?php echo Miniflux\Helper\form_checkbox('ignore_expiration', t('Ignore expiration date'), 1, isset($values['ignore_expiration']) && $values['ignore_expiration'] == 1) ?><br>
+
+    <?php echo Miniflux\Helper\form_checkbox('enabled', t('Activated'), 1, $values['enabled']) ?><br>
 
     <?php echo Miniflux\Helper\form_label(t('Groups'), 'group_name'); ?>
 
@@ -49,9 +51,9 @@
 
 <div class="panel panel-default">
     <ul>
-        <li><?= t('Last checked: ') ?> <?= empty($values['last_checked']) ? t('Never') : dt('%e %B %Y %k:%M', $values['last_checked']) ?></li>
-        <li><?= t('Last modified: ') ?> <?= empty($values['last_modified']) ? t('Never') : dt('%e %B %Y %k:%M', $values['last_modified']) ?></li>
-        <li><?= t('Expiration date: ') ?> <?= empty($values['expiration']) ? t('Never') : dt('%e %B %Y %k:%M', $values['expiration']) ?></li>
+        <li><?= t('Last checked: ') ?> <?= empty($values['last_checked']) ? t('None') : dt('%e %B %Y %k:%M', $values['last_checked']) ?></li>
+        <li><?= t('Last modified: ') ?> <?= empty($values['last_modified']) ? t('None') : dt('%e %B %Y %k:%M', strtotime($values['last_modified'])) ?></li>
+        <li><?= t('Expiration date: ') ?> <?= empty($values['expiration']) ? t('None') : dt('%e %B %Y %k:%M', $values['expiration']) ?></li>
         <li><?= t('ETag: ') ?> <?= empty($values['etag']) ? t('None') : \Miniflux\Helper\escape($values['etag']) ?></li>
         <li><?= t('Last parsing error: ') ?> <?= empty($values['parsing_error_message']) ? t('None') : \Miniflux\Helper\escape($values['parsing_error_message']) ?></li>
     </ul>

@@ -142,7 +142,7 @@ function update_feed($user_id, $feed_id)
             'etag'                  => $resource->getEtag(),
             'last_modified'         => $resource->getLastModified(),
             'last_checked'          => time(),
-            'expiration'            => $resource->getExpiration()->getTimestamp(),
+            'expiration'            => $subscription['ignore_expiration'] == 1 ? 0 : $resource->getExpiration()->getTimestamp(),
             'parsing_error'         => 0,
             'parsing_error_message' => '',
         ));

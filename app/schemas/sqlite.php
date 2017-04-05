@@ -5,7 +5,12 @@ namespace Miniflux\Schema;
 use PDO;
 use Miniflux\Helper;
 
-const VERSION = 3;
+const VERSION = 4;
+
+function version_4(PDO $pdo)
+{
+    $pdo->exec('ALTER TABLE feeds ADD COLUMN ignore_expiration INTEGER DEFAULT 0');
+}
 
 function version_3(PDO $pdo)
 {

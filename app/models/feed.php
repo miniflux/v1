@@ -140,6 +140,10 @@ function update_feed($user_id, $feed_id, array $values)
         unset($feed['group_name']);
         unset($feed['feed_group_ids']);
 
+        if (isset($feed['ignore_expiration']) && $feed['ignore_expiration'] == 1) {
+            $feed['expiration'] = 0;
+        }
+
         $result = Database::getInstance('db')
                 ->table('feeds')
                 ->eq('user_id', $user_id)
