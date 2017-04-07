@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "adf4db185f22a2e00d21d278ba1fa7bc",
-    "content-hash": "98e20f0db34bd3ce534c09d7bfcf0179",
+    "hash": "2e41ff910022a7ea02922ced8ec2e1be",
+    "content-hash": "13b249b65e7dc65f4c7de72a80ee31c3",
     "packages": [
         {
             "name": "fguillot/json-rpc",
@@ -88,16 +88,16 @@
         },
         {
             "name": "fguillot/picofeed",
-            "version": "v0.1.32",
+            "version": "v0.1.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fguillot/picoFeed.git",
-                "reference": "fb20400dc8400474bf50d40976fa48beb018166b"
+                "reference": "b44f1e1fdecfd2e7f158df86a23e1ea3dfb4e16f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/fb20400dc8400474bf50d40976fa48beb018166b",
-                "reference": "fb20400dc8400474bf50d40976fa48beb018166b",
+                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/b44f1e1fdecfd2e7f158df86a23e1ea3dfb4e16f",
+                "reference": "b44f1e1fdecfd2e7f158df86a23e1ea3dfb4e16f",
                 "shasum": ""
             },
             "require": {
@@ -137,7 +137,7 @@
             ],
             "description": "Modern library to handle RSS/Atom feeds",
             "homepage": "https://github.com/fguillot/picoFeed",
-            "time": "2017-04-05 19:55:52"
+            "time": "2017-04-07 01:57:15"
         },
         {
             "name": "fguillot/simple-validator",
