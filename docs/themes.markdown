@@ -43,5 +43,6 @@ You can download them from [the official Miniflux repositories](https://github.c
 - [NoStyle by Frederic Guillot](https://github.com/miniflux/theme-nostyle)
 - [Still by Franklin Delehelle](https://github.com/miniflux/theme-still)
 - [Sun by Alexander Mangel](https://github.com/cygnusfear/miniflux-theme-sun)
+- [EvenMoreMinimalist by Lacereation](https://github.com/lacereation/minflux-theme)
 
 **PS: Those themes are maintained and tested by their respective authors.**
