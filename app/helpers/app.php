@@ -44,7 +44,7 @@ function parse_app_version($refnames, $commithash)
 
 function get_current_base_url()
 {
-    if(BASE_URL) {
+    if (BASE_URL) {
         $url = BASE_URL;
         return rtrim($url, '/') . '/';
     } else {
@@ -54,6 +54,7 @@ function get_current_base_url()
         if (strpos($_SERVER['HTTP_HOST'], ':') === false) {
             $url .= $_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443 ? '' : ':'.$_SERVER['SERVER_PORT'];
         }
+
         $url .= str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])) !== '/' ? str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])).'/' : '/';
 
         return $url;
@@ -62,7 +63,7 @@ function get_current_base_url()
 
 function is_secure_connection()
 {
-    return ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+    return (! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (! empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
 }
 
 function write_debug_file() {
