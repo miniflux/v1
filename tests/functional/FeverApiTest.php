@@ -216,7 +216,7 @@ class FeverApiTest extends BaseApiTest
     protected function createFeedAndGroups()
     {
         $this->assertNotFalse($this->getApiClient()->createFeed(array(
-            'url' => 'https://miniflux.net/feed',
+            'url' => FEED_URL,
             'group_name' => 'open source software',
         )));
     }

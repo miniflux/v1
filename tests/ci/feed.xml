@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <generator uri="https://github.com/fguillot/picoFeed">PicoFeed</generator>
+  <title>Miniflux</title>
+  <id>https://miniflux.net/feed</id>
+  <updated>2017-05-26T22:33:10+00:00</updated>
+  <link rel="alternate" type="text/html" href="http://127.0.0.1/"/>
+  <link rel="self" type="application/atom+xml" href="https://miniflux.net/feed"/>
+  <author>
+    <name>Frédéric Guillot</name>
+    <uri>https://github.com/fguillot</uri>
+  </author>
+  <entry>
+    <id>https://miniflux.net/news/version-1.2.2</id>
+    <title>Miniflux 1.2.2</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.2.2"/>
+    <updated>2017-03-07T00:00:00+00:00</updated>
+    <published>2017-03-07T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<ul>
+<li>Offer the possibility to edit/delete groups</li>
+<li>Add option to not redirect user when having nothing to read</li>
+<li>Add hotkey Shift+A to mark all items as read</li>
+<li>Add Hungarian translation</li>
+<li>Add config parameter to define base URL</li>
+<li>Select next unread item when opening current item</li>
+<li>Show bookmark/read icons for all screen resolutions</li>
+<li>Supports utf8mb4 encoding for Mysql schema</li>
+<li>Fix wrong default value in config.default.php</li>
+<li>Avoid infinite redirects in unread/group page</li>
+<li>Do not scroll back to the top of the page after touch events</li>
+<li>Avoid PHP notice when adding invalid feed with bookmarklet</li>
+<li>Increase default body size to 10MB</li>
+<li>Update Russian and Serbian translation</li>
+<li>Reorganize templates into sub-folders</li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li><a href="https://miniflux.net/miniflux-1.2.2.zip">Download archive</a></li>
+<li><a href="https://miniflux.net/hosted">Try Miniflux for free</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.2.1</id>
+    <title>Miniflux 1.2.1</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.2.1"/>
+    <updated>2017-01-18T00:00:00+00:00</updated>
+    <published>2017-01-18T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<h2>New Features</h2>
+<ul>
+<li>Mysql support</li>
+<li>Offer the possibility to define different URL for themes folder</li>
+</ul>
+<h2>Improvements</h2>
+<ul>
+<li>Improve Xpath query for favicons</li>
+<li>Handle the fact that a user can be removed but have feeds in queue (worker)</li>
+<li>Do not download items each time for feeds with content scraper enabled</li>
+<li>Background jobs are not loading user settings properly</li>
+<li>Allow producer to be executed only for a given user</li>
+<li>Always use real URL instead XML feed URL</li>
+<li>Move autoflush calls</li>
+<li>Display list of groups for each subscription</li>
+<li>Disable automatically duplicated feeds</li>
+<li>Increase url field size for Postgres</li>
+<li>Left swiping also mark item as read on mobile</li>
+<li>Make import script compatible with Postgresql</li>
+<li>Allow different limits for users in cronjob</li>
+<li>Update to PicoFeed v0.1.31</li>
+<li>Update Czech translations</li>
+<li>Update zh_CN translations</li>
+<li>Update ru_RU translations</li>
+</ul>
+<h2>Bug fixes</h2>
+<ul>
+<li>Marking special group &quot;Unread&quot; as read through Fever API does not work</li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li><a href="https://miniflux.net/miniflux-1.2.1.zip">Download archive</a></li>
+<li><a href="https://miniflux.net/hosted">Try Miniflux for free</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/migration-miniflux-hosting</id>
+    <title>Migration to Miniflux 1.2 for hosted accounts</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/migration-miniflux-hosting"/>
+    <updated>2017-01-07T00:00:00+00:00</updated>
+    <published>2017-01-07T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The hosting platform is currently migrating to Miniflux 1.2.</p>
+<ul>
+<li>This is an important change because all accounts are migrated to Postgresql instead of Sqlite.</li>
+<li>The time to import your data into the new database depends on the size of your database.</li>
+<li>All favicons will be regenerated, there are thousands of feeds to refresh into the queue.</li>
+</ul>
+<p>What is changing for you?</p>
+<ul>
+<li>Everybody will use the same URL: <code>https://app.miniflux.net/</code></li>
+<li>The username and password are the same as before</li>
+<li>If you are using a mobile client with the Fever API, you must update the API URL to <code>https://app.miniflux.net/fever/</code></li>
+</ul>
+<p>If you have any problem, send an email to support@miniflux.net</p>
+<p>Thank you for your understanding</p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.2.0</id>
+    <title>Miniflux 1.2.0 released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.2.0"/>
+    <updated>2017-01-05T00:00:00+00:00</updated>
+    <published>2017-01-05T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>This version brings a major change to the Miniflux database management.</p>
+<p>Until now, Miniflux was designed to work for only one user.
+Handling multiple users was possible by using a workaround that consists to create a Sqlite database for each user.</p>
+<p>Now, the database schema and the code base have been modified to handle several users with only one database.
+Moreover, Miniflux supports Postgresql in addition to Sqlite.</p>
+<p>Using Postgres could avoid some potential issues when the concurrency on the database is too high (locking problems).
+That also facilitates the deployment of Miniflux to some cloud providers that does not allow software to store persistent data on the local file system.</p>
+<h2>ChangeLog</h2>
+<ul>
+<li>Major change to the database structure to have a single database for multiple users</li>
+<li>Web access token for the cronjob</li>
+<li>New config parameter to disable web access for the cronjob</li>
+<li>Debug mode parameter is moved to the config file</li>
+<li>The console web page has been removed</li>
+<li>Remove automatic software update from the user interface</li>
+<li>New API methods (not backward compatible)</li>
+<li>Fever API tokens are longer than before</li>
+<li>Always update feed URL to avoid useless redirection for future requests</li>
+<li>Add support for Wallabag service</li>
+<li>Show last parsing error message in user interface</li>
+<li>Disable a feed automatically after too many failures</li>
+<li>Add support for Expires and Cache-Control headers (HTTP cache)</li>
+<li>Flush all user remember me sessions when changing password</li>
+<li>Update Docker image to Ubuntu 16.04 and PHP 7.0</li>
+<li>Add Docker compose file</li>
+<li>Add functional tests (Json-RPC API and Fever API)</li>
+<li>Add unit tests</li>
+<li>Minify Javascript and add automated syntax check on the CI</li>
+<li>Minify CSS</li>
+</ul>
+<h2>Migration procedure from 1.1.x to 1.2.0</h2>
+<ol>
+<li>Install Miniflux in a separate location as your current Miniflux folder</li>
+<li>Run the import script described below for each user</li>
+</ol>
+<p>To import your old database to the new database format, use this script:</p>
+<pre><code class="language-bash">php scripts/migrate-db.php --sqlite-db=/path/to/my/db.sqlite --admin=1</code></pre>
+<ul>
+<li>This script is located in the Git repository</li>
+<li>
+<p>All username must be unique</p>
+</li>
+<li><a href="https://github.com/miniflux/miniflux/blob/master/scripts/migrate-db.php">Migration Script</a></li>
+<li><a href="https://miniflux.net/miniflux-1.2.0.zip">Download archive</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.1.10</id>
+    <title>Miniflux 1.1.10 released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.1.10"/>
+    <updated>2016-07-31T00:00:00+00:00</updated>
+    <published>2016-07-31T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>Here are the main changes of this version:</p>
+<ul>
+<li>Code cleanup</li>
+<li>Do not use anymore Closure compiler for Javascript</li>
+<li>Added the possibility to swipe to archive an item on mobile devices</li>
+<li>Make the whole menu row clickable on small screens</li>
+<li>Add API methods for groups</li>
+<li>Added Beanstalkd producer/worker</li>
+<li>Use HTTP_HOST instead of SERVER_NAME to guess hostname</li>
+<li>Run php-cs-fixer on the code base</li>
+<li>Add sorting direction link to the history section</li>
+<li>Make read/bookmark icons more usable in mobile view</li>
+<li>Record last login timestamp in the database</li>
+<li>Add japanese language</li>
+<li>Replace help window by layer</li>
+<li>Create automatically the favicon directory if missing</li>
+<li>Add group filter to history and bookmarks section</li>
+<li>Dependencies update</li>
+</ul>
+<p><strong>Thanks to all contributors!</strong></p>
+<p><a href="https://miniflux.net/miniflux-1.1.10.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.1.9</id>
+    <title>Miniflux 1.1.9 released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.1.9"/>
+    <updated>2016-02-21T00:00:00+00:00</updated>
+    <published>2016-02-21T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>Here are the main changes of this version:</p>
+<ul>
+<li>Favicons are now stored on the file system instead of the database</li>
+<li><a href="https://github.com/fguillot/picoFeed">PicoFeed</a> updated to fix several bugs</li>
+<li>More content scraper rules</li>
+<li>Use case insensitive comparison when validating the fever API key (avoid issues with some clients)</li>
+<li>Better groups navigation</li>
+<li>Add a database parameter to the bookmark feed URL</li>
+<li>Use function random_bytes() of PHP7 if available</li>
+<li>Do not show feed title/url when browsing the articles of a chosen feed</li>
+<li>Show article author if available</li>
+<li>Move item action links to the top</li>
+<li>Updated Czech translation</li>
+<li>Updated zh_CN translation</li>
+<li>Updates ru_RU translation</li>
+<li>Add Turkish translation</li>
+<li>Add items count per page: 10, 20, 30</li>
+<li>Limit the heading to one line for desktop clients</li>
+<li>Avoid orphan groups when deleting a feed</li>
+<li>Remove error flag from feed on edit</li>
+<li>Include groups into API</li>
+<li>Updated Dockerfile</li>
+</ul>
+<p><strong>Thanks to all contributors!</strong></p>
+<p><a href="https://miniflux.net/miniflux-1.1.9.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.1.8</id>
+    <title>Miniflux 1.1.8 released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.1.8"/>
+    <updated>2015-09-12T00:00:00+00:00</updated>
+    <published>2015-09-12T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<ul>
+<li>Add feed groups (tags)</li>
+<li>Add custom rules directory support</li>
+<li>Add no referrer policy in meta tags and content security directives</li>
+<li>Update of PicoFeed with new scraper rules</li>
+<li>Enable Strict-Transport-Security header for HTTPS</li>
+<li>Change CSP directives to allow data url (Fix issue with Firefox 40)</li>
+<li>Toggle text direction for full content preview as well</li>
+<li>Add Russian translation</li>
+<li>Updated Czech translation</li>
+<li>Mark items on page 2+ read as well</li>
+<li>Allow to override the maximum feed size limit</li>
+<li>Added a config option to select how many concurrent refreshes are done on the subscription page</li>
+<li>Catch exceptions for image proxy</li>
+<li>Improve CSS for preview full content</li>
+<li>Minor feed edit dialog improvements</li>
+<li>Expose all feed errors to the frontend when adding a subscription</li>
+<li>Keep selected options on feed adding error</li>
+<li>Fix bug when the summery helper doesn't contains whitespace</li>
+<li>Fix Fever API bug: enable send bookmark to third-party services</li>
+</ul>
+<p><strong>Thanks to all contributors!</strong></p>
+<p><a href="https://miniflux.net/miniflux-1.1.8.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.1.7</id>
+    <title>Miniflux 1.1.7</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.1.7"/>
+    <updated>2015-04-06T00:00:00+00:00</updated>
+    <published>2015-04-06T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<ul>
+<li>New translations: Serbian and Arabic</li>
+<li>The user interface can be displayed in Right-to-Left for Arabic language (work in progress)</li>
+<li>It's now possible to cloak the referrer for specific feeds</li>
+<li>Themes made contributors are moved outside of the archive (They can be downloaded on <a href="https://github.com/miniflux/">Github</a>)</li>
+<li>New config option to disable mark as read for original link</li>
+<li>The debug mode have to be enabled in the settings page now (console logs)</li>
+<li>Improved Image proxy (used to avoid mixed content warnings for people that use SSL)</li>
+<li>New keyboard shortcuts to navigate between articles: left and right arrows</li>
+<li>New content grabber rules</li>
+<li>Better consistency for sub-menus</li>
+<li>Use radio buttons for database selection</li>
+<li>Better favicon support, also available from the Fever API</li>
+<li>Existing translations updated</li>
+<li>Code cleanup and bug fixes</li>
+</ul>
+<p><strong>Thanks to all contributors!</strong></p>
+<p><a href="https://miniflux.net/miniflux-1.1.7.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/new-repository</id>
+    <title>New repository address for Miniflux</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/new-repository"/>
+    <updated>2015-02-07T00:00:00+00:00</updated>
+    <published>2015-02-07T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>I moved the repository to a Github organization instead of using my own account.</p>
+<ul>
+<li>New repository url: <a href="https://github.com/miniflux/miniflux">https://github.com/miniflux/miniflux</a></li>
+<li>Bug tracker url: <a href="https://github.com/miniflux/miniflux/issues">https://github.com/miniflux/miniflux/issues</a></li>
+<li>Each theme have a separate repository now: <a href="https://github.com/miniflux">https://github.com/miniflux</a></li>
+</ul>
+<p>Don't forget to change the origin url for contributors:</p>
+<pre><code class="language-bash">git remote set-url origin https://github.com/miniflux/miniflux.git</code></pre>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.1.6</id>
+    <title>Miniflux 1.1.6</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.1.6"/>
+    <updated>2015-01-10T00:00:00+00:00</updated>
+    <published>2015-01-10T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>After so many changes in the development version, it was time to release a new version:</p>
+<h2>Third-party bookmark services</h2>
+<p>It's now possible to sync Miniflux bookmarks with external services: Instapaper and Pinboard.</p>
+<p><img src="https://miniflux.net/screenshots/external-services.png" alt="External services" /></p>
+<h2>Feed reading/parsing improvements</h2>
+<ul>
+<li>Move to the last version of <a href="https://github.com/fguillot/picoFeed">PicoFeed</a> (the open source library used to parse RSS feeds)</li>
+<li>Favicons support</li>
+<li>Experimental image proxy to avoid SSL mixed content warnings (will be improved in the next release)</li>
+<li>New content grabber rules</li>
+</ul>
+<h2>Other improvements</h2>
+<ul>
+<li>Add option to flush all unread items after X days, default 45 days (avoid very large database of unread items)</li>
+<li>New keyboard shortcut to toggle the RTL mode (press the key &quot;z&quot;)</li>
+<li>Display &amp; update the number of unread items on every page with an &quot;unread items&quot; menu</li>
+<li>The Fever API can use multiple databases with Apache, read the <a href="https://miniflux.net/documentation/fever">documentation</a></li>
+<li>Move token regeneration to the advanced config section and make clear which services get a new token</li>
+<li>Add refresh link to the feed page items</li>
+<li>Integration tests with Selenium</li>
+<li>Many bug fixes and code improvements</li>
+</ul>
+<h2>Related projects</h2>
+<ul>
+<li><a href="https://github.com/repat/miniflux-embedded-android">Miniflux embedded</a> is an open source Android app for Miniflux. It's basically an embedded WebView that saves your Miniflux URL and cookies. <a href="https://play.google.com/store/apps/details?id=de.repat.embeddedminiflux">Download on the Play Store</a>.</li>
+<li><a href="https://github.com/dewey/munin-plugins/tree/master/munin-miniflux">munin-miniflux</a> is a munin wildcard plugin to draw graphs of your miniflux read and unread count.</li>
+</ul>
+<p>You can list your own projects on the Miniflux's README, just send a pull-request through Github.</p>
+<p>Special thanks to the contributor <a href="https://github.com/mkresin">Mathias Kresin</a> who make many patches and improvements to the code.</p>
+<p>Thanks to translators, contributors and everybody that give feedbacks/bug reports.</p>
+<p><a href="https://miniflux.net/miniflux-1.1.6.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.1.5</id>
+    <title>Miniflux 1.1.5</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.1.5"/>
+    <updated>2014-11-18T00:00:00+00:00</updated>
+    <published>2014-11-18T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>I just released a new version of Miniflux tonight. Here are the major improvements:</p>
+<h2>Compatibility with the Fever API</h2>
+<p>A first experimental version of the Fever API have been implemented.</p>
+<p>The goal of this feature is to be able to use existing mobile and desktop clients with Miniflux.
+It's also interesting for reading your feeds offline.</p>
+<p>The API have been tested with Reeder 2 (OSX version) and Press (Android).</p>
+<p>Here an example with Reeder 2 (desktop):</p>
+<p><img src="/screenshots/reeder2.png" alt="Reeder 2" /></p>
+<p>More information available on the <a href="/documentation/fever">Fever documentation page</a>.</p>
+<h2>Improved Right-to-Left language support</h2>
+<p>When you add a new feed or edit an existing feed you can force the RTL mode.
+The content will be displayed correctly regardless of the language specified in the RSS feed.</p>
+<p><img src="/screenshots/rtl-feeds.png" alt="RTL feeds" /></p>
+<h2>Better edit subscription page</h2>
+<p>Each subscription can be modified, disabled or removed from this page.</p>
+<p><img src="/screenshots/edit-subscription.png" alt="Edit subscription" /></p>
+<h2>Miniflux can run with Docker</h2>
+<p>A Dockerfile is available in the repository.
+You can <a href="/documentation/docker">build your own image</a> of Miniflux.</p>
+<h2>Other improvements</h2>
+<ul>
+<li>The settings page is divided into several pages (about, database, api and help)</li>
+<li>Add a Cross Site Request Forgery protection for HTML forms</li>
+<li>Google authentication have been removed because the OpenId method is now deprecated by Google</li>
+<li>Mozilla Persona authentication is removed because very few people was using that and that simplify the code base</li>
+<li>New content grabber rules:
+<ul>
+<li>degroupnews.com</li>
+<li>sitepoint.com</li>
+<li>undeadly.org</li>
+</ul></li>
+</ul>
+<p>There is also many bug fixes and code cleanup.</p>
+<p><strong>Thanks to all contributors!</strong></p>
+<p><a href="https://miniflux.net/miniflux-1.1.5.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.1.4</id>
+    <title>Miniflux 1.1.4 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.1.4"/>
+    <updated>2014-09-19T00:00:00+00:00</updated>
+    <published>2014-09-19T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>Major improvements:</p>
+<ul>
+<li>New themes: &quot;Hello&quot; and &quot;Cards&quot;</li>
+<li>The bookmarklet is protected by a random token</li>
+<li>Add a &quot;Remember Me&quot; feature</li>
+<li>New option parameter to select the display mode on item listing pages (full contents or summaries)</li>
+<li>Items are removed by an Ajax request</li>
+<li>New content scraper rules:
+<ul>
+<li>monwindowsphone.com</li>
+<li>blog.fefe.de</li>
+<li>igen.fr</li>
+<li>heise.de</li>
+</ul></li>
+<li>Bug fixes</li>
+</ul>
+<p>Note: Only the original theme is maintained by myself, other themes come from contributors.</p>
+<p>Thanks to all contributors</p>
+<p><a href="https://miniflux.net/miniflux-1.1.4.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.1.3</id>
+    <title>Miniflux 1.1.3 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.1.3"/>
+    <updated>2014-04-26T00:00:00+00:00</updated>
+    <published>2014-04-26T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>Major improvements:</p>
+<ul>
+<li>RTL (Right to Left) languages support</li>
+<li>Auto-update feature: update in one click to the last development version</li>
+<li>Support for multiple users: each user have his own Sqlite database</li>
+<li>Code refactoring</li>
+<li>Bug fixes</li>
+</ul>
+<p><a href="https://miniflux.net/miniflux-1.1.3.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.1.2</id>
+    <title>Miniflux 1.1.2 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.1.2"/>
+    <updated>2014-02-28T00:00:00+00:00</updated>
+    <published>2014-02-28T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>Major improvements:</p>
+<ul>
+<li>Add a configuration option for the time zone</li>
+<li>Change loading icon to use an utf8 symbol</li>
+<li>Unread count next to each subscription</li>
+<li>Add feed enclosure support (videos and podcasts can be use directly with the HTML5 player)</li>
+<li>Improved mobile layout</li>
+<li>New content scrapper rules</li>
+<li>New theme: NoStyle (almost no CSS)</li>
+<li>Bug fixes</li>
+</ul>
+<p><a href="https://miniflux.net/miniflux-1.1.2.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.1.1</id>
+    <title>Miniflux 1.1.1 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.1.1"/>
+    <updated>2014-01-02T00:00:00+00:00</updated>
+    <published>2014-01-02T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>Major improvements:</p>
+<ul>
+<li>New theme: Copper (By the contributor Nicolas Dewaele)</li>
+<li>Display a message next to a feed when there is a parsing error</li>
+<li>Change default value of autoflush to 15 days if not set to avoid large database</li>
+<li>Add autoflush value &quot;immediately&quot;</li>
+<li>Add an option to choose where to be redirected when there is nothing to read</li>
+<li>Bug fixes</li>
+</ul>
+<p><a href="https://miniflux.net/miniflux-1.1.1.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.1.0</id>
+    <title>Miniflux 1.1.0 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.1.0"/>
+    <updated>2013-10-26T00:00:00+00:00</updated>
+    <published>2013-10-26T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.1.0 is released.</p>
+<p><a href="https://miniflux.net/miniflux-1.1.0.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.11</id>
+    <title>Miniflux 1.0.11 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.11"/>
+    <updated>2013-09-02T00:00:00+00:00</updated>
+    <published>2013-09-02T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.0.11 is released.</p>
+<p><a href="https://miniflux.net/miniflux-1.0.11.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.10</id>
+    <title>Miniflux 1.0.10 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.10"/>
+    <updated>2013-07-22T00:00:00+00:00</updated>
+    <published>2013-07-22T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.0.10 is released.</p>
+<p><a href="https://miniflux.net/miniflux-1.0.10.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.9</id>
+    <title>Miniflux 1.0.9 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.9"/>
+    <updated>2013-06-29T00:00:00+00:00</updated>
+    <published>2013-06-29T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.0.9 is released.</p>
+<p><a href="https://miniflux.net/miniflux-1.0.9.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.8</id>
+    <title>Miniflux 1.0.8 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.8"/>
+    <updated>2013-06-02T00:00:00+00:00</updated>
+    <published>2013-06-02T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.0.8 is released.</p>
+<p><a href="https://miniflux.net/miniflux-1.0.8.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.7</id>
+    <title>Miniflux 1.0.7 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.7"/>
+    <updated>2013-04-30T00:00:00+00:00</updated>
+    <published>2013-04-30T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.0.7 is released.</p>
+<p><a href="https://miniflux.net/miniflux-1.0.7.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.6</id>
+    <title>Miniflux 1.0.6 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.6"/>
+    <updated>2013-04-12T00:00:00+00:00</updated>
+    <published>2013-04-12T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.0.6 is released.</p>
+<p><a href="https://miniflux.net/miniflux-1.0.6.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.5</id>
+    <title>Miniflux 1.0.5 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.5"/>
+    <updated>2013-04-07T00:00:00+00:00</updated>
+    <published>2013-04-07T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.0.5 is released.</p>
+<p><a href="https://miniflux.net/miniflux-1.0.5.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.4</id>
+    <title>Miniflux 1.0.4 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.4"/>
+    <updated>2013-04-04T00:00:00+00:00</updated>
+    <published>2013-04-04T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.0.4 is released.</p>
+<p><a href="https://miniflux.net/miniflux-1.0.4.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.3</id>
+    <title>Miniflux 1.0.3 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.3"/>
+    <updated>2013-03-26T00:00:00+00:00</updated>
+    <published>2013-03-26T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.0.3 is released.</p>
+<p><a href="https://miniflux.net/miniflux-1.0.3.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.2</id>
+    <title>Miniflux 1.0.2 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.2"/>
+    <updated>2013-03-21T00:00:00+00:00</updated>
+    <published>2013-03-21T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.0.2 is released.</p>
+<p><a href="https://miniflux.net/miniflux-1.0.2.zip">Download archive</a></p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.1</id>
+    <title>Miniflux 1.0.1 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.1"/>
+    <updated>2013-03-20T00:00:00+00:00</updated>
+    <published>2013-03-20T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>The version 1.0.1 is released.</p>]]></content>
+  </entry>
+  <entry>
+    <id>https://miniflux.net/news/version-1.0.0</id>
+    <title>Miniflux 1.0.0 is released</title>
+    <link rel="alternate" type="text/html" href="https://miniflux.net/news/version-1.0.0"/>
+    <updated>2013-03-17T00:00:00+00:00</updated>
+    <published>2013-03-17T00:00:00+00:00</published>
+    <content type="html"><![CDATA[<p>Today, the first stable version of Miniflux is released.</p>]]></content>
+  </entry>
+</feed>

@@ -7,6 +7,7 @@
     <php>
         <const name="API_URL" value="http://127.0.0.1/jsonrpc.php" />
         <const name="FEVER_API_URL" value="http://127.0.0.1/fever/" />
+        <const name="FEED_URL" value="http://127.0.0.1/tests/ci/feed.xml" />
         <const name="DB_FILENAME" value="data/db.sqlite" />
     </php>
 </phpunit>

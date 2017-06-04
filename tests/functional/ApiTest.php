@@ -59,7 +59,7 @@ class ApiTest extends BaseApiTest
     public function testCreateFeed()
     {
         $this->assertNotFalse($this->getApiClient()->createFeed(array(
-            'url' => 'https://miniflux.net/feed',
+            'url' => FEED_URL,
             'group_name' => 'open source software',
         )));
     }
@@ -69,7 +69,7 @@ class ApiTest extends BaseApiTest
         $feeds = $this->getApiClient()->getFeeds();
         $this->assertCount(1, $feeds);
         $this->assertEquals(1, $feeds[0]['id']);
-        $this->assertEquals('https://miniflux.net/feed', $feeds[0]['feed_url']);
+        $this->assertEquals(FEED_URL, $feeds[0]['feed_url']);
         $this->assertTrue((bool) $feeds[0]['enabled']);
         $this->assertEquals('open source software', $feeds[0]['groups'][0]['title']);
     }
@@ -79,7 +79,7 @@ class ApiTest extends BaseApiTest
         $this->assertNull($this->getApiClient()->getFeed(999));
 
         $feed = $this->getApiClient()->getFeed(1);
-        $this->assertEquals('https://miniflux.net/feed', $feed['feed_url']);
+        $this->assertEquals(FEED_URL, $feed['feed_url']);
         $this->assertTrue((bool) $feed['enabled']);
         $this->assertEquals('open source software', $feed['groups'][0]['title']);
     }
