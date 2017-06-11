@@ -63,6 +63,22 @@
         <?php echo Miniflux\Helper\form_text('wallabag_password', $values, $errors) ?><br/>
     </div>
 
+    <h3><?php echo t('Shaarli') ?></h3>
+    <div class="options">
+        <?php echo Miniflux\Helper\form_checkbox('shaarli_enabled', t('Send bookmarks to Shaarli'), 1, isset($values['shaarli_enabled']) && $values['shaarli_enabled'] == 1) ?><br />
+
+        <?php echo Miniflux\Helper\form_label(t('Shaarli URL'), 'shaarli_url') ?>
+        <?php echo Miniflux\Helper\form_text('shaarli_url', $values, $errors) ?><br/>
+
+        <?php echo Miniflux\Helper\form_label(t('Shaarli secret'), 'shaarli_secret') ?>
+        <?php echo Miniflux\Helper\form_text('shaarli_secret', $values, $errors) ?><br/>
+
+        <?php echo Miniflux\Helper\form_label(t('Shaarli tags'), 'shaarli_tags') ?>
+        <?php echo Miniflux\Helper\form_text('shaarli_tags', $values, $errors) ?><br/>
+
+        <?php echo Miniflux\Helper\form_checkbox('shaarli_private', t('Private Bookmarks'), 1, isset($values['shaarli_private']) && $values['shaarli_private'] == 1) ?><br />
+    </div>
+
     <div class="form-actions">
         <input type="submit" value="<?php echo t('Save') ?>" class="btn btn-blue"/>
     </div>
