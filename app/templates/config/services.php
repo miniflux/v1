@@ -28,7 +28,9 @@
         <?php echo Miniflux\Helper\form_text('pinboard_token', $values, $errors) ?><br/>
 
         <?php echo Miniflux\Helper\form_label(t('Pinboard tags'), 'pinboard_tags') ?>
-        <?php echo Miniflux\Helper\form_text('pinboard_tags', $values, $errors) ?>
+        <?php echo Miniflux\Helper\form_text('pinboard_tags', $values, $errors) ?><br/>
+
+        <?php echo Miniflux\Helper\form_checkbox('pinboard_mark_unread', t('Mark bookmarks as unread'), 1, isset($values['pinboard_mark_unread']) && $values['pinboard_mark_unread'] == 1) ?>
     </div>
 
 

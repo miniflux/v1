@@ -188,6 +188,7 @@ return array(
     'Send bookmarks to Pinboard' => 'Sende Lesezeichen an Pinboard',
     'Pinboard API token' => 'Pinboard API Token',
     'Pinboard tags' => 'Pinboard Tags',
+    'Mark bookmarks as unread' => 'Lesezeichen als ungelesen markieren',
     'Instapaper username' => 'Instapaper Benutzername',
     'Instapaper password' => 'Instapaper Passwort',
     'Instapaper' => 'Instapaper',

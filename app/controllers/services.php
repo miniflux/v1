@@ -26,10 +26,11 @@ Router\get_action('services', function () {
 Router\post_action('services', function () {
     $user_id = SessionStorage::getInstance()->getUserId();
     $values = Request\values() + array('pinboard_enabled' => 0,
+                                       'pinboard_mark_unread' => 0,
                                        'instapaper_enabled' => 0,
                                        'wallabag_enabled' => 0,
                                        'shaarli_enabled' => 0,
-                                       'shaarli_private' => 0,);
+                                       'shaarli_private' => 0);
     Helper\check_csrf_values($values);
 
     if (Model\Config\save($user_id, $values)) {

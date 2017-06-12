@@ -56,6 +56,7 @@ function pinboard_sync(array $item)
         'url' => $item['url'],
         'description' => $item['title'],
         'tags' => Helper\config('pinboard_tags'),
+        'toread' => Helper\bool_config('pinboard_mark_unread')  ? 'yes' : 'no',
     );
 
     $url = 'https://api.pinboard.in/v1/posts/add?'.http_build_query($params);
