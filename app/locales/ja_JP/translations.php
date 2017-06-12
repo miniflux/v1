@@ -277,4 +277,11 @@ return array(
     // 'None' => '',
     // 'Last parsing error: ' => '',
     // 'Ignore expiration date' => '',
+    // 'Mark bookmarks as unread' => '',
+    // 'Shaarli' => '',
+    // 'Send bookmarks to Shaarli' => '',
+    // 'Shaarli URL' => '',
+    // 'Shaarli secret' => '',
+    // 'Shaarli tags' => '',
+    // 'Private Bookmarks' => '',
 );

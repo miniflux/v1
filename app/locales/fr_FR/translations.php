@@ -275,4 +275,11 @@ return array(
     'None' => 'Aucun/aucune',
     'Last parsing error: ' => 'Dernière erreur d\'analyse : ',
     'Ignore expiration date' => 'Ignorer la date d\'expiration',
+    'Mark bookmarks as unread' => 'Marquer les favoris en tant que non lus',
+    'Shaarli' => 'Shaarli',
+    'Send bookmarks to Shaarli' => 'Envoyer les favoris vers Shaarli',
+    'Shaarli URL' => 'URL de Shaarli',
+    'Shaarli secret' => 'Clé secrete de Shaarli',
+    'Shaarli tags' => 'Libellés pour les liens Shaarli',
+    'Private Bookmarks' => 'Favoris privés',
 );

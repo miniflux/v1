@@ -275,4 +275,11 @@ return array(
     'None' => 'Нет',
     'Last parsing error: ' => 'Последняя ошибка парсинга: ',
     'Ignore expiration date' => 'Игнорировать срок действия',
+    // 'Mark bookmarks as unread' => '',
+    // 'Shaarli' => '',
+    // 'Send bookmarks to Shaarli' => '',
+    // 'Shaarli URL' => '',
+    // 'Shaarli secret' => '',
+    // 'Shaarli tags' => '',
+    // 'Private Bookmarks' => '',
 );

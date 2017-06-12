@@ -275,4 +275,11 @@ return array(
     'None' => 'Semmi',
     'Last parsing error: ' => 'Utolsó elemzési hiba',
     'Ignore expiration date' => 'Lejárati dátum figyelmenkívül hagyása',
+    // 'Mark bookmarks as unread' => '',
+    // 'Shaarli' => '',
+    // 'Send bookmarks to Shaarli' => '',
+    // 'Shaarli URL' => '',
+    // 'Shaarli secret' => '',
+    // 'Shaarli tags' => '',
+    // 'Private Bookmarks' => '',
 );
