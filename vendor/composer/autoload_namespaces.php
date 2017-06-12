@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'ZendXml\\' => array($vendorDir . '/zendframework/zendxml/library'),
     'SimpleValidator' => array($vendorDir . '/fguillot/simple-validator/src'),
-    'PicoFeed' => array($vendorDir . '/fguillot/picofeed/lib'),
+    'PicoFeed' => array($vendorDir . '/miniflux/picofeed/lib'),
     'PicoDb' => array($vendorDir . '/fguillot/picodb/lib'),
     'JsonRPC' => array($vendorDir . '/fguillot/json-rpc/src'),
 );

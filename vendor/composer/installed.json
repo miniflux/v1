@@ -168,6 +168,61 @@
         ]
     },
     {
+        "name": "miniflux/picofeed",
+        "version": "v0.1.34",
+        "version_normalized": "0.1.34.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/miniflux/picoFeed.git",
+            "reference": "5c8a731d4e7a3589e562e4fdaa98bcb57fa8a2ea"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/miniflux/picoFeed/zipball/5c8a731d4e7a3589e562e4fdaa98bcb57fa8a2ea",
+            "reference": "5c8a731d4e7a3589e562e4fdaa98bcb57fa8a2ea",
+            "shasum": ""
+        },
+        "require": {
+            "ext-dom": "*",
+            "ext-iconv": "*",
+            "ext-libxml": "*",
+            "ext-simplexml": "*",
+            "ext-xml": "*",
+            "php": ">=5.3.0",
+            "zendframework/zendxml": "^1.0"
+        },
+        "require-dev": {
+            "phpdocumentor/reflection-docblock": "2.0.4",
+            "phpunit/phpunit": "4.8.26",
+            "symfony/yaml": "2.8.7"
+        },
+        "suggest": {
+            "ext-curl": "PicoFeed will use cURL if present"
+        },
+        "time": "2017-06-12 00:22:06",
+        "bin": [
+            "picofeed"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PicoFeed": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frédéric Guillot"
+            }
+        ],
+        "description": "Modern library to handle RSS/Atom feeds",
+        "homepage": "https://github.com/miniflux/picoFeed"
+    },
+    {
         "name": "pda/pheanstalk",
         "version": "v3.1.0",
         "version_normalized": "3.1.0.0",
@@ -262,60 +317,5 @@
             "hashing",
             "password"
         ]
-    },
-    {
-        "name": "fguillot/picofeed",
-        "version": "v0.1.33",
-        "version_normalized": "0.1.33.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "b44f1e1fdecfd2e7f158df86a23e1ea3dfb4e16f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/b44f1e1fdecfd2e7f158df86a23e1ea3dfb4e16f",
-            "reference": "b44f1e1fdecfd2e7f158df86a23e1ea3dfb4e16f",
-            "shasum": ""
-        },
-        "require": {
-            "ext-dom": "*",
-            "ext-iconv": "*",
-            "ext-libxml": "*",
-            "ext-simplexml": "*",
-            "ext-xml": "*",
-            "php": ">=5.3.0",
-            "zendframework/zendxml": "^1.0"
-        },
-        "require-dev": {
-            "phpdocumentor/reflection-docblock": "2.0.4",
-            "phpunit/phpunit": "4.8.26",
-            "symfony/yaml": "2.8.7"
-        },
-        "suggest": {
-            "ext-curl": "PicoFeed will use cURL if present"
-        },
-        "time": "2017-04-07 01:57:15",
-        "bin": [
-            "picofeed"
-        ],
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "PicoFeed": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Frédéric Guillot"
-            }
-        ],
-        "description": "Modern library to handle RSS/Atom feeds",
-        "homepage": "https://github.com/fguillot/picoFeed"
     }
 ]

@@ -91,10 +91,10 @@ return array(
 Sharing your custom rules with the community
 --------------------------------------------
 
-If you would like to share your custom rules with everybody, send a pull-request to the project [PicoFeed](https://github.com/fguillot/picofeed).
+If you would like to share your custom rules with everybody, send a pull-request to the project [PicoFeed](https://github.com/miniflux/picofeed).
 That will be merged in the Miniflux code base.
 
 List of content grabber rules
 -----------------------------
 
-[List of rules included by default](https://github.com/miniflux/miniflux/tree/master/vendor/fguillot/picofeed/lib/PicoFeed/Rules).
+[List of rules included by default](https://github.com/miniflux/miniflux/tree/master/vendor/miniflux/picofeed/lib/PicoFeed/Rules).
