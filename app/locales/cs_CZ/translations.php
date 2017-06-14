@@ -275,7 +275,7 @@ return array(
     'None' => 'Nic',
     'Last parsing error: ' => 'Poslední chyba parsování: ',
     'Ignore expiration date' => 'Ignorovat datum expirace',
-    'Mark bookmarks as unread' => 'Oznčit záložky za nepřečtené',
+    'Mark bookmarks as unread' => 'Označit záložky za nepřečtené',
     'Shaarli' => 'Shaarli',
     'Send bookmarks to Shaarli' => 'Odeslat záložky na Shaarli',
     'Shaarli URL' => 'Shaarli URL',
