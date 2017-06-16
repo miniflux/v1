@@ -23,7 +23,7 @@ Features
 - Full article download for feeds that display only a summary
 - Bookmarks
 - Groups for categorization of feeds (like folders or tags)
-- Send your favorite articles to Pinboard, Instapaper or Wallabag
+- Send your favorite articles to Pinboard, Instapaper, Shaarli or Wallabag
 - Enclosure support (videos and podcasts)
 - Feed updates via a cronjob or with the user interface in one click
 - Keeps history of read items
