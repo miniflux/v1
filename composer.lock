@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "90873f716813f79b0812e922cf08abb4",
-    "content-hash": "757aaae3177772d2e5e6ba64b0cdd28f",
+    "hash": "3cc07606516c51a4d77e4fee5f6470b7",
+    "content-hash": "7a0eee4a959247fb9833c66ed8d1b775",
     "packages": [
         {
             "name": "fguillot/json-rpc",
@@ -166,16 +166,16 @@
         },
         {
             "name": "miniflux/picofeed",
-            "version": "v0.1.34",
+            "version": "v0.1.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/miniflux/picoFeed.git",
-                "reference": "5c8a731d4e7a3589e562e4fdaa98bcb57fa8a2ea"
+                "reference": "3a27b47de31eedec075c719f961783c5db7a7b08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miniflux/picoFeed/zipball/5c8a731d4e7a3589e562e4fdaa98bcb57fa8a2ea",
-                "reference": "5c8a731d4e7a3589e562e4fdaa98bcb57fa8a2ea",
+                "url": "https://api.github.com/repos/miniflux/picoFeed/zipball/3a27b47de31eedec075c719f961783c5db7a7b08",
+                "reference": "3a27b47de31eedec075c719f961783c5db7a7b08",
                 "shasum": ""
             },
             "require": {
@@ -215,7 +215,7 @@
             ],
             "description": "Modern library to handle RSS/Atom feeds",
             "homepage": "https://github.com/miniflux/picoFeed",
-            "time": "2017-06-12 00:22:06"
+            "time": "2017-06-20 22:54:47"
         },
         {
             "name": "pda/pheanstalk",

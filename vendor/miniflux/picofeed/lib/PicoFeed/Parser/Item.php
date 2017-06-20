@@ -318,7 +318,7 @@ class Item
     /**
      * Get categories.
      *
-     * @return string
+     * @return array
      */
     public function getCategories()
     {
@@ -468,7 +468,7 @@ class Item
     /**
      * Set item categories from xml.
      *
-     * @param SimpleXMLElement[] $categories
+     * @param |SimpleXMLElement[] $categories
      * @return Item
      */
     public function setCategoriesFromXml($categories)
@@ -482,9 +482,8 @@ class Item
                     $categories
                 )
             );
-        } else {
-            $categories = array();
         }
+        
         return $this;
     }
 
