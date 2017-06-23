@@ -1,5 +1,18 @@
-Version 1.2.2 (Mar 7 2017)
---------------------------
+Version 1.2.3 (June 23 2017)
+----------------------------
+
+* Add support for Shaarli
+* Add option for saving bookmarks as "unread" to Pinboard
+* Show feed dates on edit subscription page
+* Handle HTTP header "X-Forwarded-Proto: https"
+* Add subscription option to ignore expire HTTP header
+* Add getItemsByStatus API call
+* Allow the preferences to be configured in the config.php file
+* Update PicoFeed
+* Update translations
+
+Version 1.2.2 (March 7 2017)
+-----------------------------
 
 * Offer the possibility to edit/delete groups
 * Add option to not redirect user when having nothing to read
