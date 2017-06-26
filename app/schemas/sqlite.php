@@ -5,7 +5,12 @@ namespace Miniflux\Schema;
 use PDO;
 use Miniflux\Helper;
 
-const VERSION = 4;
+const VERSION = 5;
+
+function version_5(PDO $pdo)
+{
+    $pdo->exec('CREATE INDEX items_status_idx ON items(status)');
+}
 
 function version_4(PDO $pdo)
 {
