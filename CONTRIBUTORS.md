@@ -5,6 +5,7 @@ Original author: [Frédéric Guillot](https://github.com/fguillot)
 
 List of contributors:
 
+- [Alexander Steinhöfer](https://github.com/lx-s)
 - [Alexis Mousset](https://github.com/amousset)
 - [André Kelpe](https://github.com/fs111)
 - [Augustin Lacour](https://github.com/gugu4-9)
