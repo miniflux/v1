@@ -478,7 +478,7 @@ Request example:
 ```json
 {
   "jsonrpc": "2.0",
-  "method": "getItems",
+  "method": "getItemsByStatus",
   "id": 84429548,
   "params": {
     "status": "unread"
