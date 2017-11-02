@@ -15,7 +15,7 @@ How to translate Miniflux to a new language?
 
 Each translation file has a plural formula defined. This formula is used to determine whether a plural for the current number is needed. For languages with multiple plurals, the formula determine which plural form is the right one.
 
-You can get the formula for your language from https://localization-guide.readthedocs.org/en/latest/l10n/pluralforms.html.
+You can get the formula for your language from https://localization-guide.readthedocs.io/en/latest/l10n/pluralforms.html.
 
 The formula need to be adjusted to be valid php code. Do not hesitate to ask for an adjusted formula in the bug tracker.
 

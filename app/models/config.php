@@ -49,6 +49,7 @@ function get_languages()
         'hu_HU'       => 'Magyar',
         'it_IT'       => 'Italiano',
         'ja_JP'       => '日本語',
+        'pl_PL'       => 'Polski',
         'pt_BR'       => 'Português',
         'zh_CN'       => '简体中国',
         'sr_RS'       => 'српски',
