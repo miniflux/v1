@@ -17,11 +17,12 @@
         "fguillot/simple-validator": "v1.0.0",
         "fguillot/json-rpc": "v1.2.3",
         "fguillot/picodb": "v1.0.14 ",
-        "miniflux/picofeed": "v0.1.35",
+        "miniflux/picofeed": "v0.1.37",
         "pda/pheanstalk": "v3.1.0",
         "ircmaxell/password-compat": "^1.0.4"
     },
     "require-dev": {
+        "doctrine/instantiator": "1.0.5",
         "phpdocumentor/reflection-docblock": "2.0.4",
         "symfony/yaml": "2.8.7",
         "symfony/stopwatch" : "2.6.13",

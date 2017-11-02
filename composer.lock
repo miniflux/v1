@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3cc07606516c51a4d77e4fee5f6470b7",
-    "content-hash": "7a0eee4a959247fb9833c66ed8d1b775",
+    "hash": "28f9eb84727663bf083e4c4918edfd98",
+    "content-hash": "fe243937ea9284c188ac06f7ff6b4e85",
     "packages": [
         {
             "name": "fguillot/json-rpc",
@@ -166,16 +166,16 @@
         },
         {
             "name": "miniflux/picofeed",
-            "version": "v0.1.35",
+            "version": "v0.1.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/miniflux/picoFeed.git",
-                "reference": "3a27b47de31eedec075c719f961783c5db7a7b08"
+                "reference": "402b7f07629577e7929625e78bc88d3d5831a22d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miniflux/picoFeed/zipball/3a27b47de31eedec075c719f961783c5db7a7b08",
-                "reference": "3a27b47de31eedec075c719f961783c5db7a7b08",
+                "url": "https://api.github.com/repos/miniflux/picoFeed/zipball/402b7f07629577e7929625e78bc88d3d5831a22d",
+                "reference": "402b7f07629577e7929625e78bc88d3d5831a22d",
                 "shasum": ""
             },
             "require": {
@@ -215,7 +215,7 @@
             ],
             "description": "Modern library to handle RSS/Atom feeds",
             "homepage": "https://github.com/miniflux/picoFeed",
-            "time": "2017-06-20 22:54:47"
+            "time": "2017-11-02 03:20:36"
         },
         {
             "name": "pda/pheanstalk",
@@ -419,22 +419,22 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.7.0",
+            "version": "v1.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "93d39f1f7f9326d746203c7c056f300f7f126073"
+                "reference": "c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/93d39f1f7f9326d746203c7c056f300f7f126073",
-                "reference": "93d39f1f7f9326d746203c7c056f300f7f126073",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6",
+                "reference": "c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
-                "phpdocumentor/reflection-docblock": "^2.0|^3.0.2",
+                "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0",
                 "sebastian/comparator": "^1.1|^2.0",
                 "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
@@ -445,7 +445,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6.x-dev"
+                    "dev-master": "1.7.x-dev"
                 }
             },
             "autoload": {
@@ -478,7 +478,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2017-03-02 20:05:34"
+            "time": "2017-09-04 11:05:03"
         },
         {
             "name": "phpunit/dbunit",

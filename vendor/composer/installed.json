@@ -265,17 +265,17 @@
     },
     {
         "name": "miniflux/picofeed",
-        "version": "v0.1.35",
-        "version_normalized": "0.1.35.0",
+        "version": "v0.1.37",
+        "version_normalized": "0.1.37.0",
         "source": {
             "type": "git",
             "url": "https://github.com/miniflux/picoFeed.git",
-            "reference": "3a27b47de31eedec075c719f961783c5db7a7b08"
+            "reference": "402b7f07629577e7929625e78bc88d3d5831a22d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/miniflux/picoFeed/zipball/3a27b47de31eedec075c719f961783c5db7a7b08",
-            "reference": "3a27b47de31eedec075c719f961783c5db7a7b08",
+            "url": "https://api.github.com/repos/miniflux/picoFeed/zipball/402b7f07629577e7929625e78bc88d3d5831a22d",
+            "reference": "402b7f07629577e7929625e78bc88d3d5831a22d",
             "shasum": ""
         },
         "require": {
@@ -295,7 +295,7 @@
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2017-06-20 22:54:47",
+        "time": "2017-11-02 03:20:36",
         "bin": [
             "picofeed"
         ],
