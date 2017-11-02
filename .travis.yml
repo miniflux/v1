@@ -3,6 +3,7 @@ git:
 
 language: php
 sudo: required
+dist: precise
 
 php:
   - 7.0
