@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    apache2 libapache2-mod-php7.0 php7.0-pgsql php7.0-sqlite3 php7.0-xml php7.0-mcrypt \
+    apache2 libapache2-mod-php7.0 php7.0-pgsql php7.0-mysql php7.0-sqlite3 php7.0-xml php7.0-mcrypt \
     php7.0-opcache php7.0-mcrypt php7.0-mbstring php7.0-json php7.0-curl && \
     apt-get clean
 
