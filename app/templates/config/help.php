@@ -17,21 +17,3 @@
 <section>
     <?php echo Miniflux\Template\load('common/keyboard_shortcuts') ?>
 </section>
-<div class="page-section">
-    <h2><?php echo t('Documentation') ?></h2>
-</div>
-<section>
-<ul>
-    <li><a href="https://miniflux.net/documentation/installation" rel="noreferrer" target="_blank"><?php echo t('Installation instructions') ?></a></li>
-    <li><a href="https://miniflux.net/documentation/upgrade" rel="noreferrer" target="_blank"><?php echo t('Upgrade to a new version') ?></a></li>
-    <li><a href="https://miniflux.net/documentation/cronjob" rel="noreferrer" target="_blank"><?php echo t('Cronjob') ?></a></li>
-    <li><a href="https://miniflux.net/documentation/config" rel="noreferrer" target="_blank"><?php echo t('Advanced configuration') ?></a></li>
-    <li><a href="https://miniflux.net/documentation/full-article-download" rel="noreferrer" target="_blank"><?php echo t('Full article download') ?></a></li>
-    <li><a href="https://miniflux.net/documentation/themes" rel="noreferrer" target="_blank"><?php echo t('Themes') ?></a></li>
-    <li><a href="https://miniflux.net/documentation/json-rpc-api" rel="noreferrer" target="_blank"><?php echo t('Json-RPC API') ?></a></li>
-    <li><a href="https://miniflux.net/documentation/fever" rel="noreferrer" target="_blank"><?php echo t('Fever API') ?></a></li>
-    <li><a href="https://miniflux.net/documentation/translations" rel="noreferrer" target="_blank"><?php echo t('Translations') ?></a></li>
-    <li><a href="https://miniflux.net/documentation/docker" rel="noreferrer" target="_blank"><?php echo t('Run Miniflux with Docker') ?></a></li>
-    <li><a href="https://miniflux.net/documentation/faq" rel="noreferrer" target="_blank"><?php echo t('FAQ') ?></a></li>
-</ul>
-</section>
