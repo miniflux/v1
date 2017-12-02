@@ -1,8 +1,5 @@
 .PHONY: archive
 .PHONY: docker-image
-.PHONY: docker-push
-.PHONY: docker-destroy
-.PHONY: docker-run
 .PHONY: js
 .PHONY: unit-test-sqlite
 .PHONY: unit-test-postgres
@@ -12,26 +9,16 @@
 
 CSS_FILE = assets/css/app.min.css
 JS_FILE = assets/js/app.min.js
-CONTAINER = miniflux
 IMAGE = miniflux/miniflux
 TAG = latest
 
 docker-image:
-	@ docker build -t $(IMAGE):$(TAG) .
-
-docker-push:
-	@ docker push $(IMAGE)
-
-docker-destroy:
-	@ docker rmi $(IMAGE)
-
-docker-run:
-	@ docker run --rm --name $(CONTAINER) -P $(IMAGE):$(TAG)
+	@ ./hooks/build
 
 css: $(CSS_FILE)
 
 $(CSS_FILE): assets/css/app.css
-	@ yarn install || npm install
+	@ npm install
 	@ cat $^ | ./node_modules/.bin/cleancss -o $@
 
 js: $(JS_FILE)

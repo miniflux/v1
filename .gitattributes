@@ -4,11 +4,9 @@
 app/constants.php export-subst
 
 # git files
-.dockerignore export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
 .gitkeep export-ignore
-.github export-ignore
 
 # core
 data/*.sqlite export-ignore
