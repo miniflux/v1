@@ -7,7 +7,7 @@ There is a `Dockerfile` in the repository to build your own container.
 Use the automated build
 -----------------------
 
-Every new commit on the repository trigger a new build on [Docker Hub](https://registry.hub.docker.com/u/miniflux/miniflux/).
+Every new commit on the repository trigger a new build on [Docker Hub](https://hub.docker.com/r/miniflux/miniflux/).
 
 ```bash
 docker run -d --name miniflux -p 80:80 -t miniflux/miniflux:latest
@@ -27,15 +27,3 @@ docker-compose up -d
 - By default, the service listen on port 80
 - A named volume is created to store your data on the host machine
 
-Build your own image
---------------------
-
-```bash
-docker build -t <yourname/imagename> .
-```
-
-Run container from the image:
-
-```bash
-docker run -p 80:80 --name miniflux <yourname/imagename>
-```

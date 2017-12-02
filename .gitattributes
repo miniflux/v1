@@ -15,6 +15,8 @@ data/*.sqlite export-ignore
 scripts export-ignore
 Dockerfile export-ignore
 .travis.yml export-ignore
+hooks export-ignore
+docker export-ignore
 
 # documentation
 **/docs/ export-ignore

@@ -5,7 +5,7 @@ services:
     ports:
      - "80:80"
     volumes:
-     - miniflux_data:/var/www/html/data
+     - miniflux_data:/var/www/app/data
 volumes:
   miniflux_data:
     driver: local

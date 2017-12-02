@@ -1,28 +1,30 @@
-FROM ubuntu:16.04
+FROM alpine:3.7
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    apache2 libapache2-mod-php7.0 php7.0-pgsql php7.0-mysql php7.0-sqlite3 php7.0-xml php7.0-mcrypt \
-    php7.0-opcache php7.0-mcrypt php7.0-mbstring php7.0-json php7.0-curl && \
-    apt-get clean
-
-RUN echo \
-    "ServerName localhost\n" \
-    "<Directory /var/www/html/data/>\n" \
-    "    Deny from all\n" \
-    "</Directory>\n" \
-    "<Directory /var/www/html/data/favicons/>\n" \
-    "    Allow from all\n" \
-    "</Directory>\n" >> /etc/apache2/apache2.conf
-
-COPY . /var/www/html
-
-RUN rm -rf /var/www/html/index.html /var/www/html/data/* && \
-    mkdir /var/www/html/data/favicons && \
-    chown -R www-data:www-data /var/www/html/data
-
-VOLUME /var/www/html/data
+VOLUME /var/www/app/data
 
 EXPOSE 80
 
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+ARG VERSION
+
+RUN apk update && \
+    apk add unzip nginx bash ca-certificates s6 curl php7 php7-phar php7-curl \
+    php7-fpm php7-json php7-zlib php7-xml php7-dom php7-ctype php7-opcache php7-zip php7-iconv \
+    php7-pdo php7-pdo_mysql php7-pdo_sqlite php7-pdo_pgsql php7-mbstring php7-session \
+    php7-gd php7-mcrypt php7-openssl php7-sockets php7-posix php7-ldap php7-simplexml && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /var/www/localhost && \
+    rm -f /etc/php7/php-fpm.d/www.conf
+
+RUN cd /tmp \
+    && curl -sL -o miniflux.zip https://github.com/miniflux/miniflux/archive/$VERSION.zip \
+    && unzip -qq miniflux.zip \
+    && cd miniflux-* \
+    && cp -R . /var/www/app \
+    && cd /tmp \
+    && rm -rf /tmp/miniflux-* /tmp/*.zip
+
+ADD docker/ /
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD []
+
