@@ -37,7 +37,6 @@ Router\before(function ($action) {
         'img-src' => '* data:',
         'frame-src' => Model\Config\get_iframe_whitelist(),
         'child-src' => Model\Config\get_iframe_whitelist(),
-        'referrer' => 'no-referrer',
     ));
 
     Response\xss();
