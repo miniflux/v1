@@ -101,3 +101,8 @@ function form_number($name, $values = array(), array $errors = array(), array $a
 {
     return form_input('number', $name, $values, $errors, $attributes, $class);
 }
+
+function form_search($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
+{
+    return form_input('search', $name, $values, $errors, $attributes, $class);
+}

@@ -162,6 +162,7 @@ input[type="checkbox"] {
     margin-right: 0.5em;
 }
 
+input[type="search"],
 input[type="email"],
 input[type="tel"],
 input[type="password"],
@@ -177,6 +178,7 @@ input[type="text"] {
     -webkit-appearance: none;
 }
 
+input[type="search"]:focus,
 input[type="email"]:focus,
 input[type="tel"]:focus,
 input[type="password"]:focus,
