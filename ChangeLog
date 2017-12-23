@@ -1,3 +1,13 @@
+Version 1.2.4 (unreleased)
+--------------------------
+
+* Add migration script to Miniflux 2
+* Add zh_TW and Polish translation
+* Use search input type instead of text
+* Remove deprecated referrer CSP policy
+* Remove doc links from help page
+* Use Alpine/Nginx/PHP7 for the Docker image
+
 Version 1.2.3 (June 23 2017)
 ----------------------------
 
