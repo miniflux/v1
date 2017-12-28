@@ -33,18 +33,18 @@ Features
 Documentation
 -------------
 
-- [ChangeLog](https://github.com/miniflux/miniflux/blob/master/ChangeLog)
-- [Installation and Requirements](https://github.com/miniflux/miniflux/blob/master/docs/installation.markdown)
-- [Upgrade to a new version](https://github.com/miniflux/miniflux/blob/master/docs/upgrade.markdown)
-- [Cronjob](https://github.com/miniflux/miniflux/blob/master/docs/cronjob.markdown)
-- [Advanced configuration](https://github.com/miniflux/miniflux/blob/master/docs/config.markdown)
-- [Full article download](https://github.com/miniflux/miniflux/blob/master/docs/full-article-download.markdown)
-- [Translations](https://github.com/miniflux/miniflux/blob/master/docs/translations.markdown)
-- [Themes](https://github.com/miniflux/miniflux/blob/master/docs/themes.markdown)
-- [Json-RPC API](https://github.com/miniflux/miniflux/blob/master/docs/json-rpc-api.markdown)
-- [Fever API](https://github.com/miniflux/miniflux/blob/master/docs/fever.markdown)
-- [Run Miniflux with Docker](https://github.com/miniflux/miniflux/blob/master/docs/docker.markdown)
-- [FAQ](https://github.com/miniflux/miniflux/blob/master/docs/faq.markdown)
+- [ChangeLog](https://github.com/miniflux/miniflux-legacy/blob/master/ChangeLog)
+- [Installation and Requirements](https://github.com/miniflux/miniflux-legacy/blob/master/docs/installation.markdown)
+- [Upgrade to a new version](https://github.com/miniflux/miniflux-legacy/blob/master/docs/upgrade.markdown)
+- [Cronjob](https://github.com/miniflux/miniflux-legacy/blob/master/docs/cronjob.markdown)
+- [Advanced configuration](https://github.com/miniflux/miniflux-legacy/blob/master/docs/config.markdown)
+- [Full article download](https://github.com/miniflux/miniflux-legacy/blob/master/docs/full-article-download.markdown)
+- [Translations](https://github.com/miniflux/miniflux-legacy/blob/master/docs/translations.markdown)
+- [Themes](https://github.com/miniflux/miniflux-legacy/blob/master/docs/themes.markdown)
+- [Json-RPC API](https://github.com/miniflux/miniflux-legacy/blob/master/docs/json-rpc-api.markdown)
+- [Fever API](https://github.com/miniflux/miniflux-legacy/blob/master/docs/fever.markdown)
+- [Run Miniflux with Docker](https://github.com/miniflux/miniflux-legacy/blob/master/docs/docker.markdown)
+- [FAQ](https://github.com/miniflux/miniflux-legacy/blob/master/docs/faq.markdown)
 
 License
 -------
