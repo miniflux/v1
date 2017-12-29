@@ -27,7 +27,7 @@ function migrate_user(PDO $dst, array $user, array $settings)
             language
         ) VALUES (?, ?, ?, ?) RETURNING id');
     $rq->execute(array(
-        $user['username'],
+        strtolower($user['username']),
         $user['password'],
         $user['is_admin'] == 1 ? 1 : 0,
         isset($settings['language']) && $settings['language'] == 'fr_FR' ? 'fr_FR' : 'en_US',
@@ -76,9 +76,9 @@ function migrate_integrations(PDO $dst, $dst_user_id, array $user, array $settin
         isset($settings['wallabag_username']) ? $settings['wallabag_username'] : '',
         isset($settings['wallabag_password']) ? $settings['wallabag_password'] : '',
         1,
-        $user['username'],
-        isset($settings['fever_token']) ? $settings['fever_token'] : '',
-        isset($settings['fever_api_key']) ? $settings['fever_api_key'] : '',
+        strtolower($user['username']),
+        isset($user['fever_token']) ? $user['fever_token'] : '',
+        isset($user['fever_api_key']) ? $user['fever_api_key'] : '',
     ));
 }
 
@@ -214,7 +214,7 @@ $srcDB = PicoDb\Database::getInstance('db')->getConnection();
 try {
     $dstDB->beginTransaction();
 
-    $rq = $srcDB->prepare('SELECT id, username, password, is_admin, fever_token FROM users');
+    $rq = $srcDB->prepare('SELECT id, username, password, is_admin, fever_token, fever_api_key FROM users');
     $rq->execute();
     $users = $rq->fetchAll(PDO::FETCH_ASSOC);
     echo '* '.count($users).' user(s) to migrate'.PHP_EOL;
