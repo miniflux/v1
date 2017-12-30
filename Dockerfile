@@ -16,7 +16,7 @@ RUN apk update && \
     rm -f /etc/php7/php-fpm.d/www.conf
 
 RUN cd /tmp \
-    && curl -sL -o miniflux.zip https://github.com/miniflux/miniflux/archive/$VERSION.zip \
+    && curl -sL -o miniflux.zip https://github.com/miniflux/miniflux-legacy/archive/$VERSION.zip \
     && unzip -qq miniflux.zip \
     && cd miniflux-* \
     && cp -R . /var/www/app \
