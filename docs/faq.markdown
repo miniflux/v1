@@ -25,7 +25,7 @@ Miniflux is a minimalist software. _Less is more_.
 I found a bug, what next?
 -------------------------
 
-Report the bug to the [issues tracker](https://github.com/miniflux/miniflux/issues).
+Report the bug to the [issues tracker](https://github.com/miniflux/miniflux-legacy/issues).
 
 You can report feeds that doesn't works properly too.
 

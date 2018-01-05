@@ -18,7 +18,7 @@ Especially websites that use a lot of Javascript to generate the content.
 How to write a grabber rules file?
 ----------------------------------
 
-Miniflux will try first to find the file in the [default bundled rules directory](https://github.com/miniflux/miniflux/tree/master/vendor/fguillot/picofeed/lib/PicoFeed/Rules), then it will try to load your custom rules.
+Miniflux will try first to find the file in the [default bundled rules directory](https://github.com/miniflux/miniflux-legacy/tree/master/vendor/fguillot/picofeed/lib/PicoFeed/Rules), then it will try to load your custom rules.
 
 You can create custom rules, by adding a PHP file to the directory `rules`. The filename must be the domain name with the suffix `.php`.
 
@@ -97,4 +97,4 @@ That will be merged in the Miniflux code base.
 List of content grabber rules
 -----------------------------
 
-[List of rules included by default](https://github.com/miniflux/miniflux/tree/master/vendor/miniflux/picofeed/lib/PicoFeed/Rules).
+[List of rules included by default](https://github.com/miniflux/miniflux-legacy/tree/master/vendor/miniflux/picofeed/lib/PicoFeed/Rules).

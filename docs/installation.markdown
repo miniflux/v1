@@ -24,7 +24,7 @@ Installation
 
 ### From the repository (development version)
 
-1. `git clone https://github.com/miniflux/miniflux.git`
+1. `git clone https://github.com/miniflux/miniflux-legacy.git`
 2. Go to the third step just above
 
 By default, Miniflux uses Sqlite, if you would like to use Postgres or MySQL instead you will have to modify your `config.php` file.

@@ -55,5 +55,5 @@ Authors
 -------
 
 - Original author: Frédéric Guillot
-- [List of contributors](https://github.com/miniflux/miniflux/graphs/contributors)
+- [List of contributors](https://github.com/miniflux/miniflux-legacy/graphs/contributors)
 

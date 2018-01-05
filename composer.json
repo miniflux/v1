@@ -1,5 +1,5 @@
 {
-    "name": "miniflux/miniflux",
+    "name": "miniflux/miniflux-legacy",
     "description": "Minimalist RSS reader",
     "license": "AGPLv3",
     "authors": [

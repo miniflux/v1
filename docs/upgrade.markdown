@@ -4,7 +4,7 @@ Upgrade to a new version
 ### Prerequisites
 
 - **You must backup your data!**
-- **You must read the [ChangeLog](https://github.com/miniflux/miniflux/blob/master/ChangeLog) to check for breaking changes**
+- **You must read the [ChangeLog](https://github.com/miniflux/miniflux-legacy/blob/master/ChangeLog) to check for breaking changes**
 
 ### From the archive (stable version)
 
@@ -24,4 +24,4 @@ Upgrade to a new version
 ### Notes
 
 - Upgrading from version 1.1.x to 1.2.x require a manual database conversion,
-the procedure is documented in the [ChangeLog](https://github.com/miniflux/miniflux/blob/master/ChangeLog)
+the procedure is documented in the [ChangeLog](https://github.com/miniflux/miniflux-legacy/blob/master/ChangeLog)
