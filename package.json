@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "clean-css": "^3.4.23",
+    "clean-css": "^4.2.3",
     "jshint": "^2.9.4",
     "uglify-js": "^2.7.5"
   }
